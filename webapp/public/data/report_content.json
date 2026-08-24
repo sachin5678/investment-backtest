@@ -1607,32 +1607,33 @@
  },
  "22": {
   "title": "Monthly RSI-70 Crossover Rotation",
-  "subtitle": "Filter NIFTY 500 by market cap, catch stocks whose monthly RSI crosses above 70, hold the top 5 by RSI for a month, repeat — a classic technical-analysis signal, not the risk-adjusted momentum formula used elsewhere in this project.",
-  "source_line": "498-stock universe, 2008-12-01–2026-08-24 Report generated 2026-08-24 16:14",
+  "subtitle": "Any NSE stock above ₹2,000 Cr market cap — enter the moment its monthly RSI crosses above 70, hold up to 5 positions at once, exit on a 15% stop or month-end, whichever comes first.",
+  "source_line": "1,089-stock universe, 2008-12-03–2026-08-24 Report generated 2026-08-24 17:40",
   "pages": [
    {
     "file": "22_rsi70_monthly_rotation.html",
     "panels": [
      {
-      "heading": "Read this before the numbers below",
+      "heading": "The rule, exactly as corrected",
       "pills": [
        {
-        "kind": "negative",
-        "text": "the market-cap filter turned out to be a no-op"
+        "kind": "positive",
+        "text": "real NSE universe, not NIFTY 500"
        },
        {
         "kind": "assumption",
-        "text": "crossing, not \"is above\""
+        "text": "any-day entry, per-position exit"
        },
        {
-        "kind": "neutral",
-        "text": "strong return, deep drawdown"
+        "kind": "negative",
+        "text": "deep drawdown"
        }
       ],
       "what_this_shows": null,
       "paragraphs": [
-       "The rule as described: filter Indian stocks by market cap above ₹2,000 Cr, then take stocks whose monthly RSI crosses above 70. This project's standing proxy for \"the Indian market\" is the NIFTY 500 (used in every earlier report needing a broad universe) — and it turns out every single one of the 500 constituents already has a market cap above ₹2,000 Cr today (498 of 498 passed the filter, 0 excluded). NIFTY 500 is already \"the 500 largest listed companies\" by construction, so a ₹2,000 Cr floor doesn't bind on it at all — this filter would only matter on a universe that also included true small/micro-caps below the NIFTY 500 cutoff, which isn't available here. The result below is effectively \"RSI-70 crossover across the whole NIFTY 500,\" not a large-cap-specific strategy.",
-       "\"RSI crossing above 70\" is implemented as a genuine crossover event — RSI ends one month at or below 70, then ends the next month above 70 — not merely \"RSI is currently above 70\" (a much less selective, and different, condition). Where more than 5 stocks cross in a month, the top 5 are picked by RSI value (highest first); the request's exact wording (\"top five any random stocks\") was ambiguous between ranking and random selection, and ranking by RSI value was the more decision-relevant reading."
+       "Any NSE EQ-series stock with market cap > Rs 2,000 Cr (not restricted to NIFTY 500). Built from NSE's own official listed-equity list (2,296 EQ-series tickers), with today's market cap fetched per ticker — 1,089 qualify above ₹2,000 Cr, more than double the NIFTY 500's 498, because NIFTY 500 only ever holds the 500 largest names and misses a real population of smaller (but still ₹2,000 Cr+) companies.",
+       "\"Monthly RSI\" is checked EVERY trading day, not just once a month: it's Wilder(14) RSI on monthly closes, re-evaluated daily by treating each day's price as a stand-in for \"this month's close so far.\" A stock enters the moment its RSI crosses above 70 — any day, no minimum pool required to start. Up to 5 positions are held at once; if more stocks cross on one day than there are open slots, the ones that fill the remaining slots are picked at random (not ranked). Each position exits independently on whichever comes first: a 15% drop from ITS OWN entry price, or the last trading day of the month it was entered in.",
+       "The stop-loss is checked against each day's LOW (not just the close) and fills at the day's OPEN if price already gapped past -15% overnight — an earlier version of this backtest checked only the close and let losses run to -80/-90% on gap days before the check ever fired. With this fix, the average stop-loss exit lands almost exactly on target (see the trade stats below)."
       ],
       "list_items": []
      },
@@ -1641,7 +1642,7 @@
       "pills": [
        {
         "kind": "assumption",
-        "text": "RSI(14), Wilder-smoothed, on MONTH-END closing prices"
+        "text": "RSI(14), Wilder-smoothed, developing daily from monthly closes"
        },
        {
         "kind": "assumption",
@@ -1649,31 +1650,35 @@
        },
        {
         "kind": "assumption",
-        "text": "top 5 by RSI value"
+        "text": "up to 5 concurrent positions"
        },
        {
         "kind": "assumption",
-        "text": "100% cash that month"
+        "text": "random pick among same-day multiple crossers"
+       },
+       {
+        "kind": "assumption",
+        "text": "15% stop-loss OR month-end, whichever first"
        }
       ],
       "what_this_shows": "WHAT THIS SHOWS — the exact rule being tested.",
       "paragraphs": [
-       "\"RSI(14), Wilder-smoothed, on MONTH-END closing prices\" — a slower-moving signal than daily RSI, deliberately. \"genuine crossover (¬above → above 70)\", \"top 5 by RSI value\", equal-weighted, bought at the close of each month's first trading day, held to the day before the next month's first trading day. If fewer than 5 stocks cross in a month, however many did are held; if none cross, the account sits in \"100% cash that month\" (a judgment call — not specified in the request)."
+       "\"RSI(14), Wilder-smoothed, developing daily from monthly closes\", \"genuine crossover (¬above → above 70)\", \"up to 5 concurrent positions\", \"random pick among same-day multiple crossers\", \"15% stop-loss OR month-end, whichever first\". New entries are funded from whatever cash is currently uninvested, split equally among that day's new entries; existing positions are never rebalanced mid-flight."
       ],
       "list_items": []
      },
      {
-      "heading": "How this compares to this project's best momentum result",
+      "heading": "Why the drawdown got worse when the universe got bigger",
       "pills": [
        {
         "kind": "assumption",
         "text": "framing"
        }
       ],
-      "what_this_shows": "WHAT THIS SHOWS — RSI-70 crossover against the strongest reconstruction found so far in this project (Midcap150 Momentum 10, +40.6% CAGR, same NIFTY-adjacent Indian market).",
+      "what_this_shows": "WHAT THIS SHOWS — the trade-off behind expanding from NIFTY 500 to the full qualifying NSE universe.",
       "paragraphs": [
-       "RSI-70 crossover landed at +29.6% CAGR here — a real, substantial edge over both passive benchmarks, but well short of the 6m/12m risk-adjusted momentum formula's +40.6% on Midcap150 Momentum-10, and with a deeper max drawdown (-53.9% vs. -35.1%). The mechanism difference is instructive: the risk-adjusted formula ranks stocks by how much they've moved RELATIVE TO THEIR OWN VOLATILITY over 6-12 months, cross-sectionally — a continuous, comparative measure. RSI-70 crossover is a binary trigger on a single stock's own recent price oscillation, with no cross-sectional ranking, no explicit trend-strength measure beyond the 0-100 oscillator band, and no volatility adjustment at all — a much blunter signal that can just as easily catch a stock in a short-lived spike as one in a durable uptrend.",
-       "None of that makes RSI-70 crossover a bad rule on this data — it clearly beat doing nothing, by a wide margin. It just isn't the sharpest tool this project has tested for finding momentum in Indian equities."
+       "Restricted to NIFTY 500, this same rule produced a +29.6% CAGR with a -53.9% max drawdown (an earlier version of this report). Opened up to the full 1,089-stock qualifying universe, CAGR is +24.2% and the drawdown deepens to -71.0%. More candidate stocks means more RSI-70 crossings to catch, which is exactly why you asked for the wider universe — but it also means the strategy now regularly holds smaller, less liquid, more volatile names that NIFTY 500 would have screened out. The stop-loss is doing real work here (average exit almost exactly -15%), but a handful of month-end exits still catch positions mid-decline in a genuinely sharp-moving stock before the stop can trigger.",
+       "One trade is worth naming directly: Vedanta (VEDL) was stopped out at -57.9% on 2026-04-30 — far beyond the intended -15% — because Vedanta's 2025/26 corporate demerger caused a genuine, real (not a data error) ~58% one-day drop in its own continuing share price as value split off into newly-listed entities. This backtest has no way to credit the value of shares received in a demerger, so a real event like this shows up as a pure loss here even though a real shareholder would also have received new shares elsewhere."
       ],
       "list_items": []
      },
@@ -1688,16 +1693,15 @@
       "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
       "paragraphs": [],
       "list_items": [
-       "The ₹2,000 Cr market-cap filter is a NO-OP on the NIFTY 500 universe used here — it excludes 0 of 498 stocks (see the lead disclosure). This is effectively an unfiltered NIFTY 500 RSI screen, not a large-cap-specific one.",
-       "Market cap itself is a single present-day snapshot (no historical point-in-time market cap data exists in this project) — moot here since the filter doesn't bind, but the same limitation as every quality/sector report in this series.",
-       "\"Crossing above 70\" was interpreted as a genuine crossover event, not \"RSI is currently above 70\" — a materially different, and more selective, reading of the request.",
-       "RSI period (14) was not specified in the request — 14 is the near-universal default for RSI, used here as the most defensible assumption, but untested against other lengths.",
-       "\"Top five any random stocks\" was ambiguous — resolved here as \"top 5 ranked by RSI value,\" not literal random selection.",
-       "Survivorship bias — today's fixed NIFTY 500 constituent list, applied retroactively to 2008, same as every reconstruction in this project.",
-       "Equal-weighted; no F&O-eligibility screen.",
-       "Zero transaction costs, slippage, or taxes modeled— worth flagging given up to 5 positions can turn over completely every single month across 213 rebalances.",
+       "Market cap is a single present-day snapshot (no historical point-in-time market cap data exists in this project) — a stock that grew into or fell below the ₹2,000 Cr line at some point in the past is still judged by TODAY's market cap for the whole 2008-2026 history.",
+       "321 of 2,296 NSE EQ-series tickers never returned a market cap even after repeated retries and are excluded from the universe entirely, rather than guessed at — a small, disclosed coverage gap, not a judgment that they don't qualify.",
+       "No adjustment for corporate actions (demergers, spin-offs, bonus issues) beyond whatever the raw price series already reflects — see the Vedanta example above. A handful of other extreme single-day moves in this dataset are very likely real corporate actions or crashes (e.g. the 2008 Bajaj Auto/Finserv/Holdings demerger, Yes Bank's 2020 moratorium) rather than data errors, but none were individually verified beyond the one named here.",
+       "RSI period (14) was not specified in the original request — 14 is the near-universal default, used here as the most defensible assumption.",
+       "Trade-to-trade surveillance segments (NSE series BE/BZ, 272 tickers) are excluded — different settlement mechanics this project doesn't model.",
+       "New entries are funded only from currently-uninvested cash, split equally among that day's new entries; existing positions are never rebalanced to rejoin an equal-weight target.",
+       "Zero transaction costs, slippage, or taxes modeled— worth flagging given 1,959 total entries over this backtest's history.",
        "Prices are unadjusted; no dividends are modelled for any series shown.",
-       "This is a single, fixed historical path — no out-of-sample validation of the RSI(14)/70 threshold combination specifically."
+       "This is a single, fixed historical path — no out-of-sample validation of the RSI(14)/70/15%-stop combination specifically."
       ]
      }
     ]

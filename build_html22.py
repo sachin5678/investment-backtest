@@ -1,7 +1,7 @@
 """Builds 22_rsi70_monthly_rotation.html from results21.json. Same
-self-contained contract, smooth Catmull-Rom charts, plus a participation
-breakdown panel (cash/partial/full months) since this strategy can go to
-100% cash in a given month if nothing qualifies."""
+self-contained contract, smooth Catmull-Rom charts, plus a trade-level
+stats panel (win rate, avg trade P&L, stop-loss vs. month-end exit split)
+since this version trades at the position level, not in monthly batches."""
 import json
 import html
 from svg_charts import line_chart, area_underwater_chart, COL
@@ -62,6 +62,8 @@ def base_style():
       .scrollbox::-webkit-scrollbar{width:8px;}
       .scrollbox::-webkit-scrollbar-thumb{background:#1E3A45;border-radius:4px;}
       tr.real-bench td{color:#9FB4BB;}
+      tr.entry-row td{color:#37F083;}
+      tr.exit-row td{color:#F2643C;}
     </style>
     """
 
@@ -92,10 +94,10 @@ def build():
       <div class="flex items-start justify-between gap-6">
         <div>
           <h1 class="text-2xl font-bold text-[#E6EDF0]">Monthly RSI-70 Crossover Rotation</h1>
-          <p class="text-[#9FB4BB] text-sm mt-1">Filter NIFTY 500 by market cap, catch stocks whose monthly RSI crosses above 70, hold the top 5 by RSI for a month, repeat — a classic technical-analysis signal, not the risk-adjusted momentum formula used elsewhere in this project.</p>
+          <p class="text-[#9FB4BB] text-sm mt-1">Any NSE stock above {sym}2,000 Cr market cap — enter the moment its monthly RSI crosses above 70, hold up to 5 positions at once, exit on a 15% stop or month-end, whichever comes first.</p>
         </div>
         <div class="text-right {MUTED} mono shrink-0">
-          {R['universe_size']}-stock universe, {esc(R['start_date'])}–{esc(R['end_date'])}<br/>Report generated {esc(R['generated'])}
+          {R['universe_size']:,}-stock universe, {esc(R['start_date'])}–{esc(R['end_date'])}<br/>Report generated {esc(R['generated'])}
         </div>
       </div>
     </header>
@@ -105,23 +107,25 @@ def build():
     <div class="px-10 pt-6">
       <div class="{PANEL} border-2 border-[#F2643C]">
         <div class="flex items-center gap-2 mb-3">
-          <h2 class="text-lg font-bold text-[#E6EDF0]">Read this before the numbers below</h2>
-          {pill('the market-cap filter turned out to be a no-op', 'negative')}{pill('crossing, not "is above"', 'assumption')}{pill('strong return, deep drawdown', 'neutral')}
+          <h2 class="text-lg font-bold text-[#E6EDF0]">The rule, exactly as corrected</h2>
+          {pill('real NSE universe, not NIFTY 500', 'positive')}{pill('any-day entry, per-position exit', 'assumption')}{pill('deep drawdown', 'negative')}
         </div>
         <p class="text-[14px] text-[#E6EDF0] leading-relaxed mb-3">
-          The rule as described: filter Indian stocks by market cap above {sym}{R['min_cap_cr']:,.0f} Cr, then take stocks whose monthly RSI crosses
-          above 70. This project's standing proxy for "the Indian market" is the NIFTY 500 (used in every earlier report needing a broad universe) —
-          and it turns out <span class="font-semibold">every single one of the 500 constituents already has a market cap above
-          {sym}{R['min_cap_cr']:,.0f} Cr today</span> ({R['eligible_after_mcap_filter']} of {R['universe_size']} passed the filter, {R['excluded_by_mcap_filter']} excluded).
-          NIFTY 500 is already "the 500 largest listed companies" by construction, so a {sym}2,000 Cr floor doesn't bind on it at all — this filter would
-          only matter on a universe that also included true small/micro-caps below the NIFTY 500 cutoff, which isn't available here. The result below is
-          effectively "RSI-70 crossover across the whole NIFTY 500," not a large-cap-specific strategy.
+          {R['universe_note']}. Built from NSE's own official listed-equity list (2,296 EQ-series tickers), with today's market cap fetched per
+          ticker — {R['universe_size']:,} qualify above {sym}{R['min_cap_cr']:,.0f} Cr, more than double the NIFTY 500's 498, because NIFTY 500 only
+          ever holds the 500 largest names and misses a real population of smaller (but still {sym}2,000 Cr+) companies.
+        </p>
+        <p class="text-[14px] text-[#E6EDF0] leading-relaxed mb-3">
+          "Monthly RSI" is checked EVERY trading day, not just once a month: it's Wilder(14) RSI on monthly closes, re-evaluated daily by treating
+          each day's price as a stand-in for "this month's close so far." A stock enters the moment its RSI crosses above 70 — any day, no minimum
+          pool required to start. Up to 5 positions are held at once; if more stocks cross on one day than there are open slots, the ones that fill
+          the remaining slots are picked at random (not ranked). Each position exits independently on whichever comes first: a 15% drop from ITS OWN
+          entry price, or the last trading day of the month it was entered in.
         </p>
         <p class="text-[14px] text-[#E6EDF0] leading-relaxed">
-          "RSI crossing above 70" is implemented as a genuine crossover event — RSI ends one month at or below 70, then ends the next month above 70 —
-          not merely "RSI is currently above 70" (a much less selective, and different, condition). Where more than 5 stocks cross in a month, the top 5
-          are picked by RSI value (highest first); the request's exact wording ("top five any random stocks") was ambiguous between ranking and random
-          selection, and ranking by RSI value was the more decision-relevant reading.
+          The stop-loss is checked against each day's LOW (not just the close) and fills at the day's OPEN if price already gapped past -15%
+          overnight — an earlier version of this backtest checked only the close and let losses run to -80/-90% on gap days before the check ever
+          fired. With this fix, the average stop-loss exit lands almost exactly on target (see the trade stats below).
         </p>
       </div>
     </div>
@@ -132,11 +136,11 @@ def build():
       <div class="{PANEL_TIGHT}">
         <p class="{WHAT_THIS_SHOWS} mb-2">WHAT THIS SHOWS — the exact rule being tested.</p>
         <p class="text-[13.5px] text-[#C9D6DA] leading-relaxed">
-          {pill(f'RSI({R["rsi_period"]}), Wilder-smoothed, on MONTH-END closing prices', 'assumption')} — a slower-moving signal than daily RSI, deliberately.
-          {pill('genuine crossover (¬above → above 70)', 'assumption')}, {pill(f'top {R["top_n"]} by RSI value', 'assumption')}, equal-weighted,
-          bought at the close of each month's first trading day, held to the day before the next month's first trading day. If fewer than {R['top_n']}
-          stocks cross in a month, however many did are held; if none cross, the account sits in {pill('100% cash that month', 'assumption')} (a judgment
-          call — not specified in the request).
+          {pill(f'RSI({R["rsi_period"]}), Wilder-smoothed, developing daily from monthly closes', 'assumption')},
+          {pill('genuine crossover (¬above → above 70)', 'assumption')}, {pill(f'up to {R["max_positions"]} concurrent positions', 'assumption')},
+          {pill('random pick among same-day multiple crossers', 'assumption')},
+          {pill(f'{R["stop_loss_pct"]:.0f}% stop-loss OR month-end, whichever first', 'assumption')}. New entries are funded from whatever cash is
+          currently uninvested, split equally among that day's new entries; existing positions are never rebalanced mid-flight.
         </p>
       </div>
     </div>
@@ -197,7 +201,7 @@ def build():
         <h3 class="text-base font-bold text-[#E6EDF0]">Growth of 100 — {esc(R['start_date'])} to {esc(R['end_date'])}</h3>
         {pill('linear axis, starts at zero — not log-scaled', 'neutral')}
       </div>
-      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — the RSI rotation pulls well ahead of both passive benchmarks over the full window, but see the drawdown chart below before reading that as a clean win.</p>
+      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — the RSI rotation pulls ahead of both passive benchmarks, but see the drawdown chart below before reading that as a clean win.</p>
       <div class="flex items-center mb-2">{eq_legend}</div>
       {eq_svg}
     </div>
@@ -219,81 +223,88 @@ def build():
     dd_panel = f"""
     <div class="{PANEL} mt-6">
       <h3 class="text-base font-bold text-[#E6EDF0] mb-1">Drawdown comparison</h3>
-      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — the RSI rotation's worst drawdown ({pct(rr['max_drawdown_pct'],1,signed=False)}) is meaningfully deeper than both passive benchmarks' — chasing a technical breakout signal concentrates risk into whichever 5 names are currently hot, with no volatility- or trend-strength-adjustment the way this project's other momentum formula has.</p>
+      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — the RSI rotation's worst drawdown ({pct(rr['max_drawdown_pct'],1,signed=False)}) is nearly double both passive benchmarks' — expanding into smaller, more volatile companies (beyond NIFTY 500) brought in more opportunities but also meaningfully more tail risk.</p>
       <div class="flex items-center mb-2">{dd_legend}</div>
       {dd_svg}
     </div>
     """
 
-    total = R["num_rebalances"]
-    cash_pct = R["cash_months"] / total * 100
-    partial_pct = R["partial_months"] / total * 100
-    full_pct = R["full_months"] / total * 100
+    total_exits = R["num_exits"]
+    stop_pct = R["stop_loss_exits"] / total_exits * 100 if total_exits else 0
+    month_end_pct = R["month_end_exits"] / total_exits * 100 if total_exits else 0
 
-    participation_panel = f"""
+    trade_stats_panel = f"""
     <div class="{PANEL} mt-6">
       <div class="flex items-center justify-between mb-1">
-        <h3 class="text-base font-bold text-[#E6EDF0]">How often did the signal actually fire?</h3>
-        {pill('this strategy can go to 100% cash', 'neutral')}
+        <h3 class="text-base font-bold text-[#E6EDF0]">Trade-level statistics</h3>
+        {pill(f'{R["num_entries"]:,} entries over {esc(R["start_date"])}–{esc(R["end_date"])}', 'neutral')}
       </div>
-      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — across all {total} monthly rebalances, how many stocks actually had a fresh RSI-70 crossover to invest in.</p>
-      <div class="grid grid-cols-3 gap-4 mt-4">
+      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — every individual position's outcome, not just the portfolio-level equity curve above.</p>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4">
         <div class="{PANEL_TIGHT}">
-          <div class="text-[11px] text-[#7E97A0] mb-1 uppercase tracking-wide">Full months (5 stocks)</div>
-          <div class="kpi-val mono" style="color:{KIND_COLOR['positive']}">{R['full_months']} <span class="text-[13px] text-[#7E97A0] font-normal">({full_pct:.0f}%)</span></div>
+          <div class="text-[11px] text-[#7E97A0] mb-1 uppercase tracking-wide">Win rate</div>
+          <div class="kpi-val mono" style="color:{KIND_COLOR['positive'] if R['win_rate_pct'] and R['win_rate_pct']>50 else KIND_COLOR['neutral']}">{R['win_rate_pct']}%</div>
         </div>
         <div class="{PANEL_TIGHT}">
-          <div class="text-[11px] text-[#7E97A0] mb-1 uppercase tracking-wide">Partial months (1-4 stocks)</div>
-          <div class="kpi-val mono" style="color:{KIND_COLOR['assumption']}">{R['partial_months']} <span class="text-[13px] text-[#7E97A0] font-normal">({partial_pct:.0f}%)</span></div>
+          <div class="text-[11px] text-[#7E97A0] mb-1 uppercase tracking-wide">Avg trade P&amp;L</div>
+          <div class="kpi-val mono" style="color:{KIND_COLOR['positive'] if R['avg_trade_pnl_pct'] and R['avg_trade_pnl_pct']>0 else KIND_COLOR['negative']}">{pct(R['avg_trade_pnl_pct'],2)}</div>
         </div>
         <div class="{PANEL_TIGHT}">
-          <div class="text-[11px] text-[#7E97A0] mb-1 uppercase tracking-wide">Cash months (0 stocks)</div>
-          <div class="kpi-val mono" style="color:{KIND_COLOR['negative']}">{R['cash_months']} <span class="text-[13px] text-[#7E97A0] font-normal">({cash_pct:.1f}%)</span></div>
+          <div class="text-[11px] text-[#7E97A0] mb-1 uppercase tracking-wide">Stop-loss exits</div>
+          <div class="kpi-val mono" style="color:{KIND_COLOR['negative']}">{R['stop_loss_exits']:,} <span class="text-[13px] text-[#7E97A0] font-normal">({stop_pct:.0f}%)</span></div>
+        </div>
+        <div class="{PANEL_TIGHT}">
+          <div class="text-[11px] text-[#7E97A0] mb-1 uppercase tracking-wide">Month-end exits</div>
+          <div class="kpi-val mono" style="color:{KIND_COLOR['neutral']}">{R['month_end_exits']:,} <span class="text-[13px] text-[#7E97A0] font-normal">({month_end_pct:.0f}%)</span></div>
         </div>
       </div>
       <p class="text-[13px] text-[#C9D6DA] leading-relaxed mt-4">
-        Average stocks held per month: <span class="font-semibold text-[#E6EDF0]">{R['avg_stocks_held']}</span> of {R['top_n']}. A fresh RSI-70 crossover
-        somewhere in a 498-stock universe is common enough that the strategy is fully invested {full_pct:.0f}% of the time — cash months are rare, but
-        the holding LIST itself can still turn over completely from one month to the next, since a "fresh crossover" this month says nothing about
-        whether last month's picks still qualify.
+        A win rate just above 51% with a positive average trade — the strategy is right slightly more often than not, and its wins outweigh its
+        losses on average. {R['stop_loss_exits']:,} of {total_exits:,} exits ({stop_pct:.0f}%) were stopped out at -15%; the rest ({month_end_pct:.0f}%)
+        rode to their own month-end, for better or worse.
       </p>
     </div>
     """
 
     def sel_rows(sample):
         rows = []
-        for s in sample:
-            tickers = ", ".join(f"{t.replace('.NS','')} ({s['rsi_values'].get(t,'—')})" for t in s["tickers"]) if s["tickers"] else "— (cash month)"
-            rows.append(f"""<tr><td>{esc(s['date'])}</td><td>{s['num_crossed']}</td>
-            <td class="text-left" style="text-align:left">{esc(tickers)}</td></tr>""")
+        for e in sample:
+            if e["event"] == "entry":
+                rows.append(f"""<tr class="entry-row"><td>{esc(e['date'])}</td><td>Entry</td>
+                <td class="text-left" style="text-align:left">{esc(e['ticker'].replace('.NS',''))} @ {sym}{e['entry_price']:,.2f} ({e['num_crossed_today']} crossed, {e['num_slots_open']} open slots)</td></tr>""")
+            else:
+                reason = "15% stop" if e["reason"] == "stop_loss_15pct" else "month-end"
+                rows.append(f"""<tr class="exit-row"><td>{esc(e['date'])}</td><td>Exit ({reason})</td>
+                <td class="text-left" style="text-align:left">{esc(e['ticker'].replace('.NS',''))} @ {sym}{e['exit_price']:,.2f} — {pct(e['pnl_pct'],2)}</td></tr>""")
         return "".join(rows)
 
     sel_table = f"""
     <div class="{PANEL} mt-6">
-      <h3 class="text-base font-bold text-[#E6EDF0] mb-1">Sample rebalances — first 4 and last 4</h3>
-      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — which stocks crossed, how many qualified, and their RSI value at signal time (in parentheses), at the start and end of this backtest's history.</p>
+      <h3 class="text-base font-bold text-[#E6EDF0] mb-1">Sample trades — first 10 and last 10</h3>
+      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — the earliest and most recent individual entries and exits, in chronological order.</p>
       <div class="scrollbox"><table class="data-table">
-        <thead><tr><th>Date</th><th>Stocks crossed</th><th style="text-align:left">Selected (RSI at signal)</th></tr></thead>
-        <tbody>{sel_rows(R['selections_sample'])}</tbody></table></div>
+        <thead><tr><th>Date</th><th>Event</th><th style="text-align:left">Detail</th></tr></thead>
+        <tbody>{sel_rows(R['events_sample'])}</tbody></table></div>
     </div>
     """
 
     honesty_note = f"""
     <div class="{PANEL} mt-6 border-[#F2B03C]/40">
-      <div class="flex items-center gap-2 mb-2"><h3 class="text-base font-bold text-[#E6EDF0]">How this compares to this project's best momentum result</h3>{pill('framing', 'assumption')}</div>
-      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — RSI-70 crossover against the strongest reconstruction found so far in this project (Midcap150 Momentum 10, +40.6% CAGR, same NIFTY-adjacent Indian market).</p>
+      <div class="flex items-center gap-2 mb-2"><h3 class="text-base font-bold text-[#E6EDF0]">Why the drawdown got worse when the universe got bigger</h3>{pill('framing', 'assumption')}</div>
+      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — the trade-off behind expanding from NIFTY 500 to the full qualifying NSE universe.</p>
       <p class="text-[13.5px] text-[#C9D6DA] leading-relaxed mb-3">
-        RSI-70 crossover landed at {pct(rr['cagr_pct'])} CAGR here — a real, substantial edge over both passive benchmarks, but well short of the
-        6m/12m risk-adjusted momentum formula's {pct(40.6)} on Midcap150 Momentum-10, and with a deeper max drawdown
-        ({pct(rr['max_drawdown_pct'],1,signed=False)} vs. -35.1%). The mechanism difference is instructive: the risk-adjusted formula ranks stocks by
-        how much they've moved RELATIVE TO THEIR OWN VOLATILITY over 6-12 months, cross-sectionally — a continuous, comparative measure. RSI-70
-        crossover is a binary trigger on a single stock's own recent price oscillation, with no cross-sectional ranking, no explicit trend-strength
-        measure beyond the 0-100 oscillator band, and no volatility adjustment at all — a much blunter signal that can just as easily catch a stock
-        in a short-lived spike as one in a durable uptrend.
+        Restricted to NIFTY 500, this same rule produced a {pct(29.6)} CAGR with a -53.9% max drawdown (an earlier version of this report). Opened up
+        to the full {R['universe_size']:,}-stock qualifying universe, CAGR is {pct(rr['cagr_pct'])} and the drawdown deepens to
+        {pct(rr['max_drawdown_pct'],1,signed=False)}. More candidate stocks means more RSI-70 crossings to catch, which is exactly why you asked for
+        the wider universe — but it also means the strategy now regularly holds smaller, less liquid, more volatile names that NIFTY 500 would have
+        screened out. The stop-loss is doing real work here (average exit almost exactly -15%), but a handful of month-end exits still catch positions
+        mid-decline in a genuinely sharp-moving stock before the stop can trigger.
       </p>
       <p class="text-[13.5px] text-[#C9D6DA] leading-relaxed">
-        None of that makes RSI-70 crossover a bad rule on this data — it clearly beat doing nothing, by a wide margin. It just isn't the sharpest tool
-        this project has tested for finding momentum in Indian equities.
+        One trade is worth naming directly: <span class="font-semibold text-[#E6EDF0]">Vedanta (VEDL)</span> was stopped out at -57.9% on 2026-04-30 —
+        far beyond the intended -15% — because Vedanta's 2025/26 corporate demerger caused a genuine, real (not a data error) ~58% one-day drop in its
+        own continuing share price as value split off into newly-listed entities. This backtest has no way to credit the value of shares received in a
+        demerger, so a real event like this shows up as a pure loss here even though a real shareholder would also have received new shares elsewhere.
       </p>
     </div>
     """
@@ -306,16 +317,15 @@ def build():
       </div>
       <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — every simplification behind this backtest.</p>
       <ul class="text-[13px] text-[#C9D6DA] list-disc pl-5 leading-relaxed">
-        <li class="mb-1.5">The {sym}2,000 Cr market-cap filter is a NO-OP on the NIFTY 500 universe used here — it excludes 0 of 498 stocks (see the lead disclosure). This is effectively an unfiltered NIFTY 500 RSI screen, not a large-cap-specific one.</li>
-        <li class="mb-1.5">Market cap itself is a single present-day snapshot (no historical point-in-time market cap data exists in this project) — moot here since the filter doesn't bind, but the same limitation as every quality/sector report in this series.</li>
-        <li class="mb-1.5">"Crossing above 70" was interpreted as a genuine crossover event, not "RSI is currently above 70" — a materially different, and more selective, reading of the request.</li>
-        <li class="mb-1.5">RSI period (14) was not specified in the request — 14 is the near-universal default for RSI, used here as the most defensible assumption, but untested against other lengths.</li>
-        <li class="mb-1.5">"Top five any random stocks" was ambiguous — resolved here as "top 5 ranked by RSI value," not literal random selection.</li>
-        <li class="mb-1.5">Survivorship bias — today's fixed NIFTY 500 constituent list, applied retroactively to 2008, same as every reconstruction in this project.</li>
-        <li class="mb-1.5">Equal-weighted; no F&O-eligibility screen.</li>
-        <li class="mb-1.5"><span class="font-semibold text-[#E6EDF0]">Zero transaction costs, slippage, or taxes modeled</span> — worth flagging given up to 5 positions can turn over completely every single month across {R['num_rebalances']} rebalances.</li>
+        <li class="mb-1.5">Market cap is a single present-day snapshot (no historical point-in-time market cap data exists in this project) — a stock that grew into or fell below the {sym}2,000 Cr line at some point in the past is still judged by TODAY's market cap for the whole 2008-2026 history.</li>
+        <li class="mb-1.5">321 of 2,296 NSE EQ-series tickers never returned a market cap even after repeated retries and are excluded from the universe entirely, rather than guessed at — a small, disclosed coverage gap, not a judgment that they don't qualify.</li>
+        <li class="mb-1.5">No adjustment for corporate actions (demergers, spin-offs, bonus issues) beyond whatever the raw price series already reflects — see the Vedanta example above. A handful of other extreme single-day moves in this dataset are very likely real corporate actions or crashes (e.g. the 2008 Bajaj Auto/Finserv/Holdings demerger, Yes Bank's 2020 moratorium) rather than data errors, but none were individually verified beyond the one named here.</li>
+        <li class="mb-1.5">RSI period (14) was not specified in the original request — 14 is the near-universal default, used here as the most defensible assumption.</li>
+        <li class="mb-1.5">Trade-to-trade surveillance segments (NSE series BE/BZ, 272 tickers) are excluded — different settlement mechanics this project doesn't model.</li>
+        <li class="mb-1.5">New entries are funded only from currently-uninvested cash, split equally among that day's new entries; existing positions are never rebalanced to rejoin an equal-weight target.</li>
+        <li class="mb-1.5"><span class="font-semibold text-[#E6EDF0]">Zero transaction costs, slippage, or taxes modeled</span> — worth flagging given {R['num_entries']:,} total entries over this backtest's history.</li>
         <li class="mb-1.5">Prices are unadjusted; no dividends are modelled for any series shown.</li>
-        <li class="mb-1.5">This is a single, fixed historical path — no out-of-sample validation of the RSI(14)/70 threshold combination specifically.</li>
+        <li class="mb-1.5">This is a single, fixed historical path — no out-of-sample validation of the RSI(14)/70/15%-stop combination specifically.</li>
       </ul>
     </div>
     """
@@ -329,7 +339,7 @@ def build():
       {full_table}
       {eq_panel}
       {dd_panel}
-      {participation_panel}
+      {trade_stats_panel}
       {sel_table}
       {honesty_note}
       {limitations}

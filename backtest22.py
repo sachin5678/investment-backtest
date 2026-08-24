@@ -1,171 +1,258 @@
 """
-Monthly RSI-70 crossover rotation — a genuinely different SIGNAL from every
-earlier reconstruction in this project (all of which use the 6m/12m
-risk-adjusted momentum formula). This one uses classic technical-analysis
-RSI instead:
+Monthly RSI-70 crossover rotation — REVISED per your corrections:
 
-  - Universe: NIFTY 500 (this project's standing proxy for "the Indian
-    market" — see every earlier report; a true all-listed-stocks universe
-    isn't in this project's data).
-  - Market-cap filter (> Rs 2,000 Cr): checked against today's market cap
-    (the only snapshot available — no historical point-in-time market cap
-    data exists in this project, same limitation as every quality/sector
-    report). IMPORTANT, disclosed finding: this filter turned out to be a
-    NO-OP — all 500 NIFTY 500 constituents already have a market cap above
-    Rs 2,000 Cr today (min. observed: ~Rs 5,430 Cr), because NIFTY 500 is
-    already "the 500 largest listed companies" by construction. The filter
-    would only bind on a universe that also included true small/micro-caps
-    below the NIFTY 500 cutoff, which this project doesn't have.
-  - Signal: monthly RSI(14), Wilder-smoothed, computed on MONTH-END closing
-    prices (not daily RSI — deliberately slower-moving). At the start of
-    every calendar month, look at whether a stock's RSI genuinely CROSSED
-    above 70 at the end of the just-completed month (RSI(m-1) > 70 AND
-    RSI(m-2) <= 70) — a fresh crossover event, not merely "RSI is currently
-    above 70" (a materially different, and more selective, condition).
-  - Selection: among stocks with a fresh cross this month, rank by RSI
-    value (highest first), take the top 5. If fewer than 5 stocks cross,
-    hold however many did; if none cross, hold 100% cash that month (a
-    judgment call — not specified in the request).
-  - Equal-weighted, bought at the close of the month's first trading day,
-    held to the close of the day before next month's first trading day,
-    then the whole process repeats.
+  - No minimum eligible-pool floor. The backtest starts the moment even a
+    single stock has enough history for a valid RSI reading — no
+    MIN_ELIGIBLE_SIGNAL_POOL gate.
+  - RSI is a "monthly RSI" in the sense that it's Wilder(14) on monthly
+    closes, but it's evaluated EVERY trading day, not just once a month.
+    Concretely: take the Wilder EMA (avg gain / avg loss) state as of the
+    end of the last COMPLETED calendar month, then compute a "developing"
+    RSI value for each day of the current month by treating that day's
+    close as a stand-in for "this month's close so far" — one more Wilder
+    step from the same fixed base. This is the standard way a "monthly
+    RSI" updates live on a chart before the month closes, and it means a
+    crossover can be caught on ANY trading day, not just month boundaries.
+  - Entries happen on the exact day a stock's developing RSI crosses above
+    70 (yesterday's developing value <=70, today's >70) — not gated to the
+    first of the month. Up to 5 positions can be held CONCURRENTLY. If
+    more stocks cross on a single day than there are open slots, the ones
+    that fill the remaining slots are chosen AT RANDOM (not ranked) among
+    that day's crossers, per your instruction.
+  - Each position exits on whichever comes first: (a) a 15% drop from its
+    OWN entry price, or (b) the last trading day of the calendar month it
+    was entered in. Exiting frees a slot for a new crossing candidate.
+  - New entries are funded from whatever cash is currently uninvested,
+    split equally among however many new entries happen that day. Existing
+    positions are never rebalanced mid-flight — they run untouched until
+    their own exit.
 
-No transaction costs modeled — worth flagging especially here, since up to
-5 positions can turn over completely every single month.
+UNIVERSE — the full ask, not just NIFTY 500: "any NSE stock with market cap
+above Rs 2,000 Cr." Built from NSE's own official listed-equity CSV
+(archives.nseindia.com/content/equities/EQUITY_L.csv, 2,296 EQ-series
+tickers — the trade-to-trade BE/BZ segments are excluded, different
+settlement mechanics this project doesn't model), with today's market cap
+fetched per ticker (1,975 of 2,296 succeeded even after retries — 321
+genuinely unreachable, excluded rather than guessed at). 1,091 of the 1,975
+qualify at > Rs 2,000 Cr — more than double the NIFTY 500's 498, exactly
+because NIFTY 500 by construction only holds the 500 LARGEST names and
+misses a real population of smaller (but still > Rs 2,000 Cr) companies.
+Full daily price history was fetched fresh for the ~591 qualifying tickers
+not already cached from this project's other reports.
 """
 import json
+import pickle
+import random
 
 import numpy as np
 import pandas as pd
 
-from backtest10 import fetch, cumret_drawdown, series_to_points, CURRENCY_SYMBOL
+from backtest10 import fetch, series_to_points, CURRENCY_SYMBOL
 from backtest13 import metrics
-from backtest17 import load_nifty500_closes
+
+MARKETCAP_FILE = "nse_marketcaps_merged.json"
+EXTRA_PRICES_FILE = "rsi_universe_extra_raw.pkl"
 
 RSI_PERIOD = 14
 RSI_THRESHOLD = 70.0
-TOP_N = 5
+MAX_POSITIONS = 5
+STOP_LOSS_PCT = 0.15
 MIN_CAP_CR = 2000.0
-MIN_ELIGIBLE_SIGNAL_POOL = 50  # require at least this many stocks with a valid RSI reading before trusting a month
+RANDOM_SEED = 42  # for the "pick randomly among same-day crossers" rule — fixed so the report is reproducible
 
 
-def compute_monthly_rsi(monthly_closes, period=RSI_PERIOD):
-    """Wilder-smoothed RSI on a (dates x tickers) monthly-close DataFrame."""
+def compute_developing_rsi(closes, period=RSI_PERIOD):
+    """Returns a (dates x tickers) DataFrame of the "developing monthly
+    RSI" for every trading day: Wilder(14) RSI computed on monthly closes,
+    but re-evaluated daily by treating each day's close as a stand-in for
+    "this month's close so far," extending from the fixed EMA state as of
+    the end of the last COMPLETED month. Continuous across month
+    boundaries: the last trading day of month M has a developing value
+    that exactly equals month M's own officially-completed RSI, since
+    that day's close IS the month-end close by definition."""
+    monthly_closes = closes.resample("ME").last()
     delta = monthly_closes.diff()
     gain = delta.clip(lower=0)
     loss = -delta.clip(upper=0)
     avg_gain = gain.ewm(alpha=1 / period, adjust=False, min_periods=period).mean()
     avg_loss = loss.ewm(alpha=1 / period, adjust=False, min_periods=period).mean()
-    rs = avg_gain / avg_loss
+
+    # map each trading day to the most recently COMPLETED month's EMA state
+    month_end_dates = monthly_closes.index
+    daily_month_end_pos = month_end_dates.searchsorted(closes.index, side="left") - 1
+    valid = daily_month_end_pos >= 0
+    prev_month_end = pd.DatetimeIndex(
+        [month_end_dates[p] if v else pd.NaT for p, v in zip(daily_month_end_pos, valid)]
+    )
+
+    base_close = monthly_closes.reindex(prev_month_end).set_axis(closes.index)
+    base_avg_gain = avg_gain.reindex(prev_month_end).set_axis(closes.index)
+    base_avg_loss = avg_loss.reindex(prev_month_end).set_axis(closes.index)
+
+    change = closes - base_close
+    dev_gain = change.clip(lower=0)
+    dev_loss = (-change).clip(lower=0)
+    dev_avg_gain = (base_avg_gain * (period - 1) + dev_gain) / period
+    dev_avg_loss = (base_avg_loss * (period - 1) + dev_loss) / period
+
+    rs = dev_avg_gain / dev_avg_loss
     rsi = 100 - 100 / (1 + rs)
-    # "no losses in the lookback at all" -> RSI defined as 100, but ONLY where
-    # avg_loss is a genuine, defined ~zero — NOT wherever avg_loss is NaN
-    # (not enough history yet). NaN > 1e-9 evaluates to False in pandas, so a
-    # naive avg_loss.abs() > 1e-9 mask would wrongly treat "no data yet" the
-    # same as "zero losses" and fabricate RSI=100 for unlisted stocks.
-    zero_loss = avg_loss.notna() & (avg_loss.abs() <= 1e-9)
+    zero_loss = dev_avg_loss.notna() & (dev_avg_loss.abs() <= 1e-9)
     rsi = rsi.where(~zero_loss, 100.0)
     return rsi
 
 
-def first_trading_day_of_month(dates):
+def qualifying_tickers(min_cap_cr=MIN_CAP_CR):
+    """Every NSE EQ-series ticker with a known market cap above the
+    threshold — see MARKETCAP_FILE's own generation scripts
+    (fetch_all_nse_marketcaps.py + retry_missing_marketcaps.py) for how
+    it was built and which tickers were unreachable."""
+    with open(MARKETCAP_FILE) as f:
+        mcaps = json.load(f)
+    return sorted(t for t, v in mcaps.items() if v and v / 1e7 > min_cap_cr)
+
+
+def _all_price_sources():
+    names = ["universe_raw.pkl", "quality50_extra_raw.pkl", "midcap150_extra_raw.pkl",
+             "smallcap250_extra_raw.pkl", EXTRA_PRICES_FILE]
+    sources = []
+    for name in names:
+        try:
+            sources.append(pd.read_pickle(name))
+        except FileNotFoundError:
+            pass
+    return sources
+
+
+def load_universe_field(field, tickers, index_like=None):
+    """Pulls one OHLC field for an arbitrary ticker list across every price
+    cache this project has accumulated (the original NIFTY 200 fetch, the
+    three "extra" caches built for quality/midcap150/smallcap250 reports,
+    and this report's own new ~591-ticker fetch for names beyond NIFTY
+    500) — whichever source actually has the ticker. Used for Close, Low,
+    and Open: Low/Open specifically so the stop-loss can be checked
+    against the day's actual traded range rather than only the close,
+    which let losses run to -80/-90% on overnight gaps in an earlier
+    version of this backtest before the check ever fired."""
+    sources = _all_price_sources()
+    cols = {}
+    for t in tickers:
+        for src in sources:
+            if t in set(c[0] for c in src.columns):
+                s = src[(t, field)]
+                if s.notna().any():
+                    cols[t] = s
+                break
+    df = pd.DataFrame(cols).sort_index().ffill()
+    return df.reindex(index_like) if index_like is not None else df
+
+
+def last_trading_day_of_month(dates):
+    """For every date, the last trading day of ITS calendar month — used
+    to compute each position's own forced exit date at entry time."""
     df = pd.Series(dates, index=dates)
-    out = []
-    for (_y, _m), grp in df.groupby([dates.year, dates.month]):
-        out.append(grp.iloc[0])
-    return sorted(out)
+    last_day_map = {}
+    for (y, m), grp in df.groupby([dates.year, dates.month]):
+        last_day_map[(y, m)] = grp.iloc[-1]
+    return pd.DatetimeIndex([last_day_map[(d.year, d.month)] for d in dates])
 
 
-def load_market_caps():
-    with open("fundamentals_raw.pkl", "rb") as f:
-        import pickle
-        raw = pickle.load(f)
-    return {t: v.get("market_cap") for t, v in raw.items() if v.get("market_cap")}
-
-
-def build_rotation(closes, monthly_rsi, crossed, rebal_dates, eligible_tickers):
-    """Event loop keyed off a persistent scalar `current_value` — NOT off
-    reading the previous row of the output Series, which is still NaN for
-    every day before the very first rebalance and would (did, in an
-    earlier version of this function) silently poison the first cash
-    month's value into NaN."""
+def build_rotation(closes, lows, opens, crossed, eligible_tickers):
     dates = closes.index
-    rebal_set = set(rebal_dates)
+    month_end_of = last_trading_day_of_month(dates)
+    rng = random.Random(RANDOM_SEED)
 
+    cash = 100.0
+    positions = {}  # ticker -> {"shares": float, "entry_price": float, "exit_by": Timestamp}
     value = pd.Series(np.nan, index=dates)
-    shares = {}
-    current_value = 100.0
-    selections = []
+    events = []
     started = False
 
     for i, d in enumerate(dates):
         price_today = closes.iloc[i]
-        if d in rebal_set:
-            # the most recently completed monthly bar strictly before this rebalance date
-            past_monthly = monthly_rsi.index[monthly_rsi.index < d]
-            if len(past_monthly) > 0:
-                m_end = past_monthly[-1]
-                crossed_today = crossed.loc[m_end]
-                candidates = [
-                    t for t in eligible_tickers
-                    if bool(crossed_today.get(t, False)) and pd.notna(price_today.get(t))
-                ]
-                candidates_ranked = sorted(candidates, key=lambda t: monthly_rsi.loc[m_end, t], reverse=True)
-                selected = candidates_ranked[:TOP_N]
+        low_today = lows.iloc[i]
+        open_today = opens.iloc[i]
 
-                if started and shares:
-                    current_value = sum(shares.get(tk, 0.0) * price_today.get(tk, 0.0) for tk in shares if pd.notna(price_today.get(tk)))
-                started = True  # current_value already correct either way (100.0 on day 1, marked-to-market above otherwise)
-
-                if selected:
-                    dollar_each = current_value / len(selected)
-                    shares = {tk: dollar_each / price_today[tk] for tk in selected}
+        # 1) exits first — stop-loss checked against the day's LOW (not just
+        # the close), since a stock can gap through -15% overnight; if the
+        # day's OPEN already gapped below the stop level, that open is the
+        # realistic fill price (the theoretical stop price was never
+        # actually available to trade at).
+        for t in list(positions.keys()):
+            p = positions[t]
+            px = price_today.get(t)
+            lo = low_today.get(t)
+            op = open_today.get(t)
+            if pd.isna(px):
+                continue
+            stop_price = p["entry_price"] * (1 - STOP_LOSS_PCT)
+            stop_hit = pd.notna(lo) and lo <= stop_price
+            month_end_hit = d >= p["exit_by"]
+            if stop_hit or month_end_hit:
+                if stop_hit:
+                    fill_price = min(op, stop_price) if pd.notna(op) else stop_price
                 else:
-                    shares = {}  # cash month — current_value stays flat until the next rebalance
-
-                selections.append({
-                    "date": d.strftime("%Y-%m-%d"),
-                    "signal_month_end": m_end.strftime("%Y-%m-%d"),
-                    "num_crossed": len(candidates),
-                    "tickers": selected,
-                    "rsi_values": {t: round(float(monthly_rsi.loc[m_end, t]), 1) for t in selected},
-                    "portfolio_value": float(current_value),
+                    fill_price = px
+                proceeds = p["shares"] * fill_price
+                cash += proceeds
+                del positions[t]
+                events.append({
+                    "date": d.strftime("%Y-%m-%d"), "event": "exit", "ticker": t,
+                    "reason": "stop_loss_15pct" if stop_hit else "month_end",
+                    "entry_price": round(p["entry_price"], 2), "exit_price": round(float(fill_price), 2),
+                    "pnl_pct": round((fill_price / p["entry_price"] - 1) * 100, 2),
                 })
+
+        # 2) entries — only on days with at least one open slot and one fresh crosser
+        open_slots = MAX_POSITIONS - len(positions)
+        if open_slots > 0:
+            candidates = [
+                t for t in eligible_tickers
+                if t not in positions and bool(crossed.iloc[i].get(t, False)) and pd.notna(price_today.get(t))
+            ]
+            if candidates:
+                if len(candidates) > open_slots:
+                    chosen = rng.sample(candidates, open_slots)
+                else:
+                    chosen = candidates
+                if chosen:
+                    started = True
+                    dollar_each = cash / len(chosen)
+                    for t in chosen:
+                        px = price_today[t]
+                        shares = dollar_each / px
+                        cash -= dollar_each
+                        positions[t] = {"shares": shares, "entry_price": float(px), "exit_by": month_end_of[i]}
+                        events.append({
+                            "date": d.strftime("%Y-%m-%d"), "event": "entry", "ticker": t,
+                            "entry_price": round(float(px), 2), "dollar_allocated": round(dollar_each, 2),
+                            "num_crossed_today": len(candidates), "num_slots_open": open_slots,
+                        })
+
         if started:
-            if shares:
-                current_value = sum(shares.get(tk, 0.0) * price_today.get(tk, 0.0) for tk in shares if pd.notna(price_today.get(tk)))
-            # else: cash month — current_value intentionally left unchanged (flat)
-            value.iloc[i] = current_value
+            mtm = cash + sum(p["shares"] * price_today.get(t, np.nan) for t, p in positions.items() if pd.notna(price_today.get(t)))
+            value.iloc[i] = mtm
 
     value = value.dropna()
-    return value, selections
+    return value, events
 
 
 def main():
-    closes = load_nifty500_closes()
+    eligible_tickers = qualifying_tickers()
     nifty = fetch("^NSEI")
     midcap_etf = fetch("MID150BEES.NS")
+
+    closes = load_universe_field("Close", eligible_tickers)
     closes = closes.loc[closes.index.intersection(nifty.index)]
+    eligible_tickers = [t for t in eligible_tickers if t in closes.columns]
+    closes = closes[eligible_tickers]
+    lows = load_universe_field("Low", eligible_tickers, closes.index)[eligible_tickers]
+    opens = load_universe_field("Open", eligible_tickers, closes.index)[eligible_tickers]
 
-    market_caps = load_market_caps()
-    eligible_tickers = [t for t in closes.columns if (market_caps.get(t) or 0) / 1e7 > MIN_CAP_CR]
-    excluded_by_cap = [t for t in closes.columns if t not in eligible_tickers]
+    developing_rsi = compute_developing_rsi(closes)
+    crossed = (developing_rsi > RSI_THRESHOLD) & (developing_rsi.shift(1) <= RSI_THRESHOLD)
 
-    monthly_closes = closes.resample("ME").last()
-    monthly_rsi = compute_monthly_rsi(monthly_closes)
-    crossed = (monthly_rsi > RSI_THRESHOLD) & (monthly_rsi.shift(1) <= RSI_THRESHOLD)
-
-    # backtest starts once a reasonably broad signal pool is available
-    signal_pool_size = monthly_rsi.notna().sum(axis=1)
-    valid_months = signal_pool_size[signal_pool_size >= MIN_ELIGIBLE_SIGNAL_POOL].index
-    if len(valid_months) == 0:
-        raise RuntimeError("Never reached the minimum eligible signal pool size.")
-    earliest_valid_month = valid_months[0]
-
-    all_rebal_dates = first_trading_day_of_month(closes.index)
-    rebal_dates = [d for d in all_rebal_dates if d > earliest_valid_month]
-
-    rotation_value, selections = build_rotation(closes, monthly_rsi, crossed, rebal_dates, eligible_tickers)
+    rotation_value, events = build_rotation(closes, lows, opens, crossed, eligible_tickers)
     start_date, end_date = rotation_value.index[0], rotation_value.index[-1]
 
     common = nifty.index[(nifty.index >= start_date) & (nifty.index <= end_date)]
@@ -178,26 +265,29 @@ def main():
     def norm(s):
         return s / s.iloc[0] * 100.0
 
-    cash_months = sum(1 for s in selections if len(s["tickers"]) == 0)
-    partial_months = sum(1 for s in selections if 0 < len(s["tickers"]) < TOP_N)
-    full_months = sum(1 for s in selections if len(s["tickers"]) == TOP_N)
-    avg_stocks_held = float(np.mean([len(s["tickers"]) for s in selections])) if selections else 0.0
+    entries = [e for e in events if e["event"] == "entry"]
+    exits = [e for e in events if e["event"] == "exit"]
+    stop_loss_exits = [e for e in exits if e["reason"] == "stop_loss_15pct"]
+    month_end_exits = [e for e in exits if e["reason"] == "month_end"]
+    win_rate = (sum(1 for e in exits if e["pnl_pct"] > 0) / len(exits) * 100) if exits else None
+    avg_pnl = float(np.mean([e["pnl_pct"] for e in exits])) if exits else None
 
     results = {
         "generated": pd.Timestamp.now().strftime("%Y-%m-%d %H:%M"),
         "currency_symbol": CURRENCY_SYMBOL,
         "universe_size": len(closes.columns),
-        "eligible_after_mcap_filter": len(eligible_tickers),
-        "excluded_by_mcap_filter": len(excluded_by_cap),
+        "universe_note": "Any NSE EQ-series stock with market cap > Rs 2,000 Cr (not restricted to NIFTY 500)",
         "min_cap_cr": MIN_CAP_CR,
         "rsi_period": RSI_PERIOD,
         "rsi_threshold": RSI_THRESHOLD,
-        "top_n": TOP_N,
+        "max_positions": MAX_POSITIONS,
+        "stop_loss_pct": STOP_LOSS_PCT * 100,
         "start_date": start_date.strftime("%Y-%m-%d"), "end_date": end_date.strftime("%Y-%m-%d"),
-        "num_rebalances": len(selections),
-        "cash_months": cash_months, "partial_months": partial_months, "full_months": full_months,
-        "avg_stocks_held": round(avg_stocks_held, 2),
-        "selections_sample": (selections[:4] + selections[-4:]) if len(selections) > 8 else selections,
+        "num_entries": len(entries), "num_exits": len(exits),
+        "stop_loss_exits": len(stop_loss_exits), "month_end_exits": len(month_end_exits),
+        "win_rate_pct": round(win_rate, 1) if win_rate is not None else None,
+        "avg_trade_pnl_pct": round(avg_pnl, 2) if avg_pnl is not None else None,
+        "events_sample": (events[:10] + events[-10:]) if len(events) > 20 else events,
         "rsi_rotation": {"equity_curve": series_to_points(norm(rotation_series)), **metrics(rotation_series)},
         "nifty": {"equity_curve": series_to_points(norm(nifty_series)), **metrics(nifty_series)},
         "midcap_etf": {"equity_curve": series_to_points(norm(midcap_series)), **metrics(midcap_series)},
@@ -205,22 +295,19 @@ def main():
     with open("results21.json", "w") as f:
         json.dump(results, f)
 
-    print("start", start_date.date(), "end", end_date.date(), "rebalances", len(selections))
-    print("eligible after mcap filter:", len(eligible_tickers), "of", len(closes.columns), "-- excluded:", len(excluded_by_cap))
+    print("start", start_date.date(), "end", end_date.date())
+    print("entries:", len(entries), "exits:", len(exits), "(stop-loss:", len(stop_loss_exits), ", month-end:", len(month_end_exits), ")")
+    print("win rate:", win_rate, "avg trade pnl:", avg_pnl)
     for k in ("rsi_rotation", "nifty", "midcap_etf"):
         v = results[k]
         print(f"[{k}] net_return={v['net_return_pct']:.1f}% cagr={v['cagr_pct']:.2f}% "
               f"mdd={v['max_drawdown_pct']:.1f}% uw_days={v['longest_underwater_days']}")
-    print(f"\ncash months (0 stocks): {cash_months} / {len(selections)}")
-    print(f"partial months (1-4 stocks): {partial_months}")
-    print(f"full months (5 stocks): {full_months}")
-    print(f"avg stocks held per month: {avg_stocks_held:.2f}")
-    print("\nfirst 4 rebalances:")
-    for s in selections[:4]:
-        print(" ", s["date"], s["num_crossed"], "crossed ->", s["tickers"], s["rsi_values"])
-    print("last 4 rebalances:")
-    for s in selections[-4:]:
-        print(" ", s["date"], s["num_crossed"], "crossed ->", s["tickers"], s["rsi_values"])
+    print("\nfirst 10 events:")
+    for e in events[:10]:
+        print(" ", e)
+    print("last 10 events:")
+    for e in events[-10:]:
+        print(" ", e)
 
 
 if __name__ == "__main__":

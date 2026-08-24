@@ -121,7 +121,7 @@ GROUPS = [
         "label": "Technical Signals",
         "items": [
             {"id": "22", "file": "22_rsi70_monthly_rotation.html", "icon": ICON_PULSE,
-             "title": "Monthly RSI-70 Crossover Rotation", "subtitle": "Top 5 NIFTY 500 stocks by monthly RSI crossing above 70"},
+             "title": "Monthly RSI-70 Crossover Rotation", "subtitle": "Any NSE stock above ₹2,000 Cr — up to 5 positions, 15% stop or month-end"},
         ],
     },
 ]

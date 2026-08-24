@@ -17,6 +17,9 @@ webapp/dist/
 webapp/dist-ssr/
 *.local
 
+# Claude Code session/runtime artifacts — not project content
+.claude/scheduled_tasks.lock
+
 # OS junk
 .DS_Store
 Thumbs.db
