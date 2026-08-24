@@ -1707,5 +1707,72 @@
     ]
    }
   ]
+ },
+ "23": {
+  "title": "Gold/Silver Absolute Momentum Rotation",
+  "subtitle": "Hold gold and/or silver only while each metal's own risk-adjusted 6m/12m momentum is positive; exit that leg to cash the moment it turns negative. Checked and rebalanced monthly.",
+  "source_line": "2007-05-31–2026-08-21 · 232 monthly rebalances Report generated 2026-08-24 18:15",
+  "pages": [
+   {
+    "file": "23_gold_silver_momentum_rotation.html",
+    "panels": [
+     {
+      "heading": "The rule, and the honest result up front",
+      "pills": [
+       {
+        "kind": "neutral",
+        "text": "in cash 26% of all months"
+       },
+       {
+        "kind": "negative",
+        "text": "lags buy-and-hold gold on both return and drawdown"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Every month-end, gold (GLD) and silver (SLV) are each scored independently on the exact same risk-adjusted momentum formula used everywhere else in this project — 6-month and 12-month return divided by trailing 1-year volatility, averaged 0.5/0.5 — except here the score is judged against zero, not against a broad universe's cross-sectional average (there are only two assets, too few for a cross-sectional Z-score to mean anything). A metal is held only while its own score is positive; the moment it turns negative, that leg exits fully to cash. Both can be held together (split 50/50 of invested capital), and both can be in cash together.",
+       "The honest result: this rule spent 26.3% of all months sitting in some cash, yet still compounded at +7.3% — worse than simply buying and holding gold alone (+10.2%), worse than a static 50/50 gold/silver blend rebalanced monthly (+9.9%), and its max drawdown (-55.3%) is actually deeper than gold's own buy-and-hold drawdown (-45.6%). The exit-to-cash rule did not protect capital here — see the honesty note below for why."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why exiting to cash didn't protect capital here",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "Gold and silver are highly correlated — both are precious metals that mostly rise and fall together on the same macro drivers (real rates, the dollar, safe-haven demand). A momentum rule built for a broad, DIVERSE universe of 30-500+ stocks works because when one stock's trend breaks, dozens of others are usually still working — the portfolio rotates into what's left. With only two, highly correlated assets, there's rarely anywhere for the rule to rotate INTO; when momentum breaks, it mostly means both metals are entering a choppy patch together, and the rule's response is to sit in cash and wait rather than find a new leader.",
+       "That shows up directly in the peak-to-trough dates: both the momentum rotation and GLD buy-and-hold peaked on the same day (2011-08-22) — the start of gold's real 2011-2015 bear market. GLD's own drawdown bottomed and began recovering by 2015-12-17. The momentum rule's trough came much later, 2019-05-02 — the monthly re-scoring kept flipping the position in and out of a genuinely choppy, directionless multi-year stretch (2015-2019) that a simple buy-and-hold just rode through without trading at all, each exit/re-entry realizing a small loss it didn't need to take.",
+       "The rule spent 26.3% of all months in some amount of cash — capital that earned zero return while it waited, on top of the whipsaw losses from re-entering. For two assets this correlated, being \"always in whichever one is stronger\" (relative momentum, never cash) or simply buying and holding both would very likely have beaten \"get out and wait\" — that's an untested alternative for a future report, not a claim proven here."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Only two assets are ever considered — there is no cash-substitute yield modeled (e.g. T-bill interest while sitting out), so every month in cash is treated as a flat 0% return, which flatters nothing and slightly understates any real-world cash allocation's return.",
+       "GLD and SLV are USD-denominated, global spot-tracking ETFs — unlike every other report in this project, no INR conversion is applied anywhere; this is a USD strategy shown in USD terms, not a claim about what an Indian investor's rupee return would have been after FX movement.",
+       "The momentum threshold is a fixed zero — untested alternatives (a small positive/negative buffer band to reduce whipsaw, or a longer lookback) could change how often the rule exits to cash and how the whipsaw cost above nets out.",
+       "Zero transaction costs, slippage, bid/ask spread, or taxes are modeled on any of the 232 monthly rebalance checks, even though many months triggered no actual trade (position unchanged from the prior month).",
+       "SLV's own history only starts 2006-04-28, roughly 1.5 years after GLD's 2004-11-18 listing — the backtest window here starts once both have 12 full months of trailing history to score against (2007-05-31), not at either ETF's own inception.",
+       "Prices are unadjusted close prices; GLD and SLV are physically-backed trusts with negligible dividend distributions, so this has minimal effect either way.",
+       "This is a single, fixed 19-year historical path through one specific gold bull/bear/bull cycle — a different window could show the momentum rule performing very differently, in either direction."
+      ]
+     }
+    ]
+   }
+  ]
  }
 }

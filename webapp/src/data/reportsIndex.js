@@ -14,6 +14,7 @@ const ICON_GRID = "M3,3h8v8h-8z M13,3h8v8h-8z M3,13h8v8h-8z M13,13h8v8h-8z";
 const ICON_SHIELD = "M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3z M9 12l2.2 2.2L15.5 9.5";
 const ICON_GLOBE = "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z M12 3c-3 4-3 14 0 18 M12 3c3 4 3 14 0 18 M3 12h18";
 const ICON_PULSE = "M3 12h5l2-6 4 12 2-6h5";
+const ICON_COINS = "M9,3a6,6 0 1 0 0,12a6,6 0 1 0 0,-12 M15,9a6,6 0 1 1 0,10.5a6,6 0 1 1 -6,-4.5";
 
 export const GROUPS = [
   {
@@ -91,6 +92,12 @@ export const GROUPS = [
     label: "Technical Signals",
     items: [
       { id: "22", file: "results21.json", icon: ICON_PULSE, title: "Monthly RSI-70 Crossover Rotation", subtitle: "Any NSE stock above ₹2,000 Cr — up to 5 positions, 15% stop or month-end" },
+    ],
+  },
+  {
+    label: "Commodities",
+    items: [
+      { id: "23", file: "results22.json", icon: ICON_COINS, title: "Gold/Silver Absolute Momentum Rotation", subtitle: "Hold each metal only while its own momentum is positive, else cash" },
     ],
   },
 ];

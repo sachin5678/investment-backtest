@@ -23,6 +23,7 @@ ICON_GRID = '<rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" w
 ICON_SHIELD = '<path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3z" fill="none"/><path d="M9 12l2.2 2.2L15.5 9.5" fill="none"/>'
 ICON_GLOBE = '<circle cx="12" cy="12" r="9" fill="none"/><ellipse cx="12" cy="12" rx="4" ry="9" fill="none"/><line x1="3" y1="12" x2="21" y2="12"/>'
 ICON_PULSE = '<polyline points="3,12 8,12 10,6 14,18 16,12 21,12" fill="none"/>'
+ICON_COINS = '<ellipse cx="9" cy="9" rx="6" ry="6" fill="none"/><path d="M15 9a6 6 0 0 1 0 10.5A6 6 0 0 1 9 15" fill="none"/>'
 
 GROUPS = [
     {
@@ -122,6 +123,13 @@ GROUPS = [
         "items": [
             {"id": "22", "file": "22_rsi70_monthly_rotation.html", "icon": ICON_PULSE,
              "title": "Monthly RSI-70 Crossover Rotation", "subtitle": "Any NSE stock above ₹2,000 Cr — up to 5 positions, 15% stop or month-end"},
+        ],
+    },
+    {
+        "label": "Commodities",
+        "items": [
+            {"id": "23", "file": "23_gold_silver_momentum_rotation.html", "icon": ICON_COINS,
+             "title": "Gold/Silver Absolute Momentum Rotation", "subtitle": "Hold each metal only while its own momentum is positive, else cash"},
         ],
     },
 ]
