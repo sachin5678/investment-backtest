@@ -6,6 +6,7 @@ import KpiTable from "../components/KpiTable";
 import SmoothChart from "../components/SmoothChart";
 import DrawdownChart from "../components/DrawdownChart";
 import ProseSection from "../components/ProseSection";
+import TradeLog from "../components/TradeLog";
 import Panel, { WhatThisShows } from "../components/Panel";
 
 const DATA_BASE = "./data/";
@@ -18,12 +19,16 @@ export default function ReportPage() {
   const [content, setContent] = useState(null);
   const [proseOpen, setProseOpen] = useState(false);
   const [error, setError] = useState(null);
+  const [trades, setTrades] = useState(null);
+  const [tradeStats, setTradeStats] = useState(null);
 
   useEffect(() => {
     setSeries(null);
     setContent(null);
     setProseOpen(false);
     setError(null);
+    setTrades(null);
+    setTradeStats(null);
     if (!item) return;
 
     Promise.all([
@@ -38,6 +43,11 @@ export default function ReportPage() {
         setSeries(found);
         setSymbol(raw.currency_symbol || "₹");
         setContent(allContent?.[id] ?? null);
+        // only present on reports that carry a full trade-by-trade log
+        // (currently just report 24) — every other report simply has no
+        // "trades" key and TradeLog renders nothing.
+        setTrades(raw.trades ?? null);
+        setTradeStats(raw.trade_stats ?? null);
       })
       .catch((e) => setError(e.message));
   }, [id, item]);
@@ -95,6 +105,8 @@ export default function ReportPage() {
         </WhatThisShows>
         <DrawdownChart series={series} />
       </Panel>
+
+      <TradeLog trades={trades} tradeStats={tradeStats} symbol={symbol} />
 
       <ProseSection content={content} open={proseOpen} onToggle={() => setProseOpen((v) => !v)} />
     </div>
