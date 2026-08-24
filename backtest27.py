@@ -1,20 +1,22 @@
 """
-Midcap150 Momentum 10 — WITH a 15% intra-period stop-loss overlay, vs. the
-original (no stop-loss) strategy, full 2008-2026 history.
+Midcap150 Momentum 10 — WITH an intra-period stop-loss overlay (both 15%
+and 30% thresholds tested), vs. the original (no stop-loss) strategy, full
+2008-2026 history.
 
 The original strategy (reports 11-19, 24, 25): equal-weight top 10 by 6m/12m
 risk-adjusted momentum, rebalanced June/December, holding every position
 until the NEXT scheduled rebalance no matter what happens to it in between.
 
 This report adds exactly ONE new rule on top of the identical
-selection/weighting logic: if a position falls 15% below its OWN entry
-price (the price at the rebalance when it was bought) at ANY point before
-its next scheduled rebalance, exit it immediately — do not wait for the
-rebalance. Uses the same realistic stop-loss fill methodology as report 22:
-checked via the day's intraday LOW (not just the close, which would miss an
-intraday breach that recovered by end of day), filled at min(Open, stop
-price) so an overnight gap-through isn't fabricated into a worse loss than
-the position could actually have been sold at.
+selection/weighting logic, tested at TWO thresholds: if a position falls
+15% (or 30%) below its OWN entry price (the price at the rebalance when it
+was bought) at ANY point before its next scheduled rebalance, exit it
+immediately — do not wait for the rebalance. Uses the same realistic
+stop-loss fill methodology as report 22: checked via the day's intraday LOW
+(not just the close, which would miss an intraday breach that recovered by
+end of day), filled at min(Open, stop price) so an overnight gap-through
+isn't fabricated into a worse loss than the position could actually have
+been sold at.
 
 Money freed by a stop-loss exit sits in cash (uninvested, 0% return) until
 the next regular rebalance — there is no rule here for reinvesting it into
@@ -30,7 +32,7 @@ from backtest13 import load_midcap150_closes, metrics
 
 TOP_N = 10
 MIN_ELIGIBLE = 30
-STOP_LOSS_PCT = 0.15
+STOP_LOSS_LEVELS = [0.15, 0.30]
 LOOKBACK_12M = 252
 
 
@@ -79,10 +81,11 @@ def build_original(closes, rbdates):
     return index_level.dropna()
 
 
-def build_with_stop(closes, lows, opens, rbdates):
+def build_with_stop(closes, lows, opens, rbdates, stop_loss_pct):
     """Same selection/weighting at every rebalance, but each individual
     position is monitored daily and exited immediately (not at the next
-    rebalance) the moment its own -15% stop is breached intraday."""
+    rebalance) the moment its own -stop_loss_pct stop is breached
+    intraday."""
     dates = closes.index
     rb_set = set(rbdates)
     date_pos = {d: i for i, d in enumerate(dates)}
@@ -110,7 +113,7 @@ def build_with_stop(closes, lows, opens, rbdates):
                 for tk in selected:
                     entry_price = float(price_today[tk])
                     positions[tk] = {"shares": dollar_each / entry_price, "entry_price": entry_price,
-                                       "stop_price": entry_price * (1 - STOP_LOSS_PCT), "entry_date": d}
+                                       "stop_price": entry_price * (1 - stop_loss_pct), "entry_date": d}
                 cash = 0.0
             index_level.iloc[i] = portfolio_value(price_today) if started else np.nan
             continue
@@ -161,7 +164,7 @@ def build_with_stop(closes, lows, opens, rbdates):
                 for tk in selected:
                     entry_price = float(price_today[tk])
                     positions[tk] = {"shares": dollar_each / entry_price, "entry_price": entry_price,
-                                       "stop_price": entry_price * (1 - STOP_LOSS_PCT), "entry_date": d}
+                                       "stop_price": entry_price * (1 - stop_loss_pct), "entry_date": d}
                 cash = 0.0
 
         index_level.iloc[i] = portfolio_value(closes.iloc[i])
@@ -182,30 +185,17 @@ def build_with_stop(closes, lows, opens, rbdates):
     return index_level.dropna(), trades
 
 
-def main():
-    closes = load_midcap150_closes()
-    nifty = fetch("^NSEI")
-    common = closes.index.intersection(nifty.index)
-    closes = closes.loc[common]
-
-    tickers = list(closes.columns)
-    lows = load_midcap150_field("Low", tickers).loc[closes.index, tickers]
-    opens = load_midcap150_field("Open", tickers).loc[closes.index, tickers]
-
-    rbdates = rebalance_dates(closes.index, months=(6, 12))
-
-    original = build_original(closes, rbdates)
-    with_stop, trades = build_with_stop(closes, lows, opens, rbdates)
-
-    common_idx = original.index.intersection(with_stop.index)
-    original = original.loc[common_idx]
-    with_stop = with_stop.loc[common_idx]
+def summarize(series, trades, common_idx):
+    series = series.loc[series.index.intersection(common_idx)]
 
     def norm(s):
         return s / s.iloc[0] * 100.0
 
-    original_norm = norm(original)
-    with_stop_norm = norm(with_stop)
+    mdd, peak, trough, uw = cumret_drawdown(series, pd.Series(1.0, index=series.index))
+
+    def cagr_of(s):
+        y = (s.index[-1] - s.index[0]).days / 365.25
+        return float((s.iloc[-1] / s.iloc[0]) ** (1 / y) * 100 - 100) if y > 0 else None
 
     stop_trades = [t for t in trades if t["reason"] == "stop_loss"]
     rebalance_trades = [t for t in trades if t["reason"] == "rebalance"]
@@ -214,31 +204,13 @@ def main():
     def avg(lst):
         return round(float(np.mean([t["pct_return"] for t in lst])), 2) if lst else None
 
-    mdd_o, peak_o, trough_o, uw_o = cumret_drawdown(original, pd.Series(1.0, index=original.index))
-    mdd_s, peak_s, trough_s, uw_s = cumret_drawdown(with_stop, pd.Series(1.0, index=with_stop.index))
-
-    def cagr_of(s):
-        y = (s.index[-1] - s.index[0]).days / 365.25
-        return float((s.iloc[-1] / s.iloc[0]) ** (1 / y) * 100 - 100) if y > 0 else None
-
-    results = {
-        "generated": pd.Timestamp.now().strftime("%Y-%m-%d %H:%M"),
-        "currency_symbol": CURRENCY_SYMBOL,
-        "stop_loss_pct": STOP_LOSS_PCT * 100,
-        "start_date": common_idx[0].strftime("%Y-%m-%d"), "end_date": common_idx[-1].strftime("%Y-%m-%d"),
-        "original": {
-            "equity_curve": series_to_points(original_norm),
-            "net_return_pct": float((original.iloc[-1] / original.iloc[0] - 1) * 100),
-            "cagr_pct": cagr_of(original),
-            "max_drawdown_pct": mdd_o, "max_drawdown_peak_date": peak_o, "max_drawdown_trough_date": trough_o,
-            "longest_underwater_days": uw_o,
-        },
-        "with_stop_loss": {
-            "equity_curve": series_to_points(with_stop_norm),
-            "net_return_pct": float((with_stop.iloc[-1] / with_stop.iloc[0] - 1) * 100),
-            "cagr_pct": cagr_of(with_stop),
-            "max_drawdown_pct": mdd_s, "max_drawdown_peak_date": peak_s, "max_drawdown_trough_date": trough_s,
-            "longest_underwater_days": uw_s,
+    return {
+        "metrics": {
+            "equity_curve": series_to_points(norm(series)),
+            "net_return_pct": float((series.iloc[-1] / series.iloc[0] - 1) * 100),
+            "cagr_pct": cagr_of(series),
+            "max_drawdown_pct": mdd, "max_drawdown_peak_date": peak, "max_drawdown_trough_date": trough,
+            "longest_underwater_days": uw,
         },
         "trade_stats": {
             "total_positions": len(trades),
@@ -252,16 +224,52 @@ def main():
         "stop_loss_trades_sample": (stop_trades[:10] + stop_trades[-10:]) if len(stop_trades) > 20 else stop_trades,
     }
 
+
+def main():
+    closes = load_midcap150_closes()
+    nifty = fetch("^NSEI")
+    common = closes.index.intersection(nifty.index)
+    closes = closes.loc[common]
+
+    tickers = list(closes.columns)
+    lows = load_midcap150_field("Low", tickers).loc[closes.index, tickers]
+    opens = load_midcap150_field("Open", tickers).loc[closes.index, tickers]
+
+    rbdates = rebalance_dates(closes.index, months=(6, 12))
+
+    original = build_original(closes, rbdates)
+
+    variants = {}
+    common_idx = original.index
+    per_level = {}
+    for lvl in STOP_LOSS_LEVELS:
+        series, trades = build_with_stop(closes, lows, opens, rbdates, lvl)
+        per_level[lvl] = (series, trades)
+        common_idx = common_idx.intersection(series.index)
+
+    original_summary = summarize(original, [], common_idx)
+    for lvl in STOP_LOSS_LEVELS:
+        series, trades = per_level[lvl]
+        variants[f"stop_{int(lvl*100)}"] = {"stop_loss_pct": lvl * 100, **summarize(series, trades, common_idx)}
+
+    results = {
+        "generated": pd.Timestamp.now().strftime("%Y-%m-%d %H:%M"),
+        "currency_symbol": CURRENCY_SYMBOL,
+        "start_date": common_idx[0].strftime("%Y-%m-%d"), "end_date": common_idx[-1].strftime("%Y-%m-%d"),
+        "original": original_summary["metrics"],
+        "variants": variants,
+    }
+
     with open("results26.json", "w") as f:
         json.dump(results, f, indent=2)
 
     print(f"window {results['start_date']} -> {results['end_date']}")
     print(f"original    CAGR {results['original']['cagr_pct']:.2f}% / DD {results['original']['max_drawdown_pct']:.1f}%")
-    print(f"with stop   CAGR {results['with_stop_loss']['cagr_pct']:.2f}% / DD {results['with_stop_loss']['max_drawdown_pct']:.1f}%")
-    ts = results["trade_stats"]
-    print(f"positions: {ts['total_positions']} total, {ts['stop_loss_exits']} stopped out ({ts['stop_loss_pct_of_positions']}%), "
-          f"{ts['rebalance_exits']} rode to rebalance, {ts['still_open']} still open")
-    print(f"avg stop-loss exit return {ts['avg_stop_loss_return']}%  avg rebalance-exit return {ts['avg_rebalance_exit_return']}%")
+    for key, v in variants.items():
+        m, ts = v["metrics"], v["trade_stats"]
+        print(f"{key} ({v['stop_loss_pct']:.0f}%)  CAGR {m['cagr_pct']:.2f}% / DD {m['max_drawdown_pct']:.1f}%  "
+              f"stopped {ts['stop_loss_exits']}/{ts['total_positions']} ({ts['stop_loss_pct_of_positions']}%)  "
+              f"avg stop {ts['avg_stop_loss_return']}%  avg rebalance {ts['avg_rebalance_exit_return']}%")
 
 
 if __name__ == "__main__":

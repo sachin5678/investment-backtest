@@ -1973,34 +1973,38 @@
   ]
  },
  "27": {
-  "title": "Midcap Momentum 10 — With a 15% Stop-Loss, vs. the Original",
-  "subtitle": "Same exact selection/weighting as reports 11-19, 24, 25 — but the moment a position falls 15% below its own entry price, it's exited immediately instead of waiting for the next June/December rebalance.",
-  "source_line": "2008-12-31–2026-08-24 · 360 total positions Report generated 2026-08-24 18:50",
+  "title": "Midcap Momentum 10 — Stop-Loss Overlay: 15% vs. 30%, vs. the Original",
+  "subtitle": "Same exact selection/weighting as reports 11-19, 24, 25 — but the moment a position falls a fixed % below its own entry price, it's exited immediately instead of waiting for the next June/December rebalance. Tested at two thresholds.",
+  "source_line": "2008-12-31–2026-08-24 · 360 total positions Report generated 2026-08-24 18:59",
   "pages": [
    {
     "file": "27_midcap_momentum10_stoploss_compare.html",
     "panels": [
      {
-      "heading": "The rule, and the honest result up front",
+      "heading": null,
       "pills": [
        {
-        "kind": "neutral",
-        "text": "43.3% of all positions got stopped out"
+        "kind": "negative",
+        "text": "15%: 43.3% of positions stopped out"
        },
        {
-        "kind": "negative",
-        "text": "the stop-loss makes this strategy meaningfully WORSE"
+        "kind": "assumption",
+        "text": "30%: 12.5% of positions stopped out"
+       },
+       {
+        "kind": "neutral",
+        "text": "a looser stop hurts less, but neither beats the original"
        }
       ],
       "what_this_shows": null,
       "paragraphs": [
-       "Everything about the strategy stays identical — same top-10 selection by 6m/12m risk-adjusted momentum, same equal weighting, same June/December rebalance — except now each position is watched every trading day. The moment its price touches 15% below where it was bought, it's sold immediately (using the day's intraday LOW to detect the breach, filled at the day's open if the stock gapped straight through the stop overnight — the same realistic-fill methodology as report 22's RSI rotation), and the proceeds sit in cash, uninvested, until the next scheduled rebalance.",
-       "Over the identical 2008-12-31–2026-08-24 window, adding the stop-loss cut CAGR from +40.6% down to +23.6% — while only trimming max drawdown from -35.1% to -32.5%. Of 360 total positions taken, 156 (43.3%) were stopped out at an average -15.3%, while the 198 that rode through to their scheduled rebalance averaged +34.9% — see the honesty note below for why cutting losers early here also cut off the strategy's own biggest winners."
+       "Everything about the strategy stays identical — same top-10 selection by 6m/12m risk-adjusted momentum, same equal weighting, same June/December rebalance — except each position is now watched every trading day, and exited the moment it touches a fixed % below its entry price (checked via intraday LOW, filled realistically at the day's open if it gapped through — same methodology as report 22's RSI rotation). Widening the stop from 15% to 30% cuts the CAGR damage roughly in half.",
+       "Original (no stop): +40.6% CAGR / -35.1% DD. 15% stop: +23.6% CAGR / -32.5% DD — 43.3% of all positions stopped out. 30% stop: +35.0% CAGR / -32.1% DD — only 12.5% stopped out. The looser 30% stop gives up much less return (5.6% points vs. 15%'s 17.0% points) for a very similar drawdown improvement — see the honesty note below."
       ],
       "list_items": []
      },
      {
-      "heading": "Why cutting losers early also cut the strategy's winners",
+      "heading": "Why the looser 30% stop is the better trade-off",
       "pills": [
        {
         "kind": "assumption",
@@ -2009,9 +2013,9 @@
       ],
       "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
       "paragraphs": [
-       "Midcap momentum picks are, by construction, already-volatile stocks that just had a strong 6-12 month run — the kind of names that can easily give back 15% in a sharp pullback WITHOUT that pullback meaning the underlying trend is actually over. A 15% stop on a 6-month holding period is tight enough to get triggered by ordinary volatility, not just genuine trend reversals — which is why 43.3% of all 360 positions taken over 18 years ended up stopped out.",
-       "The asymmetry is the whole story: positions that rode through to their scheduled rebalance averaged +34.9% — the strategy's real edge lives almost entirely in these multi-month winners. The stop-loss rule has no way to distinguish \"this stock is about to keep falling\" from \"this stock is about to dip 15% and then rally to +50% by the next rebalance\" — it exits both identically at -15%. Every position removed from the \"rode to rebalance\" bucket and moved into \"stopped out\" trades away a chance at that +34.9% average outcome for a guaranteed -15.3% loss, which is exactly why total CAGR fell so much more than drawdown improved.",
-       "This doesn't mean stop-losses never work — report 22's RSI rotation uses one successfully on a very different, shorter-holding-period strategy. It means a tight per-position stop is a poor fit specifically for a momentum strategy that already only checks in twice a year: it converts many of the ordinary swings a 6-month holding period is supposed to ride out into locked-in losses, without a correspondingly large reduction in the strategy's actual tail risk."
+       "Midcap momentum picks are, by construction, already-volatile stocks that just had a strong 6-12 month run — the kind of names that can easily give back 15% in an ordinary pullback WITHOUT the underlying trend actually being over. A 15% stop on a 6-month holding period is tight enough to get triggered by routine volatility, which is why 43.3% of all 360 positions taken over 18 years ended up stopped out at 15% — versus only 12.5% at 30%, where the stop is wide enough to mostly let ordinary swings play out and only fire on genuinely severe breakdowns.",
+       "That difference shows up directly in what each threshold gives up: positions stopped out at 15% averaged -15.3% versus the 198 that rode to rebalance averaging +34.9% — a huge gap between what got cut short and what the strategy's real edge lives in. At 30%, far fewer positions (45 vs. 156) get caught in that trade-off, which is exactly why 30%'s CAGR (+35.0%) sits so much closer to the original's (+40.6%) than 15%'s does (+23.6%).",
+       "Yet both thresholds land in almost the same place on drawdown (-32.5% vs. -32.1%) — meaning the EXTRA tail-risk protection the tighter 15% stop is supposedly buying, over and above what 30% already provides, turns out to be worth very little. For this specific strategy, a looser stop (or arguably no stop at all, per the original report 27 finding) is the better risk/reward trade-off than a tight one."
       ],
       "list_items": []
      },
@@ -2026,13 +2030,78 @@
       "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
       "paragraphs": [],
       "list_items": [
-       "Today's fixed NIFTY Midcap 150 constituent list is applied retroactively across the whole window for both variants equally (survivorship bias) — same disclosed approximation as every other reconstruction here.",
-       "Cash freed by a stop-loss exit sits idle (0% return) until the next scheduled rebalance — there is no rule tested here for immediately reinvesting it into another stock or the next-best momentum candidate mid-period, which could meaningfully change this result in either direction.",
-       "Only ONE stop-loss threshold (-15%) was tested — a wider stop (giving more room before exiting) or a narrower one were not tried; report 22's own -15% choice for a very different strategy is not evidence this specific number is optimal here.",
-       "Zero transaction costs, slippage, or taxes are modeled on either variant — the stop-loss version trades far more often (156 extra exits beyond the 198 the original strategy would have made anyway), so real-world costs would widen this gap further, not narrow it.",
+       "Today's fixed NIFTY Midcap 150 constituent list is applied retroactively across the whole window for all three variants equally (survivorship bias) — same disclosed approximation as every other reconstruction here.",
+       "Cash freed by a stop-loss exit sits idle (0% return) until the next scheduled rebalance for both thresholds — there is no rule tested here for immediately reinvesting it mid-period.",
+       "Only these two thresholds (15% and 30%) were tested — the true optimum could sit anywhere in between, above 30%, or the original \"no stop at all\" could remain best; this is not an exhaustive search.",
+       "Zero transaction costs, slippage, or taxes are modeled on any variant — both stop-loss versions trade more often than the original, so real-world costs would widen the gap against them further, not narrow it.",
        "Equal weighting (not free-float market-cap x momentum score) and no F&O-eligibility screen, same as every other reconstruction in this project.",
        "Prices are unadjusted; no dividends are modeled for any holding.",
-       "This is a single, fixed 18-year historical path — a different window, or a market regime with more genuine (non-recovering) crashes, could make the stop-loss look considerably better relative to the original than it does here."
+       "This is a single, fixed 18-year historical path — a different window, or a market regime with more genuine (non-recovering) crashes, could rank these three variants differently."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "28": {
+  "title": "\"NIFTY100 Momentum 5\" — A More Concentrated Variant",
+  "subtitle": "Same universe, formula, and June/December rebalance as report 12's \"NIFTY100 Momentum 10\" — just top 5 instead of top 10, equal-weighted. Not a real NSE index; a custom, clearly-labelled variant.",
+  "source_line": "2008-12-31–2026-08-21 · 36 rebalances Report generated 2026-08-24 19:01",
+  "pages": [
+   {
+    "file": "28_nifty100_momentum5.html",
+    "panels": [
+     {
+      "heading": "The concentration question, and the honest result up front",
+      "pills": [
+       {
+        "kind": "positive",
+        "text": "Momentum-5 beats Momentum-10 by 2.4pp CAGR"
+       },
+       {
+        "kind": "negative",
+        "text": "but with a 3.8pp deeper drawdown and longer underwater stretch"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Halving the portfolio from 10 stocks to 5, with no other change to the selection formula or rebalance schedule, is a direct test of whether concentrating a momentum bet into fewer, higher-conviction names pays off. Over 2008-12-31–2026-08-21, Momentum-5 compounded at +33.1% versus Momentum-10's +30.7% — a real, meaningful edge from concentration.",
+       "That edge is not free: Momentum-5's max drawdown (-39.1%) is deeper than Momentum-10's (-35.3%), and it spent longer underwater (909 days vs. 693 days) — exactly what basic diversification math predicts: fewer positions means each one's idiosyncratic move (good or bad) has twice the impact on the whole portfolio."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why concentration cuts both ways",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "Both portfolios use the identical formula to rank the same 100 stocks — Momentum-5 simply keeps only the top half of what Momentum-10 would have held. On average, whatever made those top 5 rank above positions 6-10 continued to be true often enough over 18 years for the extra concentration to pay off (2.4% points of extra CAGR). But that same logic means Momentum-5 has no cushion at all if even ONE of its 5 picks turns out to be a momentum trap (a stock whose recent strength was about to reverse) — a single bad pick is 20% of the book, versus 10% in the 10-stock version.",
+       "That's exactly the trade-off visible in the numbers: better average return, worse worst-case, and a longer stretch spent recovering from that worst case (909 days vs. 693 days). Neither number is \"wrong\" — this is the standard concentration-vs-diversification trade-off showing up in a real backtest, not a flaw in either construction."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Today's fixed NIFTY 100 constituent list is applied retroactively across the whole window (survivorship bias) — same disclosed approximation as report 12 and every other reconstruction in this project.",
+       "Equal weighting (not free-float market-cap x momentum score), same as report 12 — for a 5-stock book this makes each position's weight (20%) even more consequential than in the 10-stock version (10%).",
+       "No F&O-eligibility screen and June/December rebalance dates approximated as the last trading day of the month, same as report 12.",
+       "Zero transaction costs, slippage, or taxes modeled — a 5-stock book turning over completely at each rebalance is a more concentrated trading cost exposure per rupee invested than the 10-stock version, though the NUMBER of rebalances (36) is identical for both.",
+       "Prices are unadjusted; no dividends are modeled for any holding.",
+       "This is a single, fixed 18-year historical path — a different window could easily flip which of Momentum-5 or Momentum-10 comes out ahead; concentration amplifies whatever the underlying momentum signal did over THIS specific history, for better or worse."
       ]
      }
     ]

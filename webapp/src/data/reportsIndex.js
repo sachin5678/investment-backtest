@@ -55,6 +55,7 @@ export const GROUPS = [
       { id: "10", file: "results9.json", icon: ICON_BOLT, title: "SIP in a Momentum ETF", subtitle: "HDFCMOMENT.NS vs. midcap vs. NIFTY, ~2.8yr" },
       { id: "11", file: "results10.json", icon: ICON_FLASK, title: "Momentum Formula, 18 Years", subtitle: "NIFTY200/Top-30 reconstruction — survivorship-biased" },
       { id: "12", file: "results11.json", icon: ICON_FLASK, title: "“NIFTY100 Momentum 10”", subtitle: "Custom variant — not a real NSE index" },
+      { id: "28", file: "results27.json", icon: ICON_FLASK, title: "“NIFTY100 Momentum 5”", subtitle: "More concentrated: top 5 instead of top 10, vs. report 12" },
     ],
   },
   {

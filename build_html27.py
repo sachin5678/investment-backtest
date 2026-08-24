@@ -1,6 +1,7 @@
 """Builds 27_midcap_momentum10_stoploss_compare.html from results26.json.
 Same self-contained contract, smooth Catmull-Rom charts, dark palette as
-every other report."""
+every other report. Compares the original (no stop-loss) strategy against
+TWO stop-loss thresholds (15% and 30%) side by side."""
 import json
 import html
 from svg_charts import line_chart, area_underwater_chart, COL
@@ -20,6 +21,7 @@ PILL_NEG = PILL_BASE + " bg-[#F2643C]/15 text-[#F2643C] border border-[#F2643C]/
 PILL_ASSUM = PILL_BASE + ' bg-[#F2B03C]/15 text-[#F2B03C] border border-[#F2B03C]/40'
 PILL_NEUTRAL = PILL_BASE + " bg-[#7E97A0]/15 text-[#7E97A0] border border-[#7E97A0]/40"
 KIND_COLOR = {"positive": "#37F083", "negative": "#F2643C", "neutral": "#E6EDF0", "assumption": "#F2B03C"}
+VARIANT_COLOR = {"stop_15": "#F2643C", "stop_30": "#8B5CF6"}
 
 
 def pill(text, kind="assumption"):
@@ -80,19 +82,21 @@ def kpi_card(label, definition, cols):
 
 
 def build():
-    orig, stop = R["original"], R["with_stop_loss"]
-    ts = R["trade_stats"]
+    orig = R["original"]
+    v15, v30 = R["variants"]["stop_15"], R["variants"]["stop_30"]
+    m15, m30 = v15["metrics"], v30["metrics"]
+    ts15, ts30 = v15["trade_stats"], v30["trade_stats"]
     sym = R["currency_symbol"]
 
     header = f"""
     <header class="border-b border-[#1E3A45] bg-[#0F2630]/60 px-10 py-6">
       <div class="flex items-start justify-between gap-6">
         <div>
-          <h1 class="text-2xl font-bold text-[#E6EDF0]">Midcap Momentum 10 — With a {R['stop_loss_pct']:.0f}% Stop-Loss, vs. the Original</h1>
-          <p class="text-[#9FB4BB] text-sm mt-1">Same exact selection/weighting as reports 11-19, 24, 25 — but the moment a position falls {R['stop_loss_pct']:.0f}% below its own entry price, it's exited immediately instead of waiting for the next June/December rebalance.</p>
+          <h1 class="text-2xl font-bold text-[#E6EDF0]">Midcap Momentum 10 — Stop-Loss Overlay: 15% vs. 30%, vs. the Original</h1>
+          <p class="text-[#9FB4BB] text-sm mt-1">Same exact selection/weighting as reports 11-19, 24, 25 — but the moment a position falls a fixed % below its own entry price, it's exited immediately instead of waiting for the next June/December rebalance. Tested at two thresholds.</p>
         </div>
         <div class="text-right {MUTED} mono shrink-0">
-          {esc(R['start_date'])}–{esc(R['end_date'])} · {ts['total_positions']} total positions<br/>Report generated {esc(R['generated'])}
+          {esc(R['start_date'])}–{esc(R['end_date'])} · {ts15['total_positions']} total positions<br/>Report generated {esc(R['generated'])}
         </div>
       </div>
     </header>
@@ -102,25 +106,23 @@ def build():
     <div class="px-10 pt-6">
       <div class="{PANEL} border-2 border-[#F2643C]">
         <div class="flex items-center gap-2 mb-3">
-          <h2 class="text-lg font-bold text-[#E6EDF0]">The rule, and the honest result up front</h2>
-          {pill(f"{ts['stop_loss_pct_of_positions']}% of all positions got stopped out", 'neutral')}
-          {pill('the stop-loss makes this strategy meaningfully WORSE', 'negative')}
+          {pill(f"15%: {ts15['stop_loss_pct_of_positions']}% of positions stopped out", 'negative')}
+          {pill(f"30%: {ts30['stop_loss_pct_of_positions']}% of positions stopped out", 'assumption')}
+          {pill('a looser stop hurts less, but neither beats the original', 'neutral')}
         </div>
         <p class="text-[14px] text-[#E6EDF0] leading-relaxed mb-3">
           Everything about the strategy stays identical — same top-10 selection by 6m/12m risk-adjusted momentum, same equal weighting, same
-          June/December rebalance — except now each position is watched every trading day. The moment its price touches {R['stop_loss_pct']:.0f}%
-          below where it was bought, it's sold immediately (using the day's intraday LOW to detect the breach, filled at the day's open if the
-          stock gapped straight through the stop overnight — the same realistic-fill methodology as report 22's RSI rotation), and the proceeds
-          sit in cash, uninvested, until the next scheduled rebalance.
+          June/December rebalance — except each position is now watched every trading day, and exited the moment it touches a fixed % below its
+          entry price (checked via intraday LOW, filled realistically at the day's open if it gapped through — same methodology as report 22's
+          RSI rotation). Widening the stop from 15% to 30% cuts the CAGR damage roughly in half.
         </p>
         <p class="text-[14px] text-[#E6EDF0] leading-relaxed">
-          Over the identical {esc(R['start_date'])}–{esc(R['end_date'])} window, adding the stop-loss cut CAGR from
-          <span class="font-semibold">{pct(orig['cagr_pct'])}</span> down to <span class="font-semibold">{pct(stop['cagr_pct'])}</span> — while
-          only trimming max drawdown from {pct(orig['max_drawdown_pct'],1,signed=False)} to {pct(stop['max_drawdown_pct'],1,signed=False)}. Of
-          {ts['total_positions']} total positions taken, <span class="font-semibold">{ts['stop_loss_exits']} ({ts['stop_loss_pct_of_positions']}%)
-          were stopped out</span> at an average {pct(ts['avg_stop_loss_return'])}, while the {ts['rebalance_exits']} that rode through to their
-          scheduled rebalance averaged <span class="font-semibold">{pct(ts['avg_rebalance_exit_return'])}</span> — see the honesty note below for
-          why cutting losers early here also cut off the strategy's own biggest winners.
+          Original (no stop): <span class="font-semibold">{pct(orig['cagr_pct'])} CAGR / {pct(orig['max_drawdown_pct'],1,signed=False)} DD</span>.
+          15% stop: <span class="font-semibold">{pct(m15['cagr_pct'])} CAGR / {pct(m15['max_drawdown_pct'],1,signed=False)} DD</span> —
+          {ts15['stop_loss_pct_of_positions']}% of all positions stopped out. 30% stop: <span class="font-semibold">{pct(m30['cagr_pct'])} CAGR /
+          {pct(m30['max_drawdown_pct'],1,signed=False)} DD</span> — only {ts30['stop_loss_pct_of_positions']}% stopped out. The looser 30% stop
+          gives up much less return ({pct(orig['cagr_pct'] - m30['cagr_pct'], 1, signed=False)} points vs. 15%'s
+          {pct(orig['cagr_pct'] - m15['cagr_pct'], 1, signed=False)} points) for a very similar drawdown improvement — see the honesty note below.
         </p>
       </div>
     </div>
@@ -128,18 +130,20 @@ def build():
 
     kpis = [
         kpi_card("CAGR", "Compound annual growth rate, identical window.",
-                  [("Original (no stop-loss)", pct(orig["cagr_pct"]), win_loss_kind(orig["cagr_pct"])),
-                   (f"With {R['stop_loss_pct']:.0f}% stop-loss", pct(stop["cagr_pct"]), win_loss_kind(stop["cagr_pct"]))]),
+                  [("Original (no stop)", pct(orig["cagr_pct"]), win_loss_kind(orig["cagr_pct"])),
+                   ("15% stop", pct(m15["cagr_pct"]), win_loss_kind(m15["cagr_pct"])),
+                   ("30% stop", pct(m30["cagr_pct"]), win_loss_kind(m30["cagr_pct"]))]),
         kpi_card("Max drawdown", "Largest peak-to-trough decline over the same window.",
-                  [("Original (no stop-loss)", pct(orig["max_drawdown_pct"], 1, signed=False), "negative"),
-                   (f"With {R['stop_loss_pct']:.0f}% stop-loss", pct(stop["max_drawdown_pct"], 1, signed=False), "negative")]),
+                  [("Original (no stop)", pct(orig["max_drawdown_pct"], 1, signed=False), "negative"),
+                   ("15% stop", pct(m15["max_drawdown_pct"], 1, signed=False), "negative"),
+                   ("30% stop", pct(m30["max_drawdown_pct"], 1, signed=False), "negative")]),
         kpi_card("Net return", f"{esc(R['start_date'])} to {esc(R['end_date'])}, base 100.",
-                  [("Original (no stop-loss)", pct(orig["net_return_pct"]), win_loss_kind(orig["net_return_pct"])),
-                   (f"With {R['stop_loss_pct']:.0f}% stop-loss", pct(stop["net_return_pct"]), win_loss_kind(stop["net_return_pct"]))]),
-        kpi_card("Position outcomes", "How every position taken over 18 years actually ended.",
-                  [("Stopped out", f"{ts['stop_loss_exits']} ({ts['stop_loss_pct_of_positions']}%)", "negative"),
-                   ("Rode to rebalance", f"{ts['rebalance_exits']}", "positive"),
-                   ("Still open", f"{ts['still_open']}", "neutral")]),
+                  [("Original (no stop)", pct(orig["net_return_pct"]), win_loss_kind(orig["net_return_pct"])),
+                   ("15% stop", pct(m15["net_return_pct"]), win_loss_kind(m15["net_return_pct"])),
+                   ("30% stop", pct(m30["net_return_pct"]), win_loss_kind(m30["net_return_pct"]))]),
+        kpi_card("Stopped-out share of all positions", "How many of every position taken over 18 years got stopped out early.",
+                  [("15% stop", f"{ts15['stop_loss_exits']} ({ts15['stop_loss_pct_of_positions']}%)", "negative"),
+                   ("30% stop", f"{ts30['stop_loss_exits']} ({ts30['stop_loss_pct_of_positions']}%)", "assumption")]),
     ]
     kpi_grid = f'<div class="grid grid-cols-2 gap-4 mt-6">{"".join(kpis)}</div>'
 
@@ -150,13 +154,14 @@ def build():
 
     full_table = f"""
     <div class="{PANEL} mt-6">
-      <h3 class="text-base font-bold text-[#E6EDF0] mb-1">Original vs. with stop-loss</h3>
-      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — the exact same strategy, identical {esc(R['start_date'])}–{esc(R['end_date'])} window, only the exit rule changes.</p>
+      <h3 class="text-base font-bold text-[#E6EDF0] mb-1">Original vs. both stop-loss thresholds</h3>
+      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — the exact same strategy, identical {esc(R['start_date'])}–{esc(R['end_date'])} window, only the exit rule and threshold change.</p>
       <table class="data-table">
         <thead><tr><th>Series</th><th>Net return</th><th>CAGR</th><th>Max drawdown</th><th>Longest underwater</th></tr></thead>
         <tbody>
           {row("Original — no stop-loss, hold to rebalance", orig)}
-          {row(f"With {R['stop_loss_pct']:.0f}% intra-period stop-loss", stop)}
+          {row("With 15% intra-period stop-loss", m15)}
+          {row("With 30% intra-period stop-loss", m30)}
         </tbody>
       </table>
     </div>
@@ -164,13 +169,14 @@ def build():
 
     eq_series = [
         {"name": "Original (no stop-loss)", "color": COL["positive"], "points": orig["equity_curve"]},
-        {"name": f"With {R['stop_loss_pct']:.0f}% stop-loss", "color": COL["negative"], "points": stop["equity_curve"]},
+        {"name": "30% stop-loss", "color": VARIANT_COLOR["stop_30"], "points": m30["equity_curve"]},
+        {"name": "15% stop-loss", "color": VARIANT_COLOR["stop_15"], "points": m15["equity_curve"]},
     ]
     eq_svg, eq_legend = line_chart(eq_series, height=460, value_fmt=lambda v: f"{v:,.0f}", chart_id="eq_27")
     eq_panel = f"""
     <div class="{PANEL} mt-6">
       <h3 class="text-base font-bold text-[#E6EDF0] mb-1">Growth of 100 — {esc(R['start_date'])} to {esc(R['end_date'])}</h3>
-      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — the original strategy (green) pulls decisively ahead of the stop-loss version (red) for almost the entire 18-year window, not just at the very end.</p>
+      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — the original strategy (green) pulls ahead of both stop-loss versions; the 30% stop (violet) tracks it much more closely than the tighter 15% stop (red), which falls behind earliest and by the widest margin.</p>
       <div class="flex items-center mb-2">{eq_legend}</div>
       {eq_svg}
     </div>
@@ -185,13 +191,14 @@ def build():
 
     dd_series = [
         {"name": "Original (no stop-loss)", "color": COL["positive"], "points": dd_points(orig["equity_curve"])},
-        {"name": f"With {R['stop_loss_pct']:.0f}% stop-loss", "color": COL["negative"], "points": dd_points(stop["equity_curve"])},
+        {"name": "30% stop-loss", "color": VARIANT_COLOR["stop_30"], "points": dd_points(m30["equity_curve"])},
+        {"name": "15% stop-loss", "color": VARIANT_COLOR["stop_15"], "points": dd_points(m15["equity_curve"])},
     ]
     dd_svg, dd_legend = area_underwater_chart(dd_series, height=260, chart_id="dd_27")
     dd_panel = f"""
     <div class="{PANEL} mt-6">
       <h3 class="text-base font-bold text-[#E6EDF0] mb-1">Drawdown comparison</h3>
-      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — the stop-loss version's drawdown ({pct(stop['max_drawdown_pct'],1,signed=False)}) is only modestly shallower than the original's ({pct(orig['max_drawdown_pct'],1,signed=False)}) — a small risk reduction bought at a very large cost in return.</p>
+      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — both stop-loss thresholds land in a similar place on drawdown ({pct(m15['max_drawdown_pct'],1,signed=False)} at 15%, {pct(m30['max_drawdown_pct'],1,signed=False)} at 30%) despite the 30% stop giving up far less return than the 15% stop — the tighter stop's extra return sacrifice buys almost no extra drawdown protection.</p>
       <div class="flex items-center mb-2">{dd_legend}</div>
       {dd_svg}
     </div>
@@ -201,46 +208,50 @@ def build():
         return f"""<tr class="stop-row"><td>{esc(t['ticker'])}</td><td>{esc(t['entry_date'])}</td><td>{sym}{t['entry_price']:,.2f}</td>
         <td>{esc(t['exit_date'])}</td><td>{sym}{t['exit_price']:,.2f}</td><td>{pct(t['pct_return'])}</td></tr>"""
 
-    sample = R["stop_loss_trades_sample"]
-    stoploss_sample_panel = f"""
-    <div class="{PANEL} mt-6">
-      <div class="flex items-center justify-between mb-1">
-        <h3 class="text-base font-bold text-[#E6EDF0]">Sample of stop-loss exits</h3>
-        {pill(f"first 10 and last 10 of {ts['stop_loss_exits']} shown", 'neutral')}
-      </div>
-      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — every row here is a position that touched -{R['stop_loss_pct']:.0f}% intraday and was exited immediately, rather than being given until the next rebalance to recover. Note how tightly clustered the returns are right around -15% — that's the stop mechanism working exactly as designed, not noise.</p>
-      <div style="overflow-x:auto">
-      <table class="data-table">
-        <thead><tr><th style="text-align:left">Stock</th><th>Bought</th><th>Buy price</th><th>Stopped out</th><th>Exit price</th><th>Return</th></tr></thead>
-        <tbody>{''.join(trade_row(t) for t in sample)}</tbody>
-      </table>
-      </div>
-    </div>
-    """
+    def sample_panel(variant_key, label, sample, ts):
+        return f"""
+        <div class="{PANEL} mt-6">
+          <div class="flex items-center justify-between mb-1">
+            <h3 class="text-base font-bold text-[#E6EDF0]">Sample of {label} stop-loss exits</h3>
+            {pill(f"first 10 and last 10 of {ts['stop_loss_exits']} shown", 'neutral')}
+          </div>
+          <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — every row is a position that touched -{v15['stop_loss_pct'] if variant_key=='stop_15' else v30['stop_loss_pct']:.0f}% intraday and was exited immediately. Returns cluster tightly around the threshold — that's the stop mechanism working as designed, not noise.</p>
+          <div style="overflow-x:auto">
+          <table class="data-table">
+            <thead><tr><th style="text-align:left">Stock</th><th>Bought</th><th>Buy price</th><th>Stopped out</th><th>Exit price</th><th>Return</th></tr></thead>
+            <tbody>{''.join(trade_row(t) for t in sample)}</tbody>
+          </table>
+          </div>
+        </div>
+        """
+
+    stoploss_sample_panels = sample_panel("stop_15", "15%", v15["stop_loss_trades_sample"], ts15) + \
+        sample_panel("stop_30", "30%", v30["stop_loss_trades_sample"], ts30)
 
     honesty_note = f"""
     <div class="{PANEL} mt-6 border-[#F2B03C]/40">
-      <div class="flex items-center gap-2 mb-2"><h3 class="text-base font-bold text-[#E6EDF0]">Why cutting losers early also cut the strategy's winners</h3>{pill('framing', 'assumption')}</div>
+      <div class="flex items-center gap-2 mb-2"><h3 class="text-base font-bold text-[#E6EDF0]">Why the looser 30% stop is the better trade-off</h3>{pill('framing', 'assumption')}</div>
       <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — the mechanism, not just the scoreboard.</p>
       <p class="text-[13.5px] text-[#C9D6DA] leading-relaxed mb-3">
         Midcap momentum picks are, by construction, already-volatile stocks that just had a strong 6-12 month run — the kind of names that can
-        easily give back 15% in a sharp pullback WITHOUT that pullback meaning the underlying trend is actually over. A {R['stop_loss_pct']:.0f}%
-        stop on a 6-month holding period is tight enough to get triggered by ordinary volatility, not just genuine trend reversals — which is why
-        {ts['stop_loss_pct_of_positions']}% of all {ts['total_positions']} positions taken over 18 years ended up stopped out.
+        easily give back 15% in an ordinary pullback WITHOUT the underlying trend actually being over. A 15% stop on a 6-month holding period is
+        tight enough to get triggered by routine volatility, which is why {ts15['stop_loss_pct_of_positions']}% of all
+        {ts15['total_positions']} positions taken over 18 years ended up stopped out at 15% — versus only {ts30['stop_loss_pct_of_positions']}%
+        at 30%, where the stop is wide enough to mostly let ordinary swings play out and only fire on genuinely severe breakdowns.
       </p>
       <p class="text-[13.5px] text-[#C9D6DA] leading-relaxed mb-3">
-        The asymmetry is the whole story: positions that rode through to their scheduled rebalance averaged
-        <span class="font-semibold">{pct(ts['avg_rebalance_exit_return'])}</span> — the strategy's real edge lives almost entirely in these
-        multi-month winners. The stop-loss rule has no way to distinguish "this stock is about to keep falling" from "this stock is about to dip
-        15% and then rally to +50% by the next rebalance" — it exits both identically at -15%. Every position removed from the "rode to
-        rebalance" bucket and moved into "stopped out" trades away a chance at that {pct(ts['avg_rebalance_exit_return'])} average outcome for a
-        guaranteed {pct(ts['avg_stop_loss_return'])} loss, which is exactly why total CAGR fell so much more than drawdown improved.
+        That difference shows up directly in what each threshold gives up: positions stopped out at 15% averaged
+        <span class="font-semibold">{pct(ts15['avg_stop_loss_return'])}</span> versus the {ts15['rebalance_exits']} that rode to rebalance
+        averaging <span class="font-semibold">{pct(ts15['avg_rebalance_exit_return'])}</span> — a huge gap between what got cut short and what
+        the strategy's real edge lives in. At 30%, far fewer positions ({ts30['stop_loss_exits']} vs. {ts15['stop_loss_exits']}) get caught in
+        that trade-off, which is exactly why 30%'s CAGR ({pct(m30['cagr_pct'])}) sits so much closer to the original's ({pct(orig['cagr_pct'])})
+        than 15%'s does ({pct(m15['cagr_pct'])}).
       </p>
       <p class="text-[13.5px] text-[#C9D6DA] leading-relaxed">
-        This doesn't mean stop-losses never work — report 22's RSI rotation uses one successfully on a very different, shorter-holding-period
-        strategy. It means a tight per-position stop is a poor fit specifically for a momentum strategy that already only checks in twice a
-        year: it converts many of the ordinary swings a 6-month holding period is supposed to ride out into locked-in losses, without a
-        correspondingly large reduction in the strategy's actual tail risk.
+        Yet both thresholds land in almost the same place on drawdown ({pct(m15['max_drawdown_pct'],1,signed=False)} vs.
+        {pct(m30['max_drawdown_pct'],1,signed=False)}) — meaning the EXTRA tail-risk protection the tighter 15% stop is supposedly buying, over
+        and above what 30% already provides, turns out to be worth very little. For this specific strategy, a looser stop (or arguably no stop
+        at all, per the original report 27 finding) is the better risk/reward trade-off than a tight one.
       </p>
     </div>
     """
@@ -253,13 +264,13 @@ def build():
       </div>
       <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — every simplification behind this backtest.</p>
       <ul class="text-[13px] text-[#C9D6DA] list-disc pl-5 leading-relaxed">
-        <li class="mb-1.5">Today's fixed NIFTY Midcap 150 constituent list is applied retroactively across the whole window for both variants equally (survivorship bias) — same disclosed approximation as every other reconstruction here.</li>
-        <li class="mb-1.5">Cash freed by a stop-loss exit sits idle (0% return) until the next scheduled rebalance — there is no rule tested here for immediately reinvesting it into another stock or the next-best momentum candidate mid-period, which could meaningfully change this result in either direction.</li>
-        <li class="mb-1.5">Only ONE stop-loss threshold (-15%) was tested — a wider stop (giving more room before exiting) or a narrower one were not tried; report 22's own -15% choice for a very different strategy is not evidence this specific number is optimal here.</li>
-        <li class="mb-1.5">Zero transaction costs, slippage, or taxes are modeled on either variant — the stop-loss version trades far more often ({ts['stop_loss_exits']} extra exits beyond the {ts['rebalance_exits']} the original strategy would have made anyway), so real-world costs would widen this gap further, not narrow it.</li>
+        <li class="mb-1.5">Today's fixed NIFTY Midcap 150 constituent list is applied retroactively across the whole window for all three variants equally (survivorship bias) — same disclosed approximation as every other reconstruction here.</li>
+        <li class="mb-1.5">Cash freed by a stop-loss exit sits idle (0% return) until the next scheduled rebalance for both thresholds — there is no rule tested here for immediately reinvesting it mid-period.</li>
+        <li class="mb-1.5">Only these two thresholds (15% and 30%) were tested — the true optimum could sit anywhere in between, above 30%, or the original "no stop at all" could remain best; this is not an exhaustive search.</li>
+        <li class="mb-1.5">Zero transaction costs, slippage, or taxes are modeled on any variant — both stop-loss versions trade more often than the original, so real-world costs would widen the gap against them further, not narrow it.</li>
         <li class="mb-1.5">Equal weighting (not free-float market-cap x momentum score) and no F&O-eligibility screen, same as every other reconstruction in this project.</li>
         <li class="mb-1.5">Prices are unadjusted; no dividends are modeled for any holding.</li>
-        <li class="mb-1.5">This is a single, fixed 18-year historical path — a different window, or a market regime with more genuine (non-recovering) crashes, could make the stop-loss look considerably better relative to the original than it does here.</li>
+        <li class="mb-1.5">This is a single, fixed 18-year historical path — a different window, or a market regime with more genuine (non-recovering) crashes, could rank these three variants differently.</li>
       </ul>
     </div>
     """
@@ -272,7 +283,7 @@ def build():
       {full_table}
       {eq_panel}
       {dd_panel}
-      {stoploss_sample_panel}
+      {stoploss_sample_panels}
       {honesty_note}
       {limitations}
     </div>

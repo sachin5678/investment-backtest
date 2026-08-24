@@ -76,6 +76,8 @@ GROUPS = [
              "title": "Momentum Formula, 18 Years", "subtitle": "NIFTY200/Top-30 reconstruction — survivorship-biased"},
             {"id": "12", "file": "12_momentum10_reconstruction.html", "icon": ICON_FLASK,
              "title": "“NIFTY100 Momentum 10”", "subtitle": "Custom variant — not a real NSE index"},
+            {"id": "28", "file": "28_nifty100_momentum5.html", "icon": ICON_FLASK,
+             "title": "“NIFTY100 Momentum 5”", "subtitle": "More concentrated: top 5 instead of top 10, vs. report 12"},
         ],
     },
     {
