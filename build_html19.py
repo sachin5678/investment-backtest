@@ -117,7 +117,7 @@ def build():
           <p class="text-[#9FB4BB] text-sm mt-1">Instead of picking momentum stocks out of one fixed index, rank NIFTY 500's sectors by their OWN momentum first, then take the top 3 momentum stocks from whichever sector currently leads.</p>
         </div>
         <div class="text-right {MUTED} mono shrink-0">
-          {R['universe_size']}-stock universe, {R['num_sectors_used']} sectors (Yahoo Finance classification), {esc(R['start_date'])}–{esc(R['end_date'])}<br/>Report generated {esc(R['generated'])}
+          {R['universe_size']}-stock universe, {R['num_sectors_used']} sectors (third-party classification), {esc(R['start_date'])}–{esc(R['end_date'])}<br/>Report generated {esc(R['generated'])}
         </div>
       </div>
     </header>
@@ -132,7 +132,7 @@ def build():
         </div>
         <p class="text-[14px] text-[#E6EDF0] leading-relaxed mb-3">
           Every earlier momentum reconstruction in this project (reports 11, 12, 14, 16-18) fixes a universe first (NIFTY 200, Midcap 150, NIFTY 500...) and
-          ranks stocks within it. This one flips that order: at each rebalance, first rank NIFTY 500's 11 Yahoo-classified sectors by their own average
+          ranks stocks within it. This one flips that order: at each rebalance, first rank NIFTY 500's 11 third-party-classified sectors by their own average
           momentum score, then take the top 3 momentum stocks from ONLY the single strongest sector (or top 2 sectors, in the second variant) —
           a bet that sector leadership is itself a useful, exploitable signal on top of stock-level momentum.
         </p>
@@ -349,7 +349,7 @@ def build():
       </div>
       <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — every simplification behind this reconstruction.</p>
       <ul class="text-[13px] text-[#C9D6DA] list-disc pl-5 leading-relaxed">
-        <li class="mb-1.5">Sector tags are Yahoo Finance's own present-day classification, applied retroactively to 2008 — NSE does not publish a fetchable sector taxonomy in this project's data sources; a company's ACTUAL sector rarely changes, but this is still a fixed, single-snapshot label used across the whole history, same style of assumption as every quality/fundamentals report in this series.</li>
+        <li class="mb-1.5">Sector tags are a third-party present-day classification, applied retroactively to 2008 — NSE does not publish a fetchable sector taxonomy in this project's data sources; a company's ACTUAL sector rarely changes, but this is still a fixed, single-snapshot label used across the whole history, same style of assumption as every quality/fundamentals report in this series.</li>
         <li class="mb-1.5">Sector momentum is a simple (equal-weighted) average of member stocks' Z-scores — a judgment call, not an NSE-published formula (sector rotation isn't a real NSE index methodology at all).</li>
         <li class="mb-1.5">Survivorship bias — today's fixed NIFTY 500 constituent list, applied retroactively to 2008, same as every reconstruction in this project.</li>
         <li class="mb-1.5">Equal-weighted stock picks (33.3% or 16.7% each); no free-float-market-cap × score weighting; no F&O-eligibility screen.</li>

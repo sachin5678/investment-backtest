@@ -124,7 +124,7 @@ def build():
           <p class="text-[#9FB4BB] text-sm mt-1">₹1,000/month into midcap, always — except every month the SIP date falls while midcap is more than 15% below its all-time high, that month's contribution doubles to ₹2,000. Reverts to ₹1,000 once midcap sets a new all-time high.</p>
         </div>
         <div class="text-right {MUTED} mono shrink-0">
-          Data: Yahoo Finance daily OHLC via yfinance — midcap {esc(R['midcap_ticker'])}, NIFTY ^NSEI<br/>Report generated {esc(R['generated'])}
+          Data: daily OHLC price data — midcap {esc(R['midcap_ticker'])}, NIFTY ^NSEI<br/>Report generated {esc(R['generated'])}
         </div>
       </div>
     </header>
@@ -313,7 +313,7 @@ def build():
       <ul class="text-[13px] text-[#C9D6DA] list-disc pl-5 leading-relaxed">
         <li class="mb-1.5">Only {len(strat_f['episodes'])} drawdown episodes exist in this data — the "best of three" ranking above is not a statistically meaningful comparison, just what happened to occur on this one historical path.</li>
         <li class="mb-1.5">The disarm-on-new-ATH hysteresis was not specified by you — it's carried over from the last two reports for consistency and for the same reason (avoiding rapid on/off flickering around the -15% line).</li>
-        <li class="mb-1.5">The midcap ETF's Yahoo history starts {esc(R['start_date'])}, so — as in the last two reports — the 2008 and 2011 crashes are entirely absent.</li>
+        <li class="mb-1.5">The midcap ETF's available price history starts {esc(R['start_date'])}, so — as in the last two reports — the 2008 and 2011 crashes are entirely absent.</li>
         <li class="mb-1.5">The monthly SIP date is assumed to be the first trading day of each calendar month; the doubled/normal amount is decided by the state as of that same day's close.</li>
         <li class="mb-1.5">The NIFTY 50 vanilla-SIP benchmark is frictionless only; the midcap portfolios are shown in both cost variants.</li>
         <li class="mb-1.5">The cost-loaded variant models only a flat 0.05% commission and a fixed one-tick slippage per contribution — no bid-ask spread widening, no market impact, no India-specific transaction taxes, no ETF tracking error vs. the actual NIFTY Midcap 150 index.</li>

@@ -21,6 +21,7 @@ ICON_BOLT = '<polygon points="13,2 4,14 11,14 9,22 20,10 13,10"/>'
 ICON_FLASK = '<path d="M9 2v6.5l-5.2 9A2 2 0 0 0 5.6 21h12.8a2 2 0 0 0 1.8-3.5L15 8.5V2" fill="none"/><line x1="7" y1="2" x2="17" y2="2"/><line x1="8" y1="15" x2="16" y2="15"/>'
 ICON_GRID = '<rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/>'
 ICON_SHIELD = '<path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3z" fill="none"/><path d="M9 12l2.2 2.2L15.5 9.5" fill="none"/>'
+ICON_GLOBE = '<circle cx="12" cy="12" r="9" fill="none"/><ellipse cx="12" cy="12" rx="4" ry="9" fill="none"/><line x1="3" y1="12" x2="21" y2="12"/>'
 
 GROUPS = [
     {
@@ -106,6 +107,13 @@ GROUPS = [
         "items": [
             {"id": "20", "file": "20_momentum_gold_catch_blend.html", "icon": ICON_SHIELD,
              "title": "Momentum + Gold, With a Drawdown Catch", "subtitle": "-20% drawdown sells all gold into momentum, until a full recovery"},
+        ],
+    },
+    {
+        "label": "Beyond India",
+        "items": [
+            {"id": "21", "file": "21_nasdaq100_momentum10.html", "icon": ICON_GLOBE,
+             "title": "“NASDAQ100 Momentum 10”", "subtitle": "The same formula, applied to the Nasdaq-100 since 2000"},
         ],
     },
 ]

@@ -1,4 +1,4 @@
-export default function Icon({ path, className = "w-[18px] h-[18px]" }) {
+export default function Icon({ path, className = "w-[18px] h-[18px]", style }) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -8,6 +8,7 @@ export default function Icon({ path, className = "w-[18px] h-[18px]" }) {
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
+      style={style}
       aria-hidden="true"
     >
       <path d={path} />

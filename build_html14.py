@@ -93,7 +93,7 @@ def build():
           <p class="text-[#9FB4BB] text-sm mt-1">Same real NSE momentum formula applied to NIFTY Midcap 150, top 20 instead of the real index's top 50 — then a 50% momentum / 50% gold portfolio, rebalanced semi-annually.</p>
         </div>
         <div class="text-right {MUTED} mono shrink-0">
-          Data: Yahoo Finance daily OHLC for {R['universe_size']} NIFTY Midcap 150 constituents + {esc(R['gold_ticker'])} + ^NSEI + MID150BEES.NS<br/>Report generated {esc(R['generated'])}
+          Data: daily OHLC price data for {R['universe_size']} NIFTY Midcap 150 constituents + {esc(R['gold_ticker'])} + ^NSEI + MID150BEES.NS<br/>Report generated {esc(R['generated'])}
         </div>
       </div>
     </header>
@@ -117,7 +117,7 @@ def build():
           reconstruction so far.
         </p>
         <p class="text-[14px] text-[#E6EDF0] leading-relaxed">
-          <span class="font-semibold">Third, a data-quality fix:</span> the gold ETF's raw Yahoo Finance data has a 2-day glitch (2019-12-19/20) where the
+          <span class="font-semibold">Third, a data-quality fix:</span> the gold ETF's raw source data has a 2-day glitch (2019-12-19/20) where the
           price briefly shows a fake ~99% crash and recovery — verified by hand and excluded before running any of the numbers below (the same kind of fix
           applied to the momentum ETF's listing-day artifact in an earlier report).
         </p>

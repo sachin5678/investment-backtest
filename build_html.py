@@ -133,7 +133,7 @@ DEFINITIONS_STRIP = f"""
 def limitations_panel(extra_points=None):
     points = [
         "This is a single, fixed rule set tested once over history — there is no out-of-sample test, no walk-forward validation, and no check for whether 20/10-day lookbacks were curve-fit to this data.",
-        "Prices are Yahoo Finance's raw (unadjusted) Close/High/Low — QQQ dividends are not modelled or reinvested anywhere in this report, including the buy-and-hold comparison.",
+        "Prices are the raw (unadjusted) Close/High/Low from our data source — QQQ dividends are not modelled or reinvested anywhere in this report, including the buy-and-hold comparison.",
         "Execution is assumed to always fill at the next bar's open, in full, regardless of gap size, liquidity, or halt — real fills could be materially worse on large gaps.",
         "NIFTY 50 is backtested on the raw index level (^NSEI), which is not directly tradable. A real implementation would need futures, options, or an ETF — each with its own costs, tick size, and tracking error not modelled here.",
         "The cost-loaded variant models only a flat 0.05% commission and a fixed one-tick slippage per fill. It does not model bid-ask spread widening, market impact from larger orders, financing/borrow cost, or India-specific transaction taxes (STT, stamp duty, GST on brokerage).",
@@ -265,7 +265,7 @@ def build_page1():
           <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — account equity day by day, only 10% of which is ever actually at risk in the market at once; the rest is idle cash, which is why the line is relatively flat.</p>
           <div class="flex items-center mb-2">{eq_legend}</div>
           {eq_svg}
-          <div class="{MUTED} mt-2">Source: computed from Yahoo Finance daily OHLC for {esc(inst['ticker'])}, {esc(inst['data_start'])} to {esc(inst['data_end'])} ({inst['num_bars']:,} bars). Chart is downsampled to ≤1,500 points for file size; KPI cards above use the full daily series.</div>
+          <div class="{MUTED} mt-2">Source: computed from daily OHLC price data for {esc(inst['ticker'])}, {esc(inst['data_start'])} to {esc(inst['data_end'])} ({inst['num_bars']:,} bars). Chart is downsampled to ≤1,500 points for file size; KPI cards above use the full daily series.</div>
         </div>
         """
 
@@ -362,7 +362,7 @@ def build_page1():
     {header(
         "Breakout Backtest — 20-day High Entry / 10-day Low Exit",
         "Long-or-flat, hand-written event-loop backtest on QQQ and NIFTY 50, run in two cost variants. No backtesting library was used.",
-        f"Data: Yahoo Finance daily OHLC (unadjusted) via yfinance"
+        f"Data: daily OHLC (unadjusted) price data"
     )}
     {instrument_toggle(first_key)}
     {DEFINITIONS_STRIP}
@@ -529,7 +529,7 @@ def build_page2():
     {header(
         "Strategy vs. Buy-and-Hold Benchmark",
         "Same instrument, same start date, same starting balance — net return, CAGR, max drawdown and longest time underwater side by side.",
-        "Data: Yahoo Finance daily OHLC (unadjusted) via yfinance"
+        "Data: daily OHLC (unadjusted) price data"
     )}
     {instrument_toggle(first_key)}
     {''.join(sections)}

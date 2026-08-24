@@ -1,20 +1,33 @@
 @import "tailwindcss";
 
 @theme {
-  /* the same dark palette used across every static report in this project */
-  --color-ground: #08171e;
-  --color-panel: #0f2630;
-  --color-panel-2: #132b36;
-  --color-border: #1e3a45;
-  --color-positive: #37f083;
-  --color-assumption: #f2b03c;
-  --color-negative: #f2643c;
-  --color-text: #e6edf0;
-  --color-muted: #7e97a0;
-  --color-muted-2: #9fb4bb;
+  /* Signal Lab palette — dark-navy trading-terminal canvas with a single
+     cyan "signal" accent reserved for brand chrome and navigation, kept
+     strictly separate from the green/red financial polarity used for
+     gains and losses. Adapted from a supplied Idle-Finance-style token
+     extraction, tuned for a data-dense multi-report analytics app rather
+     than a marketing page: cooler navy family, hairline borders lightened
+     to a translucent white line (a literal black hairline would vanish
+     against panels this dark), and a second nested panel tone for
+     sidebar/hover states. */
+  --color-ground: #0a0f1a;
+  --color-panel: #131a2b;
+  --color-panel-2: #1a2338;
+  --color-border: rgba(255, 255, 255, 0.09);
 
-  --font-sans: "Fira Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-mono: "Fira Code", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --color-accent: #6ae4ff;       /* the one signal color — logo, nav active state, primary actions, focus rings */
+  --color-accent-dim: rgba(106, 228, 255, 0.12);
+
+  --color-positive: #34e0a1;     /* gains — financial convention, never used as brand chrome */
+  --color-negative: #ff5c72;     /* losses — financial convention, never used as brand chrome */
+  --color-assumption: #ffb84d;   /* amber — disclosed assumptions, unchanged role */
+
+  --color-text: #f3f6fa;
+  --color-muted: #8593ab;
+  --color-muted-2: #aab6c9;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 html,
@@ -40,4 +53,33 @@ body {
 
 .mono {
   font-family: var(--font-mono);
+}
+
+/* the one signature atmosphere effect in the whole app — a soft cyan
+   signal bloom, used ONLY behind the Overview hero. Every other surface
+   in the app stays flat and quiet by design. */
+.signal-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 55% at 50% 0%, rgba(106, 228, 255, 0.16), transparent 70%),
+    linear-gradient(180deg, rgba(106, 228, 255, 0.08), transparent 55%);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .fade-in {
+    animation: fade-in 500ms ease-out both;
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

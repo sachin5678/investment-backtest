@@ -113,7 +113,7 @@ def build():
           <p class="text-[#9FB4BB] text-sm mt-1">Hold NIFTY 50 by default. When NIFTY closes 15% below its all-time high, move 100% into midcap for exactly one year, then rotate back to NIFTY. Repeats.</p>
         </div>
         <div class="text-right {MUTED} mono shrink-0">
-          Data: Yahoo Finance daily OHLC via yfinance — NIFTY ^NSEI, midcap {esc(R['midcap_ticker'])}<br/>Report generated {esc(R['generated'])}
+          Data: daily OHLC price data — NIFTY ^NSEI, midcap {esc(R['midcap_ticker'])}<br/>Report generated {esc(R['generated'])}
         </div>
       </div>
     </header>
@@ -131,7 +131,7 @@ def build():
           confirmed in chat as the {pill("NIFTY Midcap 150 tracking ETF, " + esc(R['midcap_ticker']), "assumption")}. It then holds midcap for
           {pill("exactly 365 calendar days", "assumption")}, at which point it's a scheduled, known-in-advance event — modelled as switching back to
           NIFTY at that day's own close, not the next open. Only after that rotation back does the account start watching for the next -15% signal again
-          — starting the following trading day. Because midcap data on Yahoo only goes back to {esc(R['midcap_data_start'])}, the backtest itself can only
+          — starting the following trading day. Because midcap price data only goes back to {esc(R['midcap_data_start'])}, the backtest itself can only
           run from there, even though the ATH used to judge each dip reflects NIFTY's full history back to {esc(R['nifty_data_start'])}.
         </p>
       </div>
@@ -164,7 +164,7 @@ def build():
     ))
     kpis.append(kpi_card(
         "CAGR",
-        "Compound annual growth rate over the actual backtest span (2019-02-04 onward — constrained by the midcap ETF's Yahoo history).",
+        "Compound annual growth rate over the actual backtest span (2019-02-04 onward — constrained by the midcap ETF's available price history).",
         [("Frictionless", pct(fr["cagr_pct"]), win_loss_kind(fr["cagr_pct"])),
          ("Cost-loaded", pct(cl["cagr_pct"]), win_loss_kind(cl["cagr_pct"]))],
     ))
@@ -323,7 +323,7 @@ def build():
       <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — the concrete ways this backtest can mislead you if taken at face value.</p>
       <ul class="text-[13px] text-[#C9D6DA] list-disc pl-5 leading-relaxed">
         <li class="mb-1.5">Only {sf['num_episodes']} closed rotation episodes exist in this data — every win-rate and average-outperformance figure above rests on an extremely small sample.</li>
-        <li class="mb-1.5">"Midcap" was resolved to the NIFTY Midcap 150 tracking ETF ({esc(R['midcap_ticker'])}), confirmed with you in chat specifically because it has more representative, current-day composition than the alternative (NIFTY Midcap 50 index) — but its Yahoo history only starts {esc(R['midcap_data_start'])}, so the 2008 and 2011 crashes that the earlier two reports covered are entirely absent here.</li>
+        <li class="mb-1.5">"Midcap" was resolved to the NIFTY Midcap 150 tracking ETF ({esc(R['midcap_ticker'])}), confirmed with you in chat specifically because it has more representative, current-day composition than the alternative (NIFTY Midcap 50 index) — but its available price history only starts {esc(R['midcap_data_start'])}, so the 2008 and 2011 crashes that the earlier two reports covered are entirely absent here.</li>
         <li class="mb-1.5">"-15% from ATH" and "hold for 365 days" were both taken literally from your instruction, not independently chosen or optimized — but neither was tested for sensitivity; a 10% or 20% trigger, or a 6-month or 2-year hold, could change every number here, possibly a lot.</li>
         <li class="mb-1.5">The entry (NIFTY→midcap) fills at the next day's open, a reactive signal; the exit (midcap→NIFTY, one year later) is modelled at that day's own close, a scheduled, known-in-advance event — this asymmetry is intentional and consistent with the earlier two reports, not an inconsistency.</li>
         <li class="mb-1.5">A new trigger is only evaluated starting the day AFTER a scheduled rotation back to NIFTY, not the same day — an assumption to avoid a same-day double-flip; if NIFTY is still deep in a drawdown at that point, the account could rotate right back into midcap almost immediately (this did not occur in this particular data window, but is structurally possible).</li>

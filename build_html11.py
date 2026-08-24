@@ -93,7 +93,7 @@ def build():
           <p class="text-[#9FB4BB] text-sm mt-1">NSE's real NIFTY200 Momentum 30 methodology, hand-computed on today's NIFTY 200 roster applied retroactively — because the real index's own history isn't downloadable through any source available in this session.</p>
         </div>
         <div class="text-right {MUTED} mono shrink-0">
-          Data: Yahoo Finance daily OHLC for {R['universe_size']} NIFTY 200 constituents + ^NSEI + MID150BEES.NS<br/>Report generated {esc(R['generated'])}
+          Data: daily OHLC price data for {R['universe_size']} NIFTY 200 constituents + ^NSEI + MID150BEES.NS<br/>Report generated {esc(R['generated'])}
         </div>
       </div>
     </header>
@@ -229,7 +229,7 @@ def build():
         <li class="mb-1.5">Weighting is equal-weight across the 30 selected stocks, not the real free-float-market-cap × score weighting (capped 5%) — historical free-float data wasn't available to this project.</li>
         <li class="mb-1.5">The F&O-eligibility screen in the real methodology is not modelled — some selected stocks here may not actually have been F&O-eligible at that historical date.</li>
         <li class="mb-1.5">Rebalance dates are approximated as the last trading day of June/December; the real index rebalances a few weeks later, after a review period.</li>
-        <li class="mb-1.5">Several of the 200 stocks show a Yahoo Finance data start date of exactly 1996-01-01 for multiple different companies at once — almost certainly Yahoo's own historical-data cutoff for older listings, not each company's true IPO date. This doesn't change results after ~1997 but means "≥1 year of listing history" is really "≥1 year of Yahoo Finance data" for the oldest names.</li>
+        <li class="mb-1.5">Several of the 200 stocks show a data start date of exactly 1996-01-01 for multiple different companies at once — almost certainly our data source's own historical-data cutoff for older listings, not each company's true IPO date. This doesn't change results after ~1997 but means "≥1 year of listing history" is really "≥1 year of available price data" for the oldest names.</li>
         <li class="mb-1.5">All 200 tickers were fetched and used automatically — unlike the single-ETF data-quality check done for the momentum ETF in the last report, this dataset was NOT manually inspected stock-by-stock for listing-day pricing artifacts, corporate-action jumps, or bad prints. A bad data point in even one of the 200 series could distort a rebalance's selection or the resulting index level.</li>
         <li class="mb-1.5">Prices are unadjusted; no dividends are modelled for any of the three series shown.</li>
         <li class="mb-1.5">This is a single, fixed reconstruction of one published formula — it is not the official NSE index, has not been checked against any real published historical value of it, and should not be quoted as "the NIFTY200 Momentum 30 Index's actual historical performance."</li>

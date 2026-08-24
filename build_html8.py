@@ -121,7 +121,7 @@ def build():
           <p class="text-[#9FB4BB] text-sm mt-1">Same rule as the last report, arming threshold lowered from 15% to 10%: ₹1,000/month into midcap, doubling to ₹2,000 every month midcap is ≥10% below its all-time high, reverting once it sets a new all-time high.</p>
         </div>
         <div class="text-right {MUTED} mono shrink-0">
-          Data: Yahoo Finance daily OHLC via yfinance — midcap {esc(R['midcap_ticker'])}, NIFTY ^NSEI<br/>Report generated {esc(R['generated'])}
+          Data: daily OHLC price data — midcap {esc(R['midcap_ticker'])}, NIFTY ^NSEI<br/>Report generated {esc(R['generated'])}
         </div>
       </div>
     </header>
@@ -302,7 +302,7 @@ def build():
         <li class="mb-1.5">Only two thresholds (10% and 15%) have been tested — this is not a sweep across all plausible triggers, and the "10% did slightly worse" finding could reverse at other thresholds or other data windows.</li>
         <li class="mb-1.5">{len(strat_f['episodes'])} drawdown episodes at 10% is still a small sample — several of them are shallow, short pullbacks that may not repeat with the same frequency going forward.</li>
         <li class="mb-1.5">The disarm-on-new-ATH hysteresis, the ₹1,000/₹2,000 amounts, and the first-trading-day-of-month SIP date are all carried over unchanged from the last report for consistency, not independently re-justified for a 10% trigger.</li>
-        <li class="mb-1.5">The midcap ETF's Yahoo history starts {esc(R['start_date'])}, missing the 2008 and 2011 crashes entirely, same caveat as every report in this series.</li>
+        <li class="mb-1.5">The midcap ETF's available price history starts {esc(R['start_date'])}, missing the 2008 and 2011 crashes entirely, same caveat as every report in this series.</li>
         <li class="mb-1.5">The NIFTY 50 vanilla-SIP benchmark is frictionless only; the midcap portfolios are shown in both cost variants.</li>
         <li class="mb-1.5">The cost-loaded variant models only a flat 0.05% commission and a fixed one-tick slippage per contribution — no bid-ask spread widening, no market impact, no India-specific transaction taxes, no ETF tracking error vs. the actual NIFTY Midcap 150 index.</li>
         <li class="mb-1.5">Prices are unadjusted; no dividends are modelled anywhere in this report.</li>

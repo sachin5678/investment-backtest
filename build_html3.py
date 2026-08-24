@@ -84,7 +84,7 @@ def header():
           <p class="text-[#9FB4BB] text-sm mt-1">Sit in cash from 1 Jan; deploy 100% only if NIFTY 50 closes 10% below its year-start price; withdraw back to cash on 31 Dec. Repeats every year, compounding.</p>
         </div>
         <div class="text-right {MUTED} mono shrink-0">
-          Data: Yahoo Finance daily OHLC (^NSEI, unadjusted) via yfinance<br/>Report generated {esc(R['generated'])}
+          Data: daily OHLC (^NSEI, unadjusted) price data<br/>Report generated {esc(R['generated'])}
         </div>
       </div>
     </header>
@@ -365,7 +365,7 @@ def build():
         <li class="mb-1.5">The cost-loaded variant models only a flat 0.05% commission and a fixed one-tick slippage per fill — no bid-ask spread widening, no market impact, no India-specific transaction taxes (STT, stamp duty, GST on brokerage), no financing/borrow cost.</li>
         <li class="mb-1.5">Idle cash (all the time the account is not deployed — the large majority of the period) is assumed to earn <span class="font-semibold text-[#E6EDF0]">zero</span> interest. A real cash balance earning even a modest risk-free rate would materially change net return and CAGR here.</li>
         <li class="mb-1.5">Prices are unadjusted; no dividends are modelled for either the strategy or the buy-and-hold benchmark.</li>
-        <li class="mb-1.5">2007 (partial year) is excluded entirely since NIFTY 50's Yahoo Finance history starts mid-September 2007, so there is no real "1 Jan" reference price for it. {esc(str(R['data_end']))}'s year (2026) is in progress and excluded from every statistic above — it is shown only in the year-by-year log, marked-to-market.</li>
+        <li class="mb-1.5">2007 (partial year) is excluded entirely since NIFTY 50's available price history starts mid-September 2007, so there is no real "1 Jan" reference price for it. {esc(str(R['data_end']))}'s year (2026) is in progress and excluded from every statistic above — it is shown only in the year-by-year log, marked-to-market.</li>
         <li class="mb-1.5">This is a single fixed rule tested once over history — there is no out-of-sample test and no check for whether "10%" or "one entry per year" happens to be curve-fit to this particular history.</li>
       </ul>
     </div>

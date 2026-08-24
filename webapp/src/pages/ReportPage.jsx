@@ -69,7 +69,7 @@ export default function ReportPage() {
   }
 
   return (
-    <div className="space-y-6 max-w-[1400px]">
+    <div className="space-y-6 w-full">
       <Panel tight>
         <WhatThisShows>
           Every series this report's data actually contains, detected automatically — net return, {series[0]?.growthLabel ?? "CAGR"}, max

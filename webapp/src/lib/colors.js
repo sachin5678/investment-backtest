@@ -1,27 +1,33 @@
-// the same dark palette used across every static HTML report in this project
+// mirrors the @theme tokens in index.css — kept in sync manually since
+// Recharts needs raw hex/rgba strings, not CSS var references.
 export const COLORS = {
-  ground: "#08171E",
-  panel: "#0F2630",
-  panel2: "#132B36",
-  border: "#1E3A45",
-  positive: "#37F083",
-  assumption: "#F2B03C",
-  negative: "#F2643C",
-  text: "#E6EDF0",
-  muted: "#7E97A0",
-  muted2: "#9FB4BB",
+  ground: "#0a0f1a",
+  panel: "#131a2b",
+  panel2: "#1a2338",
+  border: "rgba(255, 255, 255, 0.09)",
+  accent: "#6ae4ff",
+  positive: "#34e0a1",
+  assumption: "#ffb84d",
+  negative: "#ff5c72",
+  text: "#f3f6fa",
+  muted: "#8593ab",
+  muted2: "#aab6c9",
 };
 
-// a small, colorblind-considerate rotation for overlaying many series on one chart
+// chart-line rotation for overlaying several series on one chart — leads
+// with the brand signal cyan for the first (usually most-featured) series,
+// then a colorblind-considerate rotation of hues distinct from the
+// positive/negative pair so a multi-series overlay never reads as a
+// gain/loss signal by accident.
 export const SERIES_PALETTE = [
-  COLORS.positive,
-  COLORS.negative,
-  COLORS.assumption,
-  "#5EC8F2", // sky blue — extra hue beyond the base 3-color pill system, chart-only
-  COLORS.text,
+  COLORS.accent,
+  "#c77dff", // violet
+  "#ffb84d", // amber
+  "#34e0a1", // green
+  "#ff5c72", // coral
   COLORS.muted2,
-  "#C77DFF", // violet — extra hue, chart-only
-  "#F2E86A", // pale yellow — extra hue, chart-only
+  "#5ec8f2", // sky blue
+  "#f2e86a", // pale yellow
 ];
 
 export function seriesColor(index) {

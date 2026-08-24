@@ -12,6 +12,7 @@ const ICON_BOLT = "M13 2 4 14h7l-2 8 11-12h-7z";
 const ICON_FLASK = "M9 2v6.5l-5.2 9A2 2 0 0 0 5.6 21h12.8a2 2 0 0 0 1.8-3.5L15 8.5V2 M7 2h10 M8 15h8";
 const ICON_GRID = "M3,3h8v8h-8z M13,3h8v8h-8z M3,13h8v8h-8z M13,13h8v8h-8z";
 const ICON_SHIELD = "M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3z M9 12l2.2 2.2L15.5 9.5";
+const ICON_GLOBE = "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z M12 3c-3 4-3 14 0 18 M12 3c3 4 3 14 0 18 M3 12h18";
 
 export const GROUPS = [
   {
@@ -77,6 +78,12 @@ export const GROUPS = [
     label: "Momentum + Gold, Drawdown-Triggered",
     items: [
       { id: "20", file: "results19.json", icon: ICON_SHIELD, title: "Momentum + Gold, With a Drawdown Catch", subtitle: "-20% drawdown sells all gold into momentum, until a full recovery" },
+    ],
+  },
+  {
+    label: "Beyond India",
+    items: [
+      { id: "21", file: "results20.json", icon: ICON_GLOBE, title: "“NASDAQ100 Momentum 10”", subtitle: "The same formula, applied to the Nasdaq-100 since 2000" },
     ],
   },
 ];

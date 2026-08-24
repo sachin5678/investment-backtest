@@ -122,7 +122,7 @@ def build():
           <p class="text-[#9FB4BB] text-sm mt-1">Same ₹1,000/month into midcap, no overlay of any kind — only the calendar day of the month the SIP runs on changes.</p>
         </div>
         <div class="text-right {MUTED} mono shrink-0">
-          Data: Yahoo Finance daily OHLC via yfinance — midcap {esc(R['midcap_ticker'])}<br/>Report generated {esc(R['generated'])}
+          Data: daily OHLC price data — midcap {esc(R['midcap_ticker'])}<br/>Report generated {esc(R['generated'])}
         </div>
       </div>
     </header>

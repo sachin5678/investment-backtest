@@ -94,7 +94,7 @@ def build():
           <p class="text-[#9FB4BB] text-sm mt-1">Three custom momentum reconstructions, same formula, different universes and selection sizes — none of them a real NSE product.</p>
         </div>
         <div class="text-right {MUTED} mono shrink-0">
-          Data: Yahoo Finance for {R['smallcap_universe_size']} NIFTY Smallcap 250 + {R['midcap_universe_size']} NIFTY Midcap 150 constituents + ^NSEI + NIFTYSMLCAP250.NS + MID150BEES.NS<br/>Report generated {esc(R['generated'])}
+          Data: daily OHLC price data for {R['smallcap_universe_size']} NIFTY Smallcap 250 + {R['midcap_universe_size']} NIFTY Midcap 150 constituents + ^NSEI + NIFTYSMLCAP250.NS + MID150BEES.NS<br/>Report generated {esc(R['generated'])}
         </div>
       </div>
     </header>
@@ -131,7 +131,7 @@ def build():
           All three: {pill('6m/12m risk-adjusted momentum, z-scored, asymmetrically normalised', 'assumption')} — the identical formula used throughout this
           project — {pill('equal-weighted', 'assumption')} (not free-float market cap × score), rebalanced every {pill('June/December', 'assumption')}
           (smallcap has no real momentum index to anchor a rebalance calendar to, so this reuses the NIFTY200 Momentum 30 convention). 2 of 250 smallcap
-          tickers ({esc(', '.join(t.replace('.NS','') for t in R['excluded_smallcap_tickers']))}) returned no price data from Yahoo Finance at all and are
+          tickers ({esc(', '.join(t.replace('.NS','') for t in R['excluded_smallcap_tickers']))}) returned no price data at all and are
           excluded — a data gap, not a judgment call.
         </p>
       </div>
@@ -280,7 +280,7 @@ def build():
       <ul class="text-[13px] text-[#C9D6DA] list-disc pl-5 leading-relaxed">
         <li class="mb-1.5"><span class="font-semibold text-[#E6EDF0]">Not real products, and not even matched to the real hybrid smallcap formula</span> — see the lead disclosure.</li>
         <li class="mb-1.5"><span class="font-semibold text-[#E6EDF0]">Survivorship bias, strongest for smallcap</span> — see the lead disclosure. Comparing the three reconstructions' absolute returns to each other is comparing three different amounts of hindsight bias, not three equally-fair tests.</li>
-        <li class="mb-1.5">2 of 250 smallcap tickers had no Yahoo Finance data at all and were dropped entirely — a small, disclosed data gap.</li>
+        <li class="mb-1.5">2 of 250 smallcap tickers had no price data available at all and were dropped entirely — a small, disclosed data gap.</li>
         <li class="mb-1.5">Equal-weighted, not free-float-market-cap × score; no F&O-eligibility screen; June/December rebalance dates are borrowed from the NIFTY200 Momentum 30 convention, not derived from any smallcap-specific published rule.</li>
         <li class="mb-1.5">The Midcap 150 ETF benchmark's real trading history only starts {esc(R['midcap_etf_start'])} — shown in the comparison table for context, but it doesn't cover the full {esc(R['common_start'])}–{esc(R['common_end'])} window the other five series do.</li>
         <li class="mb-1.5">Prices are unadjusted; no dividends are modelled for any series shown.</li>

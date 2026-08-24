@@ -30,7 +30,7 @@ export default function KpiTable({ series, symbol = "₹" }) {
           {series.map((s, i) => (
             <tr
               key={s.path}
-              className={`border-b border-[#16303a] transition-colors hover:bg-positive/5 ${
+              className={`border-b border-border transition-colors hover:bg-white/[0.04] ${
                 i % 2 === 1 ? "bg-white/[0.015]" : ""
               }`}
             >

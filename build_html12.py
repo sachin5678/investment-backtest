@@ -96,7 +96,7 @@ def build():
           <p class="text-[#9FB4BB] text-sm mt-1">Same published NSE momentum formula as the last report, applied to NIFTY 100 (not 200) selecting the top 10 (not 30) — a smaller, more concentrated construction with no official NSE equivalent.</p>
         </div>
         <div class="text-right {MUTED} mono shrink-0">
-          Data: Yahoo Finance daily OHLC for {R['universe_size']} NIFTY 100 constituents + ^NSEI + MID150BEES.NS (all already cached from the last report)<br/>Report generated {esc(R['generated'])}
+          Data: daily OHLC price data for {R['universe_size']} NIFTY 100 constituents + ^NSEI + MID150BEES.NS (all already cached from the last report)<br/>Report generated {esc(R['generated'])}
         </div>
       </div>
     </header>

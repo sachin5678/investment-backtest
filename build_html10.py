@@ -115,7 +115,7 @@ def build():
       <div class="{PANEL_TIGHT} border-[#F2B03C]/40">
         <div class="flex items-center gap-2 mb-2">
           <h3 class="text-base font-bold text-[#E6EDF0]">Data-quality fix applied before running this backtest</h3>
-          {pill('verified against raw Yahoo Finance data', 'assumption')}
+          {pill('verified against raw source data', 'assumption')}
         </div>
         <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — a real data artifact that would have shown a fake 90% crash if left in, and how it was corrected.</p>
         <p class="text-[13.5px] text-[#C9D6DA] leading-relaxed">{esc(R['momentum_data_note'])}</p>
@@ -131,7 +131,7 @@ def build():
           <p class="text-[#9FB4BB] text-sm mt-1">Same ₹1,000/month vanilla SIP, no overlay of any kind, run into a momentum-factor ETF instead — compared head-to-head against midcap and NIFTY 50 over the identical, shorter window the momentum ETF's short history allows.</p>
         </div>
         <div class="text-right {MUTED} mono shrink-0">
-          Data: Yahoo Finance daily OHLC via yfinance — {esc(R['momentum_ticker'])}, {esc(R['midcap_ticker'])}, {esc(R['nifty_ticker'])}<br/>Report generated {esc(R['generated'])}
+          Data: daily OHLC price data — {esc(R['momentum_ticker'])}, {esc(R['midcap_ticker'])}, {esc(R['nifty_ticker'])}<br/>Report generated {esc(R['generated'])}
         </div>
       </div>
     </header>
@@ -143,7 +143,7 @@ def build():
         <p class="{WHAT_THIS_SHOWS} mb-2">WHAT THIS SHOWS — why the window here is much shorter than every other report in this series.</p>
         <p class="text-[13.5px] text-[#C9D6DA] leading-relaxed">
           "Momentum ETF" was resolved (confirmed in chat) to the {pill('HDFC Nifty200 Momentum 30 ETF', 'assumption')} — the longest-history momentum-factor
-          ETF available on Yahoo Finance for India, but that's still only since {esc(R['start_date'])}. To keep this a fair, apples-to-apples comparison, midcap
+          ETF with available price history for India, but that's still only since {esc(R['start_date'])}. To keep this a fair, apples-to-apples comparison, midcap
           and NIFTY 50 are ALSO restricted to that same {esc(R['start_date'])}–{esc(R['end_date'])} window here — not their full available history used in
           earlier reports, so don't compare this report's midcap/NIFTY numbers directly against reports 5-9.
         </p>
@@ -252,7 +252,7 @@ def build():
       <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — the concrete ways this backtest can mislead you if taken at face value.</p>
       <ul class="text-[13px] text-[#C9D6DA] list-disc pl-5 leading-relaxed">
         <li class="mb-1.5">The momentum ETF's usable history is under 3 years — by far the shortest, least conclusive dataset in this series. A single down-cycle for one factor is not a verdict on that factor.</li>
-        <li class="mb-1.5">The first-3-listing-day price artifact described above was identified and removed by hand for this specific ticker; it's a reasonable, disclosed judgment call, not an official data correction from Yahoo/NSE.</li>
+        <li class="mb-1.5">The first-3-listing-day price artifact described above was identified and removed by hand for this specific ticker; it's a reasonable, disclosed judgment call, not an official data correction from the exchange.</li>
         <li class="mb-1.5">Midcap and NIFTY are shown over the SAME shortened window as the momentum ETF for a fair comparison — their numbers here do NOT match reports 5-9, which use midcap/NIFTY's full available history.</li>
         <li class="mb-1.5">Only one momentum ETF (HDFC's) was tested; the ICICI and Motilal Oswal versions (shorter history each) could show different results even over their own overlapping windows, due to tracking differences and fund-level costs.</li>
         <li class="mb-1.5">The cost-loaded variant models only a flat 0.05% commission and a fixed one-tick slippage per contribution — no bid-ask spread widening (likely more material here, given this ETF's much lower daily volume than the midcap ETF), no market impact, no India-specific transaction taxes.</li>

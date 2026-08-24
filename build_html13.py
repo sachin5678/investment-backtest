@@ -98,7 +98,7 @@ def build():
           <p class="text-[#9FB4BB] text-sm mt-1">NSE's real Quality-score formula applied to NIFTY 500, ONE snapshot only — bought and never rebalanced, backtested as far back as its constituents' prices allow.</p>
         </div>
         <div class="text-right {MUTED} mono shrink-0">
-          Data: Yahoo Finance daily OHLC for {R['num_universe']} NIFTY 500 constituents + ~5yr fundamentals per stock + ^NSEI + MID150BEES.NS<br/>Report generated {esc(R['generated'])}
+          Data: daily OHLC price data for {R['num_universe']} NIFTY 500 constituents + ~5yr fundamentals per stock + ^NSEI + MID150BEES.NS<br/>Report generated {esc(R['generated'])}
         </div>
       </div>
     </header>
@@ -114,9 +114,9 @@ def build():
         <p class="text-[14px] text-[#E6EDF0] leading-relaxed mb-3">
           <span class="font-semibold">First:</span> this is NOT a simulation of the real, periodically-rebalanced NIFTY500 Quality 50 index — it's a
           basket built ONCE, using today's fundamentals, then bought and held with zero rebalancing for however long the backtest runs. The real index
-          re-scores and reshuffles its 50 holdings on a schedule; this doesn't, because it can't — yfinance only has ~5 years of annual fundamentals per
+          re-scores and reshuffles its 50 holdings on a schedule; this doesn't, because it can't — our data source only has ~5 years of annual fundamentals per
           company, with no way to see what any company's ROE or debt looked like as of a rebalance date years ago. Momentum (reports 11-12) could be
-          reconstructed over 18 years because its score only needs prices, which Yahoo has for decades. Quality's score needs fundamentals, which it doesn't.
+          reconstructed over 18 years because its score only needs prices, which are available for decades. Quality's score needs fundamentals, which it doesn't.
         </p>
         <p class="text-[14px] text-[#E6EDF0] leading-relaxed">
           <span class="font-semibold">Second, a different but related bias:</span> the 50 stocks below were picked because they look financially strong
@@ -136,7 +136,7 @@ def build():
         <p class="{WHAT_THIS_SHOWS} mb-2">WHAT THIS SHOWS — the exact formula used, and why two baskets are shown, not one.</p>
         <p class="text-[13.5px] text-[#C9D6DA] leading-relaxed mb-2">
           Quality Score = {pill('0.33×Z(ROE) − 0.33×Z(Debt/Equity) − 0.33×Z(5yr EPS growth variability)', 'assumption')}, each metric averaged/measured
-          over the trailing ~5 annual fundamentals available (real methodology calls for 5 years; that's also yfinance's entire depth, so this happens to
+          over the trailing ~5 annual fundamentals available (real methodology calls for 5 years; that's also our data source's entire depth, so this happens to
           match by coincidence, not by choice). Of {R['num_universe']} NIFTY 500 stocks, {pill(f"{R['num_eligible']} had usable fundamentals", 'assumption')}
           for all three metrics. The top 50 are weighted by {pill('√(market cap) × score, capped 5%/stock', 'assumption')} — current market cap stands in
           for free-float since this is one snapshot, not a time series.
@@ -255,9 +255,9 @@ def build():
       <ul class="text-[13px] text-[#C9D6DA] list-disc pl-5 leading-relaxed">
         <li class="mb-1.5"><span class="font-semibold text-[#E6EDF0]">Not a rebalanced index, and never will be re-scored in this report</span> — it's frozen at today's fundamentals forever; a real quality index would drop a company the moment its ROE or debt deteriorated, this basket would not.</li>
         <li class="mb-1.5"><span class="font-semibold text-[#E6EDF0]">Hindsight bias</span> — see the lead disclosure. Persistent-characteristic selection bias is real even though it's not identical to momentum's survivorship bias.</li>
-        <li class="mb-1.5">{R['num_universe'] - R['num_eligible']} of 500 stocks were excluded for missing/unusable fundamentals (no balance sheet or income statement data, non-positive equity, or too few years of EPS to measure variability) — not because they're low quality, but because yfinance's coverage of them is incomplete.</li>
-        <li class="mb-1.5">ROE and D/E are averaged over whatever annual fundamentals yfinance provides (often exactly 4-5 data points) — a genuinely noisy estimate for a "5-year" characteristic, and financial-sector companies' balance sheets (with debt inherent to their business model) may not compare meaningfully to industrials' on the same D/E scale.</li>
-        <li class="mb-1.5">None of the 500 companies' fundamentals were individually spot-checked against their actual annual reports — a few outliers (e.g. unusually negative D/E for at least one selected stock) suggest at least some noise or data quirks from yfinance's automated extraction.</li>
+        <li class="mb-1.5">{R['num_universe'] - R['num_eligible']} of 500 stocks were excluded for missing/unusable fundamentals (no balance sheet or income statement data, non-positive equity, or too few years of EPS to measure variability) — not because they're low quality, but because our data source's coverage of them is incomplete.</li>
+        <li class="mb-1.5">ROE and D/E are averaged over whatever annual fundamentals our data source provides (often exactly 4-5 data points) — a genuinely noisy estimate for a "5-year" characteristic, and financial-sector companies' balance sheets (with debt inherent to their business model) may not compare meaningfully to industrials' on the same D/E scale.</li>
+        <li class="mb-1.5">None of the 500 companies' fundamentals were individually spot-checked against their actual annual reports — a few outliers (e.g. unusually negative D/E for at least one selected stock) suggest at least some noise or data quirks from the automated data extraction.</li>
         <li class="mb-1.5">Weighting uses TODAY's market cap as the free-float proxy — reasonable for a single snapshot, but not how the real index (which re-measures free-float at every rebalance) actually works.</li>
         <li class="mb-1.5">Prices are unadjusted; no dividends are modelled for the basket or either benchmark.</li>
         <li class="mb-1.5">This is a single, fixed selection computed once — there is no sensitivity test on the ~3.5-year IPO cutoff, the weighting formula, or the eligibility rules, and no comparison against the real index's own published returns.</li>

@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { GROUPS, ALL_ITEMS } from "../data/reportsIndex";
 import Icon from "./Icon";
+import Logo from "./Logo";
 
 export default function Sidebar({ open, onClose }) {
   const navigate = useNavigate();
@@ -17,9 +18,18 @@ export default function Sidebar({ open, onClose }) {
         ${open ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
     >
       <div className="px-5 pt-6 pb-4 border-b border-border">
-        <h1 className="text-base font-bold text-text tracking-tight">NIFTY &amp; Midcap Strategy Lab</h1>
-        <p className="text-xs text-muted mt-1 leading-snug">
-          {ALL_ITEMS.length} backtested strategies · NIFTY 50, NIFTY Midcap 150 &amp; a momentum factor
+        <button
+          onClick={() => {
+            navigate("/");
+            onClose?.();
+          }}
+          className="cursor-pointer focus-visible:outline-2 focus-visible:outline-accent rounded-md"
+          aria-label="Go to overview"
+        >
+          <Logo />
+        </button>
+        <p className="text-xs text-muted mt-2 leading-snug">
+          {ALL_ITEMS.length} backtested strategies, live-tested against real market data
         </p>
       </div>
 
@@ -31,7 +41,7 @@ export default function Sidebar({ open, onClose }) {
           id="jumpSelect"
           value={activeId ?? ""}
           onChange={(e) => go(e.target.value)}
-          className="w-full bg-ground text-text border border-border rounded-lg px-3 py-2 text-[13px] cursor-pointer focus-visible:outline-2 focus-visible:outline-positive"
+          className="w-full bg-ground text-text border border-border rounded-lg px-3 py-2 text-[13px] cursor-pointer focus-visible:outline-2 focus-visible:outline-accent"
         >
           {GROUPS.map((g) => (
             <optgroup key={g.label} label={g.label}>
@@ -55,10 +65,10 @@ export default function Sidebar({ open, onClose }) {
                 key={item.id}
                 onClick={() => go(item.id)}
                 className={`w-full flex items-center gap-2.5 text-left px-2.5 py-2.5 rounded-[10px] mb-0.5 border-l-2 cursor-pointer transition-colors
-                  ${active ? "bg-positive/[0.07] border-positive text-text" : "border-transparent text-muted hover:bg-white/[0.03] hover:text-text"}
-                  focus-visible:outline-2 focus-visible:outline-positive`}
+                  ${active ? "bg-accent-dim border-accent text-text" : "border-transparent text-muted hover:bg-white/[0.03] hover:text-text"}
+                  focus-visible:outline-2 focus-visible:outline-accent`}
               >
-                <Icon path={item.icon} className={`w-[18px] h-[18px] shrink-0 ${active ? "text-positive" : "text-muted"}`} />
+                <Icon path={item.icon} className={`w-[18px] h-[18px] shrink-0 ${active ? "text-accent" : "text-muted"}`} />
                 <span className="flex-1 min-w-0">
                   <span className="block text-[13px] font-semibold leading-tight">{item.title}</span>
                   <span className="block text-[11px] text-muted leading-tight truncate">{item.subtitle}</span>

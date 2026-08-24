@@ -31,7 +31,7 @@
           <p class="text-[#9FB4BB] text-sm mt-1">Hold NIFTY 50 by default. When NIFTY closes 15% below its all-time high, move 100% into midcap for exactly one year, then rotate back to NIFTY. Repeats.</p>
         </div>
         <div class="text-right text-[#7E97A0] text-[12.5px] leading-snug mono shrink-0">
-          Data: Yahoo Finance daily OHLC via yfinance — NIFTY ^NSEI, midcap MID150BEES.NS<br/>Report generated 2026-08-23 20:00
+          Data: daily OHLC price data — NIFTY ^NSEI, midcap MID150BEES.NS<br/>Report generated 2026-08-23 20:00
         </div>
       </div>
     </header>
@@ -48,7 +48,7 @@
           confirmed in chat as the <span class="inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded-full whitespace-nowrap bg-[#F2B03C]/15 text-[#F2B03C] border border-[#F2B03C]/40">▲ NIFTY Midcap 150 tracking ETF, MID150BEES.NS</span>. It then holds midcap for
           <span class="inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded-full whitespace-nowrap bg-[#F2B03C]/15 text-[#F2B03C] border border-[#F2B03C]/40">▲ exactly 365 calendar days</span>, at which point it's a scheduled, known-in-advance event — modelled as switching back to
           NIFTY at that day's own close, not the next open. Only after that rotation back does the account start watching for the next -15% signal again
-          — starting the following trading day. Because midcap data on Yahoo only goes back to 2019-02-04, the backtest itself can only
+          — starting the following trading day. Because midcap price data only goes back to 2019-02-04, the backtest itself can only
           run from there, even though the ATH used to judge each dip reflects NIFTY's full history back to 2007-09-17.
         </p>
       </div>
@@ -82,7 +82,7 @@
     
     <div class="bg-[#0F2630] border border-[#1E3A45] rounded-2xl p-5">
       <div class="text-[13px] font-semibold text-[#E6EDF0] mb-1">CAGR</div>
-      <div class="text-[#7E97A0] text-[12.5px] leading-snug mb-3">Compound annual growth rate over the actual backtest span (2019-02-04 onward — constrained by the midcap ETF's Yahoo history).</div>
+      <div class="text-[#7E97A0] text-[12.5px] leading-snug mb-3">Compound annual growth rate over the actual backtest span (2019-02-04 onward — constrained by the midcap ETF's available price history).</div>
       <div class="flex gap-4"><div class="flex-1"><div class="text-[11px] text-[#7E97A0] mb-1 uppercase tracking-wide">Frictionless</div><div class="kpi-val mono" style="color:#37F083">+14.7%</div></div><div class="flex-1"><div class="text-[11px] text-[#7E97A0] mb-1 uppercase tracking-wide">Cost-loaded</div><div class="kpi-val mono" style="color:#37F083">+14.6%</div></div></div>
     </div>
     
@@ -214,7 +214,7 @@
       <p class="text-[#9FB4BB] text-[13px] italic mb-3">WHAT THIS SHOWS — the concrete ways this backtest can mislead you if taken at face value.</p>
       <ul class="text-[13px] text-[#C9D6DA] list-disc pl-5 leading-relaxed">
         <li class="mb-1.5">Only 3 closed rotation episodes exist in this data — every win-rate and average-outperformance figure above rests on an extremely small sample.</li>
-        <li class="mb-1.5">"Midcap" was resolved to the NIFTY Midcap 150 tracking ETF (MID150BEES.NS), confirmed with you in chat specifically because it has more representative, current-day composition than the alternative (NIFTY Midcap 50 index) — but its Yahoo history only starts 2019-02-04, so the 2008 and 2011 crashes that the earlier two reports covered are entirely absent here.</li>
+        <li class="mb-1.5">"Midcap" was resolved to the NIFTY Midcap 150 tracking ETF (MID150BEES.NS), confirmed with you in chat specifically because it has more representative, current-day composition than the alternative (NIFTY Midcap 50 index) — but its available price history only starts 2019-02-04, so the 2008 and 2011 crashes that the earlier two reports covered are entirely absent here.</li>
         <li class="mb-1.5">"-15% from ATH" and "hold for 365 days" were both taken literally from your instruction, not independently chosen or optimized — but neither was tested for sensitivity; a 10% or 20% trigger, or a 6-month or 2-year hold, could change every number here, possibly a lot.</li>
         <li class="mb-1.5">The entry (NIFTY→midcap) fills at the next day's open, a reactive signal; the exit (midcap→NIFTY, one year later) is modelled at that day's own close, a scheduled, known-in-advance event — this asymmetry is intentional and consistent with the earlier two reports, not an inconsistency.</li>
         <li class="mb-1.5">A new trigger is only evaluated starting the day AFTER a scheduled rotation back to NIFTY, not the same day — an assumption to avoid a same-day double-flip; if NIFTY is still deep in a drawdown at that point, the account could rotate right back into midcap almost immediately (this did not occur in this particular data window, but is structurally possible).</li>

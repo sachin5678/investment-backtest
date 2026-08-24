@@ -1,9 +1,32 @@
-# NIFTY & Midcap Strategy Lab
+# Signal Lab — NIFTY & Midcap Strategy Lab
 
-A Vite + React + Tailwind (v4) web app for the 18 NIFTY/Midcap/Smallcap backtest
-reports in this project — a daily-use replacement for the old iframe-based
-`dashboard.html` hub, with real smooth charts (Recharts) instead of hand-rolled
-inline SVG.
+A Vite + React + Tailwind (v4) web app for the 21 NIFTY/Midcap/Smallcap/NASDAQ
+backtest reports in this project — a daily-use replacement for the old
+iframe-based `dashboard.html` hub, with real smooth charts (Recharts) instead
+of hand-rolled inline SVG.
+
+## Design system
+
+Dark-navy trading-terminal palette (`src/index.css`'s `@theme` block): a near-
+black `--color-ground`/`--color-panel` canvas, one signal accent color
+(`--color-accent`, cyan) reserved strictly for brand chrome — logo, nav active
+state, focus rings, primary links — and never used for data. Gains/losses keep
+the standard financial green/red (`--color-positive`/`--color-negative`)
+convention, kept deliberately separate from the brand accent so the two axes
+("what is this" vs. "is this good or bad") never collide. Cards are flat with
+hairline borders, no shadows; buttons/pills use full rounding. Typeface is
+Inter (display + body) with IBM Plex Mono for tabular/numeric data. The one
+atmospheric flourish — a soft cyan glow (`.signal-glow` in `index.css`) — is
+used exactly once, behind the Overview hero; every other page stays quiet and
+flat so the dense tables/charts stay easy to read.
+
+The `/` route (`src/pages/Overview.jsx`) is the front door: a hero stat strip
+(strategies tested, best CAGR found, markets covered, longest backtest),
+a category filter, and a card grid of all 21 strategies with a live headline
+metric + inline sparkline per card, fetched from the same `results*.json`
+files each report page uses. `/report/:id` is unchanged in structure — KPI
+table, smooth charts, collapsible full-analysis prose — just reskinned to the
+same tokens.
 
 ## Local development
 

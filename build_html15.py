@@ -93,7 +93,7 @@ def build():
           <p class="text-[#9FB4BB] text-sm mt-1">Same custom top-20 selection from the last report, rebalanced every 3 months (Feb/May/Aug/Nov) instead of the real index's May/November cadence.</p>
         </div>
         <div class="text-right {MUTED} mono shrink-0">
-          Data: Yahoo Finance daily OHLC for {R['universe_size']} NIFTY Midcap 150 constituents + ^NSEI + MID150BEES.NS<br/>Report generated {esc(R['generated'])}
+          Data: daily OHLC price data for {R['universe_size']} NIFTY Midcap 150 constituents + ^NSEI + MID150BEES.NS<br/>Report generated {esc(R['generated'])}
         </div>
       </div>
     </header>

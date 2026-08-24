@@ -17,12 +17,12 @@ function ProsePanel({ panel }) {
       )}
       <WhatThisShows>{panel.what_this_shows}</WhatThisShows>
       {panel.paragraphs.map((p, i) => (
-        <p key={i} className="text-[13.5px] text-[#C9D6DA] leading-relaxed mb-3 last:mb-0">
+        <p key={i} className="text-[13.5px] text-muted-2 leading-relaxed mb-3 last:mb-0">
           {p}
         </p>
       ))}
       {panel.list_items.length > 0 && (
-        <ul className={`text-[13px] text-[#C9D6DA] list-disc pl-5 leading-relaxed ${isLimitations ? "space-y-1.5" : ""}`}>
+        <ul className={`text-[13px] text-muted-2 list-disc pl-5 leading-relaxed ${isLimitations ? "space-y-1.5" : ""}`}>
           {panel.list_items.map((li, i) => (
             <li key={i}>{li}</li>
           ))}
@@ -45,7 +45,7 @@ export default function ProseSection({ content, open, onToggle }) {
     <div className="mt-6">
       <button
         onClick={onToggle}
-        className="w-full flex items-center justify-between gap-3 px-5 py-3 rounded-xl border border-border bg-panel-2 text-left cursor-pointer transition-colors hover:border-muted focus-visible:outline-2 focus-visible:outline-positive"
+        className="w-full flex items-center justify-between gap-3 px-5 py-3 rounded-xl border border-border bg-panel-2 text-left cursor-pointer transition-colors hover:border-muted focus-visible:outline-2 focus-visible:outline-accent"
         aria-expanded={open}
       >
         <span className="text-sm font-semibold text-text">
