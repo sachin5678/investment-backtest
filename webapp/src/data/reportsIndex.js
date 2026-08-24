@@ -19,6 +19,7 @@ const ICON_LEDGER = "M4 3h16v18h-16z M8 8h8 M8 12h8 M8 16h5";
 const ICON_COMPASS = "M12,3a9,9 0 1 0 0,18a9,9 0 1 0 0,-18 M15 9l-2 4-4 2 2-4z";
 const ICON_STOPWATCH = "M12,21a8,8 0 1 0 0,-16a8,8 0 1 0 0,16 M12 13V8 M9 2h6 M12 2v3";
 const ICON_LOCK = "M5 11h14v10h-14z M8 11V7a4 4 0 0 1 8 0v4";
+const ICON_LINK = "M9 15 15 9 M12 6l2-2a4 4 0 1 1 6 6l-2 2 M12 18l-2 2a4 4 0 1 1-6-6l2-2";
 
 export const GROUPS = [
   {
@@ -114,6 +115,7 @@ export const GROUPS = [
       { id: "26", file: "results25.json", icon: ICON_LEDGER, title: "Midcap Momentum 10 — 2020-2023, Trade Log", subtitle: "The COVID crash and V-recovery window, every buy and sell shown" },
       { id: "27", file: "results26.json", icon: ICON_STOPWATCH, title: "Midcap Momentum 10 — Stop-Loss: 15% vs. 30%", subtitle: "Two thresholds compared against the original, no stop" },
       { id: "30", file: "results29.json", icon: ICON_LOCK, title: "Midcap Momentum 10 — Breakeven Profit-Lock", subtitle: "No stop-loss — just lock in cost if a +30% winner fully reverses" },
+      { id: "31", file: "results30.json", icon: ICON_LINK, title: "Midcap Momentum 10 — Carried-Position Trade Log", subtitle: "New / Carried / Exited tags — one row per real holding, 2015 to date" },
     ],
   },
 ];

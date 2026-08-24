@@ -28,6 +28,7 @@ ICON_LEDGER = '<rect x="4" y="3" width="16" height="18" rx="1.5" fill="none"/><l
 ICON_COMPASS = '<circle cx="12" cy="12" r="9" fill="none"/><polygon points="15,9 13,13 9,15 11,11"/>'
 ICON_STOPWATCH = '<circle cx="12" cy="13" r="8" fill="none"/><line x1="12" y1="13" x2="12" y2="8"/><line x1="9" y1="2" x2="15" y2="2"/><line x1="12" y1="2" x2="12" y2="5"/>'
 ICON_LOCK = '<rect x="5" y="11" width="14" height="10" rx="1.5" fill="none"/><path d="M8 11V7a4 4 0 0 1 8 0v4" fill="none"/>'
+ICON_LINK = '<path d="M9 15 15 9" fill="none"/><path d="M12 6l2-2a4 4 0 1 1 6 6l-2 2" fill="none"/><path d="M12 18l-2 2a4 4 0 1 1-6-6l2-2" fill="none"/>'
 
 GROUPS = [
     {
@@ -153,6 +154,8 @@ GROUPS = [
              "title": "Midcap Momentum 10 — Stop-Loss: 15% vs. 30%", "subtitle": "Two thresholds compared against the original, no stop"},
             {"id": "30", "file": "30_midcap_momentum10_breakeven_lock.html", "icon": ICON_LOCK,
              "title": "Midcap Momentum 10 — Breakeven Profit-Lock", "subtitle": "No stop-loss — just lock in cost if a +30% winner fully reverses"},
+            {"id": "31", "file": "31_midcap_momentum10_carried_tradelog.html", "icon": ICON_LINK,
+             "title": "Midcap Momentum 10 — Carried-Position Trade Log", "subtitle": "New / Carried / Exited tags — one row per real holding, 2015 to date"},
         ],
     },
 ]

@@ -2236,5 +2236,71 @@
     ]
    }
   ]
+ },
+ "31": {
+  "title": "Midcap150 Momentum 10 — Carried-Position Trade Log, 2015 to Date",
+  "subtitle": "Same reconstruction as reports 24/26/27/30, but every stock's real continuous run in the top 10 is ONE row — New / Carried / Exited — instead of a fresh row at every rebalance it survives.",
+  "source_line": "2015-01-02–2026-08-24 · 179 distinct positions Report generated 2026-08-24 19:24",
+  "pages": [
+   {
+    "file": "31_midcap_momentum10_carried_tradelog.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "neutral",
+        "text": "169 closed positions, 10 still open"
+       },
+       {
+        "kind": "neutral",
+        "text": "avg 1.37 rebalances held, longest 4"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Reports 24 and 26 showed every rebalance-to-rebalance leg as its own trade row — technically accurate to how the strategy's equity curve is computed (the whole portfolio is re-split equally across the top 10 at every rebalance), but it makes a stock that survives 3-4 rebalances running look like 3-4 separate trades. This report instead tracks each stock's real, uninterrupted tenure in the top 10 as ONE row: it opens the first time the stock is picked (NEW), stays open through every rebalance it's still selected (CARRIED — tagged, not a new row), and closes the moment it's finally dropped (EXITED), with ONE entry price, ONE exit price, and the total gain/loss across the whole run.",
+       "Over 2015-01-02–2026-08-24, that's 179 distinct positions instead of the much larger leg-count reports 24/26 would show for the same period — win rate 65.1%, average winner +71.4%, average loser -13.6%. The strategy itself is unchanged: +36.8% CAGR / -35.1% drawdown vs. the midcap ETF's +20.3% / -38.4% over the same window — only how the trade log is PRESENTED changes; see the limitations panel below for the one bookkeeping simplification this requires."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "What merging changes, and what it doesn't",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "A stock's total price return from the day it first entered to the day it finally exited is exactly the same number whether you compute it directly (exit price ÷ entry price) or by chaining together every intermediate rebalance-to-rebalance leg — the interim prices cancel out. So every % return figure in this trade log is identical to what you'd get by carefully chaining reports 24/26's per-leg numbers for the same stock; nothing about the actual price performance changes. What changes is READABILITY: 179 rows instead of a much larger leg-count for the same 2015-to-date window, with each row telling the complete story of one holding.",
+       "The one place this report's numbers genuinely diverge from the strategy's real mechanics is DOLLAR P&L: the real strategy resets every position back to an equal 1/10th share of the total portfolio at every single rebalance (even for a stock that's continuing), so a long-running winner's dollar weight in the real portfolio doesn't just keep compounding untouched the way it does in this report's \"alloc × total % return\" bookkeeping. That simplification is disclosed, not hidden — see the limitations panel — and it only affects the ₹ P&L column, never the % return column, and never the strategy-level equity curve or KPI numbers above, which are computed exactly as in every other report in this project."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Dollar P&L per row assumes the position's ORIGINAL equal-weight allocation (from the day it first entered) rode untouched for the whole tenure — the real strategy actually resets every position to a fresh 1/10th of total portfolio value at every rebalance, even continuing ones. The % return column is unaffected by this; only the ₹ P&L column is a simplified \"as if you never rebalanced this one position\" view.",
+       "Today's fixed NIFTY Midcap 150 constituent list is applied retroactively across the whole window (survivorship bias) — same disclosed approximation as reports 11-19/24/26.",
+       "Positions whose real entry predates 2015-01-01 are included (tagged \"entered before window\") because their tenure runs into the window — their entry price and rebalance count reflect the FULL run, not just the part after 2015.",
+       "Still-open positions are marked to the latest available close price (not a live/real-time market price) — their eventual real exit will differ from this snapshot.",
+       "Zero transaction costs, slippage, or taxes modeled — a continuing position that survives multiple rebalances would, in reality, still incur the buy/sell mechanics report 24/26 describe (even if the net position size is unchanged), which isn't reflected in either trade-log style.",
+       "Equal weighting (not free-float market-cap x momentum score) and no F&O-eligibility screen, same as every other reconstruction in this project.",
+       "Prices are unadjusted; no dividends are modeled. This is a single, fixed historical path."
+      ]
+     }
+    ]
+   }
+  ]
  }
 }
