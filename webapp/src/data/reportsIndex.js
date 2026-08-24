@@ -13,6 +13,7 @@ const ICON_FLASK = "M9 2v6.5l-5.2 9A2 2 0 0 0 5.6 21h12.8a2 2 0 0 0 1.8-3.5L15 8
 const ICON_GRID = "M3,3h8v8h-8z M13,3h8v8h-8z M3,13h8v8h-8z M13,13h8v8h-8z";
 const ICON_SHIELD = "M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3z M9 12l2.2 2.2L15.5 9.5";
 const ICON_GLOBE = "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z M12 3c-3 4-3 14 0 18 M12 3c3 4 3 14 0 18 M3 12h18";
+const ICON_PULSE = "M3 12h5l2-6 4 12 2-6h5";
 
 export const GROUPS = [
   {
@@ -84,6 +85,12 @@ export const GROUPS = [
     label: "Beyond India",
     items: [
       { id: "21", file: "results20.json", icon: ICON_GLOBE, title: "“NASDAQ100 Momentum 10”", subtitle: "The same formula, applied to the Nasdaq-100 since 2000" },
+    ],
+  },
+  {
+    label: "Technical Signals",
+    items: [
+      { id: "22", file: "results21.json", icon: ICON_PULSE, title: "Monthly RSI-70 Crossover Rotation", subtitle: "Top 5 NIFTY 500 stocks by monthly RSI crossing above 70" },
     ],
   },
 ];
