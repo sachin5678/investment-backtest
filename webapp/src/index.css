@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+@theme {
+  /* the same dark palette used across every static report in this project */
+  --color-ground: #08171e;
+  --color-panel: #0f2630;
+  --color-panel-2: #132b36;
+  --color-border: #1e3a45;
+  --color-positive: #37f083;
+  --color-assumption: #f2b03c;
+  --color-negative: #f2643c;
+  --color-text: #e6edf0;
+  --color-muted: #7e97a0;
+  --color-muted-2: #9fb4bb;
+
+  --font-sans: "Fira Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: "Fira Code", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: var(--color-ground);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+.mono {
+  font-family: var(--font-mono);
+}

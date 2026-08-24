@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"/><title>NIFTY &amp; Midcap Strategy Lab</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ground:#08171E; --panel:#0F2630; --border:#1E3A45;
+    --positive:#37F083; --assumption:#F2B03C; --negative:#F2643C; --text:#E6EDF0; --muted:#7E97A0;
+  }
+  html,body{height:100%;margin:0;background:var(--ground);color:var(--text);
+    font-family:'Fira Sans',ui-sans-serif,system-ui,-apple-system,sans-serif;}
+  .mono{font-family:'Fira Code',ui-monospace,SFMono-Regular,Menlo,monospace;}
+  #shell{display:flex;height:100vh;overflow:hidden;}
+  #sidebar{width:320px;flex:0 0 320px;background:var(--panel);border-right:1px solid var(--border);
+    display:flex;flex-direction:column;overflow-y:auto;}
+  #sidebar::-webkit-scrollbar{width:8px;}
+  #sidebar::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
+  #brand{padding:22px 20px 16px;border-bottom:1px solid var(--border);}
+  #brand h1{font-size:16px;font-weight:700;margin:0;color:var(--text);letter-spacing:-0.01em;}
+  #brand p{font-size:12px;color:var(--muted);margin:4px 0 0;line-height:1.4;}
+  #jumpWrap{padding:14px 20px 12px;border-bottom:1px solid var(--border);}
+  #jumpLabel{font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;
+    color:var(--muted);display:block;margin-bottom:6px;}
+  #jumpSelect{width:100%;background:var(--ground);color:var(--text);border:1px solid var(--border);
+    border-radius:10px;padding:9px 34px 9px 12px;font-size:13px;font-family:inherit;cursor:pointer;
+    appearance:none;-webkit-appearance:none;-moz-appearance:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237E97A0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6,9 12,15 18,9'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 10px center;background-size:16px;
+    transition:border-color 150ms ease;}
+  #jumpSelect:hover{border-color:var(--muted);}
+  #jumpSelect:focus-visible{outline:2px solid var(--positive);outline-offset:1px;border-color:var(--positive);}
+  #jumpSelect option{background:var(--panel);color:var(--text);}
+  #jumpSelect optgroup{background:var(--panel);color:var(--muted);font-style:normal;}
+  .nav-group{padding:14px 10px 4px;}
+  .nav-group-label{font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;
+    color:var(--muted);padding:0 10px 8px;}
+  .nav-item{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:10px 10px;
+    border-radius:10px;border:1px solid transparent;border-left:2px solid transparent;background:transparent;
+    color:var(--muted);cursor:pointer;transition:background 150ms ease, border-color 150ms ease, color 150ms ease;
+    margin-bottom:2px;}
+  .nav-item:hover{background:rgba(255,255,255,0.03);color:var(--text);}
+  .nav-item:focus-visible{outline:2px solid var(--positive);outline-offset:1px;}
+  .nav-item.active{background:rgba(55,240,131,0.07);border-left-color:var(--positive);color:var(--text);}
+  .nav-icon{width:18px;height:18px;flex:0 0 18px;color:var(--muted);}
+  .nav-item.active .nav-icon, .nav-item:hover .nav-icon{color:var(--positive);}
+  .nav-text{display:flex;flex-direction:column;flex:1;min-width:0;}
+  .nav-title{font-size:13px;font-weight:600;line-height:1.3;}
+  .nav-subtitle{font-size:11px;color:var(--muted);line-height:1.3;margin-top:1px;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .nav-num{font-size:11px;color:var(--muted);flex:0 0 auto;}
+  #main{flex:1;display:flex;flex-direction:column;min-width:0;}
+  #topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;
+    padding:14px 22px;border-bottom:1px solid var(--border);background:rgba(15,38,48,0.5);}
+  #topbar h2{font-size:15px;font-weight:600;margin:0;color:var(--text);}
+  #topbar p{font-size:12px;color:var(--muted);margin:2px 0 0;}
+  #openNewTab{font-size:12px;color:var(--muted);text-decoration:none;border:1px solid var(--border);
+    border-radius:8px;padding:6px 12px;white-space:nowrap;transition:color 150ms ease, border-color 150ms ease;}
+  #openNewTab:hover{color:var(--positive);border-color:var(--positive);}
+  #openNewTab:focus-visible{outline:2px solid var(--positive);outline-offset:1px;}
+  #frameWrap{flex:1;position:relative;}
+  #reportFrame{width:100%;height:100%;border:0;display:block;background:var(--ground);}
+  #menuToggle{display:none;}
+  @media (max-width: 900px) {
+    #sidebar{position:fixed;inset:0 30% 0 0;z-index:40;transform:translateX(-100%);
+      transition:transform 200ms ease;box-shadow:24px 0 48px rgba(0,0,0,0.4);}
+    #sidebar.open{transform:translateX(0);}
+    #menuToggle{display:inline-flex;}
+  }
+</style>
+</head>
+<body>
+<div id="shell">
+  <aside id="sidebar">
+    <div id="brand">
+      <h1>NIFTY &amp; Midcap Strategy Lab</h1>
+      <p>20 backtested strategies &middot; NIFTY 50, NIFTY Midcap 150 &amp; a momentum factor &middot; each report is a full standalone analysis</p>
+    </div>
+    
+    <div id="jumpWrap">
+      <label id="jumpLabel" for="jumpSelect">Jump to a report</label>
+      <select id="jumpSelect" aria-label="Jump to a report"><optgroup label="NIFTY 50 Breakout System"><option value="01" selected>01 — Backtest: 20-day High / 10-day Low</option><option value="02">02 — vs. Buy-and-Hold Benchmark</option></optgroup><optgroup label="Cash Timing (NIFTY 50)"><option value="03">03 — Wait for the Dip</option></optgroup><optgroup label="Midcap Rotation"><option value="04">04 — Flight to Midcap</option></optgroup><optgroup label="SIP + Tactical Overlays (Midcap)"><option value="05">05 — SIP + Dip Lump-Sums</option><option value="06">06 — SIP + Confirmed-Recovery Lump-Sum</option><option value="07">07 — SIP Doubles on Drawdown (15%)</option><option value="08">08 — SIP Doubles on Drawdown (10%)</option><option value="09">09 — Does the SIP Date Matter?</option></optgroup><optgroup label="Momentum Factor"><option value="10">10 — SIP in a Momentum ETF</option><option value="11">11 — Momentum Formula, 18 Years</option><option value="12">12 — “NIFTY100 Momentum 10”</option></optgroup><optgroup label="Quality Factor"><option value="13">13 — Quality-50 Static Basket</option></optgroup><optgroup label="Midcap Momentum + Gold"><option value="14">14 — Midcap Momentum-20 + Gold Blend</option><option value="15">15 — Momentum-20 — Quarterly Rebalance</option><option value="16">16 — Smallcap vs. Midcap Momentum</option><option value="17">17 — Monthly Rebalance — All 6 Compared</option><option value="18">18 — Midcap-30 & NIFTY500 Momentum 10/15</option></optgroup><optgroup label="Sector Rotation"><option value="19">19 — Sector-First Momentum Rotation</option></optgroup><optgroup label="Momentum + Gold, Drawdown-Triggered"><option value="20">20 — Momentum + Gold, With a Drawdown Catch</option></optgroup></select>
+    </div>
+    
+    
+    <div class="nav-group">
+      <div class="nav-group-label">NIFTY 50 Breakout System</div>
+      
+        <button class="nav-item active" data-file="01_backtest.html" data-id="01"
+                data-title="Backtest: 20-day High / 10-day Low" data-subtitle="Frictionless vs. cost-loaded, QQQ & NIFTY 50">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><polyline points="3,17 9,11 13,15 21,7"/><polyline points="15,7 21,7 21,13"/></svg>
+          <span class="nav-text">
+            <span class="nav-title">Backtest: 20-day High / 10-day Low</span>
+            <span class="nav-subtitle">Frictionless vs. cost-loaded, QQQ & NIFTY 50</span>
+          </span>
+          <span class="nav-num mono">01</span>
+        </button>
+        <button class="nav-item" data-file="02_benchmark.html" data-id="02"
+                data-title="vs. Buy-and-Hold Benchmark" data-subtitle="Same instrument, same start, side by side">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><rect x="4" y="10" width="3.5" height="10" rx="0.5"/><rect x="10.25" y="6" width="3.5" height="14" rx="0.5"/><rect x="16.5" y="3" width="3.5" height="17" rx="0.5"/></svg>
+          <span class="nav-text">
+            <span class="nav-title">vs. Buy-and-Hold Benchmark</span>
+            <span class="nav-subtitle">Same instrument, same start, side by side</span>
+          </span>
+          <span class="nav-num mono">02</span>
+        </button>
+    </div>
+    
+    <div class="nav-group">
+      <div class="nav-group-label">Cash Timing (NIFTY 50)</div>
+      
+        <button class="nav-item" data-file="03_dip_buying.html" data-id="03"
+                data-title="Wait for the Dip" data-subtitle="Annual cash/NIFTY switch on a -10% YTD dip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><rect x="3" y="7" width="18" height="12" rx="2"/><line x1="3" y1="11" x2="21" y2="11"/><circle cx="17" cy="15" r="1.3" fill="currentColor" stroke="none"/></svg>
+          <span class="nav-text">
+            <span class="nav-title">Wait for the Dip</span>
+            <span class="nav-subtitle">Annual cash/NIFTY switch on a -10% YTD dip</span>
+          </span>
+          <span class="nav-num mono">03</span>
+        </button>
+    </div>
+    
+    <div class="nav-group">
+      <div class="nav-group-label">Midcap Rotation</div>
+      
+        <button class="nav-item" data-file="04_midcap_rotation.html" data-id="04"
+                data-title="Flight to Midcap" data-subtitle="NIFTY 50 → midcap on a -15% ATH drawdown">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="M20 11a8 8 0 1 0-2.3 5.7" fill="none"/><polyline points="20,4 20,11 13,11"/></svg>
+          <span class="nav-text">
+            <span class="nav-title">Flight to Midcap</span>
+            <span class="nav-subtitle">NIFTY 50 → midcap on a -15% ATH drawdown</span>
+          </span>
+          <span class="nav-num mono">04</span>
+        </button>
+    </div>
+    
+    <div class="nav-group">
+      <div class="nav-group-label">SIP + Tactical Overlays (Midcap)</div>
+      
+        <button class="nav-item" data-file="05_sip_dip_overlay.html" data-id="05"
+                data-title="SIP + Dip Lump-Sums" data-subtitle="+₹5k / +₹10k at -10% / -20% from ATH">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg>
+          <span class="nav-text">
+            <span class="nav-title">SIP + Dip Lump-Sums</span>
+            <span class="nav-subtitle">+₹5k / +₹10k at -10% / -20% from ATH</span>
+          </span>
+          <span class="nav-num mono">05</span>
+        </button>
+        <button class="nav-item" data-file="06_breakout_recovery.html" data-id="06"
+                data-title="SIP + Confirmed-Recovery Lump-Sum" data-subtitle="Buy strength after a full round-trip, not the dip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg>
+          <span class="nav-text">
+            <span class="nav-title">SIP + Confirmed-Recovery Lump-Sum</span>
+            <span class="nav-subtitle">Buy strength after a full round-trip, not the dip</span>
+          </span>
+          <span class="nav-num mono">06</span>
+        </button>
+        <button class="nav-item" data-file="07_double_sip.html" data-id="07"
+                data-title="SIP Doubles on Drawdown (15%)" data-subtitle="Recurring SIP itself doubles through a decline">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg>
+          <span class="nav-text">
+            <span class="nav-title">SIP Doubles on Drawdown (15%)</span>
+            <span class="nav-subtitle">Recurring SIP itself doubles through a decline</span>
+          </span>
+          <span class="nav-num mono">07</span>
+        </button>
+        <button class="nav-item" data-file="08_double_sip_10pct.html" data-id="08"
+                data-title="SIP Doubles on Drawdown (10%)" data-subtitle="Same rule, more sensitive 10% trigger">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg>
+          <span class="nav-text">
+            <span class="nav-title">SIP Doubles on Drawdown (10%)</span>
+            <span class="nav-subtitle">Same rule, more sensitive 10% trigger</span>
+          </span>
+          <span class="nav-num mono">08</span>
+        </button>
+        <button class="nav-item" data-file="09_sip_day_of_month.html" data-id="09"
+                data-title="Does the SIP Date Matter?" data-subtitle="1st vs. 10th vs. 20th vs. last day of month">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg>
+          <span class="nav-text">
+            <span class="nav-title">Does the SIP Date Matter?</span>
+            <span class="nav-subtitle">1st vs. 10th vs. 20th vs. last day of month</span>
+          </span>
+          <span class="nav-num mono">09</span>
+        </button>
+    </div>
+    
+    <div class="nav-group">
+      <div class="nav-group-label">Momentum Factor</div>
+      
+        <button class="nav-item" data-file="10_momentum_sip.html" data-id="10"
+                data-title="SIP in a Momentum ETF" data-subtitle="HDFCMOMENT.NS vs. midcap vs. NIFTY, ~2.8yr">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><polygon points="13,2 4,14 11,14 9,22 20,10 13,10"/></svg>
+          <span class="nav-text">
+            <span class="nav-title">SIP in a Momentum ETF</span>
+            <span class="nav-subtitle">HDFCMOMENT.NS vs. midcap vs. NIFTY, ~2.8yr</span>
+          </span>
+          <span class="nav-num mono">10</span>
+        </button>
+        <button class="nav-item" data-file="11_momentum_reconstruction.html" data-id="11"
+                data-title="Momentum Formula, 18 Years" data-subtitle="NIFTY200/Top-30 reconstruction — survivorship-biased">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="M9 2v6.5l-5.2 9A2 2 0 0 0 5.6 21h12.8a2 2 0 0 0 1.8-3.5L15 8.5V2" fill="none"/><line x1="7" y1="2" x2="17" y2="2"/><line x1="8" y1="15" x2="16" y2="15"/></svg>
+          <span class="nav-text">
+            <span class="nav-title">Momentum Formula, 18 Years</span>
+            <span class="nav-subtitle">NIFTY200/Top-30 reconstruction — survivorship-biased</span>
+          </span>
+          <span class="nav-num mono">11</span>
+        </button>
+        <button class="nav-item" data-file="12_momentum10_reconstruction.html" data-id="12"
+                data-title="“NIFTY100 Momentum 10”" data-subtitle="Custom variant — not a real NSE index">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="M9 2v6.5l-5.2 9A2 2 0 0 0 5.6 21h12.8a2 2 0 0 0 1.8-3.5L15 8.5V2" fill="none"/><line x1="7" y1="2" x2="17" y2="2"/><line x1="8" y1="15" x2="16" y2="15"/></svg>
+          <span class="nav-text">
+            <span class="nav-title">“NIFTY100 Momentum 10”</span>
+            <span class="nav-subtitle">Custom variant — not a real NSE index</span>
+          </span>
+          <span class="nav-num mono">12</span>
+        </button>
+    </div>
+    
+    <div class="nav-group">
+      <div class="nav-group-label">Quality Factor</div>
+      
+        <button class="nav-item" data-file="13_quality50_basket.html" data-id="13"
+                data-title="Quality-50 Static Basket" data-subtitle="Today's fundamentals, bought once — not a rebalanced index">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="M9 2v6.5l-5.2 9A2 2 0 0 0 5.6 21h12.8a2 2 0 0 0 1.8-3.5L15 8.5V2" fill="none"/><line x1="7" y1="2" x2="17" y2="2"/><line x1="8" y1="15" x2="16" y2="15"/></svg>
+          <span class="nav-text">
+            <span class="nav-title">Quality-50 Static Basket</span>
+            <span class="nav-subtitle">Today's fundamentals, bought once — not a rebalanced index</span>
+          </span>
+          <span class="nav-num mono">13</span>
+        </button>
+    </div>
+    
+    <div class="nav-group">
+      <div class="nav-group-label">Midcap Momentum + Gold</div>
+      
+        <button class="nav-item" data-file="14_midcap_momentum20_gold.html" data-id="14"
+                data-title="Midcap Momentum-20 + Gold Blend" data-subtitle="Custom top-20 variant, plus a 50/50 gold diversification test">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><polygon points="13,2 4,14 11,14 9,22 20,10 13,10"/></svg>
+          <span class="nav-text">
+            <span class="nav-title">Midcap Momentum-20 + Gold Blend</span>
+            <span class="nav-subtitle">Custom top-20 variant, plus a 50/50 gold diversification test</span>
+          </span>
+          <span class="nav-num mono">14</span>
+        </button>
+        <button class="nav-item" data-file="15_midcap_momentum20_quarterly.html" data-id="15"
+                data-title="Momentum-20 — Quarterly Rebalance" data-subtitle="Same setup, rebalanced 4x/year instead of 2x">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><polygon points="13,2 4,14 11,14 9,22 20,10 13,10"/></svg>
+          <span class="nav-text">
+            <span class="nav-title">Momentum-20 — Quarterly Rebalance</span>
+            <span class="nav-subtitle">Same setup, rebalanced 4x/year instead of 2x</span>
+          </span>
+          <span class="nav-num mono">15</span>
+        </button>
+        <button class="nav-item" data-file="16_smallcap_midcap_momentum_compare.html" data-id="16"
+                data-title="Smallcap vs. Midcap Momentum" data-subtitle="Momentum-20 vs Momentum-10 vs Midcap Momentum-10, side by side">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><polygon points="13,2 4,14 11,14 9,22 20,10 13,10"/></svg>
+          <span class="nav-text">
+            <span class="nav-title">Smallcap vs. Midcap Momentum</span>
+            <span class="nav-subtitle">Momentum-20 vs Momentum-10 vs Midcap Momentum-10, side by side</span>
+          </span>
+          <span class="nav-num mono">16</span>
+        </button>
+        <button class="nav-item" data-file="17_monthly_rebalance_compare.html" data-id="17"
+                data-title="Monthly Rebalance — All 6 Compared" data-subtitle="Every momentum reconstruction, monthly vs its original cadence">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="M20 11a8 8 0 1 0-2.3 5.7" fill="none"/><polyline points="20,4 20,11 13,11"/></svg>
+          <span class="nav-text">
+            <span class="nav-title">Monthly Rebalance — All 6 Compared</span>
+            <span class="nav-subtitle">Every momentum reconstruction, monthly vs its original cadence</span>
+          </span>
+          <span class="nav-num mono">17</span>
+        </button>
+        <button class="nav-item" data-file="18_midcap30_nifty500_10_15.html" data-id="18"
+                data-title="Midcap-30 & NIFTY500 Momentum 10/15" data-subtitle="Real rebalance months this time — May/Nov and June/Dec">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><polygon points="13,2 4,14 11,14 9,22 20,10 13,10"/></svg>
+          <span class="nav-text">
+            <span class="nav-title">Midcap-30 & NIFTY500 Momentum 10/15</span>
+            <span class="nav-subtitle">Real rebalance months this time — May/Nov and June/Dec</span>
+          </span>
+          <span class="nav-num mono">18</span>
+        </button>
+    </div>
+    
+    <div class="nav-group">
+      <div class="nav-group-label">Sector Rotation</div>
+      
+        <button class="nav-item" data-file="19_sector_momentum_rotation.html" data-id="19"
+                data-title="Sector-First Momentum Rotation" data-subtitle="Rank sectors by momentum first, then top 3 stocks within the leader">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg>
+          <span class="nav-text">
+            <span class="nav-title">Sector-First Momentum Rotation</span>
+            <span class="nav-subtitle">Rank sectors by momentum first, then top 3 stocks within the leader</span>
+          </span>
+          <span class="nav-num mono">19</span>
+        </button>
+    </div>
+    
+    <div class="nav-group">
+      <div class="nav-group-label">Momentum + Gold, Drawdown-Triggered</div>
+      
+        <button class="nav-item" data-file="20_momentum_gold_catch_blend.html" data-id="20"
+                data-title="Momentum + Gold, With a Drawdown Catch" data-subtitle="-20% drawdown sells all gold into momentum, until a full recovery">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3z" fill="none"/><path d="M9 12l2.2 2.2L15.5 9.5" fill="none"/></svg>
+          <span class="nav-text">
+            <span class="nav-title">Momentum + Gold, With a Drawdown Catch</span>
+            <span class="nav-subtitle">-20% drawdown sells all gold into momentum, until a full recovery</span>
+          </span>
+          <span class="nav-num mono">20</span>
+        </button>
+    </div>
+    
+  </aside>
+  <main id="main">
+    <div id="topbar">
+      <button id="menuToggle" aria-label="Toggle navigation" class="text-[var(--muted)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm">&#9776;</button>
+      <div>
+        <h2 id="topTitle">Backtest: 20-day High / 10-day Low</h2>
+        <p id="topSubtitle">Frictionless vs. cost-loaded, QQQ & NIFTY 50</p>
+      </div>
+      <a id="openNewTab" href="01_backtest.html" target="_blank" rel="noopener">Open in new tab &#8599;</a>
+    </div>
+    <div id="frameWrap">
+      <iframe id="reportFrame" src="01_backtest.html" title="Strategy report"></iframe>
+    </div>
+  </main>
+</div>
+<script>
+  const ITEMS = {"01": {"file": "01_backtest.html", "title": "Backtest: 20-day High / 10-day Low", "subtitle": "Frictionless vs. cost-loaded, QQQ & NIFTY 50"}, "02": {"file": "02_benchmark.html", "title": "vs. Buy-and-Hold Benchmark", "subtitle": "Same instrument, same start, side by side"}, "03": {"file": "03_dip_buying.html", "title": "Wait for the Dip", "subtitle": "Annual cash/NIFTY switch on a -10% YTD dip"}, "04": {"file": "04_midcap_rotation.html", "title": "Flight to Midcap", "subtitle": "NIFTY 50 \u2192 midcap on a -15% ATH drawdown"}, "05": {"file": "05_sip_dip_overlay.html", "title": "SIP + Dip Lump-Sums", "subtitle": "+\u20b95k / +\u20b910k at -10% / -20% from ATH"}, "06": {"file": "06_breakout_recovery.html", "title": "SIP + Confirmed-Recovery Lump-Sum", "subtitle": "Buy strength after a full round-trip, not the dip"}, "07": {"file": "07_double_sip.html", "title": "SIP Doubles on Drawdown (15%)", "subtitle": "Recurring SIP itself doubles through a decline"}, "08": {"file": "08_double_sip_10pct.html", "title": "SIP Doubles on Drawdown (10%)", "subtitle": "Same rule, more sensitive 10% trigger"}, "09": {"file": "09_sip_day_of_month.html", "title": "Does the SIP Date Matter?", "subtitle": "1st vs. 10th vs. 20th vs. last day of month"}, "10": {"file": "10_momentum_sip.html", "title": "SIP in a Momentum ETF", "subtitle": "HDFCMOMENT.NS vs. midcap vs. NIFTY, ~2.8yr"}, "11": {"file": "11_momentum_reconstruction.html", "title": "Momentum Formula, 18 Years", "subtitle": "NIFTY200/Top-30 reconstruction \u2014 survivorship-biased"}, "12": {"file": "12_momentum10_reconstruction.html", "title": "\u201cNIFTY100 Momentum 10\u201d", "subtitle": "Custom variant \u2014 not a real NSE index"}, "13": {"file": "13_quality50_basket.html", "title": "Quality-50 Static Basket", "subtitle": "Today's fundamentals, bought once \u2014 not a rebalanced index"}, "14": {"file": "14_midcap_momentum20_gold.html", "title": "Midcap Momentum-20 + Gold Blend", "subtitle": "Custom top-20 variant, plus a 50/50 gold diversification test"}, "15": {"file": "15_midcap_momentum20_quarterly.html", "title": "Momentum-20 \u2014 Quarterly Rebalance", "subtitle": "Same setup, rebalanced 4x/year instead of 2x"}, "16": {"file": "16_smallcap_midcap_momentum_compare.html", "title": "Smallcap vs. Midcap Momentum", "subtitle": "Momentum-20 vs Momentum-10 vs Midcap Momentum-10, side by side"}, "17": {"file": "17_monthly_rebalance_compare.html", "title": "Monthly Rebalance \u2014 All 6 Compared", "subtitle": "Every momentum reconstruction, monthly vs its original cadence"}, "18": {"file": "18_midcap30_nifty500_10_15.html", "title": "Midcap-30 & NIFTY500 Momentum 10/15", "subtitle": "Real rebalance months this time \u2014 May/Nov and June/Dec"}, "19": {"file": "19_sector_momentum_rotation.html", "title": "Sector-First Momentum Rotation", "subtitle": "Rank sectors by momentum first, then top 3 stocks within the leader"}, "20": {"file": "20_momentum_gold_catch_blend.html", "title": "Momentum + Gold, With a Drawdown Catch", "subtitle": "-20% drawdown sells all gold into momentum, until a full recovery"}};
+  const frame = document.getElementById('reportFrame');
+  const topTitle = document.getElementById('topTitle');
+  const topSubtitle = document.getElementById('topSubtitle');
+  const openLink = document.getElementById('openNewTab');
+  const sidebar = document.getElementById('sidebar');
+  const jumpSelect = document.getElementById('jumpSelect');
+
+  function selectItem(id, pushHash) {
+    const item = ITEMS[id];
+    if (!item) return;
+    frame.src = item.file;
+    topTitle.textContent = item.title;
+    topSubtitle.textContent = item.subtitle;
+    openLink.href = item.file;
+    document.querySelectorAll('.nav-item').forEach(el => {
+      el.classList.toggle('active', el.getAttribute('data-id') === id);
+    });
+    if (jumpSelect.value !== id) jumpSelect.value = id;
+    if (pushHash !== false) history.replaceState(null, '', '#' + id);
+    sidebar.classList.remove('open');
+  }
+
+  document.querySelectorAll('.nav-item').forEach(el => {
+    el.addEventListener('click', () => selectItem(el.getAttribute('data-id')));
+  });
+
+  jumpSelect.addEventListener('change', () => selectItem(jumpSelect.value));
+
+  document.getElementById('menuToggle').addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+  });
+
+  const initial = (location.hash || '').replace('#', '');
+  if (initial && ITEMS[initial]) selectItem(initial, false);
+</script>
+</body></html>

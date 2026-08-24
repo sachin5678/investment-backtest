@@ -1,0 +1,1462 @@
+{
+ "01": {
+  "title": "Breakout Backtest — 20-day High Entry / 10-day Low Exit",
+  "subtitle": "Long-or-flat, hand-written event-loop backtest on QQQ and NIFTY 50, run in two cost variants. No backtesting library was used.",
+  "source_line": "Data: Yahoo Finance daily OHLC (unadjusted) via yfinance Report generated 2026-08-23 19:09",
+  "pages": [
+   {
+    "file": "01_backtest.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "10% of equity"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — plain-English recap of the rule being tested, so every number below can be read without the spec doc.",
+      "paragraphs": [
+       "Entry: go long when today's close finishes above the highest daily high of the prior 20 trading days. Exit: close the position when today's close finishes below the lowest daily low of the prior 10 trading days. Long-or-flat only — the strategy never shorts. Each new position uses \"10% of equity\" at the time of entry, compounding as equity changes; the other 90% sits in cash earning nothing. Orders are assumed to fill at the next bar's open after a signal, never at the signal's own close."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the concrete ways this backtest can mislead you if taken at face value.",
+      "paragraphs": [],
+      "list_items": [
+       "This is a single, fixed rule set tested once over history — there is no out-of-sample test, no walk-forward validation, and no check for whether 20/10-day lookbacks were curve-fit to this data.",
+       "Prices are Yahoo Finance's raw (unadjusted) Close/High/Low — QQQ dividends are not modelled or reinvested anywhere in this report, including the buy-and-hold comparison.",
+       "Execution is assumed to always fill at the next bar's open, in full, regardless of gap size, liquidity, or halt — real fills could be materially worse on large gaps.",
+       "NIFTY 50 is backtested on the raw index level (^NSEI), which is not directly tradable. A real implementation would need futures, options, or an ETF — each with its own costs, tick size, and tracking error not modelled here.",
+       "The cost-loaded variant models only a flat 0.05% commission and a fixed one-tick slippage per fill. It does not model bid-ask spread widening, market impact from larger orders, financing/borrow cost, or India-specific transaction taxes (STT, stamp duty, GST on brokerage).",
+       "A trade still open on the last available bar is marked-to-market into the equity curve but excluded from the trade-level statistics (win rate, average win/loss, top-5 contribution) — it isn't a closed, realized outcome yet.",
+       "Only 10% of equity is ever deployed at a time, so this report's net return and CAGR are not comparable to a fully-invested return without adjusting for that — see 02_benchmark.html."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "02": {
+  "title": "Strategy vs. Buy-and-Hold Benchmark",
+  "subtitle": "Same instrument, same start date, same starting balance — net return, CAGR, max drawdown and longest time underwater side by side.",
+  "source_line": "Data: Yahoo Finance daily OHLC (unadjusted) via yfinance Report generated 2026-08-23 19:09",
+  "pages": [
+   {
+    "file": "02_benchmark.html",
+    "panels": [
+     {
+      "heading": "Read this before concluding \"the strategy beats/loses to buy-and-hold\"",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the single biggest driver of the return gap above, stated plainly.",
+      "paragraphs": [
+       "The strategy's net return (+16.3% frictionless) is dramatically lower than buy-and-hold's (+1,297.2%) for QQQ (Invesco QQQ Trust, USA). A large part of that gap is mechanical: this backtest only ever commits 10% of equity to a position, so 90% of the account earns nothing while buy-and-hold has 100% working the whole time. The strategy also suffered a far smaller max drawdown (-5.4% vs. -83.0%) — that risk reduction is real, but it does not offset the return gap on the numbers as sized here. Neither fact cancels the other out; both are true at once."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Read this before concluding \"the strategy beats/loses to buy-and-hold\"",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the single biggest driver of the return gap above, stated plainly.",
+      "paragraphs": [
+       "The strategy's net return (+8.3% frictionless) is dramatically lower than buy-and-hold's (+439.6%) for NIFTY 50 Index (India). A large part of that gap is mechanical: this backtest only ever commits 10% of equity to a position, so 90% of the account earns nothing while buy-and-hold has 100% working the whole time. The strategy also suffered a far smaller max drawdown (-2.7% vs. -59.9%) — that risk reduction is real, but it does not offset the return gap on the numbers as sized here. Neither fact cancels the other out; both are true at once."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the concrete ways this backtest can mislead you if taken at face value.",
+      "paragraphs": [],
+      "list_items": [
+       "This is a single, fixed rule set tested once over history — there is no out-of-sample test, no walk-forward validation, and no check for whether 20/10-day lookbacks were curve-fit to this data.",
+       "Prices are Yahoo Finance's raw (unadjusted) Close/High/Low — QQQ dividends are not modelled or reinvested anywhere in this report, including the buy-and-hold comparison.",
+       "Execution is assumed to always fill at the next bar's open, in full, regardless of gap size, liquidity, or halt — real fills could be materially worse on large gaps.",
+       "NIFTY 50 is backtested on the raw index level (^NSEI), which is not directly tradable. A real implementation would need futures, options, or an ETF — each with its own costs, tick size, and tracking error not modelled here.",
+       "The cost-loaded variant models only a flat 0.05% commission and a fixed one-tick slippage per fill. It does not model bid-ask spread widening, market impact from larger orders, financing/borrow cost, or India-specific transaction taxes (STT, stamp duty, GST on brokerage).",
+       "A trade still open on the last available bar is marked-to-market into the equity curve but excluded from the trade-level statistics (win rate, average win/loss, top-5 contribution) — it isn't a closed, realized outcome yet.",
+       "Only 10% of equity is ever deployed at a time, so this report's net return and CAGR are not comparable to a fully-invested return without adjusting for that — see 02_benchmark.html.",
+       "Buy-and-hold is sized at 100% of the same starting balance the strategy starts with — it is a benchmark for the instrument's raw price path, not a risk-matched comparison to a 10%-sized strategy.",
+       "Buy-and-hold, like the strategy, uses unadjusted prices with no dividends reinvested — real total-return buy-and-hold (with dividends) would be higher than shown here for QQQ.",
+       "The CAGR ÷ max-drawdown ratio shown is a simple, non-standard risk-adjusted cut added for this report; it is not the Calmar ratio's official definition (which typically uses trailing 36-month drawdown) and should not be quoted as such."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "03": {
+  "title": "Wait-for-the-Dip — Annual Cash/NIFTY 50 Switch",
+  "subtitle": "Sit in cash from 1 Jan; deploy 100% only if NIFTY 50 closes 10% below its year-start price; withdraw back to cash on 31 Dec. Repeats every year, compounding.",
+  "source_line": "Data: Yahoo Finance daily OHLC (^NSEI, unadjusted) via yfinance Report generated 2026-08-23 19:30",
+  "pages": [
+   {
+    "file": "03_dip_buying.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "10% below that reference price"
+       },
+       {
+        "kind": "assumption",
+        "text": "withdrawn at that day's close"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — plain-English recap of the rule being tested.",
+      "paragraphs": [
+       "Every 1 January, the account starts the year entirely in cash (the prior year's ending balance carries forward — returns compound year to year). That year's reference price is NIFTY 50's close on the first trading day of the year. If, on any later day that year, the close falls to \"10% below that reference price\", 100% of the cash is deployed — filled at the next day's open. The position is then held until the year's last trading day, where it is \"withdrawn at that day's close\" (\"31 Dec\"), regardless of price. If the -10% level is never touched that year, the account simply sits in cash all year and earns 0% for it. Only one entry/exit cycle per year — a second dip after a rebound is not re-bought."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Read this before concluding \"the strategy works\"",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanical reasons behind the headline numbers, stated plainly.",
+      "paragraphs": [
+       "The strategy only deployed cash in 7 of 18 years (39%), and even then only for part of each year — across the whole 2008-01-01–2026-08-21 span it held NIFTY for 29% of the days and sat in cash for the rest. Net return (+105.0% frictionless) is far below buy-and-hold (+294.7%) largely because of that — most of the time, this account earned nothing while the market moved. Its max drawdown is also far shallower (-54.0% vs. -59.9%), but that is mostly a side effect of rarely being invested, not evidence the -10% trigger is a skillful timing signal — a scattering of just 7 events (2 of them losses) is a very small sample to draw a conclusion from either way. Also note the profit is heavily concentrated: the top 5 triggered years account for 162% of total net profit."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the concrete ways this backtest can mislead you if taken at face value.",
+      "paragraphs": [],
+      "list_items": [
+       "Only 7 triggered years exist in 18 years of history — any win rate, average win/loss, or top-year concentration figure above is computed on a very small sample and can shift sharply with one more or fewer event.",
+       "\"Down 10% from the year-start close\" and \"one entry per year\" were both judgment calls confirmed with you in chat — a peak-to-date trigger, an intraday-low trigger, or allowing re-entry after a rebound-then-redip would all change results, possibly a lot.",
+       "The entry fills at the next day's open (a reactive signal); the year-end exit is modelled at that day's own close (a scheduled, known-in-advance liquidation) — this is an intentional asymmetry, not an inconsistency, but it does mean the exit is not lagged the way the entry is.",
+       "NIFTY 50 is the raw index level (^NSEI), not directly tradable — a real position would need futures, options, or an ETF, each with its own costs and tracking error not modelled here.",
+       "The cost-loaded variant models only a flat 0.05% commission and a fixed one-tick slippage per fill — no bid-ask spread widening, no market impact, no India-specific transaction taxes (STT, stamp duty, GST on brokerage), no financing/borrow cost.",
+       "Idle cash (all the time the account is not deployed — the large majority of the period) is assumed to earnzerointerest. A real cash balance earning even a modest risk-free rate would materially change net return and CAGR here.",
+       "Prices are unadjusted; no dividends are modelled for either the strategy or the buy-and-hold benchmark.",
+       "2007 (partial year) is excluded entirely since NIFTY 50's Yahoo Finance history starts mid-September 2007, so there is no real \"1 Jan\" reference price for it. 2026-08-21's year (2026) is in progress and excluded from every statistic above — it is shown only in the year-by-year log, marked-to-market.",
+       "This is a single fixed rule tested once over history — there is no out-of-sample test and no check for whether \"10%\" or \"one entry per year\" happens to be curve-fit to this particular history."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "04": {
+  "title": "Flight to Midcap — NIFTY 50 / Midcap 150 Rotation",
+  "subtitle": "Hold NIFTY 50 by default. When NIFTY closes 15% below its all-time high, move 100% into midcap for exactly one year, then rotate back to NIFTY. Repeats.",
+  "source_line": "Data: Yahoo Finance daily OHLC via yfinance — NIFTY ^NSEI, midcap MID150BEES.NS Report generated 2026-08-23 20:00",
+  "pages": [
+   {
+    "file": "04_midcap_rotation.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "15% below that ATH"
+       },
+       {
+        "kind": "assumption",
+        "text": "NIFTY Midcap 150 tracking ETF, MID150BEES.NS"
+       },
+       {
+        "kind": "assumption",
+        "text": "exactly 365 calendar days"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — plain-English recap of the rule being tested.",
+      "paragraphs": [
+       "The account defaults to 100% NIFTY 50 — unlike the two prior reports, it is never sitting in cash. ATH (all-time high) is NIFTY's own running record closing level, tracked continuously since 2007-09-17 — it only ever rises or holds flat, never resets. Whenever NIFTY's close falls to \"15% below that ATH\", the account sells all of its NIFTY and buys midcap instead (filled at the next day's open), confirmed in chat as the \"NIFTY Midcap 150 tracking ETF, MID150BEES.NS\". It then holds midcap for \"exactly 365 calendar days\", at which point it's a scheduled, known-in-advance event — modelled as switching back to NIFTY at that day's own close, not the next open. Only after that rotation back does the account start watching for the next -15% signal again — starting the following trading day. Because midcap data on Yahoo only goes back to 2019-02-04, the backtest itself can only run from there, even though the ATH used to judge each dip reflects NIFTY's full history back to 2007-09-17."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Read this before concluding \"rotating into midcap works\"",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the two most important caveats behind the headline numbers, stated plainly.",
+      "paragraphs": [
+       "Only 3 closed episodes exist in the ~6.5 years this ETF has traded, and all 3 happened to have midcap outperform NIFTY over the year that followed. A 100% win rate on 3 events is an encouraging sign, not evidence of an edge — with a sample this small, a single future counter-example would flip the picture, and there is no statistical basis here to say the -15%/1-year rule is better than chance.",
+       "The risk story is not what you might expect. The strategy's worst drawdown (-44.8%) is actually deeper than either static benchmark (-38.4% for NIFTY, -38.4% for midcap) — because the account rotated into the higher-beta midcap segment right as the 2020 COVID crash was still unfolding, and midcap kept falling faster than NIFTY did before the eventual recovery. Buying the dip into a more volatile asset can make the ride down worse before it makes the ride back up better."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the concrete ways this backtest can mislead you if taken at face value.",
+      "paragraphs": [],
+      "list_items": [
+       "Only 3 closed rotation episodes exist in this data — every win-rate and average-outperformance figure above rests on an extremely small sample.",
+       "\"Midcap\" was resolved to the NIFTY Midcap 150 tracking ETF (MID150BEES.NS), confirmed with you in chat specifically because it has more representative, current-day composition than the alternative (NIFTY Midcap 50 index) — but its Yahoo history only starts 2019-02-04, so the 2008 and 2011 crashes that the earlier two reports covered are entirely absent here.",
+       "\"-15% from ATH\" and \"hold for 365 days\" were both taken literally from your instruction, not independently chosen or optimized — but neither was tested for sensitivity; a 10% or 20% trigger, or a 6-month or 2-year hold, could change every number here, possibly a lot.",
+       "The entry (NIFTY→midcap) fills at the next day's open, a reactive signal; the exit (midcap→NIFTY, one year later) is modelled at that day's own close, a scheduled, known-in-advance event — this asymmetry is intentional and consistent with the earlier two reports, not an inconsistency.",
+       "A new trigger is only evaluated starting the day AFTER a scheduled rotation back to NIFTY, not the same day — an assumption to avoid a same-day double-flip; if NIFTY is still deep in a drawdown at that point, the account could rotate right back into midcap almost immediately (this did not occur in this particular data window, but is structurally possible).",
+       "The cost-loaded variant models only a flat 0.05% commission and a fixed one-tick slippage on each leg of each rotation (4 fills per full round trip) — no bid-ask spread widening, no market impact, no India-specific transaction taxes (STT, stamp duty, GST on brokerage), no ETF tracking error vs. the actual NIFTY Midcap 150 index.",
+       "Prices are unadjusted; no dividends are modelled for the strategy or either buy-and-hold benchmark.",
+       "This is a single, fixed rule tested once over a short, ~6.5-year window that happens to contain a global pandemic crash, a rate-hike correction, and a 2025 wobble — three very different market regimes compressed into three data points. There is no out-of-sample test and no check for whether these particular thresholds are curve-fit to this history."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "05": {
+  "title": "SIP + Tiered Dip Lump-Sums — NIFTY Midcap 150",
+  "subtitle": "₹1,000/month into midcap, always. +₹5,000 lump sum when midcap closes 10% below its own all-time high; +₹10,000 more when it closes 20% below. Compared against two vanilla-SIP benchmarks.",
+  "source_line": "Data: Yahoo Finance daily OHLC via yfinance — midcap MID150BEES.NS, NIFTY ^NSEI Report generated 2026-08-23 21:15",
+  "pages": [
+   {
+    "file": "05_sip_dip_overlay.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "10% below that ATH"
+       },
+       {
+        "kind": "assumption",
+        "text": "20% below"
+       },
+       {
+        "kind": "assumption",
+        "text": "Judgment call"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — plain-English recap of the rule, and one judgment call flagged up front.",
+      "paragraphs": [
+       "₹1,000 is invested every month, on the first trading day, into midcap — filled at that day's own close (a scheduled contribution, not a reactive signal). Separately, midcap's own all-time high (its running record closing level, since 2019-02-04) is tracked continuously. If midcap's close ever falls to \"10% below that ATH\", an extra ₹5,000 is invested (filled at the next day's open); if it falls to \"20% below\", a further ₹10,000 is invested on top. Both tiers can fire in the same decline if it's steep enough.",
+       "\"Judgment call\" — the instruction didn't say how often a tier can re-fire. Tested literally (any day the close is ≤10% below ATH), midcap's price wobbled across that exact line 23 separate times in barely two months in mid-2019 alone — each would trigger another ₹5,000. That's almost certainly not the intent, so this report only lets a tier fire again after midcap has set a genuinely new all-time high since it last fired — turning that into a sensible 6 tier-1 and 3 tier-2 events across 2019-02-04–2026-08-21. Flagged again in Limitations."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Read this before concluding \"the dip overlay works\"",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — what the tactical overlay actually bought you, versus what simply choosing midcap over NIFTY bought you.",
+      "paragraphs": [
+       "The tactical dip overlay improved XIRR from +21.2% (vanilla midcap SIP) to +21.8% (strategy) — about +0.6 percentage points a year, from only 9 lump-sum events across 2019-02-04–2026-08-21. Compare that to the gap from simply choosing midcap over NIFTY 50 in the first place: +9.9% vs. +21.2% — a ~11 percentage-point difference. The asset-class choice mattered far more than the tactical overlay did.",
+       "The overlay also did not reduce risk: the strategy's worst drawdown (-40.2%) is slightly deeper than the vanilla midcap SIP's (-38.7%) — putting extra money in as a crash deepens increases your stake right when the ratio of value-to-invested is at its most fragile, the same pattern seen in the \"Flight to Midcap\" report. And with only 9 lump-sum events total (6 at -10%, 3 at -20%), this is a very small sample to generalise from either way."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the concrete ways this backtest can mislead you if taken at face value.",
+      "paragraphs": [],
+      "list_items": [
+       "The \"requires a new ATH to re-fire\" rule was not specified by you— it was added because the literal rule fires 23 times in two months on ordinary price noise. A tier that instead re-arms after any partial recovery, or one throttled to \"once per calendar year,\" would produce a different number and timing of lump sums.",
+       "Only 9 lump-sum events exist in this data (6 at -10%, 3 at -20%) — far too few to treat the overlay's apparent edge as statistically meaningful.",
+       "The midcap ETF's Yahoo history starts 2019-02-04, so this backtest — like the last report — entirely misses the 2008 and 2011 crashes; it spans one pandemic crash, one rate-hike correction, and a couple of smaller wobbles.",
+       "The monthly SIP date is assumed to be the first trading day of each calendar month — a different fixed date (5th, 15th, last day) would shift results slightly.",
+       "XIRR is solved numerically by bisection over a -99.9%-to-+2000% annual rate range; it can fail to find a root for a pathological cash-flow pattern, though none occurred here.",
+       "The NIFTY 50 vanilla-SIP benchmark is frictionless only (no commission/slippage modelled), to keep scope reasonable — the midcap portfolios are shown in both variants.",
+       "The cost-loaded variant models only a flat 0.05% commission and a fixed one-tick slippage per contribution — no bid-ask spread widening, no market impact, no India-specific transaction taxes (STT, stamp duty, GST on brokerage), no ETF tracking error vs. the actual NIFTY Midcap 150 index.",
+       "Prices are unadjusted; no dividends are modelled anywhere in this report.",
+       "Drawdown and longest-underwater are computed on (value ÷ invested), not raw ₹ — a deliberate, disclosed methodology choice, not the same figure you'd get from a naive drawdown calculation on the raw value curve.",
+       "This is a single, fixed rule tested once over one specific historical window — there is no out-of-sample test and no check for whether ₹1,000/10%/20% happen to be curve-fit to this particular history."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "06": {
+  "title": "SIP + \"Buy the Confirmed Recovery\" — NIFTY Midcap 150",
+  "subtitle": "₹1,000/month into midcap, always. +₹5,000 lump sum only once midcap has fallen ≥15% from its all-time high AND then closed back above that same high.",
+  "source_line": "Data: Yahoo Finance daily OHLC via yfinance — midcap MID150BEES.NS, NIFTY ^NSEI Report generated 2026-08-23 21:27",
+  "pages": [
+   {
+    "file": "06_breakout_recovery.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "15% below its all-time high"
+       },
+       {
+        "kind": "assumption",
+        "text": "breaks back above that same pre-drop ATH"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — plain-English recap of the rule, which is the mirror image of the last report.",
+      "paragraphs": [
+       "₹1,000 still goes into midcap on the first trading day of every month, filled at that day's close. Separately: once midcap's close has fallen \"15% below its all-time high\" at any point, the strategy \"arms\" and waits. The extra ₹5,000 fires the moment midcap's close \"breaks back above that same pre-drop ATH\" — filled at the next day's open, a reactive signal like every other trigger in this project. Unlike the last report, this buys confirmed strength after a correction has fully round-tripped, not the dip itself. After firing, it disarms — a fresh ≥15% drawdown from the new high is required before it can fire again."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Buying the dip vs. buying the confirmed recovery",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the direct comparison you're likely asking for: which timing idea actually did more with the same ₹1,000/month base?",
+      "paragraphs": [
+       "Buying the confirmed recovery added ₹15,000 across 3 lump sums and moved XIRR from +21.2% (vanilla midcap SIP) to +21.2% — a gain of only +0.04 percentage points a year. The dip-buying overlay from the last report added three times as much extra money (₹60,000 across 9 lump sums) and moved XIRR by +0.58 percentage points — over 10× the improvement, for roughly 4× the extra capital.",
+       "The trade-off: this strategy's max drawdown (-38.7%) is identical to plain vanilla SIP-ing, because it never adds money while the market is still falling — it only ever buys in after the fact. The dip strategy took on a slightly deeper drawdown (-40.2%) in exchange for its bigger return gain. Whether that trade-off is worth it is a judgment call this report can't make for you — but on this specific 2019-02-04–2026-08-21 data, buying the dip did more than buying the confirmed recovery, on both counts."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the concrete ways this backtest can mislead you if taken at face value.",
+      "paragraphs": [],
+      "list_items": [
+       "Only 3 confirmed-recovery events exist in this data — far too few to treat this overlay's near-zero edge over vanilla SIP as a settled conclusion either way.",
+       "The \"disarm after firing, re-arm only after a fresh ≥15% drawdown\" rule was not specified by you — it's the natural mirror of the reset rule used in the last report, applied here for the same reason (to stop repeated firing on ordinary noise near the old high).",
+       "The midcap ETF's Yahoo history starts 2019-02-04, so — as in the last two reports — the 2008 and 2011 crashes are entirely absent; this backtest spans essentially three correction-recovery cycles (2020, 2022, 2025).",
+       "The monthly SIP date is assumed to be the first trading day of each calendar month.",
+       "The NIFTY 50 vanilla-SIP benchmark is frictionless only; the midcap portfolios are shown in both cost variants.",
+       "The cost-loaded variant models only a flat 0.05% commission and a fixed one-tick slippage per contribution — no bid-ask spread widening, no market impact, no India-specific transaction taxes, no ETF tracking error vs. the actual NIFTY Midcap 150 index.",
+       "Prices are unadjusted; no dividends are modelled anywhere in this report.",
+       "Drawdown and longest-underwater are computed on (value ÷ invested), not raw ₹ — the same deliberate methodology as the last report, not a naive drawdown on the raw value curve.",
+       "This is a single, fixed rule tested once over one specific historical window — there is no out-of-sample test and no check for whether \"15% / ₹5,000\" happen to be curve-fit to this particular history."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "07": {
+  "title": "SIP That Doubles During a Drawdown — NIFTY Midcap 150",
+  "subtitle": "₹1,000/month into midcap, always — except every month the SIP date falls while midcap is more than 15% below its all-time high, that month's contribution doubles to ₹2,000. Reverts to ₹1,000 once midcap sets a new all-time high.",
+  "source_line": "Data: Yahoo Finance daily OHLC via yfinance — midcap MID150BEES.NS, NIFTY ^NSEI Report generated 2026-08-23 21:35",
+  "pages": [
+   {
+    "file": "07_double_sip.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "15% below its all-time high"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — plain-English recap of the rule. This is different from the last two reports: it's not a one-off lump sum, it's the recurring SIP itself changing size for as long as a drawdown lasts.",
+      "paragraphs": [
+       "Every month's ₹1,000 SIP, on the first trading day, still goes into midcap at that day's close. But the moment midcap's close first falls to \"15% below its all-time high\", the strategy \"arms\" — and every SIP date that falls while still armed contributes ₹2,000 instead of ₹1,000. It disarms — back to ₹1,000 — only once midcap closes back at or above that same pre-drop all-time high (the same hysteresis rule used in the last two reports, so a partial bounce that doesn't reach a new high doesn't reset it early)."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the concrete ways this backtest can mislead you if taken at face value.",
+      "paragraphs": [],
+      "list_items": [
+       "Only 3 drawdown episodes exist in this data — the \"best of three\" ranking above is not a statistically meaningful comparison, just what happened to occur on this one historical path.",
+       "The disarm-on-new-ATH hysteresis was not specified by you — it's carried over from the last two reports for consistency and for the same reason (avoiding rapid on/off flickering around the -15% line).",
+       "The midcap ETF's Yahoo history starts 2019-02-04, so — as in the last two reports — the 2008 and 2011 crashes are entirely absent.",
+       "The monthly SIP date is assumed to be the first trading day of each calendar month; the doubled/normal amount is decided by the state as of that same day's close.",
+       "The NIFTY 50 vanilla-SIP benchmark is frictionless only; the midcap portfolios are shown in both cost variants.",
+       "The cost-loaded variant models only a flat 0.05% commission and a fixed one-tick slippage per contribution — no bid-ask spread widening, no market impact, no India-specific transaction taxes, no ETF tracking error vs. the actual NIFTY Midcap 150 index.",
+       "Prices are unadjusted; no dividends are modelled anywhere in this report.",
+       "Drawdown and longest-underwater are computed on (value ÷ invested), not raw ₹ — the same deliberate methodology as the last two reports.",
+       "This is a single, fixed rule tested once over one specific historical window — there is no out-of-sample test and no check for whether \"15% / double\" happen to be curve-fit to this particular history."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "08": {
+  "title": "SIP That Doubles During a Drawdown — 10% Trigger — NIFTY Midcap 150",
+  "subtitle": "Same rule as the last report, arming threshold lowered from 15% to 10%: ₹1,000/month into midcap, doubling to ₹2,000 every month midcap is ≥10% below its all-time high, reverting once it sets a new all-time high.",
+  "source_line": "Data: Yahoo Finance daily OHLC via yfinance — midcap MID150BEES.NS, NIFTY ^NSEI Report generated 2026-08-23 21:49",
+  "pages": [
+   {
+    "file": "08_double_sip_10pct.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "10% below ATH"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the only change from the last report is the arming threshold.",
+      "paragraphs": [
+       "Identical mechanism to the last report — ₹1,000/month into midcap, doubling to ₹2,000 for every SIP date that falls while midcap is armed, reverting once midcap sets a new all-time high — except the arming threshold is now \"10% below ATH\" instead of 15%. A lower threshold arms more easily and more often, so more months end up doubled."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Lower threshold, more money, about the same result",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — whether being more trigger-happy about \"what counts as a drawdown\" actually pays for the extra capital it commits.",
+      "paragraphs": [
+       "Lowering the trigger from 15% to 10% roughly doubled the number of drawdown episodes (3 → 6) and the doubled-SIP months (25 → 38), committing ₹38,000 extra overall versus vanilla SIP — about ₹13,000 more than the 15% version's ₹25,000. That extra capital did not translate into a better outcome: XIRR actually came in very slightly lower (+21.89% vs. +21.92% — the same to one decimal place, but a real, consistent gap), and max drawdown was essentially unchanged (-38.6% vs. -38.7%).",
+       "The likely reason: a 10-15% pullback is common and often shallow — money doubled into those milder dips buys in at prices not meaningfully cheaper than a normal month would have anyway, while still diluting the concentration effect that made the 15% version's more selective doubling slightly more effective. More sensitivity points (5%, 20%, 25%…) would be needed to say where any real \"sweet spot\" sits — this report only tested two thresholds."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the concrete ways this backtest can mislead you if taken at face value.",
+      "paragraphs": [],
+      "list_items": [
+       "Only two thresholds (10% and 15%) have been tested — this is not a sweep across all plausible triggers, and the \"10% did slightly worse\" finding could reverse at other thresholds or other data windows.",
+       "6 drawdown episodes at 10% is still a small sample — several of them are shallow, short pullbacks that may not repeat with the same frequency going forward.",
+       "The disarm-on-new-ATH hysteresis, the ₹1,000/₹2,000 amounts, and the first-trading-day-of-month SIP date are all carried over unchanged from the last report for consistency, not independently re-justified for a 10% trigger.",
+       "The midcap ETF's Yahoo history starts 2019-02-04, missing the 2008 and 2011 crashes entirely, same caveat as every report in this series.",
+       "The NIFTY 50 vanilla-SIP benchmark is frictionless only; the midcap portfolios are shown in both cost variants.",
+       "The cost-loaded variant models only a flat 0.05% commission and a fixed one-tick slippage per contribution — no bid-ask spread widening, no market impact, no India-specific transaction taxes, no ETF tracking error vs. the actual NIFTY Midcap 150 index.",
+       "Prices are unadjusted; no dividends are modelled anywhere in this report.",
+       "Drawdown and longest-underwater are computed on (value ÷ invested), not raw ₹ — the same deliberate methodology as the last two reports.",
+       "This is a single, fixed rule tested once over one specific historical window — there is no out-of-sample test and no check for whether any of these thresholds are curve-fit to this particular history."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "09": {
+  "title": "Does the SIP Date Matter? — 1st vs 10th vs 20th vs Last Day",
+  "subtitle": "Same ₹1,000/month into midcap, no overlay of any kind — only the calendar day of the month the SIP runs on changes.",
+  "source_line": "Data: Yahoo Finance daily OHLC via yfinance — midcap MID150BEES.NS Report generated 2026-08-23 22:00",
+  "pages": [
+   {
+    "file": "09_sip_day_of_month.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "first trading day of the month"
+       },
+       {
+        "kind": "assumption",
+        "text": "first trading day on/after the 10th"
+       },
+       {
+        "kind": "assumption",
+        "text": "first trading day on/after the 20th"
+       },
+       {
+        "kind": "assumption",
+        "text": "last trading day of the month"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — plain-English recap: this isolates ONE variable, the day of the month, holding everything else fixed.",
+      "paragraphs": [
+       "Four identical vanilla SIPs — ₹1,000/month into midcap, 2019-02-04 to 2026-08-21, no dip overlay, no lump sums — that differ only in which calendar day each month's contribution lands on: the \"first trading day of the month\", the \"first trading day on/after the 10th\", the \"first trading day on/after the 20th\", or the \"last trading day of the month\". Each fills at that day's own close."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Where will you get the most returns? Practically, it doesn't matter which day you pick",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the direct answer to \"where will we get most returns,\" stated plainly rather than dressed up.",
+      "paragraphs": [
+       "Last day of month produced the highest XIRR (+21.26%) and 10th of month the lowest (+21.10%) — a gap of only 0.16 percentage points across four otherwise-identical SIPs run for 7.5 years. Compare that to the ~11-point gap from choosing midcap over NIFTY (report 5) or the ~0.7-point gap from a genuinely different overlay rule (double SIP on drawdown, report 7) — this is roughly an order of magnitude smaller than either.",
+       "This spread is best read as timing noise, not a repeatable edge — which day \"wins\" reflects which specific daily closing prices each schedule happened to land on over this one 7.5-year path in this one market. There's no economic mechanism (unlike, say, a real dip-buying overlay) that would make the 1st, 10th, 20th, or last day of the month structurally better or worse in the future. If you have to pick one, pick whichever date is operationally easiest for you (e.g. matches your salary credit date) rather than optimising for a difference this small."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the concrete ways this backtest can mislead you if taken at face value.",
+      "paragraphs": [],
+      "list_items": [
+       "This tests ONE historical price path (2019-02-04–2026-08-21) — the ranking above is not guaranteed to repeat, and given how small the spread is, it's more likely to reshuffle than to persist on a different date range.",
+       "\"10th\" and \"20th\" resolve to the first trading day ON OR AFTER that calendar date (since SIPs can't run on weekends/holidays) — a stricter \"nearest trading day\" rule could shift a date by a day or two in either direction and change results at this margin.",
+       "Only midcap was tested here; NIFTY 50 or another instrument could show a different (though probably similarly small) day-of-month effect.",
+       "The cost-loaded variant (0.05% commission + 1 tick slippage) is computed in the underlying data but not shown separately above, since it moves every variant by an almost identical, negligible amount and doesn't change the ranking.",
+       "Prices are unadjusted; no dividends are modelled.",
+       "Drawdown and longest-underwater are computed on (value ÷ invested), not raw ₹ — the same methodology as every SIP report in this series."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "10": {
+  "title": "SIP in a Momentum ETF — vs. Midcap, vs. NIFTY 50",
+  "subtitle": "Same ₹1,000/month vanilla SIP, no overlay of any kind, run into a momentum-factor ETF instead — compared head-to-head against midcap and NIFTY 50 over the identical, shorter window the momentum ETF's short history allows.",
+  "source_line": "Data: Yahoo Finance daily OHLC via yfinance — HDFCMOMENT.NS, MID150BEES.NS, ^NSEI Report generated 2026-08-23 22:15",
+  "pages": [
+   {
+    "file": "10_momentum_sip.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "HDFC Nifty200 Momentum 30 ETF"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — why the window here is much shorter than every other report in this series.",
+      "paragraphs": [
+       "\"Momentum ETF\" was resolved (confirmed in chat) to the \"HDFC Nifty200 Momentum 30 ETF\" — the longest-history momentum-factor ETF available on Yahoo Finance for India, but that's still only since 2023-10-20. To keep this a fair, apples-to-apples comparison, midcap and NIFTY 50 are ALSO restricted to that same 2023-10-20–2026-08-21 window here — not their full available history used in earlier reports, so don't compare this report's midcap/NIFTY numbers directly against reports 5-9."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Data-quality fix applied before running this backtest",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "verified against raw Yahoo Finance data"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — a real data artifact that would have shown a fake 90% crash if left in, and how it was corrected.",
+      "paragraphs": [
+       "HDFCMOMENT.NS's first 3 listed trading days (2023-10-17 to 2023-10-19) print prices around ₹230-238 on very thin volume (~1,500-1,900 shares) — a listing-day pricing artifact, not a real price level. On 2023-10-20 the price drops to its real ~₹22-27 trading range on ~79,000 shares and stays there for the rest of its history. Those 3 rows were dropped before running this backtest; the analysis starts 2023-10-20."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "\"Momentum\" is a factor label, not a guarantee",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — why this result should not be read as \"momentum investing doesn't work.\"",
+      "paragraphs": [
+       "On this data, SIP-ing into the momentum ETF returned +1.26% XIRR with a -34.3% drawdown — worse on both counts than midcap (+11.47% XIRR, -24.7% drawdown) over the identical 2023-10-20–2026-08-21 window. Momentum strategies are known to go through exactly this kind of stretch — they chase recent winners, and when market leadership rotates hard (which India's did in 2024-2025), a momentum-tilted basket can underperform broader/other factor exposures for a while by design, not by flaw.",
+       "This is also, by far, the shortest and youngest dataset in this whole report series — under 3 years, covering essentially one down-cycle for the momentum factor and no real up-cycle yet. It says very little about momentum investing generally, and a lot about one specific, unlucky-so-far entry window for this specific fund."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the concrete ways this backtest can mislead you if taken at face value.",
+      "paragraphs": [],
+      "list_items": [
+       "The momentum ETF's usable history is under 3 years — by far the shortest, least conclusive dataset in this series. A single down-cycle for one factor is not a verdict on that factor.",
+       "The first-3-listing-day price artifact described above was identified and removed by hand for this specific ticker; it's a reasonable, disclosed judgment call, not an official data correction from Yahoo/NSE.",
+       "Midcap and NIFTY are shown over the SAME shortened window as the momentum ETF for a fair comparison — their numbers here do NOT match reports 5-9, which use midcap/NIFTY's full available history.",
+       "Only one momentum ETF (HDFC's) was tested; the ICICI and Motilal Oswal versions (shorter history each) could show different results even over their own overlapping windows, due to tracking differences and fund-level costs.",
+       "The cost-loaded variant models only a flat 0.05% commission and a fixed one-tick slippage per contribution — no bid-ask spread widening (likely more material here, given this ETF's much lower daily volume than the midcap ETF), no market impact, no India-specific transaction taxes.",
+       "Prices are unadjusted; no dividends are modelled.",
+       "Drawdown and longest-underwater are computed on (value ÷ invested), not raw ₹ — the same methodology as every SIP report in this series."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "11": {
+  "title": "Reconstructing the Momentum Formula Over 18 Years",
+  "subtitle": "NSE's real NIFTY200 Momentum 30 methodology, hand-computed on today's NIFTY 200 roster applied retroactively — because the real index's own history isn't downloadable through any source available in this session.",
+  "source_line": "Data: Yahoo Finance daily OHLC for 200 NIFTY 200 constituents + ^NSEI + MID150BEES.NS Report generated 2026-08-23 22:44",
+  "pages": [
+   {
+    "file": "11_momentum_reconstruction.html",
+    "panels": [
+     {
+      "heading": "Read this BEFORE the numbers below — the headline result is very likely inflated",
+      "pills": [
+       {
+        "kind": "negative",
+        "text": "survivorship bias"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "This reconstruction applies the real momentum-selection formula to today's list of NIFTY 200 companies, projected backward to 2008-12-31. That list is, by definition, the roster of companies that survived and stayed large enough to still be in the NIFTY 200 today. Any company that got picked for its momentum in, say, 2011, then collapsed, got delisted, merged away, or simply shrank out of the top 200 by now — is invisible to this backtest. It could never be selected, because it isn't on the list this reconstruction searches from.",
+       "That is a one-directional bias: it can only make the reconstructed strategy look better than any momentum strategy actually experienced in real time, never worse. The real historical index picked from whichever ~200 stocks were actually in the NIFTY 200 at each past date — including plenty of companies that are gone or irrelevant today. Treat the numbers below as an upper-bound, best-case sketch of \"if the momentum formula only ever had access to hindsight's winners\" — not a claim about what an investor following this rule since 2008 would actually have earned."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "30 June and 31 December"
+       },
+       {
+        "kind": "assumption",
+        "text": "top 30 by that score"
+       },
+       {
+        "kind": "assumption",
+        "text": "equal-weighted"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — exactly what was computed, and the other simplifications made beyond the survivorship-bias issue above.",
+      "paragraphs": [
+       "Every \"30 June and 31 December\", each of the 200 stocks with at least a year of price history gets a 6-month and 12-month \"momentum ratio\" (return ÷ volatility), which are z-scored against each other and combined into a normalised momentum score exactly per NSE's published formula. The \"top 30 by that score\" are selected and \"equal-weighted\" — the real index instead weights by free-float market cap × score (capped 5%), which needs historical market-cap data this project doesn't have access to. 36 rebalances were computed this way, from 2008-12-31 (the first date with enough eligible stocks) to 2026-08-21."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations (in addition to the survivorship-bias warning above)",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every other simplification made to get this reconstruction to run at all.",
+      "paragraphs": [],
+      "list_items": [
+       "Survivorship bias (repeated for emphasis)— this is the dominant, likely-inflating factor. See the panel at the top.",
+       "Midcap's comparison figures cover only 2019-02-04–2026-08-21 (that ETF's real trading history) — NOT the full 2008-12-31–2026-08-21 window used for the reconstructed momentum series and NIFTY 50. The three are not a like-for-like three-way comparison; midcap is there for context over its own shorter span only.",
+       "Weighting is equal-weight across the 30 selected stocks, not the real free-float-market-cap × score weighting (capped 5%) — historical free-float data wasn't available to this project.",
+       "The F&O-eligibility screen in the real methodology is not modelled — some selected stocks here may not actually have been F&O-eligible at that historical date.",
+       "Rebalance dates are approximated as the last trading day of June/December; the real index rebalances a few weeks later, after a review period.",
+       "Several of the 200 stocks show a Yahoo Finance data start date of exactly 1996-01-01 for multiple different companies at once — almost certainly Yahoo's own historical-data cutoff for older listings, not each company's true IPO date. This doesn't change results after ~1997 but means \"≥1 year of listing history\" is really \"≥1 year of Yahoo Finance data\" for the oldest names.",
+       "All 200 tickers were fetched and used automatically — unlike the single-ETF data-quality check done for the momentum ETF in the last report, this dataset was NOT manually inspected stock-by-stock for listing-day pricing artifacts, corporate-action jumps, or bad prints. A bad data point in even one of the 200 series could distort a rebalance's selection or the resulting index level.",
+       "Prices are unadjusted; no dividends are modelled for any of the three series shown.",
+       "This is a single, fixed reconstruction of one published formula — it is not the official NSE index, has not been checked against any real published historical value of it, and should not be quoted as \"the NIFTY200 Momentum 30 Index's actual historical performance.\""
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "12": {
+  "title": "\"NIFTY100 Momentum 10\" — A Custom Variant, Not a Real Index",
+  "subtitle": "Same published NSE momentum formula as the last report, applied to NIFTY 100 (not 200) selecting the top 10 (not 30) — a smaller, more concentrated construction with no official NSE equivalent.",
+  "source_line": "Data: Yahoo Finance daily OHLC for 100 NIFTY 100 constituents + ^NSEI + MID150BEES.NS (all already cached from the last report) Report generated 2026-08-24 09:20",
+  "pages": [
+   {
+    "file": "12_momentum10_reconstruction.html",
+    "panels": [
+     {
+      "heading": "Two things to know before the numbers below",
+      "pills": [
+       {
+        "kind": "negative",
+        "text": "not a real NSE product"
+       },
+       {
+        "kind": "negative",
+        "text": "survivorship bias"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "First: there is no NSE index called \"NIFTY100 Momentum 10\" (or Momentum 30). Searched for it directly — the real NSE momentum family is NIFTY200 Momentum 30, NIFTY500 Momentum 50, and a couple of midcap/smallcap \"Momentum Quality\" variants. What follows is the real, published Momentum 30 formula, applied to a different, smaller setup (NIFTY 100 universe, top 10 selected) as a custom construction — not a real product you could ever buy, and not validated against any official benchmark.",
+       "Second, the same survivorship-bias problem from the last report applies here, likely even more so: today's NIFTY 100 list is used retroactively, and now only 10 stocks are picked at each rebalance — smaller, more concentrated selections tend to swing harder in either direction, and here that concentration is being applied to an already hindsight-filtered \"winners only\" universe. Treat everything below as an even more extreme best-case sketch than the last report, not a real strategy result."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "NIFTY 100"
+       },
+       {
+        "kind": "assumption",
+        "text": "top 10"
+       },
+       {
+        "kind": "assumption",
+        "text": "equal-weighted"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — exactly what changed from the last report, and what stayed the same.",
+      "paragraphs": [
+       "Universe: \"NIFTY 100\" (100 stocks, today's list) instead of NIFTY 200. Selection: \"top 10\" by the identical normalised momentum score, instead of top 30. Everything else is unchanged: 6m/12m risk-adjusted momentum ratios, cross-sectional z-scoring, the same asymmetric normalisation, \"equal-weighted\" (not free-float market cap × score), rebalanced every June/December. 36 rebalances computed, 2008-12-31 to 2026-08-21 — the same ~17.6-year window as the last report, since all 100 of today's NIFTY 100 stocks were already in the 200-stock dataset already fetched."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations (in addition to the two warnings above)",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every other simplification, unchanged from the last report.",
+      "paragraphs": [],
+      "list_items": [
+       "Not a real index (repeated for emphasis)— \"NIFTY100 Momentum 10\" does not exist at NSE; this is the real formula applied to an invented setup.",
+       "Survivorship bias (repeated for emphasis)— today's NIFTY 100 roster, applied retroactively, only contains companies that survived and stayed large to this day.",
+       "Only 10 holdings at a time means idiosyncratic, single-stock risk dominates far more than in the top-30 version — one bad pick has 3x the impact.",
+       "Midcap's comparison figures cover only 2019-02-04–2026-08-21 (that ETF's real trading history), not the full window used for the reconstruction and NIFTY 50.",
+       "Weighting is equal-weight, not the real free-float-market-cap × score weighting; F&O-eligibility is not modelled; rebalance dates are approximated as the last trading day of June/December.",
+       "All 100 tickers were reused from the last report's automated fetch — not independently re-inspected for listing-day pricing artifacts or bad prints.",
+       "Prices are unadjusted; no dividends are modelled for any series shown.",
+       "This is a single, fixed reconstruction of an invented setup — it has no real benchmark to check itself against, official or otherwise."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "13": {
+  "title": "Today's Quality-50 Basket, Bought Once and Held",
+  "subtitle": "NSE's real Quality-score formula applied to NIFTY 500, ONE snapshot only — bought and never rebalanced, backtested as far back as its constituents' prices allow.",
+  "source_line": "Data: Yahoo Finance daily OHLC for 50 NIFTY 500 constituents + ~5yr fundamentals per stock + ^NSEI + MID150BEES.NS Report generated 2026-08-24 10:04",
+  "pages": [
+   {
+    "file": "13_quality50_basket.html",
+    "panels": [
+     {
+      "heading": "Two things to know before the numbers below",
+      "pills": [
+       {
+        "kind": "negative",
+        "text": "not a rebalanced index"
+       },
+       {
+        "kind": "negative",
+        "text": "hindsight bias"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "First: this is NOT a simulation of the real, periodically-rebalanced NIFTY500 Quality 50 index — it's a basket built ONCE, using today's fundamentals, then bought and held with zero rebalancing for however long the backtest runs. The real index re-scores and reshuffles its 50 holdings on a schedule; this doesn't, because it can't — yfinance only has ~5 years of annual fundamentals per company, with no way to see what any company's ROE or debt looked like as of a rebalance date years ago. Momentum (reports 11-12) could be reconstructed over 18 years because its score only needs prices, which Yahoo has for decades. Quality's score needs fundamentals, which it doesn't.",
+       "Second, a different but related bias: the 50 stocks below were picked because they look financially strong today. Company quality (high ROE, low debt, stable earnings) tends to be a slow-moving, persistent characteristic — so a company that looks strong now was quite likely also relatively strong a few years ago. Backtesting today's winners against yesterday's prices will tend to look good almost by construction. That's not the same one-way survivorship bias as the momentum reports, but it rhymes with it: this is not proof \"quality investing\" beats the market, it's a demonstration of what today's already-known winners' stock prices did."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "0.33×Z(ROE) − 0.33×Z(Debt/Equity) − 0.33×Z(5yr EPS growth variability)"
+       },
+       {
+        "kind": "assumption",
+        "text": "482 had usable fundamentals"
+       },
+       {
+        "kind": "assumption",
+        "text": "√(market cap) × score, capped 5%/stock"
+       },
+       {
+        "kind": "assumption",
+        "text": "Six of the top 50 are very recent IPOs"
+       },
+       {
+        "kind": "assumption",
+        "text": "\"Quality-44\""
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the exact formula used, and why two baskets are shown, not one.",
+      "paragraphs": [
+       "Quality Score = \"0.33×Z(ROE) − 0.33×Z(Debt/Equity) − 0.33×Z(5yr EPS growth variability)\", each metric averaged/measured over the trailing ~5 annual fundamentals available (real methodology calls for 5 years; that's also yfinance's entire depth, so this happens to match by coincidence, not by choice). Of 50 NIFTY 500 stocks, \"482 had usable fundamentals\" for all three metrics. The top 50 are weighted by \"√(market cap) × score, capped 5%/stock\" — current market cap stands in for free-float since this is one snapshot, not a time series.",
+       "\"Six of the top 50 are very recent IPOs\" (under ~3.5 years of trading, some under a year) — including them forces the whole basket's backtest down to just 2025-11-19–2026-08-24 (about 9 months). So a second basket, \"\"Quality-44\"\", drops those 6 and reweights the remaining 44 — giving a 2022-03-28–2026-08-24 window (~4.4 years) that's far more useful, at the cost of no longer being literally \"the actual top 50.\""
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations (in addition to the two warnings above)",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every other simplification made to get this basket built at all.",
+      "paragraphs": [],
+      "list_items": [
+       "Not a rebalanced index, and never will be re-scored in this report— it's frozen at today's fundamentals forever; a real quality index would drop a company the moment its ROE or debt deteriorated, this basket would not.",
+       "Hindsight bias— see the lead disclosure. Persistent-characteristic selection bias is real even though it's not identical to momentum's survivorship bias.",
+       "-432 of 500 stocks were excluded for missing/unusable fundamentals (no balance sheet or income statement data, non-positive equity, or too few years of EPS to measure variability) — not because they're low quality, but because yfinance's coverage of them is incomplete.",
+       "ROE and D/E are averaged over whatever annual fundamentals yfinance provides (often exactly 4-5 data points) — a genuinely noisy estimate for a \"5-year\" characteristic, and financial-sector companies' balance sheets (with debt inherent to their business model) may not compare meaningfully to industrials' on the same D/E scale.",
+       "None of the 500 companies' fundamentals were individually spot-checked against their actual annual reports — a few outliers (e.g. unusually negative D/E for at least one selected stock) suggest at least some noise or data quirks from yfinance's automated extraction.",
+       "Weighting uses TODAY's market cap as the free-float proxy — reasonable for a single snapshot, but not how the real index (which re-measures free-float at every rebalance) actually works.",
+       "Prices are unadjusted; no dividends are modelled for the basket or either benchmark.",
+       "This is a single, fixed selection computed once — there is no sensitivity test on the ~3.5-year IPO cutoff, the weighting formula, or the eligibility rules, and no comparison against the real index's own published returns."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "14": {
+  "title": "Midcap Momentum-20, and a 50/50 Blend With Gold",
+  "subtitle": "Same real NSE momentum formula applied to NIFTY Midcap 150, top 20 instead of the real index's top 50 — then a 50% momentum / 50% gold portfolio, rebalanced semi-annually.",
+  "source_line": "Data: Yahoo Finance daily OHLC for 150 NIFTY Midcap 150 constituents + GOLDBEES.NS + ^NSEI + MID150BEES.NS Report generated 2026-08-24 10:13",
+  "pages": [
+   {
+    "file": "14_midcap_momentum20_gold.html",
+    "panels": [
+     {
+      "heading": "Three things to know before the numbers below",
+      "pills": [
+       {
+        "kind": "negative",
+        "text": "not a real NSE product"
+       },
+       {
+        "kind": "negative",
+        "text": "survivorship bias"
+       },
+       {
+        "kind": "assumption",
+        "text": "gold data fixed"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "First: there is no NSE index called \"Midcap150 Momentum 20.\" The real one is Nifty Midcap150 Momentum 50 (top 50, not top 20). What follows is the real, published formula applied to a smaller, invented selection — same situation as the \"NIFTY100 Momentum 10\" report earlier in this series.",
+       "Second, the same survivorship bias as every reconstruction in this series — today's NIFTY Midcap 150 roster is used retroactively back to 2008. Midcap membership churns even more than large-cap membership, so this bias is plausibly the strongest of any reconstruction so far.",
+       "Third, a data-quality fix: the gold ETF's raw Yahoo Finance data has a 2-day glitch (2019-12-19/20) where the price briefly shows a fake ~99% crash and recovery — verified by hand and excluded before running any of the numbers below (the same kind of fix applied to the momentum ETF's listing-day artifact in an earlier report)."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "NIFTY Midcap 150"
+       },
+       {
+        "kind": "assumption",
+        "text": "top 20"
+       },
+       {
+        "kind": "assumption",
+        "text": "Equal-weighted"
+       },
+       {
+        "kind": "assumption",
+        "text": "May/November"
+       },
+       {
+        "kind": "assumption",
+        "text": "reset to 50/50 at the same May/November dates"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the formula, the universe, and the blend rule.",
+      "paragraphs": [
+       "Universe: \"NIFTY Midcap 150\" (today's list). Selection: \"top 20\" by the same normalised momentum score used throughout this project (6m/12m risk-adjusted return, z-scored, asymmetrically normalised). \"Equal-weighted\", not free-float-market-cap × score. Rebalanced every \"May/November\" (the real Midcap150 Momentum 50's actual cutoff months, unlike the June/December used by the other momentum indices in this project). 36 rebalances computed, 2008-11-28 to 2026-08-24.",
+       "The 50/50 blend holds the momentum-20 basket and GOLDBEES.NS at exactly half-and-half, \"reset to 50/50 at the same May/November dates\" as the momentum leg's own rebalancing — a judgment call, since no blend-rebalancing frequency was specified."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "What's real here and what isn't",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — separating the one trustworthy finding from the ones that aren't.",
+      "paragraphs": [
+       "The blend's absolute return numbers (+5,972.4% net, +26.2% CAGR) inherit ALL of the momentum-20 leg's survivorship bias — half the portfolio is still \"today's known winners projected backward.\" Don't trust those numbers as real achievable returns.",
+       "The drawdown reduction is a more defensible finding: it comes from gold and midcap-momentum stocks not falling at the same time, which is a structural diversification property, not a product of which specific midcap stocks got selected. Still worth a caveat: this is ONE ~18-year historical path (2008-2026), which happens to include several periods where gold rallied while equities fell (2008, 2011-2012, 2020) — a different window could show a smaller, or larger, diversification benefit."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every other simplification made to get this built.",
+      "paragraphs": [],
+      "list_items": [
+       "Not a real index (repeated)— \"Midcap150 Momentum 20\" does not exist at NSE; only Midcap150 Momentum 50 does.",
+       "Survivorship bias (repeated)— today's Midcap 150 roster, applied retroactively, likely the strongest bias of any reconstruction in this series given how much midcap membership turns over.",
+       "Weighting is equal-weight, not the real free-float-market-cap × score (capped at the lower of 5% or 5× the stock's Midcap 150 float weight); F&O-eligibility is not modelled.",
+       "Midcap ETF's comparison figures cover only 2019-02-04–2026-08-24 (its real trading history), not the full window used for momentum-20, gold, and NIFTY 50.",
+       "The 50/50 blend's semi-annual rebalance-to-target cadence was not specified by you — it reuses the momentum leg's own schedule as a reasonable default, not an independently justified choice. Monthly or annual rebalancing would give a different result.",
+       "All 150 midcap tickers' price data were reused from automated fetches across this project — not individually inspected for corporate-action artifacts the way the gold ETF's glitch was (that one was caught because its magnitude was extreme and obvious).",
+       "Prices are unadjusted; no dividends are modelled for any series, and gold ETFs have a small tracking/storage cost drag versus spot gold that isn't separately called out here.",
+       "This is a single, fixed reconstruction of an invented setup — it has no real benchmark to check itself against, official or otherwise."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "15": {
+  "title": "Midcap Momentum-20 — Quarterly vs. Semi-Annual Rebalancing",
+  "subtitle": "Same custom top-20 selection from the last report, rebalanced every 3 months (Feb/May/Aug/Nov) instead of the real index's May/November cadence.",
+  "source_line": "Data: Yahoo Finance daily OHLC for 150 NIFTY Midcap 150 constituents + ^NSEI + MID150BEES.NS Report generated 2026-08-24 10:41",
+  "pages": [
+   {
+    "file": "15_midcap_momentum20_quarterly.html",
+    "panels": [
+     {
+      "heading": "This is now two steps removed from anything NSE publishes",
+      "pills": [
+       {
+        "kind": "negative",
+        "text": "not a real NSE product"
+       },
+       {
+        "kind": "negative",
+        "text": "survivorship bias"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "The last report's \"Momentum-20\" was already a custom variant of the real Nifty Midcap150 Momentum 50 index (top 20 instead of top 50). This report changes a second thing on top of that: rebalancing every 3 months instead of the real index's actual May/November schedule. There is no official quarterly version of this index to compare against — this is purely \"what if we turned the dial on this one custom setup,\" not a test of any product that exists.",
+       "The same survivorship bias as every reconstruction in this series still applies — today's NIFTY Midcap 150 roster, used retroactively back to 2008."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "last trading day of Feb/May/Aug/Nov"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — exactly what changed, and what stayed identical.",
+      "paragraphs": [
+       "Same universe (today's NIFTY Midcap 150), same formula (6m/12m risk-adjusted momentum, z-scored, asymmetrically normalised), same top-20 selection, same equal-weighting. Only the rebalance calendar changed: \"last trading day of Feb/May/Aug/Nov\" — four times a year — instead of just May/November. 72 rebalances computed (18 years × 4), same 2008-11-28–2026-08-24 window as the last report. No transaction costs are modelled for either cadence, so the extra turnover from rebalancing twice as often is invisible here — a real cost this comparison doesn't charge for."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Was it worth turning the dial?",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the direct answer to \"what if we rebalanced every 3 months,\" net of what this comparison can't see.",
+      "paragraphs": [
+       "Quarterly rebalancing added +2.93 percentage points of CAGR (+39.6% vs. +36.7%) and trimmed the worst drawdown slightly, using 72 rebalances instead of 36 over the same span — twice the portfolio turnover. Since this reconstruction models zero transaction costs anywhere, that comparison is unfairly generous to the more frequent schedule: in reality, doubling the number of full-portfolio reshuffles would cost real commission and slippage on every trade, which this report doesn't charge for. On the actual numbers shown, the gain is small enough that realistic trading costs could plausibly erase it — this result should be read as \"roughly a wash, tilted slightly toward quarterly,\" not as \"quarterly clearly wins.\""
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification carried over from the last report, plus the new ones from this comparison.",
+      "paragraphs": [],
+      "list_items": [
+       "No transaction costs modelled— the quarterly schedule's small edge is shown before any commission, slippage, or market-impact cost from the doubled turnover; a cost-loaded version could easily flip the comparison.",
+       "Not a real index, and now doubly so — neither the top-20 selection nor the quarterly calendar exist at NSE.",
+       "Survivorship bias — today's Midcap 150 roster, applied retroactively, unchanged from the last report's caveat.",
+       "Equal-weighted, not free-float-market-cap × score; no F&O-eligibility screen; Feb/Aug rebalance dates are an arbitrary evenly-spaced insertion between the real index's actual May/November anchors, not derived from any published rule.",
+       "Midcap ETF's comparison figures cover only 2019-02-04–2026-08-24 (its real trading history), not the full window used for the momentum reconstructions and NIFTY 50.",
+       "Prices are unadjusted; no dividends are modelled for any series shown.",
+       "Only two rebalancing frequencies were tested (semi-annual, quarterly) — this is not a sweep, and monthly or annual rebalancing could show a different pattern entirely.",
+       "The report was generated while today's date (24 August) itself falls inside one of the quarterly rebalance months — so the very last \"rebalance\" in the 72-count is really a mid-August snapshot using whatever data exists so far, not a genuinely completed month like every rebalance before it. This affects only that one final data point."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "16": {
+  "title": "Smallcap Momentum-20 vs. Smallcap Momentum-10 vs. Midcap Momentum-10",
+  "subtitle": "Three custom momentum reconstructions, same formula, different universes and selection sizes — none of them a real NSE product.",
+  "source_line": "Data: Yahoo Finance for 248 NIFTY Smallcap 250 + 150 NIFTY Midcap 150 constituents + ^NSEI + NIFTYSMLCAP250.NS + MID150BEES.NS Report generated 2026-08-24 10:49",
+  "pages": [
+   {
+    "file": "16_smallcap_midcap_momentum_compare.html",
+    "panels": [
+     {
+      "heading": "None of these three are real NSE products",
+      "pills": [
+       {
+        "kind": "negative",
+        "text": "not real indices"
+       },
+       {
+        "kind": "negative",
+        "text": "survivorship bias"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "There is no pure-momentum-only smallcap index at NSE — the real one, Nifty Smallcap250 Momentum Quality 100, combines momentum AND quality (ROE/debt/EPS) into one hybrid score, selects the top 100, and caps weights at 3%. That's a different formula from what's used here. The real midcap index is Nifty Midcap150 Momentum 50 (top 50, not top 10). All three reconstructions below apply the plain momentum-only formula used throughout this project instead, so they're directly comparable to each other — but not to any product you could actually buy.",
+       "Same survivorship bias as every reconstruction in this series — today's fixed universe, applied retroactively to 2008. This is likely the strongest bias of any report so far: smallcap index membership churns even faster than midcap's, so \"today's NIFTY Smallcap 250\" excludes an especially large fraction of whatever actually made up the smallcap universe back in 2008-2015."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "6m/12m risk-adjusted momentum, z-scored, asymmetrically normalised"
+       },
+       {
+        "kind": "assumption",
+        "text": "equal-weighted"
+       },
+       {
+        "kind": "assumption",
+        "text": "June/December"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the shared formula, and the one data gap encountered.",
+      "paragraphs": [
+       "All three: \"6m/12m risk-adjusted momentum, z-scored, asymmetrically normalised\" — the identical formula used throughout this project — \"equal-weighted\" (not free-float market cap × score), rebalanced every \"June/December\" (smallcap has no real momentum index to anchor a rebalance calendar to, so this reuses the NIFTY200 Momentum 30 convention). 2 of 250 smallcap tickers (SONACOMS, KIMS) returned no price data from Yahoo Finance at all and are excluded — a data gap, not a judgment call."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "The one pattern worth taking seriously here",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — what's structural (likely to hold in general) vs. what's specific to this one historical path.",
+      "paragraphs": [
+       "Going from 20 holdings to 10 within the same smallcap universe increased BOTH the CAGR (+34.3% → +40.2%) AND the max drawdown (-39.9% → -44.8%) — fewer, higher-conviction picks cut both ways, which is a structural property of concentration, not a coincidence of this particular data. That pattern is worth trusting more than the absolute numbers.",
+       "What's much less trustworthy: comparing smallcap to midcap here. Midcap Momentum-10 shows the best CAGR AND a shallower drawdown than either smallcap version — but midcap's survivorship bias, while still real, is one notch weaker than smallcap's (per the lead disclosure), so part of that apparent \"midcap is just better\" result may be an artifact of which universe suffers more from using today's roster retroactively, not a real, tradeable advantage of midcap momentum over smallcap momentum."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind these three reconstructions.",
+      "paragraphs": [],
+      "list_items": [
+       "Not real products, and not even matched to the real hybrid smallcap formula— see the lead disclosure.",
+       "Survivorship bias, strongest for smallcap— see the lead disclosure. Comparing the three reconstructions' absolute returns to each other is comparing three different amounts of hindsight bias, not three equally-fair tests.",
+       "2 of 250 smallcap tickers had no Yahoo Finance data at all and were dropped entirely — a small, disclosed data gap.",
+       "Equal-weighted, not free-float-market-cap × score; no F&O-eligibility screen; June/December rebalance dates are borrowed from the NIFTY200 Momentum 30 convention, not derived from any smallcap-specific published rule.",
+       "The Midcap 150 ETF benchmark's real trading history only starts 2019-02-04 — shown in the comparison table for context, but it doesn't cover the full 2008-12-31–2026-08-24 window the other five series do.",
+       "Prices are unadjusted; no dividends are modelled for any series shown.",
+       "This is three single, fixed reconstructions computed once — there is no sensitivity sweep beyond the 20-vs-10 and smallcap-vs-midcap comparisons already shown, and no out-of-sample check."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "17": {
+  "title": "Monthly Rebalancing — Every Momentum Reconstruction, Compared to Its Original",
+  "subtitle": "All six custom momentum reconstructions built in this project so far, re-run with a monthly rebalance calendar instead of their original semi-annual (or May/November) schedule.",
+  "source_line": "Reuses the same universes and formula from reports 11, 12, 14, and 16 — no new price data needed. Report generated 2026-08-24 10:53",
+  "pages": [
+   {
+    "file": "17_monthly_rebalance_compare.html",
+    "panels": [
+     {
+      "heading": "Read this before the table below",
+      "pills": [
+       {
+        "kind": "negative",
+        "text": "zero trading costs modelled"
+       },
+       {
+        "kind": "assumption",
+        "text": "mixed result, not a clean win"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Monthly rebalancing means 12 reshuffles a year instead of 2 — every original cadence in this project (June/December or May/November) rebalances twice a year, so monthly is 6x the portfolio turnover across the board. This project has never modelled transaction costs for any momentum reconstruction, and doesn't here either, so every \"monthly did better\" result below is shown with zero commission, slippage, or market impact charged against that extra trading — a comparison that structurally favours whichever schedule trades more.",
+       "Even so — and this is the actual finding — monthly rebalancing does not uniformly win. It improved some reconstructions and made others worse. If more frequent rebalancing were simply \"better\" at capturing momentum, it should have won everywhere; it didn't. All six still carry the same survivorship bias as every reconstruction in this series (today's fixed universe, applied retroactively)."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "A genuinely mixed result",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the honest summary, not a cherry-picked headline.",
+      "paragraphs": [
+       "Monthly rebalancing raised CAGR in 4 of 6 reconstructions and lowered it in 2. The biggest improvement was NIFTY200 Momentum 30 (+29.7% → +31.7%); the biggest deterioration was Smallcap250 Momentum 10 (+40.2% → +33.1%) — notably, the smallest, most concentrated basket (10 holdings), where reshuffling monthly means chasing short-term momentum signals in and out of just 10 names, seems to have hurt rather than helped on this data.",
+       "Combined with the zero-transaction-cost caveat above, the honest takeaway is: there is no clean, general rule that \"rebalancing more often improves a momentum strategy\" — it depends on the specific universe and concentration, and even the wins here are shown before any of the real cost of trading 6x more often."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — everything carried over from the six original reports, plus what's new to this comparison.",
+      "paragraphs": [],
+      "list_items": [
+       "Zero transaction costs anywhere(repeated) — this is the single biggest reason not to over-read a \"monthly wins\" result at face value.",
+       "None of the six reconstructions are real NSE products — see reports 11, 12, 14, and 16 for the full disclosure on each (custom top-N selections, some on universes the real momentum family doesn't even use in a pure-momentum form).",
+       "Survivorship bias — today's fixed universe for each reconstruction, applied retroactively to 2008, unchanged from every earlier report.",
+       "Equal-weighted, not free-float-market-cap × score; no F&O-eligibility screen — same as always.",
+       "Only two rebalance frequencies (original cadence and monthly) were compared per reconstruction — this is not a full sweep (weekly, bi-monthly, etc. are untested).",
+       "Monthly rebalancing was implemented as \"last trading day of every calendar month\" — a monthly cadence anchored to different day-of-month conventions could give slightly different results.",
+       "Prices are unadjusted; no dividends are modelled for any series shown."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "18": {
+  "title": "Midcap Momentum-30, and NIFTY500 Momentum-10 vs. Momentum-15",
+  "subtitle": "Three more custom top-N selections, each run at its universe's REAL rebalance cadence this time — May/November for midcap, June/December for NIFTY 500 (both confirmed via NSE's own published methodology).",
+  "source_line": "Reuses price data already cached from reports 11-16 — NIFTY 500 = NIFTY 100 + Midcap 150 + Smallcap 250, no new downloads. Report generated 2026-08-24 11:12",
+  "pages": [
+   {
+    "file": "18_midcap30_nifty500_10_15.html",
+    "panels": [
+     {
+      "heading": "What's real here, and what still isn't",
+      "pills": [
+       {
+        "kind": "positive",
+        "text": "rebalance months are genuinely real this time"
+       },
+       {
+        "kind": "negative",
+        "text": "top-N counts are still custom"
+       },
+       {
+        "kind": "negative",
+        "text": "survivorship bias"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Unlike the smallcap reconstructions in report 16 (which had to borrow the NIFTY200 Momentum 30's June/December convention because no real pure-momentum smallcap index exists), the rebalance calendars used here ARE the real ones: May/November for Nifty Midcap150 Momentum 50, and June/December for Nifty500 Momentum 50 — both confirmed directly from NSE's published methodology. What's still custom is the selection size: the real indices always pick the top 50; this report picks the top 30 (midcap) and top 10/15 (NIFTY 500) instead.",
+       "The same survivorship bias as every reconstruction in this series still applies — today's fixed universe (Midcap 150 or NIFTY 500), applied retroactively to 2008."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "6m/12m risk-adjusted momentum, z-scored, asymmetrically normalised"
+       },
+       {
+        "kind": "assumption",
+        "text": "equal-weighted"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the formula and universes, unchanged from every earlier reconstruction.",
+      "paragraphs": [
+       "All three: \"6m/12m risk-adjusted momentum, z-scored, asymmetrically normalised\" — identical formula throughout this project — \"equal-weighted\" (not free-float market cap × score), no F&O-eligibility screen. Midcap150 Momentum 30: 150-stock universe, May/November. NIFTY500 Momentum 10 and Momentum 15 share the same 498-stock universe and June/December cadence, differing only in how many stocks are selected."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Concentration effect depends on how big the universe is",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — reconciling this report's near-identical 10-vs-15 result with the sharper differences seen in earlier reports.",
+      "paragraphs": [
+       "Going from 10 to 15 stocks out of a 500-name universe is a small relative jump (+50% more names, but still only 2-3% of the universe either way) — the two NIFTY500 versions ended up +0.32% apart in CAGR, essentially noise. Compare that to smallcap (report 16), where going from 10 to 20 out of 250 stocks changed CAGR by over 6 percentage points. The lesson isn't that concentration doesn't matter — it's that it matters more when the selection is a bigger SHARE of a smaller universe, not just a bigger absolute headcount.",
+       "Midcap Momentum-30 fits the same pattern from the other earlier reports: within the 150-stock midcap universe, CAGR fell monotonically as the selection grew — +40.6% (top 10) → +36.7% (top 20) → +34.9% (top 30) — the clearest, most consistent concentration effect found in any reconstruction so far."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind these three reconstructions.",
+      "paragraphs": [],
+      "list_items": [
+       "The rebalance MONTHS are real for both universes here — but the top-N selection sizes (30, 10, 15) are still custom; the real indices always select 50.",
+       "Survivorship bias — today's fixed universe (Midcap 150 or NIFTY 500), applied retroactively to 2008, unchanged from every earlier report.",
+       "Equal-weighted, not free-float-market-cap × score; no F&O-eligibility screen — same as always.",
+       "The midcap \"10 vs. 20 vs. 30\" spectrum table pulls report 14's and 16's already-computed numbers directly — those two used a slightly different common date-window intersection (each report intersected against its own companion series), so their figures may differ by a negligible amount from what an identical from-scratch re-run against this report's exact window would show.",
+       "Midcap 150 ETF's real trading history only starts 2019-02-04 — shown for context, not the full 2008-12-31–2026-08-24 window the other four series cover.",
+       "Prices are unadjusted; no dividends are modelled for any series shown.",
+       "These are three single, fixed reconstructions computed once — no out-of-sample check, and no test of whether 10/15/30 specifically are curve-fit to this history."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "19": {
+  "title": "Sector-First Momentum Rotation",
+  "subtitle": "Instead of picking momentum stocks out of one fixed index, rank NIFTY 500's sectors by their OWN momentum first, then take the top 3 momentum stocks from whichever sector currently leads.",
+  "source_line": "498-stock universe, 11 sectors (Yahoo Finance classification), 2008-12-31–2026-08-24 Report generated 2026-08-24 11:54",
+  "pages": [
+   {
+    "file": "19_sector_momentum_rotation.html",
+    "panels": [
+     {
+      "heading": "The idea, and the honest result up front",
+      "pills": [
+       {
+        "kind": "neutral",
+        "text": "a genuinely different selection process"
+       },
+       {
+        "kind": "negative",
+        "text": "underperforms plain top-down momentum"
+       },
+       {
+        "kind": "negative",
+        "text": "extreme turnover"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Every earlier momentum reconstruction in this project (reports 11, 12, 14, 16-18) fixes a universe first (NIFTY 200, Midcap 150, NIFTY 500...) and ranks stocks within it. This one flips that order: at each rebalance, first rank NIFTY 500's 11 Yahoo-classified sectors by their own average momentum score, then take the top 3 momentum stocks from ONLY the single strongest sector (or top 2 sectors, in the second variant) — a bet that sector leadership is itself a useful, exploitable signal on top of stock-level momentum.",
+       "It isn't, on this data. Both rotation variants below underperform a plain \"top 10 momentum stocks straight out of the whole NIFTY 500\" benchmark — run on the identical universe, dates, and formula — on every measure: lower CAGR, deeper drawdown, and longer time underwater. Adding a sector-selection step before the stock picks didn't help; it hurt."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "identical 6m/12m risk-adjusted, cross-sectionally Z-scored formula used in every reconstruction here"
+       },
+       {
+        "kind": "assumption",
+        "text": "simple average of that Z-score across a sector's eligible members"
+       },
+       {
+        "kind": "assumption",
+        "text": "5+ eligible members to be ranked at all"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — how the sector call and the stock picks are actually computed. Full derivation in this report's source code.",
+      "paragraphs": [
+       "Per-stock momentum score: \"identical 6m/12m risk-adjusted, cross-sectionally Z-scored formula used in every reconstruction here\" — nothing new. Sector score: \"simple average of that Z-score across a sector's eligible members\" (not cap-weighted — the only market-cap data in this project is a single present-day snapshot, and using it at every historical rebalance would add a second look-ahead assumption on top of the sector-tag one that already exists). Rebalanced June/December — the real NIFTY500 Momentum index's actual cadence — so this overlays cleanly on the NIFTY500 Momentum-10 benchmark shown throughout. A sector needs \"5+ eligible members to be ranked at all\", well below every real sector's actual size (11-97 stocks)."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why the sector-first idea didn't help here",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism behind the weaker result, not just the scoreboard.",
+      "paragraphs": [
+       "The top-down benchmark picks its top 10 stocks by momentum score from ALL 500 names, wherever they happen to sit sector-wise — if the 10 best momentum stocks all happen to cluster in 2-3 sectors, it captures all of them. Top1x3 instead commits FIRST to one sector (by that sector's average score) and only THEN looks for winners inside it — so it can end up holding sector #1's 3rd- and 4th-best momentum names while sector #2's actual best individual stock, sitting just outside the winning sector, is ignored entirely. Averaging dilutes the signal: a sector with one spectacular stock and several mediocre ones can easily be out-ranked by a sector that is uniformly decent, even though the single spectacular stock might have been the better pick on its own.",
+       "Combined with the extreme turnover shown above (leadership rotating almost every 6 months, 11 different sectors taking a turn at #1), the sector step adds a layer of noise and concentration risk without adding a compensating edge — on this data, momentum is a stock-level effect that a sector-averaging step mostly gets in the way of, rather than sharpens."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this reconstruction.",
+      "paragraphs": [],
+      "list_items": [
+       "Sector tags are Yahoo Finance's own present-day classification, applied retroactively to 2008 — NSE does not publish a fetchable sector taxonomy in this project's data sources; a company's ACTUAL sector rarely changes, but this is still a fixed, single-snapshot label used across the whole history, same style of assumption as every quality/fundamentals report in this series.",
+       "Sector momentum is a simple (equal-weighted) average of member stocks' Z-scores — a judgment call, not an NSE-published formula (sector rotation isn't a real NSE index methodology at all).",
+       "Survivorship bias — today's fixed NIFTY 500 constituent list, applied retroactively to 2008, same as every reconstruction in this project.",
+       "Equal-weighted stock picks (33.3% or 16.7% each); no free-float-market-cap × score weighting; no F&O-eligibility screen.",
+       "Zero transaction costs, slippage, or taxes modeled anywhere— the single biggest reason not to read the return numbers as achievable in practice, given the turnover shown above is far higher than any other reconstruction in this project.",
+       "Only two variants tested (top 1 sector and top 2 sectors, always 3 stocks per sector) — top-N-per-sector, more sectors, or a cap-weighted sector score are all untested alternatives that could change this result.",
+       "A sector needing 5+ eligible members to be \"rankable\" and the whole-universe 80-stock eligibility floor both bind hardest in the earliest years (2008-2010), when far fewer of today's 500 constituents had 12 months of price history yet.",
+       "Prices are unadjusted; no dividends are modelled for any series shown."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "20": {
+  "title": "Momentum + Gold, With a Drawdown Catch",
+  "subtitle": "50/50 Midcap150 Momentum-10 + gold — but a 20% drawdown in the momentum leg sells all the gold into momentum, held until a full recovery, then reset back to 50/50.",
+  "source_line": "2009-01-02–2026-08-24 · 5 trigger cycles Report generated 2026-08-24 12:17",
+  "pages": [
+   {
+    "file": "20_momentum_gold_catch_blend.html",
+    "panels": [
+     {
+      "heading": "The rule, and the honest result up front",
+      "pills": [
+       {
+        "kind": "positive",
+        "text": "reduces drawdown vs. pure momentum"
+       },
+       {
+        "kind": "negative",
+        "text": "underperforms just leaving it alone"
+       },
+       {
+        "kind": "neutral",
+        "text": "5 trigger cycles in 17.6 years"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Start 50% Midcap150 Momentum-10 / 50% gold. The moment the momentum leg falls 20% below its OWN running peak, sell 100% of the gold and put it all into momentum — an all-in lump sum funded by the diversification cushion. Stay 100% momentum until it makes a brand-new all-time high (fully recovers), then reset to exactly 50/50 and repeat. This happened 5 times over 2009-01-02–2026-08-24, averaging 237 days to recover each time.",
+       "The catch does what it's designed to do on the risk side — shallower drawdown than holding pure momentum alone. But on return, it underperforms simply buying 50/50 once and never touching it again (+31.2% CAGR vs. +35.3%) — and it even underperforms a plain CALENDAR-rebalanced 50/50 blend on drawdown (-29.2% vs. -21.7%). Repeatedly resetting back to 50/50 after each recovery turns out to cap the compounding of the far-faster-growing momentum leg more than the \"buy the dip\" timing helps — see the honesty note below for the mechanism."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why \"buying the dip\" here still lost to doing nothing",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "Over 2009-01-02–2026-08-24, momentum alone compounded at +40.5% a year versus gold's +13.9% — momentum grew roughly 403x versus gold's 9x over the full window. A 50/50 split that is NEVER rebalanced naturally drifts to be almost entirely momentum within a few years, simply because the faster-compounding asset dominates the mix — that drift is exactly what \"static, never touched\" is capturing, and it's a large share of why it wins.",
+       "The catch rule does the opposite at every single cycle: the moment momentum recovers from a dip, it forcibly resets the mix back to 50/50 — selling down exactly the asset that was about to keep compounding fastest, and buying back into gold, right as momentum turns UP again. Each of the 5 reset points is a small, repeated tax on the momentum leg's own compounding, paid in exchange for a real but partial reduction in how deep the worst drawdown gets.",
+       "That trade-off shows up exactly as expected: the catch's max drawdown (-29.2%) is shallower than pure momentum's (-35.1%) — the rule does work as risk management. It just isn't a free lunch: plain periodic rebalancing, with no drawdown-timing logic at all, achieves an even shallower drawdown (-21.7%) for a similar return give-up, suggesting the discipline of rebalancing itself — not the specific -20%/new-high timing rule — is doing most of the risk reduction here."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Midcap150 Momentum 10 is reused exactly as built in report 16 — today's fixed Midcap 150 constituent list applied retroactively (survivorship bias), equal-weighted top 10, June/December rebalance (borrowed from the NIFTY200 Momentum convention, not the real Midcap150 Momentum index's own May/November cadence).",
+       "Only ONE drawdown threshold (-20%) and ONE exit condition (a full new all-time high) were tested — a shallower/deeper trigger, or a partial-recovery exit (e.g. \"halfway back\"), are untested alternatives that could change this result in either direction.",
+       "Zero transaction costs, slippage, or taxes modeled on any of the reallocation events (5 triggers + 5 resets = 10 trades total) — a much smaller concern here than report 19's sector rotation, given how few trades this rule generates, but still not zero in practice.",
+       "As of the last data point, the rule is back in its normal 50/50 state (not mid-drawdown) — see the pill above the trigger timeline; this wasn't cherry-picked, it's simply where the 2025-01-28 → 2025-12-23 cycle happened to land relative to today's date.",
+       "The \"periodic 50/50 rebalance\" comparison line reuses report 14's exact blending mechanics (backtest13.blend_50_50) but on the Momentum-10 leg instead of report 14's Momentum-20 — it is NOT report 14's own number restated, it's freshly computed here for a fair, matched comparison.",
+       "Prices are unadjusted; no dividends are modelled for gold, momentum, or NIFTY 50.",
+       "This is a single, fixed historical path — 5 trigger events is not a large sample to judge a timing rule's reliability by; a different 17.6-year window could show a very different trigger count and outcome."
+      ]
+     }
+    ]
+   }
+  ]
+ }
+}

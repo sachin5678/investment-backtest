@@ -1,0 +1,85 @@
+// Mirrors dashboard.html's GROUPS structure — same ids, same grouping, same
+// icons — but each entry also carries the primary results*.json file this
+// report's own numbers live in (see backtest.py mapping notes in
+// extract_report_content.py / the project's build_html*.py files).
+
+const ICON_TRENDING = "M3 17l6-6 4 4 8-8 M15 7h6v6";
+const ICON_BARS = "M4 20V10 M10 20V6 M16 20V3";
+const ICON_WALLET = "M3 7h18v12H3z M3 11h18";
+const ICON_REFRESH = "M20 11a8 8 0 1 0-2.3 5.7 M20 4v7h-7";
+const ICON_CALENDAR = "M3 5h18v16H3z M3 10h18 M8 3v4 M16 3v4";
+const ICON_BOLT = "M13 2 4 14h7l-2 8 11-12h-7z";
+const ICON_FLASK = "M9 2v6.5l-5.2 9A2 2 0 0 0 5.6 21h12.8a2 2 0 0 0 1.8-3.5L15 8.5V2 M7 2h10 M8 15h8";
+const ICON_GRID = "M3,3h8v8h-8z M13,3h8v8h-8z M3,13h8v8h-8z M13,13h8v8h-8z";
+const ICON_SHIELD = "M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3z M9 12l2.2 2.2L15.5 9.5";
+
+export const GROUPS = [
+  {
+    label: "NIFTY 50 Breakout System",
+    items: [
+      { id: "01", file: "results.json", icon: ICON_TRENDING, title: "Backtest: 20-day High / 10-day Low", subtitle: "Frictionless vs. cost-loaded, QQQ & NIFTY 50" },
+      { id: "02", file: "results.json", icon: ICON_BARS, title: "vs. Buy-and-Hold Benchmark", subtitle: "Same instrument, same start, side by side" },
+    ],
+  },
+  {
+    label: "Cash Timing (NIFTY 50)",
+    items: [
+      { id: "03", file: "results2.json", icon: ICON_WALLET, title: "Wait for the Dip", subtitle: "Annual cash/NIFTY switch on a -10% YTD dip" },
+    ],
+  },
+  {
+    label: "Midcap Rotation",
+    items: [
+      { id: "04", file: "results3.json", icon: ICON_REFRESH, title: "Flight to Midcap", subtitle: "NIFTY 50 → midcap on a -15% ATH drawdown" },
+    ],
+  },
+  {
+    label: "SIP + Tactical Overlays (Midcap)",
+    items: [
+      { id: "05", file: "results4.json", icon: ICON_CALENDAR, title: "SIP + Dip Lump-Sums", subtitle: "+₹5k / +₹10k at -10% / -20% from ATH" },
+      { id: "06", file: "results5.json", icon: ICON_CALENDAR, title: "SIP + Confirmed-Recovery Lump-Sum", subtitle: "Buy strength after a full round-trip, not the dip" },
+      { id: "07", file: "results6.json", icon: ICON_CALENDAR, title: "SIP Doubles on Drawdown (15%)", subtitle: "Recurring SIP itself doubles through a decline" },
+      { id: "08", file: "results7.json", icon: ICON_CALENDAR, title: "SIP Doubles on Drawdown (10%)", subtitle: "Same rule, more sensitive 10% trigger" },
+      { id: "09", file: "results8.json", icon: ICON_CALENDAR, title: "Does the SIP Date Matter?", subtitle: "1st vs. 10th vs. 20th vs. last day of month" },
+    ],
+  },
+  {
+    label: "Momentum Factor",
+    items: [
+      { id: "10", file: "results9.json", icon: ICON_BOLT, title: "SIP in a Momentum ETF", subtitle: "HDFCMOMENT.NS vs. midcap vs. NIFTY, ~2.8yr" },
+      { id: "11", file: "results10.json", icon: ICON_FLASK, title: "Momentum Formula, 18 Years", subtitle: "NIFTY200/Top-30 reconstruction — survivorship-biased" },
+      { id: "12", file: "results11.json", icon: ICON_FLASK, title: "“NIFTY100 Momentum 10”", subtitle: "Custom variant — not a real NSE index" },
+    ],
+  },
+  {
+    label: "Quality Factor",
+    items: [
+      { id: "13", file: "results12.json", icon: ICON_FLASK, title: "Quality-50 Static Basket", subtitle: "Today's fundamentals, bought once — not a rebalanced index" },
+    ],
+  },
+  {
+    label: "Midcap Momentum + Gold",
+    items: [
+      { id: "14", file: "results13.json", icon: ICON_BOLT, title: "Midcap Momentum-20 + Gold Blend", subtitle: "Custom top-20 variant, plus a 50/50 gold diversification test" },
+      { id: "15", file: "results14.json", icon: ICON_REFRESH, title: "Momentum-20 — Quarterly Rebalance", subtitle: "Same setup, rebalanced 4x/year instead of 2x" },
+      { id: "16", file: "results15.json", icon: ICON_BOLT, title: "Smallcap vs. Midcap Momentum", subtitle: "Momentum-20 vs Momentum-10 vs Midcap Momentum-10" },
+      { id: "17", file: "results16.json", icon: ICON_REFRESH, title: "Monthly Rebalance — All 6 Compared", subtitle: "Every momentum reconstruction, monthly vs its original cadence" },
+      { id: "18", file: "results17.json", icon: ICON_BOLT, title: "Midcap-30 & NIFTY500 Momentum 10/15", subtitle: "Real rebalance months this time — May/Nov and June/Dec" },
+    ],
+  },
+  {
+    label: "Sector Rotation",
+    items: [
+      { id: "19", file: "results18.json", icon: ICON_GRID, title: "Sector-First Momentum Rotation", subtitle: "Rank sectors by momentum first, then top 3 stocks within the leader" },
+    ],
+  },
+  {
+    label: "Momentum + Gold, Drawdown-Triggered",
+    items: [
+      { id: "20", file: "results19.json", icon: ICON_SHIELD, title: "Momentum + Gold, With a Drawdown Catch", subtitle: "-20% drawdown sells all gold into momentum, until a full recovery" },
+    ],
+  },
+];
+
+export const ALL_ITEMS = GROUPS.flatMap((g) => g.items);
+export const ITEM_BY_ID = Object.fromEntries(ALL_ITEMS.map((i) => [i.id, i]));

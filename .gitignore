@@ -1,0 +1,27 @@
+# Raw yfinance data caches — large (~200MB total) and fully regenerable by
+# re-running the fetch_*.py scripts; not needed to view any report or run
+# the webapp (both work off the small, already-committed results*.json /
+# report_content.json files).
+*.pkl
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Node / Vite (webapp/ also has its own .gitignore; duplicated here for
+# clarity at the repo root)
+node_modules/
+webapp/dist/
+webapp/dist-ssr/
+*.local
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/*
+!.vscode/extensions.json
+.idea/
