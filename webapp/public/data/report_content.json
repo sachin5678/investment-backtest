@@ -2107,5 +2107,134 @@
     ]
    }
   ]
+ },
+ "29": {
+  "title": "Smallcap250 Momentum 10 & Momentum 5, Head to Head",
+  "subtitle": "Same universe, formula, and June/December rebalance as report 16 — Momentum 10 recomputed fresh, plus a new, more concentrated Momentum 5 variant (top 5 instead of top 10), the same test as report 28 did for NIFTY 100.",
+  "source_line": "2008-12-31–2026-08-24 · 36 rebalances Report generated 2026-08-24 19:11",
+  "pages": [
+   {
+    "file": "29_smallcap250_momentum10_5.html",
+    "panels": [
+     {
+      "heading": "The concentration question, and a DIFFERENT answer than report 28",
+      "pills": [
+       {
+        "kind": "negative",
+        "text": "here, MORE concentration makes things worse on BOTH dimensions"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Report 28 found that concentrating NIFTY100 Momentum from 10 stocks down to 5 improved CAGR at the cost of a deeper drawdown — a classic trade-off. Smallcaps tell a different story: Momentum-5 compounded at only +30.2% versus Momentum-10's +40.2% — WORSE return — while its max drawdown (-48.1%) is also deeper than Momentum-10's (-44.8%). There is no trade-off here — concentration loses on both dimensions.",
+       "The likely reason: smallcap momentum leaders are the noisiest, most idiosyncratic corner of this project's entire universe — the same survivorship bias disclosed in every smallcap reconstruction here is at its strongest, and individual smallcap winners/blowups swing much harder than large or mid-cap ones. Concentrating into just 5 names amplifies that noise more than it captures a real signal — see the honesty note below."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why concentration helped NIFTY100 but hurt Smallcap250",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "Report 28 concentrated a large-cap universe (NIFTY 100) and the payoff was real: fewer, higher-conviction large-cap momentum leaders tend to keep leading for a while, because large-cap trends are driven by genuinely persistent factors (earnings momentum, institutional flows) that don't reverse as violently. Smallcaps behave differently — this project's own smallcap reconstructions (report 16) already carry the strongest disclosed survivorship bias of any universe here, and individual smallcap \"momentum leaders\" are far more prone to being one-off news-driven spikes (a small stock up 80% in 6 months on a single contract win or promoter announcement) that don't persist.",
+       "Concentrating a 250-name universe's picks down to just 5 stocks means each one is 20% of the book — for a universe already this noisy, that amplifies idiosyncratic blowups more than it captures a repeatable trend, which is exactly why Momentum-5 loses to Momentum-10 on BOTH return and risk here, unlike the large-cap case in report 28."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Today's fixed NIFTY Smallcap 250 constituent list is applied retroactively across the whole window for both portfolio sizes equally — the strongest survivorship bias of any universe in this project (smallcap membership churns fastest).",
+       "2 of the 250 smallcap tickers (SONACOMS.NS, KIMS.NS) have no price data available at all and are excluded — a data-availability gap, not a judgment call, same as report 16.",
+       "Equal weighting (not free-float market-cap x momentum score), same as every other reconstruction here — for a 5-stock book this makes each position's weight (20%) far more consequential.",
+       "No F&O-eligibility screen, and June/December rebalance dates borrowed from the NIFTY200 Momentum convention (smallcap has no real momentum index to anchor a calendar to).",
+       "Zero transaction costs, slippage, or taxes modeled on either variant — smallcap stocks are typically less liquid than midcap/largecap, so real-world costs would likely be highest here of any universe tested in this project.",
+       "Prices are unadjusted; no dividends are modeled for any holding.",
+       "This is a single, fixed 18-year historical path — a different window could show a different result; smallcap concentration's poor showing here should not be read as a universal law."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "30": {
+  "title": "Midcap Momentum 10 — No Stop-Loss, Just a Breakeven Profit-Lock",
+  "subtitle": "Same exact selection/weighting as reports 11-19, 24, 25, 27 — no downside stop at all. Instead: once a position has run up 30% from entry, arm a protective exit at cost — if it falls all the way back to breakeven before the next rebalance, exit immediately at 0%, rather than riding it down further or waiting.",
+  "source_line": "2008-12-31–2026-08-24 · 360 total positions Report generated 2026-08-24 19:14",
+  "pages": [
+   {
+    "file": "30_midcap_momentum10_breakeven_lock.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "neutral",
+        "text": "only 5.3% of positions ever triggered the rule"
+       },
+       {
+        "kind": "positive",
+        "text": "near-neutral impact — a much smaller effect than either stop-loss threshold"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "This rule only ever fires for a position that BOTH ran up 30%+ from entry AND later gave essentially all of that gain back before the next rebalance — a much narrower trigger condition than report 27's fixed-percentage-loss stops. Over 2008-12-31–2026-08-24, that happened to just 19 of 360 positions (5.3%) — versus 15%'s 43.3% and 30%'s 12.5% of positions affected in report 27.",
+       "The result is correspondingly small: CAGR barely moves, from +40.6% (original) to +39.6% (with the lock) — a 1.0% point difference, far smaller than either of report 27's stop-loss variants — and max drawdown is essentially unchanged (-35.1% vs. -35.1%). This rule locks in exactly what it's designed to: guaranteeing a big winner can never fully round-trip back to a loss, without materially touching the strategy's overall risk/return profile."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why this rule barely moves the needle",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "Report 27's stop-losses fire on a SINGLE condition (price falls X% from entry) — easy to trigger, which is why 43.3% of positions got caught at a 15% stop. This rule requires TWO conditions in sequence: the position must first prove it can run up 30%, and THEN give essentially all of that entire gain back before the next rebalance. Most positions that reach +30% either keep running (never re-test entry) or pull back only partially — a full round-trip all the way to breakeven is a narrow, specific pattern, which is exactly why it only happened 19 times in 360 positions across 18 years.",
+       "What this rule DOES guarantee, on the 19 times it fired, is that a position which was once a big winner can never turn into an outright loss on the way back down — the average locked-out return was -0.3%, almost exactly breakeven by construction. Whether those specific 19 positions would have ended up positive or negative by the ACTUAL next rebalance (had the rule not intervened) isn't shown here — that counterfactual wasn't computed — but given how few positions are affected, either way the portfolio-level impact was always going to be small.",
+       "The practical takeaway: this is a genuinely different kind of rule than a stop-loss — it protects a specific outcome (never letting a confirmed winner become a loser) rather than capping downside broadly, and it costs almost nothing to add because it so rarely fires. It is not a substitute for a stop-loss if the goal is limiting how much any single position can lose — for that, report 27's 30% threshold remains the better-tested option."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Today's fixed NIFTY Midcap 150 constituent list is applied retroactively across the whole window (survivorship bias) — same disclosed approximation as every other reconstruction here.",
+       "Arming uses the day's intraday HIGH and the breakeven trigger uses the day's intraday LOW — a position that spikes to +30% and crashes back to entry within the SAME trading day is deliberately NOT caught (arming only takes effect starting the next day's check), a conservative choice since the data can't confirm which happened first within that one day.",
+       "The counterfactual — what the 19 locked-out positions would have actually returned by the real next rebalance had this rule not existed — was not computed; only the actual rule's effect on the portfolio's overall equity curve is shown.",
+       "Only ONE arming threshold (+30%) was tested — a lower threshold would arm more positions (and likely trigger more often); a higher one, fewer.",
+       "Zero transaction costs, slippage, or taxes are modeled — the extra 19 trades this rule generates beyond the original strategy's 331 would carry a small real-world cost not reflected here.",
+       "Equal weighting (not free-float market-cap x momentum score) and no F&O-eligibility screen, same as every other reconstruction in this project.",
+       "Prices are unadjusted; no dividends are modeled for any holding. This is a single, fixed 18-year historical path."
+      ]
+     }
+    ]
+   }
+  ]
  }
 }

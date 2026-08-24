@@ -27,6 +27,7 @@ ICON_COINS = '<ellipse cx="9" cy="9" rx="6" ry="6" fill="none"/><path d="M15 9a6
 ICON_LEDGER = '<rect x="4" y="3" width="16" height="18" rx="1.5" fill="none"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="13" y2="16"/>'
 ICON_COMPASS = '<circle cx="12" cy="12" r="9" fill="none"/><polygon points="15,9 13,13 9,15 11,11"/>'
 ICON_STOPWATCH = '<circle cx="12" cy="13" r="8" fill="none"/><line x1="12" y1="13" x2="12" y2="8"/><line x1="9" y1="2" x2="15" y2="2"/><line x1="12" y1="2" x2="12" y2="5"/>'
+ICON_LOCK = '<rect x="5" y="11" width="14" height="10" rx="1.5" fill="none"/><path d="M8 11V7a4 4 0 0 1 8 0v4" fill="none"/>'
 
 GROUPS = [
     {
@@ -100,6 +101,8 @@ GROUPS = [
              "title": "Monthly Rebalance — All 6 Compared", "subtitle": "Every momentum reconstruction, monthly vs its original cadence"},
             {"id": "18", "file": "18_midcap30_nifty500_10_15.html", "icon": ICON_BOLT,
              "title": "Midcap-30 & NIFTY500 Momentum 10/15", "subtitle": "Real rebalance months this time — May/Nov and June/Dec"},
+            {"id": "29", "file": "29_smallcap250_momentum10_5.html", "icon": ICON_BOLT,
+             "title": "Smallcap250 Momentum 10 & 5", "subtitle": "Concentration test — more names wins here, unlike NIFTY100"},
         ],
     },
     {
@@ -147,7 +150,9 @@ GROUPS = [
             {"id": "26", "file": "26_midcap_momentum10_2020_2023_tradelog.html", "icon": ICON_LEDGER,
              "title": "Midcap Momentum 10 — 2020-2023, Trade Log", "subtitle": "The COVID crash and V-recovery window, every buy and sell shown"},
             {"id": "27", "file": "27_midcap_momentum10_stoploss_compare.html", "icon": ICON_STOPWATCH,
-             "title": "Midcap Momentum 10 — With a 15% Stop-Loss, vs. Original", "subtitle": "Exit a position immediately at -15%, instead of waiting for the next rebalance"},
+             "title": "Midcap Momentum 10 — Stop-Loss: 15% vs. 30%", "subtitle": "Two thresholds compared against the original, no stop"},
+            {"id": "30", "file": "30_midcap_momentum10_breakeven_lock.html", "icon": ICON_LOCK,
+             "title": "Midcap Momentum 10 — Breakeven Profit-Lock", "subtitle": "No stop-loss — just lock in cost if a +30% winner fully reverses"},
         ],
     },
 ]
