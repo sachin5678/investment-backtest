@@ -15,6 +15,7 @@ const ICON_SHIELD = "M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3z M9 12
 const ICON_GLOBE = "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z M12 3c-3 4-3 14 0 18 M12 3c3 4 3 14 0 18 M3 12h18";
 const ICON_PULSE = "M3 12h5l2-6 4 12 2-6h5";
 const ICON_COINS = "M9,3a6,6 0 1 0 0,12a6,6 0 1 0 0,-12 M15,9a6,6 0 1 1 0,10.5a6,6 0 1 1 -6,-4.5";
+const ICON_LEDGER = "M4 3h16v18h-16z M8 8h8 M8 12h8 M8 16h5";
 
 export const GROUPS = [
   {
@@ -98,6 +99,12 @@ export const GROUPS = [
     label: "Commodities",
     items: [
       { id: "23", file: "results22.json", icon: ICON_COINS, title: "Gold/Silver Absolute Momentum Rotation", subtitle: "Hold each metal only while its own momentum is positive, else cash" },
+    ],
+  },
+  {
+    label: "Trade-Level Detail",
+    items: [
+      { id: "24", file: "results23.json", icon: ICON_LEDGER, title: "Midcap Momentum 10 — Last 2 Years, Trade Log", subtitle: "Every stock bought and sold, with entry/exit price and P&L, vs. the midcap ETF" },
     ],
   },
 ];

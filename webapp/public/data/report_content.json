@@ -1774,5 +1774,71 @@
     ]
    }
   ]
+ },
+ "24": {
+  "title": "Midcap150 Momentum 10 — Last 2 Years, Full Trade Log",
+  "subtitle": "The exact same reconstruction as reports 16/17 (top 10 by 6m/12m risk-adjusted momentum, equal-weighted, rebalanced June/December), windowed to the trailing 2 years, with every single buy and sell shown.",
+  "source_line": "2024-08-26–2026-08-24 · 4 rebalances in window Report generated 2026-08-24 18:25",
+  "pages": [
+   {
+    "file": "24_midcap_momentum10_last2yr_tradelog.html",
+    "panels": [
+     {
+      "heading": "The last 2 years, and the honest result up front",
+      "pills": [
+       {
+        "kind": "neutral",
+        "text": "40 closed trades, 10 still open"
+       },
+       {
+        "kind": "negative",
+        "text": "underperforms the plain midcap ETF over this specific 2-year window"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Every June and December, the strategy fully re-splits its capital equally across whichever 10 midcap stocks currently rank highest on 6-month/12-month risk-adjusted momentum — so even a stock that stays in the list for two rebalances running is, in this accounting, sold and bought again at the same price at every rebalance date, then genuinely exited the moment it drops out of the top 10. That means every row in the trade log below is a real buy at one rebalance's price and a real sell at the next rebalance's price (or \"still open\" for the most recent picks that haven't hit their next rebalance yet).",
+       "Over 2024-08-26–2026-08-24, that produced +1.0% CAGR with a -29.0% max drawdown — behind simply buying and holding the midcap ETF over the identical window (+4.1% CAGR / -20.7% drawdown). Win rate across all 40 closed positions was 47.5% — see the honesty note below for why a specific 2-year slice can look very different from this same strategy's 18-year track record (+40.6% CAGR) in report 16/17."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why 2 years can look so different from 18",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "Report 16/17's headline number for this exact strategy — ₹100 growing at roughly 40.6% CAGR — is an AVERAGE over 18 years and 36+ rebalances spanning multiple bull and bear midcap cycles (2008-09 crash and recovery, 2013 taper tantrum, 2020 COVID crash and V-recovery, the 2022 correction, and more). Any single 2-year slice, including this one, samples just 4 rebalances out of that much longer run — enough for one bad or choppy stretch to dominate the window's own number even though the strategy's long-run edge is real. With only 40 closed trades to judge a 47.5% win rate by, this window alone is not a large enough sample to conclude the strategy has stopped working.",
+       "Momentum strategies are also mechanically exposed to sharp reversals: a stock that ranked in the top 10 on trailing 6m/12m strength can (and did, see the trade log above) give back a large chunk of that gain in the very next 6 months if the trend it was chasing reverses — that is the concentrated, \"buy strength, get whipsawed sometimes\" nature of momentum investing, not a bug in this specific window."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Today's fixed NIFTY Midcap 150 constituent list is applied retroactively across the whole window (survivorship bias) — same disclosed approximation as reports 11-19.",
+       "Every rebalance is modeled as a full sell-and-rebuy of the ENTIRE portfolio at that date's closing prices, even for stocks that stay in the top 10 — zero transaction costs, slippage, or taxes are modeled on any of these trades, which in reality would be a real cost on every single row of the trade log above (not just the ones that actually change holdings).",
+       "The \"carried in\" position(s) at the top of the log were bought at the rebalance BEFORE this report's 2-year window technically starts — included because their holding period runs into the window, but their entry price predates the window's own start date.",
+       "The final period's positions are marked \"open\" at whatever the latest available close price is (not a live/real-time market price) — their eventual real exit, at the next actual rebalance, will differ from this snapshot.",
+       "Equal weighting (not free-float market-cap x momentum score) and no F&O-eligibility screen, same as every other reconstruction in this project.",
+       "Prices are unadjusted; no dividends are modeled for either the strategy's stock holdings or the benchmark ETF.",
+       "This is a single, fixed 2-year historical path — a very small sample (40 closed trades) to draw strong conclusions from; see report 16/17 for this same strategy's much longer 18-year track record."
+      ]
+     }
+    ]
+   }
+  ]
  }
 }
