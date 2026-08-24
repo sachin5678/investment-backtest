@@ -1840,5 +1840,71 @@
     ]
    }
   ]
+ },
+ "25": {
+  "title": "Midcap Momentum 10 — Every Semi-Annual Rebalance Offset, Compared",
+  "subtitle": "The exact same strategy, only the calendar shifts: Jan/Jul, Feb/Aug, Mar/Sep, Apr/Oct, May/Nov, and the \"normal\" Jun/Dec used everywhere else in this project — same universe, same top-10/equal-weight/6m-12m-momentum formula, same 2008-2026 window.",
+  "source_line": "2008-12-31–2026-08-24 · 36 rebalances each Report generated 2026-08-24 18:29",
+  "pages": [
+   {
+    "file": "25_midcap_momentum10_rebalance_offsets.html",
+    "panels": [
+     {
+      "heading": "The question, and the honest result up front",
+      "pills": [
+       {
+        "kind": "neutral",
+        "text": "5.1pp CAGR spread across all 6 offsets"
+       },
+       {
+        "kind": "assumption",
+        "text": "the \"normal\" Jun/Dec offset is mid-pack, not best or worst"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Every report in this project that uses Midcap150 Momentum 10 checks momentum, and rebalances, every June and December — a convention borrowed from the real NIFTY200 Momentum index's own schedule, not something specifically chosen because it works best for THIS strategy. Since momentum is measured 6 and 12 months back from the rebalance date, moving that date to a different month pair genuinely changes which stocks get picked at every single rebalance, not just when the reshuffle happens.",
+       "Across all six possible offsets, CAGR ranges from +38.4% (Mar/Sep) to +43.6% (Apr/Oct) — a 5.1 percentage-point spread — while max drawdown ranges from -29.5% (May/Nov) to -39.5% (Apr/Oct). The \"normal\" Jun/Dec offset this project has used all along (+40.6% / -35.1%) lands squarely in the middle of that range on both dimensions — not the best case, not the worst, which is the honest, reassuring reading: the strategy's edge doesn't appear to hinge on having picked a lucky rebalance month."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why the offset matters less than you might expect",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "Each offset checks the same 6-month/12-month risk-adjusted momentum formula on 36 different dates spread 6 months apart across the same 18-year history — different SPECIFIC dates, but similar SEASONAL coverage: over 18 years, every offset ends up rebalancing through roughly the same mix of bull runs, corrections, and recoveries, just measured from a different monthly starting point each time. That's the statistical reason the six results cluster in a relatively narrow 5.1-point CAGR band rather than diverging wildly — the underlying momentum signal in Indian midcaps over this period was real and persistent enough to show up regardless of which specific month it's sampled from.",
+       "That said, 5.1 percentage points of CAGR compounded over 18 years is NOT a trivial difference in final wealth — it is the gap between Apr/Oct's +62,703.4% and Mar/Sep's +33,621.5% net return over the identical window. Some of that gap is likely genuine (certain months may happen to catch momentum inflection points slightly earlier or later than others), and some of it is noise from a single 18-year historical path — with only 36 rebalances per offset, this is not a large enough sample to say with confidence that Apr/Oct is a permanently better calendar choice, only that it happened to be over this specific history.",
+       "The practical takeaway: the \"normal\" Jun/Dec convention this project has used throughout was a reasonable, defensible choice (it borrows the real NIFTY200 Momentum index's actual schedule) — and this report confirms it was not an accidentally-lucky or accidentally-unlucky pick relative to the five alternatives, landing near the middle of the pack on both return and drawdown."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Today's fixed NIFTY Midcap 150 constituent list is applied retroactively across the whole window for all six offsets equally (survivorship bias) — same disclosed approximation as every other reconstruction in this project.",
+       "Only 36 rebalances per offset over 18 years — six separate 36-point samples is not a large basis for concluding any one offset is structurally superior; see the honesty note above.",
+       "Zero transaction costs, slippage, or taxes modeled for any of the six offsets equally — this doesn't favor one offset over another, but understates the real-world cost of all of them.",
+       "Equal weighting (not free-float market-cap x momentum score) and no F&O-eligibility screen, same as every other reconstruction here.",
+       "Prices are unadjusted; no dividends are modeled for any holding.",
+       "This is a single, fixed 2008-2026 historical path — a different 18-year window could rank these six offsets in a completely different order."
+      ]
+     }
+    ]
+   }
+  ]
  }
 }

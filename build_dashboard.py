@@ -25,6 +25,7 @@ ICON_GLOBE = '<circle cx="12" cy="12" r="9" fill="none"/><ellipse cx="12" cy="12
 ICON_PULSE = '<polyline points="3,12 8,12 10,6 14,18 16,12 21,12" fill="none"/>'
 ICON_COINS = '<ellipse cx="9" cy="9" rx="6" ry="6" fill="none"/><path d="M15 9a6 6 0 0 1 0 10.5A6 6 0 0 1 9 15" fill="none"/>'
 ICON_LEDGER = '<rect x="4" y="3" width="16" height="18" rx="1.5" fill="none"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="13" y2="16"/>'
+ICON_COMPASS = '<circle cx="12" cy="12" r="9" fill="none"/><polygon points="15,9 13,13 9,15 11,11"/>'
 
 GROUPS = [
     {
@@ -138,6 +139,8 @@ GROUPS = [
         "items": [
             {"id": "24", "file": "24_midcap_momentum10_last2yr_tradelog.html", "icon": ICON_LEDGER,
              "title": "Midcap Momentum 10 — Last 2 Years, Trade Log", "subtitle": "Every stock bought and sold, with entry/exit price and P&L, vs. the midcap ETF"},
+            {"id": "25", "file": "25_midcap_momentum10_rebalance_offsets.html", "icon": ICON_COMPASS,
+             "title": "Midcap Momentum 10 — Rebalance Offsets Compared", "subtitle": "Jan/Jul, Feb/Aug, Mar/Sep, Apr/Oct, May/Nov, Jun/Dec — all six, side by side"},
         ],
     },
 ]
