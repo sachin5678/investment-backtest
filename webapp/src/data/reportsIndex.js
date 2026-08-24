@@ -17,6 +17,7 @@ const ICON_PULSE = "M3 12h5l2-6 4 12 2-6h5";
 const ICON_COINS = "M9,3a6,6 0 1 0 0,12a6,6 0 1 0 0,-12 M15,9a6,6 0 1 1 0,10.5a6,6 0 1 1 -6,-4.5";
 const ICON_LEDGER = "M4 3h16v18h-16z M8 8h8 M8 12h8 M8 16h5";
 const ICON_COMPASS = "M12,3a9,9 0 1 0 0,18a9,9 0 1 0 0,-18 M15 9l-2 4-4 2 2-4z";
+const ICON_STOPWATCH = "M12,21a8,8 0 1 0 0,-16a8,8 0 1 0 0,16 M12 13V8 M9 2h6 M12 2v3";
 
 export const GROUPS = [
   {
@@ -107,6 +108,8 @@ export const GROUPS = [
     items: [
       { id: "24", file: "results23.json", icon: ICON_LEDGER, title: "Midcap Momentum 10 — Last 2 Years, Trade Log", subtitle: "Every stock bought and sold, with entry/exit price and P&L, vs. the midcap ETF" },
       { id: "25", file: "results24.json", icon: ICON_COMPASS, title: "Midcap Momentum 10 — Rebalance Offsets Compared", subtitle: "Jan/Jul, Feb/Aug, Mar/Sep, Apr/Oct, May/Nov, Jun/Dec — all six, side by side" },
+      { id: "26", file: "results25.json", icon: ICON_LEDGER, title: "Midcap Momentum 10 — 2020-2023, Trade Log", subtitle: "The COVID crash and V-recovery window, every buy and sell shown" },
+      { id: "27", file: "results26.json", icon: ICON_STOPWATCH, title: "Midcap Momentum 10 — With a 15% Stop-Loss, vs. Original", subtitle: "Exit a position immediately at -15%, instead of waiting for the next rebalance" },
     ],
   },
 ];
