@@ -51,7 +51,33 @@ create policy "authenticated read premium_reports"
   to authenticated
   using (true);
 
--- No insert/update/delete policies for the anon or authenticated roles —
--- writes only ever happen from scripts/seed_supabase.py using the
--- service_role key, which bypasses RLS entirely and is never shipped to
--- the browser.
+-- landing_stats: the ONE thing that's deliberately public, no login
+-- required — three aggregate marketing numbers for the homepage hero
+-- ("31 strategies tested", "best CAGR found", "markets covered"). These
+-- are computed once across ALL 31 reports (including premium ones) so
+-- they always reflect the true totals regardless of who's viewing, but
+-- they carry no per-strategy detail — nothing here identifies which
+-- specific strategy produced the best number, so nothing premium leaks
+-- through this table.
+create table if not exists landing_stats (
+  id int primary key default 1,
+  strategies_tested int not null,
+  best_cagr_pct numeric not null,
+  markets_covered int not null,
+  longest_backtest_years int not null,
+  updated_at timestamptz not null default now(),
+  constraint landing_stats_singleton check (id = 1)
+);
+
+alter table landing_stats enable row level security;
+
+drop policy if exists "anyone read landing_stats" on landing_stats;
+create policy "anyone read landing_stats"
+  on landing_stats for select
+  to anon, authenticated
+  using (true);
+
+-- No insert/update/delete policies for the anon or authenticated roles on
+-- any of the three tables above — writes only ever happen from
+-- scripts/seed_supabase.py using the service_role key, which bypasses RLS
+-- entirely and is never shipped to the browser.
