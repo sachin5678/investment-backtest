@@ -2,6 +2,7 @@ import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./components/Layout";
 import ReportPage from "./pages/ReportPage";
 import Overview from "./pages/Overview";
+import { AuthProvider } from "./context/AuthContext";
 
 // HashRouter (not BrowserRouter) is deliberate: it makes every route work
 // when the built app is served as plain static files — from a GitHub Pages
@@ -14,22 +15,24 @@ import Overview from "./pages/Overview";
 // you into the sidebar-driven "app" at /report/:id.
 export default function App() {
   return (
-    <HashRouter>
-      <Routes>
-        <Route path="/" element={<Overview />} />
-        <Route path="/" element={<Layout />}>
-          <Route path="report/:id" element={<ReportPage />} />
-        </Route>
-        {/* Defensive fallback: HashRouter treats the WHOLE url hash as its
-            routing namespace, so a plain in-page anchor like #methodology
-            (rather than #/methodology) rewrites the hash to something no
-            route matches, which otherwise renders blank. The in-page nav
-            links now intercept clicks and scroll manually instead of
-            touching the hash (see lib/scrollTo.js) — this catch-all is
-            just a safety net for any hash that still ends up unmatched
-            (an old bookmark, a stale tab, direct hash entry). */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </HashRouter>
+    <AuthProvider>
+      <HashRouter>
+        <Routes>
+          <Route path="/" element={<Overview />} />
+          <Route path="/" element={<Layout />}>
+            <Route path="report/:id" element={<ReportPage />} />
+          </Route>
+          {/* Defensive fallback: HashRouter treats the WHOLE url hash as its
+              routing namespace, so a plain in-page anchor like #methodology
+              (rather than #/methodology) rewrites the hash to something no
+              route matches, which otherwise renders blank. The in-page nav
+              links now intercept clicks and scroll manually instead of
+              touching the hash (see lib/scrollTo.js) — this catch-all is
+              just a safety net for any hash that still ends up unmatched
+              (an old bookmark, a stale tab, direct hash entry). */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </HashRouter>
+    </AuthProvider>
   );
 }

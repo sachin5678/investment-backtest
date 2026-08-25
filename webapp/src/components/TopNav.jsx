@@ -1,5 +1,6 @@
 import Logo from "./Logo";
 import { scrollToSection } from "../lib/scrollTo";
+import AuthButton from "./AuthButton";
 
 /** Transparent, full-bleed navigation for the landing page only — the
  * sidebar app-shell (Layout.jsx) has its own, separate top bar for report
@@ -18,13 +19,16 @@ export default function TopNav() {
             Methodology
           </a>
         </nav>
-        <a
-          href="#strategies"
-          onClick={(e) => scrollToSection(e, "strategies")}
-          className="inline-flex items-center text-[13px] font-semibold rounded-full bg-text text-ground px-4 py-2 shrink-0 transition-opacity hover:opacity-85 focus-visible:outline-2 focus-visible:outline-accent"
-        >
-          Browse strategies
-        </a>
+        <div className="flex items-center gap-3 shrink-0">
+          <AuthButton />
+          <a
+            href="#strategies"
+            onClick={(e) => scrollToSection(e, "strategies")}
+            className="hidden sm:inline-flex items-center text-[13px] font-semibold rounded-full bg-text text-ground px-4 py-2 shrink-0 transition-opacity hover:opacity-85 focus-visible:outline-2 focus-visible:outline-accent"
+          >
+            Browse strategies
+          </a>
+        </div>
       </div>
     </header>
   );

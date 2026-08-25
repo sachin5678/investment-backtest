@@ -1,11 +1,15 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { GROUPS, ALL_ITEMS } from "../data/reportsIndex";
+import { GROUPS, ALL_ITEMS, isPremiumReport } from "../data/reportsIndex";
+import { useAuth } from "../context/AuthContext";
 import Icon from "./Icon";
 import Logo from "./Logo";
+
+const ICON_LOCK_SMALL = "M6 11h12v9h-12z M9 11V7a3 3 0 0 1 6 0v4";
 
 export default function Sidebar({ open, onClose }) {
   const navigate = useNavigate();
   const { id: activeId } = useParams();
+  const { isLoggedIn } = useAuth();
 
   function go(id) {
     navigate(`/report/${id}`);
@@ -60,6 +64,7 @@ export default function Sidebar({ open, onClose }) {
           <div className="text-[11px] font-semibold uppercase tracking-wide text-muted px-2.5 pb-2">{g.label}</div>
           {g.items.map((item) => {
             const active = item.id === activeId;
+            const locked = isPremiumReport(item.id) && !isLoggedIn;
             return (
               <button
                 key={item.id}
@@ -68,12 +73,16 @@ export default function Sidebar({ open, onClose }) {
                   ${active ? "bg-accent-dim border-accent text-text" : "border-transparent text-muted hover:bg-white/[0.03] hover:text-text"}
                   focus-visible:outline-2 focus-visible:outline-accent`}
               >
-                <Icon path={item.icon} className={`w-[18px] h-[18px] shrink-0 ${active ? "text-accent" : "text-muted"}`} />
+                <Icon path={item.icon} className={`w-[18px] h-[18px] shrink-0 ${active ? "text-accent" : "text-muted"} ${locked ? "opacity-50" : ""}`} />
                 <span className="flex-1 min-w-0">
-                  <span className="block text-[13px] font-semibold leading-tight">{item.title}</span>
+                  <span className={`block text-[13px] font-semibold leading-tight ${locked ? "opacity-60" : ""}`}>{item.title}</span>
                   <span className="block text-[11px] text-muted leading-tight truncate">{item.subtitle}</span>
                 </span>
-                <span className="text-[11px] text-muted font-mono shrink-0">{item.id}</span>
+                {locked ? (
+                  <Icon path={ICON_LOCK_SMALL} className="w-[14px] h-[14px] shrink-0 text-assumption" />
+                ) : (
+                  <span className="text-[11px] text-muted font-mono shrink-0">{item.id}</span>
+                )}
               </button>
             );
           })}

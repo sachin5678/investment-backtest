@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Outlet, useParams, Link } from "react-router-dom";
 import Sidebar from "./Sidebar";
+import AuthButton from "./AuthButton";
 import { ITEM_BY_ID } from "../data/reportsIndex";
 
 export default function Layout() {
@@ -33,6 +34,7 @@ export default function Layout() {
                 <h2 className="text-[15px] font-semibold text-text truncate">{item.title}</h2>
                 <p className="text-xs text-muted truncate">{item.subtitle}</p>
               </div>
+              <AuthButton />
               <Link
                 to="/"
                 className="hidden sm:inline-flex items-center gap-1.5 text-[13px] font-medium text-accent border border-accent/40 rounded-full px-3.5 py-1.5 shrink-0 transition-colors hover:bg-accent-dim focus-visible:outline-2 focus-visible:outline-accent"
@@ -41,7 +43,9 @@ export default function Layout() {
               </Link>
             </>
           ) : (
-            <div className="flex-1" />
+            <div className="flex-1 flex justify-end">
+              <AuthButton />
+            </div>
           )}
         </div>
         <div className="flex-1 px-4 sm:px-8 py-6">

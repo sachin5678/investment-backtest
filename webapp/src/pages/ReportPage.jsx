@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { ITEM_BY_ID } from "../data/reportsIndex";
+import { ITEM_BY_ID, isPremiumReport } from "../data/reportsIndex";
+import { useAuth } from "../context/AuthContext";
+import { supabase, SUPABASE_CONFIGURED } from "../lib/supabaseClient";
 import { extractSeries } from "../lib/viewmodel";
 import KpiTable from "../components/KpiTable";
 import SmoothChart from "../components/SmoothChart";
 import DrawdownChart from "../components/DrawdownChart";
 import ProseSection from "../components/ProseSection";
 import TradeLog from "../components/TradeLog";
+import LockedReportGate from "../components/LockedReportGate";
 import Panel, { WhatThisShows } from "../components/Panel";
 
 const DATA_BASE = "./data/";
@@ -14,6 +17,10 @@ const DATA_BASE = "./data/";
 export default function ReportPage() {
   const { id } = useParams();
   const item = ITEM_BY_ID[id];
+  const { isLoggedIn, loading: authLoading } = useAuth();
+  const premium = item ? isPremiumReport(id) : false;
+  const locked = premium && !isLoggedIn;
+
   const [series, setSeries] = useState(null);
   const [symbol, setSymbol] = useState("₹");
   const [content, setContent] = useState(null);
@@ -29,28 +36,60 @@ export default function ReportPage() {
     setError(null);
     setTrades(null);
     setTradeStats(null);
-    if (!item) return;
+    // Locked premium reports never fetch anything at all — the KPI/chart
+    // data genuinely doesn't reach the browser in this state, not just
+    // hidden by CSS. Wait for auth state to resolve first so a logged-in
+    // visitor doesn't briefly flash the locked gate on page load.
+    if (!item || authLoading || locked) return;
 
-    Promise.all([
-      fetch(DATA_BASE + item.file).then((r) => {
-        if (!r.ok) throw new Error(`Could not load ${item.file}`);
-        return r.json();
-      }),
-      fetch(DATA_BASE + "report_content.json").then((r) => (r.ok ? r.json() : null)),
-    ])
-      .then(([raw, allContent]) => {
+    // Results: free reports (id < 11) still come from the public static
+    // files; premium reports (id >= 11) come only from Supabase's
+    // RLS-protected premium_reports table, readable only because we're
+    // logged in at this point.
+    const resultsPromise = premium
+      ? supabase
+          .from("premium_reports")
+          .select("results")
+          .eq("report_id", id)
+          .single()
+          .then(({ data, error: err }) => {
+            if (err) throw new Error(`Could not load premium data for report ${id}: ${err.message}`);
+            return data.results;
+          })
+      : fetch(DATA_BASE + item.file).then((r) => {
+          if (!r.ok) throw new Error(`Could not load ${item.file}`);
+          return r.json();
+        });
+
+    // Prose (strategy logic, disclosures & limitations) is ALWAYS gated
+    // behind login, for every report including the free tier — only
+    // fetched here because we already know isLoggedIn is true (locked
+    // covers premium-and-signed-out; free-and-signed-out falls through to
+    // this effect but skips the prose fetch below).
+    const prosePromise = isLoggedIn && SUPABASE_CONFIGURED
+      ? supabase
+          .from("report_prose")
+          .select("content")
+          .eq("report_id", id)
+          .single()
+          .then(({ data }) => data?.content ?? null)
+          .catch(() => null)
+      : Promise.resolve(null);
+
+    Promise.all([resultsPromise, prosePromise])
+      .then(([raw, proseContent]) => {
         const found = extractSeries(raw);
         setSeries(found);
         setSymbol(raw.currency_symbol || "₹");
-        setContent(allContent?.[id] ?? null);
-        // only present on reports that carry a full trade-by-trade log
-        // (currently just report 24) — every other report simply has no
-        // "trades" key and TradeLog renders nothing.
+        setContent(proseContent);
+        // only present on reports that carry a full trade-by-trade log —
+        // every other report simply has no "trades" key and TradeLog
+        // renders nothing.
         setTrades(raw.trades ?? null);
         setTradeStats(raw.trade_stats ?? null);
       })
       .catch((e) => setError(e.message));
-  }, [id, item]);
+  }, [id, item, premium, locked, isLoggedIn, authLoading]);
 
   if (!item) {
     return (
@@ -60,13 +99,27 @@ export default function ReportPage() {
     );
   }
 
+  if (authLoading) {
+    return <div className="text-muted text-sm animate-pulse">Loading…</div>;
+  }
+
+  if (locked) {
+    return <LockedReportGate title={item.title} />;
+  }
+
   if (error) {
     return (
       <Panel accent="danger">
         <p className="text-text">Couldn't load this report's data: {error}</p>
         <p className="text-muted text-sm mt-2">
-          If you're running this locally, make sure <code className="font-mono">{item.file}</code> exists in{" "}
-          <code className="font-mono">public/data/</code>.
+          {premium
+            ? "Premium report data comes from Supabase — make sure the project is configured and seeded (see scripts/seed_supabase.py)."
+            : (
+              <>
+                If you're running this locally, make sure <code className="font-mono">{item.file}</code> exists in{" "}
+                <code className="font-mono">public/data/</code>.
+              </>
+            )}
         </p>
       </Panel>
     );
@@ -74,7 +127,7 @@ export default function ReportPage() {
 
   if (!series) {
     return (
-      <div className="text-muted text-sm animate-pulse">Loading {item.file}…</div>
+      <div className="text-muted text-sm animate-pulse">Loading {item.title}…</div>
     );
   }
 
@@ -108,7 +161,7 @@ export default function ReportPage() {
 
       <TradeLog trades={trades} tradeStats={tradeStats} symbol={symbol} />
 
-      <ProseSection content={content} open={proseOpen} onToggle={() => setProseOpen((v) => !v)} />
+      <ProseSection content={content} open={proseOpen} onToggle={() => setProseOpen((v) => !v)} locked={!isLoggedIn} />
     </div>
   );
 }

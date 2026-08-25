@@ -12,6 +12,13 @@ dist
 dist-ssr
 *.local
 
+# Supabase credentials — the anon key is safe to ship (RLS enforces access
+# control server-side), but the service_role key (used only by the local
+# seed script) must never be committed or bundled.
+.env
+.env.*
+!.env.example
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

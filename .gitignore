@@ -20,6 +20,11 @@ webapp/dist-ssr/
 # Claude Code session/runtime artifacts — not project content
 .claude/scheduled_tasks.lock
 
+# Local staging artifact for scripts/seed_supabase.py — holds every
+# report's disclosure/analysis text, which is gated behind login per
+# supabase/schema.sql and must never be committed to this public repo.
+/report_content.json
+
 # OS junk
 .DS_Store
 Thumbs.db

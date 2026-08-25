@@ -112,7 +112,12 @@ def main():
         })
         entry["pages"].append({"file": fp, "panels": panels})
 
-    with open("webapp/public/data/report_content.json", "w", encoding="utf-8") as f:
+    # NOTE: writes to the project root, NOT webapp/public/data/ — this file
+    # holds every report's disclosure/analysis text, which per the premium
+    # gating design (see supabase/schema.sql) must never be served as a
+    # static, unauthenticated file. scripts/seed_supabase.py reads it from
+    # here to push into the RLS-protected report_prose table instead.
+    with open("report_content.json", "w", encoding="utf-8") as f:
         json.dump(result, f, indent=1, ensure_ascii=False)
 
     for rid, entry in result.items():

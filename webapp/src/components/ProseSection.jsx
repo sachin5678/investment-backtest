@@ -1,5 +1,7 @@
+import { useState } from "react";
 import Panel, { WhatThisShows } from "./Panel";
 import Pill from "./Pill";
+import LoginModal from "./LoginModal";
 
 function ProsePanel({ panel }) {
   const isLimitations = panel.heading === "Limitations";
@@ -35,8 +37,30 @@ function ProsePanel({ panel }) {
 /** Renders the faithfully-extracted disclosure/honesty-note/limitations
  * prose from the original static report, collapsed behind a toggle by
  * default so the default view stays scannable — nothing is summarized or
- * dropped, it's the same text, just tucked behind one click. */
-export default function ProseSection({ content, open, onToggle }) {
+ * dropped, it's the same text, just tucked behind one click.
+ *
+ * `locked`: when true (not logged in), this text was never fetched at all
+ * — see ReportPage.jsx, which only requests report_prose from Supabase
+ * for a signed-in session — so there's nothing to toggle; a login prompt
+ * renders instead. */
+export default function ProseSection({ content, open, onToggle, locked }) {
+  const [loginOpen, setLoginOpen] = useState(false);
+
+  if (locked) {
+    return (
+      <div className="mt-6">
+        <button
+          onClick={() => setLoginOpen(true)}
+          className="w-full flex items-center justify-between gap-3 px-5 py-3 rounded-xl border border-assumption/40 bg-assumption/5 text-left cursor-pointer transition-colors hover:border-assumption focus-visible:outline-2 focus-visible:outline-accent"
+        >
+          <span className="text-sm font-semibold text-text">🔒 Log in to read the full analysis, disclosures &amp; limitations</span>
+          <span className="text-assumption text-xs font-semibold">Log in →</span>
+        </button>
+        {loginOpen && <LoginModal onClose={() => setLoginOpen(false)} />}
+      </div>
+    );
+  }
+
   if (!content) return null;
   const panels = content.pages.flatMap((p) => p.panels);
   if (!panels.length) return null;

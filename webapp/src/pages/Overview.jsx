@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { GROUPS, ALL_ITEMS } from "../data/reportsIndex";
+import { GROUPS, ALL_ITEMS, isPremiumReport } from "../data/reportsIndex";
+import { useAuth } from "../context/AuthContext";
 import { extractSeries } from "../lib/viewmodel";
 import { pct } from "../lib/format";
 import Icon from "../components/Icon";
@@ -275,7 +276,11 @@ function StatBlock({ label, value, kind = "neutral" }) {
   );
 }
 
+const ICON_LOCK = "M6 11h12v9h-12z M9 11V7a3 3 0 0 1 6 0v4";
+
 function StrategyCard({ item, headline, currency, category }) {
+  const { isLoggedIn } = useAuth();
+  const locked = isPremiumReport(item.id) && !isLoggedIn;
   const positive = (headline?.growthPct ?? headline?.netReturnPct ?? 0) >= 0;
   const sparkPoints = headline ? downsampleCurve(headline.curve) : null;
   const color = colorForCategory(category);
@@ -319,6 +324,11 @@ function StrategyCard({ item, headline, currency, category }) {
           </div>
           <Sparkline points={sparkPoints} positive={positive} />
         </>
+      ) : locked ? (
+        <div className="flex items-center gap-2 text-[12px] text-assumption py-4">
+          <Icon path={ICON_LOCK} className="w-[14px] h-[14px] shrink-0" />
+          Log in to see performance
+        </div>
       ) : (
         <div className="text-[12px] text-muted italic py-4">Data unavailable</div>
       )}
