@@ -49,7 +49,8 @@ from backtest40 import select_top_frontloaded_smallcap
 from backtest41 import select_top_frontloaded_n100
 from backtest42 import (build_index_regime_filtered, build_index_regime_filtered_with_hedge,
                          build_index_regime_filtered_asymmetric, build_smooth_exposure,
-                         build_smooth_exposure_with_hedge, EMA_SPAN, REENTRY_EMA_SPAN)
+                         build_smooth_exposure_with_hedge, build_index_core_satellite,
+                         EMA_SPAN, REENTRY_EMA_SPAN)
 from backtest44 import select_top_smallcap, MIN_ELIGIBLE_SMALLCAP
 from backtest45 import select_top_n100, MIN_ELIGIBLE as MIN_ELIGIBLE_N100
 from backtest58 import build_with_trailing_stop
@@ -157,6 +158,25 @@ def process_universe(universe_name, closes, nifty_close, select_fn, select_fn_fr
         add_row(universe_name, "Filter + Hedge", "200-EMA regime filter + gold", report_numbers["filter_gold"],
                 gold_series, nifty_close, idx_g)
 
+        # Core-satellite: a PERMANENT momentum/gold split held at all times
+        # (not just a cash/invested switch), with a full 100%-to-gold
+        # liquidation on the same 200-EMA signal. Each split ratio tested
+        # gets its own report_numbers key (report_numbers.get(...) so a
+        # universe/split combination that hasn't been tested yet is simply
+        # skipped, not an error).
+        for weight_key, mom_w, hedge_w in [("core_satellite_70_30", 0.70, 0.30),
+                                            ("core_satellite_50_50", 0.50, 0.50)]:
+            report_num = report_numbers.get(weight_key)
+            if not report_num:
+                continue
+            combo_series, _, _ = build_index_core_satellite(
+                closes, nifty_close, ema200, rbdates, select_fn, gold_aligned,
+                on_momentum_weight=mom_w, on_hedge_weight=hedge_w)
+            idx_c = combo_series.index.intersection(nifty_close.index).intersection(gold_close.index)
+            add_row(universe_name, "Core-Satellite",
+                    f"{mom_w*100:.0f}/{hedge_w*100:.0f} core-satellite + full gold switch", report_num,
+                    combo_series, nifty_close, idx_c)
+
     invvol_series, _ = build_index_generic_invvol(closes, rbdates, select_fn)
     idx = common_idx.intersection(invvol_series.index)
     add_row(universe_name, "Weighting", "Inverse-volatility weighting", report_numbers["invvol"],
@@ -224,7 +244,7 @@ def main():
         midcapietf, "MIDCAPIETF.NS", 30,
         {"original": 11, "frontloaded": 37, "filter_cash": 42, "filter_gold": 48, "invvol": 51,
          "own_signal": 54, "asymmetric": 59, "abs_gate": 62, "smooth": 65, "smooth_hedge": 68,
-         "trailing_stop": 58},
+         "trailing_stop": 58, "core_satellite_70_30": 71, "core_satellite_50_50": 72},
         gold_close=gold_close_full,
     )
 

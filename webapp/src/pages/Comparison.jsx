@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { pct } from "../lib/format";
 import Panel, { WhatThisShows } from "../components/Panel";
+import LockedReportGate from "../components/LockedReportGate";
+import { useAuth } from "../context/AuthContext";
 
 const DATA_BASE = "./data/";
 
@@ -10,6 +12,7 @@ const CATEGORIES = [
   "Weighting",
   "Regime Filter",
   "Filter + Hedge",
+  "Core-Satellite",
   "Trend Filter",
   "Stop-Loss",
   "Momentum Formula",
@@ -20,6 +23,7 @@ const CATEGORY_COLOR = {
   Weighting: "text-accent border-accent/40",
   "Regime Filter": "text-positive border-positive/40",
   "Filter + Hedge": "text-assumption border-assumption/40",
+  "Core-Satellite": "text-[#ff8a5c] border-[#ff8a5c]/40",
   "Trend Filter": "text-[#b39dff] border-[#b39dff]/40",
   "Stop-Loss": "text-negative border-negative/40",
   "Momentum Formula": "text-accent border-accent/40",
@@ -70,6 +74,7 @@ function MetricCell({ value, bench, col }) {
 }
 
 export default function Comparison() {
+  const { isLoggedIn } = useAuth();
   const [rows, setRows] = useState(null);
   const [error, setError] = useState(null);
   const [universe, setUniverse] = useState(null);
@@ -77,6 +82,9 @@ export default function Comparison() {
   const [sort, setSort] = useState({ key: "cagr", dir: "desc" });
 
   useEffect(() => {
+    // Locked out entirely when logged out — same as a premium report, the
+    // data behind this table is never even fetched (see ReportPage.jsx).
+    if (!isLoggedIn) return;
     fetch(DATA_BASE + "master_comparison.json")
       .then((r) => {
         if (!r.ok) throw new Error("Could not load master_comparison.json");
@@ -84,7 +92,7 @@ export default function Comparison() {
       })
       .then((data) => setRows(data.rows))
       .catch((e) => setError(e.message));
-  }, []);
+  }, [isLoggedIn]);
 
   const filtered = useMemo(() => {
     if (!rows) return [];
@@ -105,6 +113,10 @@ export default function Comparison() {
 
   function toggleSort(key) {
     setSort((prev) => (prev.key === key ? { key, dir: prev.dir === "asc" ? "desc" : "asc" } : { key, dir: "desc" }));
+  }
+
+  if (!isLoggedIn) {
+    return <LockedReportGate title="Master Comparison" />;
   }
 
   if (error) {

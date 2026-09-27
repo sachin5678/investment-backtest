@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-27 15:55",
+  "generated": "2026-09-27 16:52",
   "rows": [
     {
       "universe": "Midcap150",
@@ -64,6 +64,40 @@
       "net_return_pct": 56818.40335067101,
       "sharpe": 1.924565740303516,
       "sortino": 2.5975373779103763,
+      "bench_cagr_pct": 12.470504923770065,
+      "bench_max_drawdown_pct": -38.43985245274211,
+      "bench_sharpe": 0.7613713350199811,
+      "bench_sortino": 1.034701812712901
+    },
+    {
+      "universe": "Midcap150",
+      "category": "Core-Satellite",
+      "label": "70/30 core-satellite + full gold switch",
+      "report": 71,
+      "start_date": "2009-01-02",
+      "end_date": "2026-08-24",
+      "cagr_pct": 35.206975038876124,
+      "max_drawdown_pct": -19.953733836076147,
+      "net_return_pct": 20355.98873409579,
+      "sharpe": 1.9550833933969316,
+      "sortino": 2.592917457031644,
+      "bench_cagr_pct": 12.470504923770065,
+      "bench_max_drawdown_pct": -38.43985245274211,
+      "bench_sharpe": 0.7613713350199811,
+      "bench_sortino": 1.034701812712901
+    },
+    {
+      "universe": "Midcap150",
+      "category": "Core-Satellite",
+      "label": "50/50 core-satellite + full gold switch",
+      "report": 72,
+      "start_date": "2009-01-02",
+      "end_date": "2026-08-24",
+      "cagr_pct": 29.476317093811844,
+      "max_drawdown_pct": -19.953733836076136,
+      "net_return_pct": 9428.718189637118,
+      "sharpe": 1.8563431924279468,
+      "sortino": 2.4194969279189484,
       "bench_cagr_pct": 12.470504923770065,
       "bench_max_drawdown_pct": -38.43985245274211,
       "bench_sharpe": 0.7613713350199811,

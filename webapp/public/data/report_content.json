@@ -4921,5 +4921,65 @@
     ]
    }
   ]
+ },
+ "72": {
+  "title": "Midcap150 Momentum 10 — 50/50 Core-Satellite with Gold, Full Flight-to-Gold on Regime Change",
+  "subtitle": "Same design as report 71 — a permanent gold satellite sleeve held at all times, plus a full 100%-to-gold switch on the same 200-EMA signal — but with an even 50/50 split instead of report 71's 70/30. This isolates exactly one question: does putting MORE of the portfolio into the permanent gold sleeve keep buying more drawdown protection, or does it run out of room to help?",
+  "source_line": "2008-12-31–2026-08-24 Report generated 2026-09-27 16:48",
+  "pages": [
+   {
+    "file": "72_midcap_momentum10_core_satellite_5050_gold.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "the extra 20 points of gold buys zero extra drawdown protection"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Moving from a 70/30 split (report 71) to 50/50 cuts CAGR further, from +35.2% to +29.5% — but max drawdown does NOT improve at all: both splits bottom out at the same -20.0%, matching to three decimal places.",
+       "The reason is mechanical, not a coincidence: this strategy's single worst drawdown (2026-03-02 to 2026-03-23) falls entirely INSIDE one of the full-gold periods, where both splits are 100% gold and therefore identical — the 70/30-vs-50/50 choice only matters during the \"on\" periods, and this particular worst drawdown isn't one of them. Paying more CAGR for a bigger permanent gold sleeve only helps if a future worst-case drawdown happens to strike DURING an \"on\" period instead — something this backtest can't predict."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why more gold didn't buy more protection here",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "A bigger permanent gold sleeve can only shrink a drawdown that happens DURING an \"on\" period (when the split ratio is actually in effect) — it can do nothing to a drawdown that happens during a full-gold period, since both splits are 100% gold there by construction. This backtest's single worst drawdown (2026-03-02 to 2026-03-23) happened to fall inside a full-gold stretch, so raising the gold sleeve from 30% to 50% bought nothing against THAT specific drawdown — while still giving up 11.1 percentage points of CAGR relative to the unfiltered strategy, more than report 71's 5.4 points.",
+       "This is a genuinely useful negative result: past a certain point, a bigger permanent satellite sleeve is not a dial you can turn to keep buying drawdown protection — whether it helps AT ALL depends on where in the market cycle the next real drawdown happens to strike, which is exactly the kind of thing a single historical backtest can't promise about the future."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Zero transaction costs on any rebalance, regime switch, or the flight-to-gold liquidation itself — same\n        disclosed omission as report 71.",
+       "Only TWO splits (70/30, 50/50) and ONE EMA span (200 days, immediate switch) have now been tested — both were\n        specified directly, not optimized; this is two data points on a spectrum, not a proof that 50/50 is a local minimum or maximum\n        of anything.",
+       "The \"identical max drawdown\" finding above is specific to THIS window's particular sequence of events — a\n        different historical window (or the real future) could easily have its worst drawdown fall during an \"on\" period instead, in\n        which case a bigger gold sleeve WOULD have helped more. Don't generalize \"more gold never helps drawdown\" beyond this test.",
+       "GOLDBEES.NS tracks domestic gold prices in INR, which also move with the rupee's own exchange rate — a INR\n        depreciation can lift GOLDBEES.NS even if USD gold is flat, a real but separate driver from \"gold as a crisis hedge.\"",
+       "Today's fixed Midcap150 constituent list is applied retroactively across the whole window (survivorship bias).\n        Equal weighting within the momentum sleeve, no F&O-eligibility screen, unadjusted prices, no dividends modeled — same as\n        every other reconstruction here."
+      ]
+     }
+    ]
+   }
+  ]
  }
 }

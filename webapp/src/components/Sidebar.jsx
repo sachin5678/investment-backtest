@@ -66,7 +66,8 @@ export default function Sidebar({ open, onClose }) {
             ${onCompare ? "bg-accent-dim border-accent text-accent" : "border-border text-muted hover:text-text hover:border-muted-2"}`}
         >
           <Icon path={ICON_COMPARE} className="w-[16px] h-[16px] shrink-0" />
-          Compare all strategies
+          <span className="flex-1 text-left">Compare all strategies</span>
+          {!isLoggedIn && <Icon path={ICON_LOCK_SMALL} className="w-[13px] h-[13px] shrink-0 text-assumption" />}
         </button>
       </div>
 
