@@ -21,6 +21,7 @@ const ICON_STOPWATCH = "M12,21a8,8 0 1 0 0,-16a8,8 0 1 0 0,16 M12 13V8 M9 2h6 M1
 const ICON_LOCK = "M5 11h14v10h-14z M8 11V7a4 4 0 0 1 8 0v4";
 const ICON_LINK = "M9 15 15 9 M12 6l2-2a4 4 0 1 1 6 6l-2 2 M12 18l-2 2a4 4 0 1 1-6-6l2-2";
 const ICON_SCALE = "M12,3v18 M5,7h14 M5,7l-3,6a3,3 0 0 0 6,0z M19,7l-3,6a3,3 0 0 0 6,0z";
+const ICON_TUNE = "M4 6h16 M9 4v4 M4 12h16 M15 10v4 M4 18h16 M7 16v4";
 
 export const GROUPS = [
   {
@@ -118,6 +119,7 @@ export const GROUPS = [
       { id: "30", file: "results29.json", icon: ICON_LOCK, title: "Midcap Momentum 10 — Breakeven Profit-Lock", subtitle: "No stop-loss — just lock in cost if a +30% winner fully reverses" },
       { id: "31", file: "results30.json", icon: ICON_LINK, title: "Midcap Momentum 10 — Carried-Position Trade Log", subtitle: "New / Carried / Exited tags — one row per real holding, 2015 to date" },
       { id: "32", file: "results31.json", icon: ICON_SCALE, title: "Midcap Momentum 10 — 2x Kotak Neo MTF Leverage", subtitle: "Real MTF interest, doubled charges, and modeled margin-call risk" },
+      { id: "33", file: "results32.json", icon: ICON_TUNE, title: "Midcap Momentum 10 — 12-1 Skip-Month Formula", subtitle: "The academic momentum convention, tested against the original" },
     ],
   },
 ];

@@ -2374,5 +2374,70 @@
     ]
    }
   ]
+ },
+ "33": {
+  "title": "Midcap Momentum 10 — \"12-1\" Skip-Month Momentum",
+  "subtitle": "Same top-10, equal-weight, June/December strategy as every other Midcap150 Momentum 10 report — but every price/volatility reference point shifts back 21 trading days (\"as of 1 month ago\" instead of \"as of today\"), the standard academic momentum convention that excludes the short-term-reversal-prone most recent month.",
+  "source_line": "2008-12-31–2026-08-24 · 36 rebalances Report generated 2026-09-27 11:03",
+  "pages": [
+   {
+    "file": "33_midcap_momentum10_12_1_skip_month.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "neutral",
+        "text": "only 59.3% average pick overlap between the two formulas"
+       },
+       {
+        "kind": "negative",
+        "text": "the academic 1-month skip does NOT improve this strategy"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "The 1-month skip is real academic literature (Jegadeesh & Titman 1993, and every standard \"Mom\" factor construction since) — motivated by short-term price reversal dominating the most recent month, muddying the multi-month trend-persistence signal the rest of the formula is trying to capture. It's a genuinely different portfolio, not a cosmetic tweak: on average only 59.3% of each rebalance's top 10 picks are the same stock under both formulas.",
+       "On THIS strategy, over THIS 18-year window, the honest result is that skipping the most recent month doesn't help: CAGR +39.6% vs. the original's +40.6%, and max drawdown -39.0% vs. -35.1% — slightly worse on both counts, not better on either. See the honesty note below for why a well-established academic edge doesn't automatically transfer to a different market, universe, and rebalance cadence than the one it was originally documented in."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why a real academic edge didn't transfer here",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "The 1-month skip was documented on US large-cap equities over a specific historical sample, with a specific (monthly) rebalance cadence. This strategy runs on Indian midcaps, rebalanced only twice a year, on a top-10 concentrated book — three real differences from the environment the original research was based on. Short-term reversal is itself a real, but WEAKER and noisier, effect in a smaller, less liquid universe than US large caps, and a June/December rebalance already only checks momentum twice a year — the \"most recent month\" problem the skip is designed to fix matters far less when you're not re-evaluating monthly in the first place.",
+       "The 59.3% average overlap confirms the skip is a real, substantial change to which stocks get picked — not a rounding error — so this isn't a case of the formula barely differing and unsurprisingly landing close to the original. It genuinely picks a different portfolio nearly every rebalance, and on this specific strategy and window, the different portfolio happens to be slightly worse on both return and drawdown. That's a legitimate, disclosed finding about THIS strategy — not evidence the skip-month convention is wrong in general, which a large body of research elsewhere still supports."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "The skip is applied uniformly to both the 6-month AND 12-month legs (and the volatility window) — the classic \"12-1\" literature is specifically about the 12-month leg; this project's formula blends 6m+12m, so applying the skip consistently to both was a judgment call, not a literal reproduction of the original academic construction.",
+       "21 trading days is used as \"1 month\" — a fixed approximation, not a calendar-month-aware calculation.",
+       "Today's fixed NIFTY Midcap 150 constituent list is applied retroactively across the whole window for both formulas equally (survivorship bias) — same disclosed approximation as every other reconstruction here.",
+       "Zero transaction costs, slippage, or taxes modeled — same as reports 11-19/24-31's frictionless numbers (see report 32 for what real Kotak Neo charges do to a similar strategy).",
+       "Equal weighting (not free-float market-cap x momentum score) and no F&O-eligibility screen, same as every other reconstruction in this project.",
+       "Prices are unadjusted; no dividends are modeled for any holding. This is a single, fixed 18-year historical path — a different window or universe could rank these two formulas differently."
+      ]
+     }
+    ]
+   }
+  ]
  }
 }

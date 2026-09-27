@@ -30,6 +30,7 @@ ICON_STOPWATCH = '<circle cx="12" cy="13" r="8" fill="none"/><line x1="12" y1="1
 ICON_LOCK = '<rect x="5" y="11" width="14" height="10" rx="1.5" fill="none"/><path d="M8 11V7a4 4 0 0 1 8 0v4" fill="none"/>'
 ICON_LINK = '<path d="M9 15 15 9" fill="none"/><path d="M12 6l2-2a4 4 0 1 1 6 6l-2 2" fill="none"/><path d="M12 18l-2 2a4 4 0 1 1-6-6l2-2" fill="none"/>'
 ICON_SCALE = '<path d="M12 3v18" fill="none"/><path d="M5 7h14" fill="none"/><path d="M5 7l-3 6a3 3 0 0 0 6 0z" fill="none"/><path d="M19 7l-3 6a3 3 0 0 0 6 0z" fill="none"/>'
+ICON_TUNE = '<line x1="4" y1="6" x2="20" y2="6"/><circle cx="9" cy="6" r="2" fill="currentColor" stroke="none"/><line x1="4" y1="12" x2="20" y2="12"/><circle cx="15" cy="12" r="2" fill="currentColor" stroke="none"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="7" cy="18" r="2" fill="currentColor" stroke="none"/>'
 
 GROUPS = [
     {
@@ -159,6 +160,8 @@ GROUPS = [
              "title": "Midcap Momentum 10 — Carried-Position Trade Log", "subtitle": "New / Carried / Exited tags — one row per real holding, 2015 to date"},
             {"id": "32", "file": "32_midcap_momentum10_kotak_mtf_2x.html", "icon": ICON_SCALE,
              "title": "Midcap Momentum 10 — 2x Kotak Neo MTF Leverage", "subtitle": "Real MTF interest, doubled charges, and modeled margin-call risk"},
+            {"id": "33", "file": "33_midcap_momentum10_12_1_skip_month.html", "icon": ICON_TUNE,
+             "title": "Midcap Momentum 10 — 12-1 Skip-Month Formula", "subtitle": "The academic momentum convention, tested against the original"},
         ],
     },
 ]
