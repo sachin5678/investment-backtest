@@ -23,8 +23,9 @@ Midcap 150, Smallcap 250, NIFTY 500) plus two non-Indian ones (NASDAQ-100,
 global gold/silver). Each backtest produces a **self-contained static HTML
 report** (dark theme, inline hand-rolled SVG charts, zero build step) and
 also feeds a **React/Vite/Tailwind webapp** ("Signal Lab") that browses all
-reports through one UI, now with a **Supabase-backed login gate** for
-premium content.
+reports through one UI, with a lightweight **client-side login gate** for
+premium content (see "Premium gating" below — it's UI-only by design, no
+backend).
 
 Public GitHub repo: **https://github.com/sachin5678/investment-backtest**
 (public repo — see "Security posture" below, this matters).
@@ -56,13 +57,14 @@ After adding/changing a report, always re-run in this order:
 py -3 backtestNN.py          # writes resultsNN-1.json
 py -3 build_htmlNN.py        # writes NN_description.html
 py -3 build_dashboard.py     # regenerates dashboard.html with the new nav entry
-py -3 extract_report_content.py   # regenerates root-level report_content.json (prose, for Supabase seeding)
+py -3 extract_report_content.py   # regenerates webapp/public/data/report_content.json (prose)
 ```
 Then wire the new report into **both** `build_dashboard.py`'s `GROUPS`
 list and `webapp/src/data/reportsIndex.js`'s `GROUPS` — they're
-independent, hand-maintained mirrors and both need updating. If the report
-id is ≥ 11, also reseed Supabase (see below) since its data doesn't live
-in a public file.
+independent, hand-maintained mirrors and both need updating. If the
+report's own `resultsN.json` isn't already in `webapp/public/data/`,
+copy it there too — every report's data is a plain public static file
+(see "Premium gating" below), there's no separate backend step.
 
 ## Core methodology, used identically across almost every report
 
@@ -140,58 +142,42 @@ row in some browsers instead of the true viewport. `LoginModal.jsx` now
 renders via `createPortal(..., document.body)` — do this for any future
 modal, don't just nest it inline.
 
-## Premium gating (Supabase) — the most recent, most complex addition
+## Premium gating — pure client-side, no backend (deliberately, twice-decided)
 
-**Design**: reports 1-10 (breakout/cash-timing/basic SIP) are free —
-their `resultsN.json` live in `webapp/public/data/` as before. Reports 11+
-(every momentum/rotation/RSI/gold/trade-log report) are premium — their
-full results JSON lives ONLY in a Supabase Postgres table
-(`premium_reports`, RLS: authenticated-only). **Every** report's
-disclosure/analysis prose (1-32, no exceptions) is ALSO gated — it lives
-in `report_prose` (RLS: authenticated-only) and is never in a public
-static file. `PREMIUM_MIN_ID = 11` in `webapp/src/data/reportsIndex.js`
-is the single cutoff constant.
+**History, so you don't re-litigate it**: this was first built as a
+client-side-only gate, then rebuilt on Supabase (Postgres + RLS) for
+genuine access control, then reverted BACK to client-side after the
+Supabase version caused real deployment friction — the free-tier database
+pauses after inactivity, and the two hosting platforms in use (GitHub
+Pages via Actions, Vercel) each needed the same two env vars configured
+separately, which kept breaking in practice. Don't propose "let's add a
+real backend" again without the user asking first; if they do ask, budget
+time for exactly this kind of platform-config friction and mention it
+up front.
 
-**Login**: username `sachin`, password `121101` (mapped internally to a
-fixed Supabase auth email `sachin@signal-lab.local` since Supabase Auth
-needs an email shape — no real email involved, account is pre-confirmed
-via the admin API).
-
-**One deliberately-public table**: `landing_stats` — three aggregate
-marketing numbers (best CAGR found, markets covered, longest backtest)
-computed across ALL 32 reports, readable by `anon` too, with NO
-per-strategy detail attached. This exists because the homepage's "best
-CAGR found" stat used to be computed client-side from whatever the
-current visitor could fetch, so it silently shrank for logged-out users —
-now it's always true regardless of login state.
-
-**Files**: `supabase/schema.sql` (run once in the Supabase SQL editor —
-idempotent, safe to re-run after adding a table). `scripts/seed_supabase.py`
-(idempotent — creates/re-syncs the login user, upserts every report's
-prose from the root-level `report_content.json`, upserts every id≥11
-report's results, recomputes+upserts `landing_stats`). Run it with:
-```powershell
-$env:SUPABASE_URL="https://cvqhyjvcszkscnnfzika.supabase.co"; $env:SUPABASE_SERVICE_ROLE_KEY="<ask the user — never in git>"; py -3 scripts/seed_supabase.py
-```
-`webapp/.env` (gitignored) holds `VITE_SUPABASE_URL` +
-`VITE_SUPABASE_ANON_KEY` (the anon/publishable key is safe to ship — RLS
-does the real enforcement). The service_role/secret key is NEVER
-committed and NEVER goes in the frontend — ask the user for it fresh each
-time you need to reseed, or ask them to rotate it if it's ever been pasted
-in plaintext chat before.
-
-**After adding any new report ≥ 11**: you MUST re-run
-`extract_report_content.py` then `scripts/seed_supabase.py` or its data
-silently won't appear for logged-in users (the webapp never falls back to
-a public file for premium reports).
+**Design**: `AuthContext.jsx` does a plain hardcoded check — username
+`sachin`, password `121101` — and persists a flag to `localStorage`. No
+network call, no server, nothing to keep alive. `PREMIUM_MIN_ID = 11` in
+`webapp/src/data/reportsIndex.js` is the single cutoff: reports 1-10 are
+free, 11+ are "premium." **Every report's data (results JSON AND the
+shared `report_content.json` prose file) is a plain public static file**
+in `webapp/public/data/` — login only controls what the React UI
+chooses to render, not what's fetchable. `LockedReportGate` and
+`StrategyCard`'s locked-teaser branch both check `isPremiumReport(id) &&
+!isLoggedIn` directly (not "did the fetch fail") — if you ever change
+the data-loading strategy again, keep that check independent of fetch
+success/failure, or the teaser silently stops working once fetches
+succeed for everyone.
 
 **Security posture — tell the user this if they ever ask "is this really
-private"**: the GitHub repo itself is PUBLIC and contains every report's
-full HTML/data in git history, predating the gating work. The Supabase
-gate only controls the deployed webapp's UI/API going forward — it does
-NOT hide anything from someone who clones the repo directly. This was
-explicitly disclosed to the user already; don't let a future session
-imply otherwise.
+private"**: this is a soft UI gate for casual browsing, not real access
+control. Anyone can open dev tools and read `USERNAME`/`PASSWORD` in
+`AuthContext.jsx`, or just fetch `webapp/public/data/resultsN.json`
+directly, or clone the repo (which is PUBLIC on GitHub and contains
+every report's full HTML/data anyway). This has been explicitly
+disclosed to and accepted by the user twice now (once before building
+this feature at all, once again on reverting from Supabase) — don't
+imply otherwise to a future session or the user.
 
 ## Known gotchas already debugged once — don't rediscover these
 
@@ -249,11 +235,17 @@ the frictionless original.
 ## Deployment
 
 Repo pushed directly to `main` after every deliverable (no PR workflow
-used so far — confirm with the user if that should change). Vercel
-deployment was discussed but requires the user's own OAuth login, so it
-was never executed by Claude — only instructions were given. If asked to
-deploy, remind the user this needs their own account action, or offer to
-walk them through it interactively.
+used so far — confirm with the user if that should change). **Two
+separate live deployments exist from the same repo**: GitHub Pages (via
+`.github/workflows/deploy.yml`, runs `npm run build` in `webapp/` on
+every push to `main`) and Vercel (connected directly to the GitHub repo,
+builds independently of the Actions workflow). If the webapp ever needs
+a build-time env var again, both need it configured separately — that
+exact gap (env vars only added to the GitHub Actions workflow, Vercel
+silently left unconfigured) is what caused a real support issue when
+the Supabase-backed version was live. The current client-side-only auth
+needs no env vars on either platform, which is one of the reasons it
+was kept simple.
 
 ## Style/workflow feedback already given by the user (apply without re-asking)
 
