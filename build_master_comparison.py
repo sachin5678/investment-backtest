@@ -254,7 +254,7 @@ def main():
         "Midcap150", mid_closes.loc[mid_common], nifty_close_full.loc[mid_common],
         select_top_original, select_top_frontloaded, select_top_abs_gate_mid,
         midcapietf, "MIDCAPIETF.NS", 30,
-        {"original": 11, "frontloaded": 37, "filter_cash": 42, "filter_gold": 48, "invvol": 51,
+        {"original": 16, "frontloaded": 37, "filter_cash": 42, "filter_gold": 48, "invvol": 51,
          "own_signal": 54, "asymmetric": 59, "abs_gate": 62, "smooth": 65, "smooth_hedge": 68,
          "trailing_stop": 58, "core_satellite_70_30": 71, "core_satellite_50_50": 72, "basket_50": 73},
         gold_close=gold_close_full,
