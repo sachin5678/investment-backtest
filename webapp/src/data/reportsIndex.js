@@ -178,6 +178,8 @@ export const GROUPS = [
       { id: "66", file: "results65.json", icon: ICON_DIMMER, title: "Smallcap250 Momentum 10 — Volatility-Scaled Smooth Exposure", subtitle: "Wider bands dominate the binary filter outright — better CAGR AND drawdown" },
       { id: "67", file: "results66.json", icon: ICON_DIMMER, title: "NIFTY100 Momentum 10 — Volatility-Scaled Smooth Exposure", subtitle: "The pattern reverses — the binary filter dominates every smooth band" },
       { id: "68", file: "results67.json", icon: ICON_DIMMER_COIN, title: "Midcap Momentum 10 — Smooth Exposure + Gold / Liquid Fund", subtitle: "Gold wins outright; a liquid-fund yield assumption gives a smaller, still-real edge over cash" },
+      { id: "69", file: "results68.json", icon: ICON_DIMMER_COIN, title: "Smallcap250 Momentum 10 — Smooth Exposure + Gold / Liquid Fund", subtitle: "Gold wins on CAGR but loses on drawdown here — the liquid fund is the consistent performer" },
+      { id: "70", file: "results69.json", icon: ICON_DIMMER_COIN, title: "NIFTY100 Momentum 10 — Smooth Exposure + Gold / Liquid Fund", subtitle: "Back to a clean win for gold — two out of three universes now" },
     ],
   },
 ];

@@ -255,6 +255,10 @@ GROUPS = [
              "title": "NIFTY100 Momentum 10 — Volatility-Scaled Smooth Exposure", "subtitle": "The pattern reverses — the binary filter dominates every smooth band"},
             {"id": "68", "file": "68_midcap_momentum10_smooth_exposure_hedged.html", "icon": ICON_DIMMER_COIN,
              "title": "Midcap Momentum 10 — Smooth Exposure + Gold / Liquid Fund", "subtitle": "Gold wins outright; a liquid-fund yield assumption gives a smaller, still-real edge over cash"},
+            {"id": "69", "file": "69_smallcap250_momentum10_smooth_exposure_hedged.html", "icon": ICON_DIMMER_COIN,
+             "title": "Smallcap250 Momentum 10 — Smooth Exposure + Gold / Liquid Fund", "subtitle": "Gold wins on CAGR but loses on drawdown here — the liquid fund is the consistent performer"},
+            {"id": "70", "file": "70_nifty100_momentum10_smooth_exposure_hedged.html", "icon": ICON_DIMMER_COIN,
+             "title": "NIFTY100 Momentum 10 — Smooth Exposure + Gold / Liquid Fund", "subtitle": "Back to a clean win for gold — two out of three universes now"},
         ],
     },
 ]
