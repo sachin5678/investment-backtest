@@ -2697,5 +2697,131 @@
     ]
    }
   ]
+ },
+ "38": {
+  "title": "Midcap Momentum 10 — Front-Loaded Weighting, Two Splits Compared",
+  "subtitle": "Report 37 tested a 50%/30%/20% front-loaded 3m/6m/12m blend and found a genuine risk/return trade-off vs. the original equal-weighted formula. This report adds a gentler 40%/35%/25% split to see whether the trade-off scales smoothly or behaves differently.",
+  "source_line": "2008-12-31–2026-08-24 · 36 rebalances Report generated 2026-09-27 11:39",
+  "pages": [
+   {
+    "file": "38_midcap_momentum10_frontloaded_two_splits.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "the trade-off does NOT scale smoothly between the two splits"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "A naive guess would be that a gentler front-load (40/35/25, closer to equal weighting) lands somewhere BETWEEN the original and the 50/30/20 split on both CAGR and drawdown — a smooth dial. That's not what happened. 40/35/25 actually edges out 50/30/20 slightly on CAGR (+38.3% vs. +38.0%) — but gives back almost the ENTIRE drawdown improvement (-35.3%, nearly back to the original's -35.1%, vs. 50/30/20's shallower -33.9%).",
+       "In other words: 50/30/20 turns out to be the better risk-adjusted choice of the two front-loaded splits tested here — not because it has the highest CAGR (it doesn't, by a whisker), but because it gets almost all of its drawdown protection from a smaller CAGR sacrifice than 40/35/25 does. See the honesty note below for why \"more front-loading = smoothly more responsive\" isn't quite the right mental model."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why the effect isn't a smooth dial",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "Cross-sectional Z-scoring and the top-10 cutoff mean the final stock SELECTION only changes when the weighting shift is large enough to flip which stocks cross the 10th-place threshold on a given rebalance date — small weight changes can leave many rebalances' top 10 completely unchanged, while a specific threshold crossing at just the right weighting can flip several names at once. That's a discontinuous, not continuous, relationship between the weighting parameter and the actual portfolio — which is exactly why moving from 50/30/20 to 40/35/25 recovered pick overlap with the original (53.6% → 61.3%) without moving CAGR and drawdown in the smooth, proportional way you might expect from a \"gentler\" version of the same idea.",
+       "The practical takeaway: if the goal is genuinely to reduce drawdown with the smallest possible CAGR sacrifice, 50/30/20 is the better of these two tested splits — not 40/35/25, even though 40/35/25 looks \"closer to the original\" on paper. A finer grid search across many weight combinations (not done here) would be needed to find whether an even better trade-off exists between them, or outside this range entirely."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Only these two specific splits were tested, not a systematic grid search — the true \"best\" weighting for either CAGR or drawdown alone, or any particular trade-off preference, could sit anywhere else on the weight simplex.",
+       "All three windows still divide by the SAME trailing-1-year volatility as the risk-adjustment denominator, same simplification disclosed in report 37.",
+       "Today's fixed NIFTY Midcap 150 constituent list is applied retroactively across the whole window for all three formulas equally (survivorship bias) — same disclosed approximation as every other reconstruction here.",
+       "Zero transaction costs, slippage, or taxes modeled — same as reports 11-19/24-37's frictionless numbers (see report 32 for what real Kotak Neo charges do to a similar strategy).",
+       "Equal weighting (not free-float market-cap x momentum score) and no F&O-eligibility screen, same as every other reconstruction in this project.",
+       "Prices are unadjusted; no dividends are modeled for any holding. This is a single, fixed 18-year historical path — a different window could rank these weightings differently."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "39": {
+  "title": "NIFTY500 Momentum 10 — Front-Loaded Weighting vs. the Old Logic",
+  "subtitle": "Reports 37-38 tested front-loaded 3m/6m/12m weighting only on Midcap150 Momentum 10. This applies the same 50%/30%/20% reformulation to report 18's real NIFTY500 Momentum 10 config (top 10, June/December — the real index's actual cadence) and compares it against that report's own equal-weighted \"old logic.\"",
+  "source_line": "2008-12-31–2026-08-24 · 36 rebalances Report generated 2026-09-27 11:41",
+  "pages": [
+   {
+    "file": "39_nifty500_momentum10_frontloaded_vs_old.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "positive",
+        "text": "the OPPOSITE finding from Midcap150 (reports 37-38)"
+       },
+       {
+        "kind": "neutral",
+        "text": "42.8% average pick overlap with the old formula"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "On Midcap150 Momentum 10, front-loading recent momentum was a genuine trade-off — lower CAGR for a shallower drawdown (reports 37-38). On NIFTY500 Momentum 10, the SAME reformulation does something different: it wins on BOTH dimensions. CAGR rises from +37.6% to +42.5%, and max drawdown IMPROVES from -39.2% to -35.6% — no trade-off here at all.",
+       "This is a genuinely useful cross-universe finding: the SAME formula change produces a DIFFERENT kind of result depending on the universe it's applied to (500 large/mid/small-cap stocks vs. 150 midcap-only stocks). See the honesty note below for why a broader, more liquid universe likely reacts differently to front-loaded recent momentum than a narrower midcap-only one."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why the same formula change flips direction across universes",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "NIFTY500's universe is far broader than Midcap150's — 500 stocks spanning large, mid, AND small caps, versus 150 midcap-only names. With that much more breadth to select from, a 3-month-heavy score has a much richer pool of GENUINELY strong, currently-accelerating names to choose the top 10 from at any given rebalance — the \"short-term spike that reverses before longer windows confirm it\" problem identified in report 37's honesty note is diluted by having many more candidates competing for those 10 slots. In a narrower 150-stock midcap-only universe, the same front-loading has fewer alternative candidates to draw from, so a temporarily-spiking name is more likely to actually make the cut.",
+       "This is exactly why this project tests formula changes across MULTIPLE strategies and universes rather than generalizing from a single result — a change that looks like a clean trade-off on one universe can look like an unambiguous improvement on another, and neither conclusion is \"more correct\" in general. The honest takeaway from reports 37-39 together: front-loaded recent momentum seems to help more in broader, more liquid universes than in narrower, more concentrated ones — a hypothesis worth testing further on Smallcap250 or NIFTY100, not a settled conclusion from three data points."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Only ONE weighting scheme (50/30/20) was tested here — report 38 found the choice between splits itself matters on Midcap150 in a non-obvious way, and that same sensitivity was not re-tested on NIFTY500.",
+       "All three windows still divide by the SAME trailing-1-year volatility as the risk-adjustment denominator, same simplification disclosed in reports 37-38.",
+       "Today's fixed NIFTY 500 constituent list is applied retroactively across the whole window for both formulas equally (survivorship bias) — same disclosed approximation as report 18 and every other reconstruction here.",
+       "Zero transaction costs, slippage, or taxes modeled — same as reports 11-19/24-38's frictionless numbers (see report 32 for what real Kotak Neo charges do to a similar strategy).",
+       "Equal weighting (not free-float market-cap x momentum score) and no F&O-eligibility screen, same as every other reconstruction in this project.",
+       "Prices are unadjusted; no dividends are modeled for any holding. This is a single, fixed 18-year historical path — a different window could rank these two formulas differently, or narrow the cross-universe gap seen here."
+      ]
+     }
+    ]
+   }
+  ]
  }
 }

@@ -35,6 +35,8 @@ ICON_COMPARE = '<path d="M12 3v18" fill="none"/><path d="M7 7 3 12l4 5" fill="no
 ICON_FLIP = '<path d="M4 7h11l-3-3" fill="none"/><path d="M20 17H9l3 3" fill="none"/>'
 ICON_PEAK = '<polyline points="3,19 8,10 12,15 16,6 21,19" fill="none"/><line x1="16" y1="6" x2="20" y2="6"/><line x1="16" y1="6" x2="16" y2="10"/>'
 ICON_WEIGHT = '<circle cx="12" cy="6" r="3" fill="none"/><path d="M7 21l2-9h6l2 9" fill="none"/><line x1="6" y1="21" x2="18" y2="21"/>'
+ICON_SPLIT = '<path d="M6 4v6a6 6 0 0 0 6 6v4" fill="none"/><path d="M18 4v6a6 6 0 0 1-6 6" fill="none"/><circle cx="6" cy="4" r="1.5" fill="currentColor" stroke="none"/><circle cx="18" cy="4" r="1.5" fill="currentColor" stroke="none"/>'
+ICON_LAYERS = '<polygon points="12,3 21,8 12,13 3,8" fill="none"/><polyline points="3,13 12,18 21,13" fill="none"/><polyline points="3,18 12,23 21,18" fill="none"/>'
 
 GROUPS = [
     {
@@ -174,6 +176,10 @@ GROUPS = [
              "title": "Midcap Momentum 10 — 52-Week-High Proximity", "subtitle": "A genuinely different momentum proxy, tested against the original"},
             {"id": "37", "file": "37_midcap_momentum10_frontloaded_weights.html", "icon": ICON_WEIGHT,
              "title": "Midcap Momentum 10 — Front-Loaded 3m/6m/12m Weights", "subtitle": "50/30/20 weighting toward recent momentum — a real risk/return trade-off"},
+            {"id": "38", "file": "38_midcap_momentum10_frontloaded_two_splits.html", "icon": ICON_SPLIT,
+             "title": "Midcap Momentum 10 — Front-Loaded Weighting, Two Splits", "subtitle": "50/30/20 vs. a gentler 40/35/25 — the trade-off isn't a smooth dial"},
+            {"id": "39", "file": "39_nifty500_momentum10_frontloaded_vs_old.html", "icon": ICON_LAYERS,
+             "title": "NIFTY500 Momentum 10 — Front-Loaded vs. Old Logic", "subtitle": "Same reformulation, different universe — the opposite result from Midcap150"},
         ],
     },
 ]

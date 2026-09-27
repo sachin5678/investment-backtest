@@ -26,6 +26,8 @@ const ICON_COMPARE = "M12 3v18 M7 7 3 12l4 5 M17 7l4 5-4 5";
 const ICON_FLIP = "M4 7h11l-3-3 M20 17H9l3 3";
 const ICON_PEAK = "M3 19l5-9 4 5 4-9 5 13 M16 6h4v4";
 const ICON_WEIGHT = "M12,3a3,3 0 1 0 0,6a3,3 0 1 0 0,-6 M7 21l2-9h6l2 9 M6 21h12";
+const ICON_SPLIT = "M6 4v6a6,6 0 0 0 6,6v4 M18 4v6a6,6 0 0 1 -6,6";
+const ICON_LAYERS = "M12 3 21 8 12 13 3 8z M3 13l9 5 9-5 M3 18l9 5 9-5";
 
 export const GROUPS = [
   {
@@ -128,6 +130,8 @@ export const GROUPS = [
       { id: "35", file: "results34.json", icon: ICON_FLIP, title: "Midcap Momentum 10 — Bottom-10 Reversal Sanity Check", subtitle: "Deliberately buy the worst-ranked stocks — does momentum survive the flip test?" },
       { id: "36", file: "results35.json", icon: ICON_PEAK, title: "Midcap Momentum 10 — 52-Week-High Proximity", subtitle: "A genuinely different momentum proxy, tested against the original" },
       { id: "37", file: "results36.json", icon: ICON_WEIGHT, title: "Midcap Momentum 10 — Front-Loaded 3m/6m/12m Weights", subtitle: "50/30/20 weighting toward recent momentum — a real risk/return trade-off" },
+      { id: "38", file: "results37.json", icon: ICON_SPLIT, title: "Midcap Momentum 10 — Front-Loaded Weighting, Two Splits", subtitle: "50/30/20 vs. a gentler 40/35/25 — the trade-off isn't a smooth dial" },
+      { id: "39", file: "results38.json", icon: ICON_LAYERS, title: "NIFTY500 Momentum 10 — Front-Loaded vs. Old Logic", subtitle: "Same reformulation, different universe — the opposite result from Midcap150" },
     ],
   },
 ];
