@@ -511,6 +511,123 @@ def build_smooth_exposure_with_hedge(fully_invested_series, signal_close, ema, h
     return blended, exposure
 
 
+def build_index_core_satellite(closes, signal_close, ema, rbdates, select_fn, hedge_close,
+                                on_momentum_weight=0.7, on_hedge_weight=0.3, confirm_days=1):
+    """A permanent core-satellite split, not a cash/invested switch: while
+    signal_close is above its EMA, hold on_momentum_weight (e.g. 70%) in
+    the top-10 momentum portfolio and on_hedge_weight (e.g. 30%) in
+    hedge_close (gold) AT ALL TIMES — even in an otherwise-healthy market,
+    30% always sits in gold. The moment signal_close closes below its
+    EMA, sell the ENTIRE portfolio into 100% hedge_close (a full flight to
+    gold, not just topping up the existing 30% sleeve) until signal_close
+    closes back above its EMA, at which point re-enter at the SAME
+    70/30 split with a freshly recomputed top-10 (not the old one).
+
+    The 70/30 split itself is only re-targeted exactly at scheduled
+    rebalance dates (rbdates) while already in the "on" regime, or at the
+    moment of a regime transition — between those events, the momentum
+    and gold sleeves are each left to drift with their own returns, same
+    convention as every other rebalance-based report here."""
+    dates = closes.index
+    rb_set = set(rbdates)
+    index_level = pd.Series(np.nan, index=dates)
+    shares = {}
+    hedge_units = 0.0
+    started = False
+    full_hedge = True
+    selections = []
+    state_log = []
+    opposite_streak = 0
+
+    def do_select(t_idx):
+        return select_fn(closes, t_idx)
+
+    def split_into(selected, total_value, price_today, hedge_price_today):
+        mom_target = total_value * on_momentum_weight
+        hedge_target = total_value * on_hedge_weight
+        new_shares = {tk: mom_target / len(selected) / price_today[tk] for tk in selected}
+        new_hedge_units = hedge_target / hedge_price_today
+        return new_shares, new_hedge_units
+
+    for i, d in enumerate(dates):
+        is_rebalance_day = d in rb_set
+        ema_today = ema.iloc[i]
+        raw_on = bool(signal_close.iloc[i] > ema_today) if pd.notna(ema_today) else False
+        price_today = closes.iloc[i]
+        hedge_price_today = hedge_close.iloc[i]
+
+        if not started:
+            if is_rebalance_day:
+                if raw_on:
+                    selected = do_select(i)
+                    if selected is not None:
+                        started = True
+                        full_hedge = False
+                        shares, hedge_units = split_into(selected, 100.0, price_today, hedge_price_today)
+                        selections.append({"date": d.strftime("%Y-%m-%d"),
+                                            "tickers": [t.replace(".NS", "") for t in selected],
+                                            "trigger": "initial_entry"})
+                else:
+                    started = True
+                    full_hedge = True
+                    hedge_units = 100.0 / hedge_price_today
+            if started:
+                val = (0.0 if full_hedge else sum(shares.get(tk, 0.0) * price_today.get(tk, 0.0) for tk in shares)) + hedge_units * hedge_price_today
+                index_level.iloc[i] = val
+                state_log.append((d, "full_gold" if full_hedge else "70_30"))
+            continue
+
+        currently_on = not full_hedge
+        if raw_on == currently_on:
+            opposite_streak = 0
+            confirmed_on = currently_on
+        else:
+            opposite_streak += 1
+            if opposite_streak >= confirm_days:
+                confirmed_on = raw_on
+                opposite_streak = 0
+            else:
+                confirmed_on = currently_on
+
+        mom_value_before = sum(shares.get(tk, 0.0) * price_today.get(tk, 0.0) for tk in shares if pd.notna(price_today.get(tk))) if shares else 0.0
+        hedge_value_before = hedge_units * hedge_price_today
+        value_before = mom_value_before + hedge_value_before
+        if value_before <= 0:
+            value_before = index_level.iloc[i - 1]
+
+        if confirmed_on and full_hedge:
+            selected = do_select(i)
+            if selected is not None:
+                shares, hedge_units = split_into(selected, value_before, price_today, hedge_price_today)
+                full_hedge = False
+                selections.append({"date": d.strftime("%Y-%m-%d"),
+                                    "tickers": [t.replace(".NS", "") for t in selected],
+                                    "trigger": "regime_reentry"})
+            val = value_before
+        elif (not confirmed_on) and (not full_hedge):
+            shares = {}
+            hedge_units = value_before / hedge_price_today
+            full_hedge = True
+            val = value_before
+        elif confirmed_on and is_rebalance_day:
+            selected = do_select(i)
+            if selected is not None:
+                shares, hedge_units = split_into(selected, value_before, price_today, hedge_price_today)
+                selections.append({"date": d.strftime("%Y-%m-%d"),
+                                    "tickers": [t.replace(".NS", "") for t in selected],
+                                    "trigger": "scheduled_rebalance"})
+            val = sum(shares.get(tk, 0.0) * price_today.get(tk, 0.0) for tk in shares if pd.notna(price_today.get(tk))) + hedge_units * hedge_price_today
+        else:
+            val = (0.0 if full_hedge else sum(shares.get(tk, 0.0) * price_today.get(tk, 0.0) for tk in shares if pd.notna(price_today.get(tk)))) + hedge_units * hedge_price_today
+            if val <= 0:
+                val = value_before
+
+        index_level.iloc[i] = val
+        state_log.append((d, "full_gold" if full_hedge else "70_30"))
+
+    return index_level.dropna(), selections, state_log
+
+
 def cash_blocks_from_log(state_log, min_days=MIN_CASH_BLOCK_DAYS):
     if not state_log:
         return [], 0.0

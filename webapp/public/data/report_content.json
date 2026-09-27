@@ -4862,5 +4862,64 @@
     ]
    }
   ]
+ },
+ "71": {
+  "title": "Midcap150 Momentum 10 — 70/30 Core-Satellite with Gold, Full Flight-to-Gold on Regime Change",
+  "subtitle": "Every earlier gold report (14, 20, 48, 68) only used gold as a substitute for CASH — a hedge that only shows up when the 200-EMA filter is already risk-off. This report tests something structurally different: gold as a PERMANENT 30% satellite sleeve sitting alongside the momentum portfolio at all times, even in a healthy bull market, plus a full 100%-to-gold switch (selling the entire 70% momentum sleeve too, not just topping up the satellite) the moment NIFTY 50 closes below its own 200-day EMA. Same immediate-switch signal as report 42 — no confirmation delay, no wider span, no breadth check.",
+  "source_line": "2008-12-31–2026-08-24 Report generated 2026-09-27 16:36",
+  "pages": [
+   {
+    "file": "71_midcap_momentum10_core_satellite_gold.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "by far the shallowest drawdown of any variant tested — at a real CAGR cost"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Permanently parking 30% in gold cuts max drawdown to -20.0% — shallower than every other combination tested on Midcap150, including report 48's binary filter+gold (-23.4%) and report 68's smooth-exposure+gold (-26.7%). That protection is not free: CAGR comes in at +35.2%, below the unfiltered +40.6% AND below every other filtered variant on this universe — the permanent 30% gold sleeve drags on returns in ordinary bull years too, not just during crashes, which a binary or smooth-exposure filter (100% momentum whenever the market is healthy) doesn't do.",
+       "This is a genuine trade-off, not a strictly-worse or strictly-better result: pick this design over the others only if shaving the drawdown further matters more to you than the CAGR given up to get there."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why this design trades CAGR for a shallower drawdown",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "Every earlier filter design (reports 42, 48, 68) is 100% momentum whenever the market is healthy, and only reaches for gold when the 200-EMA signal says risk-off. This design gives up some of that upside on purpose: 30% sits in gold EVEN during a strong bull run, so it participates less in the momentum portfolio's best years. That's exactly why its CAGR (+35.2%) trails report 48's binary filter+gold (+43.3%) despite using the identical regime signal and an even more aggressive full-gold switch during risk-off — the cost shows up in the \"on\" years, not the \"off\" ones.",
+       "The payoff is a drawdown that is shallower in EVERY regime, not just the filtered ones — a genuinely different risk profile from \"same upside, better downside,\" which is closer to what reports 48/68 offer. Whether that's a good trade depends entirely on whether the extra ~5.4 percentage points of CAGR given up here is worth the extra ~6.7 percentage points of drawdown protection over report 68's design — a judgment call this report can't make for you."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Zero transaction costs on any rebalance, regime switch, or the flight-to-gold liquidation itself — a real\n        execution would pay brokerage + STT + slippage on selling the ENTIRE momentum sleeve at every regime change, which this\n        design triggers more often (via the full liquidation) than a design that just tops up an existing gold sleeve.",
+       "Only ONE split (70/30) and ONE EMA span (200 days, immediate switch, no confirmation delay) were tested here —\n        the 70/30 ratio was specified directly, not optimized; a different split would trade CAGR against drawdown differently.",
+       "GOLDBEES.NS tracks domestic gold prices in INR, which also move with the rupee's own exchange rate — a INR\n        depreciation can lift GOLDBEES.NS even if USD gold is flat, a real but separate driver from \"gold as a crisis hedge.\"",
+       "Today's fixed Midcap150 constituent list is applied retroactively across the whole window (survivorship bias).\n        Equal weighting within the momentum sleeve, no F&O-eligibility screen, unadjusted prices, no dividends modeled — same as\n        every other reconstruction here."
+      ]
+     }
+    ]
+   }
+  ]
  }
 }

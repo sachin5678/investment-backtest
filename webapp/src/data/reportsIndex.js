@@ -180,6 +180,7 @@ export const GROUPS = [
       { id: "68", file: "results67.json", icon: ICON_DIMMER_COIN, title: "Midcap Momentum 10 — Smooth Exposure + Gold / Liquid Fund", subtitle: "Gold wins outright; a liquid-fund yield assumption gives a smaller, still-real edge over cash" },
       { id: "69", file: "results68.json", icon: ICON_DIMMER_COIN, title: "Smallcap250 Momentum 10 — Smooth Exposure + Gold / Liquid Fund", subtitle: "Gold wins clearly on CAGR here too — drawdown differences are noise, not a real trade-off" },
       { id: "70", file: "results69.json", icon: ICON_DIMMER_COIN, title: "NIFTY100 Momentum 10 — Smooth Exposure + Gold / Liquid Fund", subtitle: "Gold wins clearly on CAGR everywhere tested — drawdown effect ranges from a bonus to a wash" },
+      { id: "71", file: "results70.json", icon: ICON_SPLIT, title: "Midcap Momentum 10 — Core-Satellite (70/30) + Full Gold Switch", subtitle: "The shallowest drawdown of any combination tested here — at a real CAGR cost" },
     ],
   },
 ];

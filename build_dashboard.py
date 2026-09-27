@@ -259,6 +259,8 @@ GROUPS = [
              "title": "Smallcap250 Momentum 10 — Smooth Exposure + Gold / Liquid Fund", "subtitle": "Gold wins clearly on CAGR here too — drawdown differences are noise, not a real trade-off"},
             {"id": "70", "file": "70_nifty100_momentum10_smooth_exposure_hedged.html", "icon": ICON_DIMMER_COIN,
              "title": "NIFTY100 Momentum 10 — Smooth Exposure + Gold / Liquid Fund", "subtitle": "Gold wins clearly on CAGR everywhere tested — drawdown effect ranges from a bonus to a wash"},
+            {"id": "71", "file": "71_midcap_momentum10_core_satellite_gold.html", "icon": ICON_SPLIT,
+             "title": "Midcap Momentum 10 — Core-Satellite (70/30) + Full Gold Switch", "subtitle": "The shallowest drawdown of any combination tested here — at a real CAGR cost"},
         ],
     },
 ]
