@@ -36,6 +36,9 @@ const ICON_SHIELD_SPROUT = "M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3
 const ICON_SHIELD_FUNNEL = "M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3z M9 8h6l-2.2 3v3l-1.6.8v-3.8z";
 const ICON_RULER = "M4 15l5-9 11 6-5 9z M12 8l1.5 2.5 M10 11.5l1.5 2.5 M8 15l1.5 2.5";
 const ICON_HOURGLASS = "M6 3h12 M6 21h12 M7 3c0 5 5 6 5 9s-5 4-5 9 M17 3c0 5-5 6-5 9s5 4 5 9";
+const ICON_COIN_SHIELD = "M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3z M12 8a3 3 0 1 0 0 6 3 3 0 0 0 0-6z";
+const ICON_SCALE_10 = "M6,3a3,3 0 1 0 0,6a3,3 0 1 0 0,-6 M12,7.8a2.2,2.2 0 1 0 0,4.4a2.2,2.2 0 1 0 0,-4.4 M18,4.6a1.4,1.4 0 1 0 0,2.8a1.4,1.4 0 1 0 0,-2.8 M4 18h16 M6 9v9 M12 12.2v5.8 M18 7.4v9.6";
+const ICON_TARGET_SELF = "M12,3a9,9 0 1 0 0,18a9,9 0 1 0 0,-18 M12,7a5,5 0 1 0 0,10a5,5 0 1 0 0,-10 M12 10.5v3 M10.5 12h3";
 
 export const GROUPS = [
   {
@@ -148,6 +151,15 @@ export const GROUPS = [
       { id: "45", file: "results44.json", icon: ICON_SHIELD_FUNNEL, title: "NIFTY100 Momentum 10 — 200-Day EMA Regime Filter", subtitle: "Almost a free lunch — unlike front-loading, this filter doesn't break down on a narrow universe" },
       { id: "46", file: "results45.json", icon: ICON_RULER, title: "Midcap Momentum 10 — EMA-Span Sensitivity (100/150/200/250)", subtitle: "Wider isn't always better — 250 days is the worst span on both CAGR and drawdown" },
       { id: "47", file: "results46.json", icon: ICON_HOURGLASS, title: "Midcap Momentum 10 — Confirmation-Delay Sensitivity", subtitle: "Waiting a few days to reduce whipsaw cuts trades but costs more CAGR than it saves" },
+      { id: "48", file: "results47.json", icon: ICON_COIN_SHIELD, title: "Midcap Momentum 10 — Gold Instead of Cash", subtitle: "Gold beats cash on CAGR without giving up any drawdown protection" },
+      { id: "49", file: "results48.json", icon: ICON_COIN_SHIELD, title: "Smallcap250 Momentum 10 — Gold Instead of Cash", subtitle: "The same clean win as Midcap150, on a second universe" },
+      { id: "50", file: "results49.json", icon: ICON_COIN_SHIELD, title: "NIFTY100 Momentum 10 — Gold Instead of Cash", subtitle: "Three for three — gold beats cash on every universe tested" },
+      { id: "51", file: "results50.json", icon: ICON_SCALE_10, title: "Midcap Momentum 10 — Inverse-Volatility Weighting", subtitle: "Down-weighting shaky picks costs more CAGR than it saves in drawdown" },
+      { id: "52", file: "results51.json", icon: ICON_SCALE_10, title: "Smallcap250 Momentum 10 — Inverse-Volatility Weighting", subtitle: "Same modest trade-off as Midcap150, on a second universe" },
+      { id: "53", file: "results52.json", icon: ICON_SCALE_10, title: "NIFTY100 Momentum 10 — Inverse-Volatility Weighting", subtitle: "Consistent everywhere, unlike front-loaded momentum's NIFTY100 breakdown" },
+      { id: "54", file: "results53.json", icon: ICON_TARGET_SELF, title: "Midcap Momentum 10 — Universe-Specific Trend Filter", subtitle: "Inconclusive — the midcap ETF proxy's short history limits this test" },
+      { id: "55", file: "results54.json", icon: ICON_TARGET_SELF, title: "Smallcap250 Momentum 10 — Universe-Specific Trend Filter", subtitle: "A real index, full history — better drawdown, some CAGR cost" },
+      { id: "56", file: "results55.json", icon: ICON_TARGET_SELF, title: "NIFTY100 Momentum 10 — Universe-Specific Trend Filter", subtitle: "Same trade-off as Smallcap250 — two of three full-history tests agree" },
     ],
   },
 ];

@@ -3358,5 +3358,555 @@
     ]
    }
   ]
+ },
+ "48": {
+  "title": "Midcap150 Momentum 10 — Gold Instead of Cash During the 200-EMA Filter",
+  "subtitle": "Reports 42-47 held plain 0%-return cash whenever NIFTY 50 closed below its own 200-day EMA. This report holds GOLDBEES.NS instead — the same gold ETF used in reports 14/20's blends. GOLDBEES.NS only has price history from mid-2010, so ALL series here (including the cash version) are recomputed fresh on this shorter, common window for a fair comparison, not re-quoted from report 42's longer window.",
+  "source_line": "2010-06-30–2026-08-24 Report generated 2026-09-27 14:24",
+  "pages": [
+   {
+    "file": "48_midcap_momentum10_gold_vs_cash.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "positive",
+        "text": "gold beats cash on CAGR without giving up any drawdown protection"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Swapping cash for gold during risk-off periods lifts CAGR from +36.0% to +41.1% — a real improvement — while max drawdown is essentially UNCHANGED: -23.5% (cash) vs. -23.4% (gold). Gold doesn't need to fall in lockstep with equities to make this work; it just needs to not be as bad as the crashing stocks the filter is protecting against, which is exactly gold's usual role.",
+       "For reference, gold alone over this window returned +13.0% CAGR with a -27.4% drawdown of its own — nowhere near as good as the strategy, but calm enough that holding it during the strategy's own risk-off periods adds return without meaningfully adding risk."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why gold works here without adding risk",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "The 200-EMA filter's job is to avoid the strategy's own worst stretches, which correlate with broad equity-market selloffs. Gold has historically had LOW or even negative correlation to Indian equities during exactly those stretches — it doesn't need to go UP during a crash to help here, it just needs to not crash alongside equities, which is why swapping it in for cash adds return (+41.1% vs. +36.0%) without meaningfully adding drawdown risk.",
+       "This is NOT guaranteed to hold in every future crisis — gold and equities can occasionally fall together during a genuine liquidity crunch (some investors sell everything, including gold, to raise cash) — but across THIS 2010-2026 window, holding gold during the strategy's own risk-off periods was a clean improvement over doing nothing with the cash."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "GOLDBEES.NS's history only starts mid-2010, so this report's window EXCLUDES the 2008-2009 global financial crisis — the single biggest crash reports 42-47's longer window covers. Gold's behavior in that specific crisis is not tested here.",
+       "Zero transaction costs on ANY regime switch (into or out of gold) — same disclosed omission as reports 42-47, and switching into/out of an ETF position isn't free in reality.",
+       "GOLDBEES.NS tracks domestic gold prices in INR, which also move with the rupee's own exchange rate — a INR depreciation can lift GOLDBEES.NS even if USD gold is flat, a real but separate driver from \"gold as a crisis hedge.\"",
+       "Only ONE EMA span (200 days) and immediate-switch (no confirmation delay) were tested here.",
+       "Today's fixed Midcap150 constituent list is applied retroactively across the whole window (survivorship bias). Equal weighting, no F&O-eligibility screen, unadjusted prices, no dividends modeled — same as every other reconstruction here."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "49": {
+  "title": "Smallcap250 Momentum 10 — Gold Instead of Cash During the 200-EMA Filter",
+  "subtitle": "Report 48 tested holding GOLDBEES.NS instead of cash during the 200-day-EMA filter's risk-off periods on Midcap150. This applies the identical mechanics to Smallcap250 Momentum 10. GOLDBEES.NS only has price history from mid-2010, so ALL series here are recomputed fresh on this shorter, common window, not re-quoted from report 44's longer window.",
+  "source_line": "2010-06-30–2026-08-24 Report generated 2026-09-27 14:24",
+  "pages": [
+   {
+    "file": "49_smallcap250_momentum10_gold_vs_cash.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "positive",
+        "text": "same clean win as Midcap150 (report 48)"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "On Smallcap250, gold again beats cash on CAGR — +37.9% to +43.2% — while max drawdown stays essentially unchanged: -31.8% (cash) vs. -32.0% (gold).",
+       "For reference, gold alone over this window returned +13.0% CAGR with a -27.4% drawdown of its own. Two universes now show the same pattern — see report 50 for NIFTY100."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "A second universe, the same clean win",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "Same logic as report 48: gold's low correlation to Indian equities during broad selloffs means it doesn't need to rise to help here, it just needs to avoid crashing alongside the smallcap stocks the filter is protecting against. Since the regime signal is unchanged (NIFTY 50's own 200-EMA), the cash-vs-gold comparison isolates purely what's HELD during risk-off periods, and that isolation produces the same result on this second, more volatile universe.",
+       "The same caveat from report 48 applies: gold and equities CAN fall together during a genuine liquidity crunch, and this window (2010-2026) doesn't include the 2008 GFC, the one period in this project's data where that risk would be most visible."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "GOLDBEES.NS's history only starts mid-2010, excluding the 2008-2009 global financial crisis.",
+       "Zero transaction costs on ANY regime switch (into or out of gold) — same disclosed omission as reports 42-48.",
+       "GOLDBEES.NS tracks domestic gold prices in INR, which also move with the rupee's own exchange rate.",
+       "Only ONE EMA span (200 days) and immediate-switch (no confirmation delay) were tested here.",
+       "No official \"Smallcap250 Momentum 10\" index exists — the June/December cadence is a borrowed convention. Today's fixed constituent list is applied retroactively (survivorship bias). Equal weighting, no F&O-eligibility screen, unadjusted prices, no dividends modeled — same as every other reconstruction here."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "50": {
+  "title": "NIFTY100 Momentum 10 — Gold Instead of Cash During the 200-EMA Filter",
+  "subtitle": "Reports 48-49 tested holding GOLDBEES.NS instead of cash during the 200-day-EMA filter's risk-off periods on Midcap150 and Smallcap250. This applies the identical mechanics to NIFTY100 Momentum 10 — the third and final universe in this comparison. GOLDBEES.NS only has price history from mid-2010, so ALL series here are recomputed fresh on this shorter, common window, not re-quoted from report 45's longer window.",
+  "source_line": "2010-06-30–2026-08-21 Report generated 2026-09-27 14:24",
+  "pages": [
+   {
+    "file": "50_nifty100_momentum10_gold_vs_cash.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "positive",
+        "text": "three for three — gold beats cash on every universe tested"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "On NIFTY100 too, gold beats cash on CAGR — +27.9% to +32.6% — while max drawdown stays essentially unchanged: -25.6% (cash) vs. -26.1% (gold).",
+       "Across Midcap150 (report 48), Smallcap250 (report 49), and NIFTY100 here, \"gold instead of cash\" is a consistent, clean improvement — unlike the front-loaded-momentum reformulation (reports 37-41), which flipped sign by universe, this change works the same way everywhere because it doesn't touch stock selection at all, only what's held while the regime filter is in its risk-off state."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Three for three — a change that doesn't depend on universe",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "\"Gold instead of cash\" changes what the strategy holds during ~a quarter of trading days (whenever the NIFTY-50-driven filter is risk-off) but never touches which stocks get picked the rest of the time. Since gold's low correlation to Indian equities during broad selloffs doesn't depend on whether the underlying strategy trades large caps, midcaps, or smallcaps, this change works the same way on all three universes tested — reports 48-50 all show the same shape of result: meaningfully higher CAGR, essentially unchanged drawdown.",
+       "The same caveat applies everywhere: this window (2010-2026) excludes the 2008 GFC, and gold CAN fall alongside equities during a genuine liquidity crunch — this is a consistently good result across three universes on ONE historical period, not a guarantee gold always helps."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "GOLDBEES.NS's history only starts mid-2010, excluding the 2008-2009 global financial crisis.",
+       "Zero transaction costs on ANY regime switch (into or out of gold) — same disclosed omission as reports 42-49.",
+       "GOLDBEES.NS tracks domestic gold prices in INR, which also move with the rupee's own exchange rate.",
+       "Only ONE EMA span (200 days) and immediate-switch (no confirmation delay) were tested here.",
+       "Today's fixed NIFTY100 constituent list (report 12's config) is applied retroactively (survivorship bias). Equal weighting, no F&O-eligibility screen, unadjusted prices, no dividends modeled — same as every other reconstruction here."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "51": {
+  "title": "Midcap150 Momentum 10 — Inverse-Volatility Position Sizing",
+  "subtitle": "Every Midcap150 Momentum 10 report so far has split each rebalance equally across the top 10 picks. This report tests weighting each pick INVERSELY to its own trailing 1-year volatility — the same daily-return std the scoring formula already computes — instead: a calmer stock in the top 10 gets a bigger dollar weight, a shakier one gets a smaller one. Same selection formula, same top 10, same June/December schedule, no regime filter — \"always invested\" both ways, isolating the weighting scheme alone.",
+  "source_line": "2008-12-31–2026-08-24 · 36 rebalances Report generated 2026-09-27 14:24",
+  "pages": [
+   {
+    "file": "51_midcap_momentum10_invvol_weighting.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "a real trade-off, not a free improvement"
+       },
+       {
+        "kind": "neutral",
+        "text": "100.0% average pick overlap (same tickers, different weights)"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Inverse-vol weighting costs real CAGR — +40.6% falls to +38.2% — for only a MODEST drawdown improvement: -35.1% to -34.0%, about a point shallower.",
+       "The picks themselves are IDENTICAL between the two versions — only the dollar weight assigned to each one changes. The CAGR cost comes from the fact that in a momentum strategy, the highest-momentum names are often also the most volatile ones — down-weighting them because they're \"shaky\" also down-weights some of the strategy's own best performers."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why down-weighting \"shaky\" names costs return here",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "A momentum strategy's whole premise is that stocks with strong recent price moves keep moving — and the stocks with the STRONGEST recent moves are frequently also the most volatile ones (rapid price appreciation and high volatility tend to travel together). Inverse-vol weighting is, in effect, a bet AGAINST the strategy's own strongest signals: it systematically shifts capital away from the very names the momentum score ranked highest by conviction (though not necessarily highest by SCORE, since the score itself already divides by volatility once) toward the calmer, more middling picks in the top 10.",
+       "The drawdown improvement is real but small — about a point — because the vol-based reweighting only shifts capital WITHIN an already-selected top 10; it can't do anything about a broad market crash that takes every stock in the portfolio down together (which is what actually drives most of this strategy's largest drawdowns). Report 42's 200-EMA regime filter, which sidesteps entire market downturns rather than reweighting within them, achieves a much bigger drawdown cut for a comparable CAGR cost."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Weights are recomputed fresh at EVERY rebalance from a 1-year trailing window — a stock with a short, unusual volatility spike right before a rebalance date could get an unrepresentatively small weight for the following 6 months.",
+       "No cap or floor on individual weights — in principle one very calm stock could dominate the portfolio if its volatility is far lower than the other 9 picks (see the sample weights table above for how uneven this can get in practice).",
+       "Zero transaction costs, slippage, or taxes modeled — same as every other reconstruction in this project.",
+       "Only inverse-1-year-volatility weighting was tested — a different lookback window, or a different weighting rule entirely (e.g. proportional to momentum score), could produce a different trade-off.",
+       "Today's fixed Midcap150 constituent list is applied retroactively across the whole window (survivorship bias), same disclosed approximation as every other reconstruction here. This is a single, fixed 18-year historical path."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "52": {
+  "title": "Smallcap250 Momentum 10 — Inverse-Volatility Position Sizing",
+  "subtitle": "Report 51 tested weighting each top-10 pick inversely to its own trailing 1-year volatility, instead of splitting equally, on Midcap150. This applies the identical mechanics to report 16/29's Smallcap250 Momentum 10 config — a universe of typically higher-volatility stocks, where a vol-based reweighting could plausibly matter more.",
+  "source_line": "2008-12-31–2026-08-24 · 36 rebalances Report generated 2026-09-27 14:24",
+  "pages": [
+   {
+    "file": "52_smallcap250_momentum10_invvol_weighting.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "same modest trade-off as Midcap150 (report 51)"
+       },
+       {
+        "kind": "neutral",
+        "text": "100.0% average pick overlap (same tickers, different weights)"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "On Smallcap250, inverse-vol weighting again costs CAGR — +40.2% to +39.6% — for a modest drawdown improvement: -44.8% to -40.0%.",
+       "The picks themselves are identical between both versions — only the capital allocation across them changes. See report 51's honesty note for why down-weighting the shakiest names tends to also down-weight a momentum strategy's own strongest performers."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Same trade-off, higher-volatility universe",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "Smallcap stocks are typically more volatile than midcaps, so a bigger dispersion in the inverse-vol weights across the top 10 might be expected here — yet the CAGR-vs-drawdown trade-off comes out about the same shape as report 51's. That's because the reweighting only ever operates WITHIN the already-selected top 10 at any given rebalance; it can't do anything about a market-wide selloff that drags every smallcap down together, which is what actually drives most of this strategy's biggest drawdowns (see report 44's 200-EMA filter for a change that DOES address that).",
+       "As in report 51, the picks are IDENTICAL between equal-weight and inverse-vol — this report isolates the weighting scheme alone, not a different selection."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Weights are recomputed fresh at EVERY rebalance from a 1-year trailing window — a short, unusual volatility spike right before a rebalance date could distort a stock's weight for the following 6 months.",
+       "No cap or floor on individual weights (see the sample weights table above for how uneven this can get).",
+       "Zero transaction costs, slippage, or taxes modeled — same as every other reconstruction in this project.",
+       "Only inverse-1-year-volatility weighting was tested — a different lookback or weighting rule could produce a different trade-off.",
+       "No official \"Smallcap250 Momentum 10\" index exists — the June/December cadence is a borrowed convention. Today's fixed constituent list is applied retroactively (survivorship bias). This is a single, fixed 18-year historical path."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "53": {
+  "title": "NIFTY100 Momentum 10 — Inverse-Volatility Position Sizing",
+  "subtitle": "Reports 51-52 tested weighting each top-10 pick inversely to its own trailing 1-year volatility on Midcap150 and Smallcap250. This applies the identical mechanics to report 12's NIFTY100 Momentum 10 config — the lowest-volatility universe in this comparison, where reformulations have previously behaved differently from the broader ones (report 41's front-loading actively backfired here).",
+  "source_line": "2008-12-31–2026-08-21 · 36 rebalances Report generated 2026-09-27 14:24",
+  "pages": [
+   {
+    "file": "53_nifty100_momentum10_invvol_weighting.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "still a modest trade-off, not a breakdown like report 41"
+       },
+       {
+        "kind": "neutral",
+        "text": "100.0% average pick overlap (same tickers, different weights)"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "On NIFTY100, inverse-vol weighting costs CAGR — +30.7% to +28.7% — for a modest drawdown improvement: -35.3% to -34.4%. Unlike report 41's front-loaded-momentum test — where NIFTY100 was the ONE universe where the reformulation actively backfired on BOTH dimensions — this weighting change behaves the same way here as it does on Midcap150 and Smallcap250: a real but modest trade-off, not a breakdown.",
+       "That's consistent with this project's emerging pattern: changes that touch WHICH stocks get selected (like front-loading) are the ones sensitive to universe breadth; changes that only touch position SIZING or WHEN the strategy is invested (like this report, or the 200-EMA filter) behave consistently across universes."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "A weighting change, not a selection change",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "Report 41 found front-loaded momentum weighting broke down specifically on NIFTY100 because a narrower universe gave the reformulated SELECTION formula fewer genuinely-strong alternatives to fall back on. Inverse-vol weighting never touches selection — the picks here are IDENTICAL to the equal-weight version, only their dollar allocation differs — so there's no \"fewer candidates\" failure mode to trigger. That's exactly why this change performs consistently across all three universes (reports 51-53) while front-loading did not.",
+       "Like reports 51-52, most of this strategy's largest drawdowns come from broad market declines that hit every stock in the top 10 together — a within-portfolio reweighting can only do so much about that. Compare to report 45's 200-EMA filter on this same NIFTY100 universe, which sidesteps entire downturns rather than reweighting within them."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Weights are recomputed fresh at EVERY rebalance from a 1-year trailing window — a short, unusual volatility spike right before a rebalance date could distort a stock's weight for the following 6 months.",
+       "No cap or floor on individual weights (see the sample weights table above).",
+       "Zero transaction costs, slippage, or taxes modeled — same as every other reconstruction in this project.",
+       "Only inverse-1-year-volatility weighting was tested — a different lookback or weighting rule could produce a different trade-off.",
+       "Today's fixed NIFTY100 constituent list (report 12's config) is applied retroactively (survivorship bias). This is a single, fixed 18-year historical path."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "54": {
+  "title": "Midcap150 Momentum 10 — Universe-Specific Trend Filter",
+  "subtitle": "Reports 42-47 computed the 200-day EMA regime signal purely from NIFTY 50, even though this strategy trades midcaps. This report tests using MIDCAPIETF.NS — an ETF tracking the SAME NIFTY Midcap 150 index this strategy trades, i.e. the strategy's own universe's own price — as the trend signal instead. Same 200-day EMA span, same immediate-switch mechanics, same Midcap150 Momentum 10 formula throughout.",
+  "source_line": "2021-06-30–2026-08-24 Report generated 2026-09-27 14:27",
+  "pages": [
+   {
+    "file": "54_midcap_momentum10_own_index_trend_filter.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "negative",
+        "text": "using the strategy’s own index as the signal did NOT beat NIFTY 50 here"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Over this shorter, ETF-constrained window, the own-index signal is WORSE than the NIFTY-50 signal on both dimensions: CAGR falls from +30.1% to +25.8%, and max drawdown is actually DEEPER, -17.6% vs. -19.4% — the opposite of the intuition that a universe-specific signal should time that universe's own downturns better.",
+       "Read this result cautiously: the window here (2021 onward) is far shorter than the 2008-2026 window used elsewhere in this project, and does NOT include a genuinely severe midcap-specific crash — see the honesty note and report 55/56 for the same test on universes with a longer, real index history available."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why the intuition didn't hold here",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "There are two candidate explanations, and this report can't fully separate them. First, MIDCAPIETF.NS's short history (2021 onward) means this test never sees a genuinely severe, midcap-specific downturn distinct from a broad-market one — the exact scenario where a universe-specific signal should earn its keep. Second, midcap indices are often CHOPPIER than NIFTY 50 around their own moving averages (more frequent, smaller crossings), which this report's own re-entry counts show: 13 re-entries for the own-index signal vs. 21 for the NIFTY-50 signal over the SAME shorter window — more whipsaw, not less, despite using a \"more relevant\" index.",
+       "Report 55 (Smallcap250, using the REAL NIFTY Smallcap 250 index with a full 2008-2026 history) and report 56 (NIFTY100, using the real ^CNX100 index, also full history) are the more decisive tests of this idea — Midcap150's result here should be read as inconclusive due to the short window, not as a verdict against universe-specific signals in general."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "MIDCAPIETF.NS's history only starts 2021, so this window EXCLUDES the 2008 GFC, the 2020 COVID crash, and the 2015-16 slowdown — the three biggest stress tests reports 42-47's longer window covers. This is the weakest of the three universe-specific-signal reports (54-56) for exactly that reason.",
+       "Zero transaction costs on ANY regime switch — same disclosed omission as reports 42-53.",
+       "MIDCAPIETF.NS is a different fund house (ICICI Prudential) from this project's usual midcap ETF (Nippon's MID150BEES.NS, no longer available) — both track the same underlying index, but real-world tracking error, expense ratios, and liquidity can differ between them.",
+       "Only ONE EMA span (200 days) and immediate-switch (no confirmation delay) were tested here.",
+       "Today's fixed Midcap150 constituent list is applied retroactively (survivorship bias). Equal weighting, no F&O-eligibility screen, unadjusted prices, no dividends modeled — same as every other reconstruction here."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "55": {
+  "title": "Smallcap250 Momentum 10 — Universe-Specific Trend Filter",
+  "subtitle": "Report 54 tested a universe-specific 200-day EMA signal on Midcap150, but its ETF proxy's short history (2021+) made that test inconclusive. This report uses NIFTYSMLCAP250.NS — the REAL, un-reconstructed NIFTY Smallcap 250 index itself, with the same full 2008-2026 history this project's other reports use — as the trend signal instead of NIFTY 50, giving a much more decisive test of the same idea.",
+  "source_line": "2008-12-31–2026-08-24 Report generated 2026-09-27 14:25",
+  "pages": [
+   {
+    "file": "55_smallcap250_momentum10_own_index_trend_filter.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "a genuine trade-off — better drawdown, worse CAGR"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Using Smallcap250's own real index as the signal gives a SHALLOWER max drawdown than the NIFTY-50 signal — -31.8% improves to -27.1% — but at a real CAGR cost: +39.4% falls to +33.4%.",
+       "This is a genuine, two-sided trade-off over the full 18-year window — not a clean win like gold-instead-of-cash (reports 48-50), and not a clean loss like the inconclusive Midcap150 test (report 54). See the honesty note for why a smallcap-specific signal being SLOWER to re-enter (but better at avoiding smallcap-specific drawdowns) plausibly explains both halves of this result."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why a more relevant signal can still cost return",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "The real NIFTY Smallcap 250 index tends to peak later and trough later than NIFTY 50 during a broad selloff — smallcaps are typically the last to roll over and the last to recover in an Indian market cycle. A signal built on the smallcap index's OWN 200-EMA reacts to that lagged pattern: it exits later than the NIFTY-50 signal would (missing less of the early decline in some cycles, more in others) and — crucially — it also RE-ENTERS later, since smallcaps recover later too. Re-entering later means missing more of the early recovery rally, which is a direct drag on CAGR independent of how good the exit timing was.",
+       "This is a genuinely different kind of finding from reports 48-53: it's not a clean win or a clean loss, but a real trade-off between an index that reacts faster (NIFTY 50, more CAGR) and one that's more relevant to what's actually being traded (Smallcap250's own index, less drawdown). Which one an investor should prefer depends on how much they weight return versus downside protection — this report doesn't settle that, it just makes the trade-off explicit."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Zero transaction costs on ANY regime switch — same disclosed omission as reports 42-54.",
+       "Only ONE EMA span (200 days) and immediate-switch (no confirmation delay) were tested here for either signal source.",
+       "No official \"Smallcap250 Momentum 10\" index exists — the June/December cadence is a borrowed convention, though NIFTYSMLCAP250.NS itself IS the real, un-reconstructed NIFTY Smallcap 250 index.",
+       "Today's fixed Smallcap250 constituent list is applied retroactively (survivorship bias). Equal weighting, no F&O-eligibility screen, unadjusted prices, no dividends modeled — same as every other reconstruction here. This is a single, fixed 18-year historical path."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "56": {
+  "title": "NIFTY100 Momentum 10 — Universe-Specific Trend Filter",
+  "subtitle": "Reports 54-55 tested a universe-specific 200-day EMA signal on Midcap150 (inconclusive, short ETF history) and Smallcap250 (a genuine trade-off, full history). This report uses ^CNX100 — the REAL NIFTY 100 index itself, fetchable directly from Yahoo Finance with full history back to 2005 — as the trend signal instead of NIFTY 50, applied to report 12's NIFTY100 Momentum 10 config. This is the third and final universe-specific-signal test.",
+  "source_line": "2008-12-31–2026-08-21 Report generated 2026-09-27 14:25",
+  "pages": [
+   {
+    "file": "56_nifty100_momentum10_own_index_trend_filter.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "the same trade-off as Smallcap250 (report 55)"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "On NIFTY100, using the strategy's own index (^CNX100) as the signal again gives a SHALLOWER drawdown — -25.6% improves to -21.0% — at a modest CAGR cost: +30.2% to +29.2%.",
+       "Two of the three universe-specific-signal tests with full historical data (Smallcap250 and NIFTY100 here) now show the SAME shape of trade-off: a more relevant signal protects better but costs some return, likely for the same reason in both cases — see report 55's honesty note on lagged peaks and troughs. Midcap150's own test (report 54) remains the outlier, but its much shorter data window makes that comparison the least reliable of the three."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Two of three full-history tests agree",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "NIFTY 100 and NIFTY 50 are closely related indices — NIFTY 100 IS NIFTY 50 plus the next 50 large/mid-cap names — so it might be expected that a NIFTY100-based signal would barely differ from a NIFTY-50-based one. It doesn't barely differ: 80 re-entries (own-signal) vs. 68 (NIFTY50-signal) over the same window shows the two indices genuinely cross their own 200-EMAs at different times, and that timing difference is enough to produce the same shape of trade-off seen on Smallcap250 — better drawdown protection, some CAGR cost — even between two closely related large-cap indices.",
+       "Combined with report 55, this is now two independent, full-18-year-history tests pointing the same direction, against one shorter, less reliable test (report 54) pointing the other way. The most defensible reading: a universe-specific trend signal probably DOES trade some return for better protection versus a NIFTY-50 signal, though \"probably\" is doing real work in that sentence — three data points across one set of formula choices is still not a lot."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Zero transaction costs on ANY regime switch — same disclosed omission as reports 42-55.",
+       "Only ONE EMA span (200 days) and immediate-switch (no confirmation delay) were tested here for either signal source.",
+       "^CNX100 is not previously used elsewhere in this project — it was newly identified for this report specifically because it's directly fetchable with full history, unlike the Midcap150 ETF proxy that broke (report 54).",
+       "Today's fixed NIFTY100 constituent list (report 12's config) is applied retroactively (survivorship bias). Equal weighting, no F&O-eligibility screen, unadjusted prices, no dividends modeled — same as every other reconstruction here. This is a single, fixed historical path."
+      ]
+     }
+    ]
+   }
+  ]
  }
 }

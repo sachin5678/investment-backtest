@@ -45,6 +45,9 @@ ICON_SHIELD_SPROUT = '<path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-
 ICON_SHIELD_FUNNEL = '<path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3z" fill="none"/><path d="M9 8h6l-2.2 3v3l-1.6.8v-3.8z" fill="none"/>'
 ICON_RULER = '<path d="M4 15l5-9 11 6-5 9z" fill="none"/><path d="M12 8l1.5 2.5" fill="none"/><path d="M10 11.5l1.5 2.5" fill="none"/><path d="M8 15l1.5 2.5" fill="none"/>'
 ICON_HOURGLASS = '<path d="M6 3h12" fill="none"/><path d="M6 21h12" fill="none"/><path d="M7 3c0 5 5 6 5 9s-5 4-5 9" fill="none"/><path d="M17 3c0 5-5 6-5 9s5 4 5 9" fill="none"/>'
+ICON_COIN_SHIELD = '<path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3z" fill="none"/><circle cx="12" cy="11" r="3" fill="none"/><path d="M12 9v.5" fill="none"/><path d="M12 12.5v.5" fill="none"/>'
+ICON_SCALE_10 = '<circle cx="6" cy="6" r="3" fill="none"/><circle cx="12" cy="10" r="2.2" fill="none"/><circle cx="18" cy="6" r="1.4" fill="none"/><path d="M4 18h16" fill="none"/><path d="M6 9v9" fill="none"/><path d="M12 12.2v5.8" fill="none"/><path d="M18 7.4v9.6" fill="none"/>'
+ICON_TARGET_SELF = '<circle cx="12" cy="12" r="9" fill="none"/><circle cx="12" cy="12" r="5" fill="none"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/>'
 
 GROUPS = [
     {
@@ -204,6 +207,24 @@ GROUPS = [
              "title": "Midcap Momentum 10 — EMA-Span Sensitivity (100/150/200/250)", "subtitle": "Wider isn't always better — 250 days is the worst span on both CAGR and drawdown"},
             {"id": "47", "file": "47_midcap_momentum10_confirmation_delay_sensitivity.html", "icon": ICON_HOURGLASS,
              "title": "Midcap Momentum 10 — Confirmation-Delay Sensitivity", "subtitle": "Waiting a few days to reduce whipsaw cuts trades but costs more CAGR than it saves"},
+            {"id": "48", "file": "48_midcap_momentum10_gold_vs_cash.html", "icon": ICON_COIN_SHIELD,
+             "title": "Midcap Momentum 10 — Gold Instead of Cash", "subtitle": "Gold beats cash on CAGR without giving up any drawdown protection"},
+            {"id": "49", "file": "49_smallcap250_momentum10_gold_vs_cash.html", "icon": ICON_COIN_SHIELD,
+             "title": "Smallcap250 Momentum 10 — Gold Instead of Cash", "subtitle": "The same clean win as Midcap150, on a second universe"},
+            {"id": "50", "file": "50_nifty100_momentum10_gold_vs_cash.html", "icon": ICON_COIN_SHIELD,
+             "title": "NIFTY100 Momentum 10 — Gold Instead of Cash", "subtitle": "Three for three — gold beats cash on every universe tested"},
+            {"id": "51", "file": "51_midcap_momentum10_invvol_weighting.html", "icon": ICON_SCALE_10,
+             "title": "Midcap Momentum 10 — Inverse-Volatility Weighting", "subtitle": "Down-weighting shaky picks costs more CAGR than it saves in drawdown"},
+            {"id": "52", "file": "52_smallcap250_momentum10_invvol_weighting.html", "icon": ICON_SCALE_10,
+             "title": "Smallcap250 Momentum 10 — Inverse-Volatility Weighting", "subtitle": "Same modest trade-off as Midcap150, on a second universe"},
+            {"id": "53", "file": "53_nifty100_momentum10_invvol_weighting.html", "icon": ICON_SCALE_10,
+             "title": "NIFTY100 Momentum 10 — Inverse-Volatility Weighting", "subtitle": "Consistent everywhere, unlike front-loaded momentum's NIFTY100 breakdown"},
+            {"id": "54", "file": "54_midcap_momentum10_own_index_trend_filter.html", "icon": ICON_TARGET_SELF,
+             "title": "Midcap Momentum 10 — Universe-Specific Trend Filter", "subtitle": "Inconclusive — the midcap ETF proxy's short history limits this test"},
+            {"id": "55", "file": "55_smallcap250_momentum10_own_index_trend_filter.html", "icon": ICON_TARGET_SELF,
+             "title": "Smallcap250 Momentum 10 — Universe-Specific Trend Filter", "subtitle": "A real index, full history — better drawdown, some CAGR cost"},
+            {"id": "56", "file": "56_nifty100_momentum10_own_index_trend_filter.html", "icon": ICON_TARGET_SELF,
+             "title": "NIFTY100 Momentum 10 — Universe-Specific Trend Filter", "subtitle": "Same trade-off as Smallcap250 — two of three full-history tests agree"},
         ],
     },
 ]

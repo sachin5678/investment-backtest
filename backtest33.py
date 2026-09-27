@@ -156,6 +156,57 @@ def build_index_generic(closes, rbdates, select_fn):
     return index_level.dropna(), selections
 
 
+def build_index_generic_invvol(closes, rbdates, select_fn, vol_lookback=LOOKBACK_12M):
+    """Same rebalance/portfolio-construction loop as build_index_generic,
+    except each rebalance's dollar allocation is weighted INVERSELY to
+    each selected stock's own trailing volatility (daily-return std over
+    the same vol_lookback window the scoring formula itself uses) instead
+    of splitting equally. A calmer stock in the top-10 gets a bigger
+    dollar weight, a shakier one gets a smaller one — weights are
+    normalized to sum to the portfolio's total value at every rebalance,
+    same as equal-weighting always has been."""
+    dates = closes.index
+    rb_set = set(rbdates)
+    date_pos = {d: i for i, d in enumerate(dates)}
+    index_level = pd.Series(np.nan, index=dates)
+    shares = {}
+    started = False
+    selections = []
+
+    for i, d in enumerate(dates):
+        if d in rb_set:
+            t_idx = date_pos[d]
+            selected = select_fn(closes, t_idx)
+            if selected is not None:
+                price_today = closes.iloc[t_idx]
+                if not started:
+                    value_before = 100.0
+                    started = True
+                else:
+                    value_before = sum(shares.get(tk, 0.0) * price_today.get(tk, 0.0) for tk in shares)
+                    if value_before <= 0:
+                        value_before = index_level.iloc[i - 1] if i > 0 else 100.0
+
+                window = closes.iloc[max(t_idx - vol_lookback, 0): t_idx + 1][selected]
+                vol = window.pct_change().dropna(how="all").std()
+                inv_vol = 1.0 / vol
+                inv_vol = inv_vol.replace([np.inf, -np.inf], np.nan).dropna()
+                if len(inv_vol) < len(selected):
+                    missing = [tk for tk in selected if tk not in inv_vol.index]
+                    for tk in missing:
+                        inv_vol[tk] = inv_vol.mean() if len(inv_vol) else 1.0
+                weights = inv_vol / inv_vol.sum()
+
+                shares = {tk: (value_before * weights[tk]) / price_today[tk] for tk in selected}
+                selections.append({"date": d.strftime("%Y-%m-%d"), "tickers": [t.replace(".NS", "") for t in selected],
+                                    "weights_pct": {t.replace(".NS", ""): round(float(weights[t] * 100), 2) for t in selected}})
+        if started:
+            price_today = closes.iloc[i]
+            val = sum(shares.get(tk, 0.0) * price_today.get(tk, 0.0) for tk in shares if pd.notna(price_today.get(tk)))
+            index_level.iloc[i] = val
+    return index_level.dropna(), selections
+
+
 def overlap_stats(sel_a, sel_b):
     """% of the top-10 in common, per matching rebalance date, across both
     selection lists (assumes both use the same rebalance calendar, which

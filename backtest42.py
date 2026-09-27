@@ -142,6 +142,115 @@ def build_index_regime_filtered(closes, nifty_close, ema, rbdates, select_fn, co
     return index_level.dropna(), selections, state_log
 
 
+def build_index_regime_filtered_with_hedge(closes, signal_close, signal_ma, rbdates, select_fn, hedge_close, confirm_days=1):
+    """Same mechanics as build_index_regime_filtered, except the "cash"
+    period holds HEDGE_CLOSE (e.g. gold) instead of literal 0%-return
+    cash — marked to market against hedge_close every day, exactly like
+    the stock portfolio is marked to market while invested. A separate
+    function (not a parameter added to build_index_regime_filtered)
+    specifically so report 42-47's already-published cash-based numbers
+    can never be affected by this change."""
+    dates = closes.index
+    rb_set = set(rbdates)
+    index_level = pd.Series(np.nan, index=dates)
+    shares = {}
+    hedge_units = 0.0
+    started = False
+    state = "cash"
+    selections = []
+    state_log = []
+    opposite_streak = 0
+
+    def do_select(t_idx):
+        return select_fn(closes, t_idx)
+
+    def buy(selected, value_before, price_today):
+        dollar_each = value_before / len(selected)
+        return {tk: dollar_each / price_today[tk] for tk in selected}
+
+    for i, d in enumerate(dates):
+        is_rebalance_day = d in rb_set
+        ma_today = signal_ma.iloc[i]
+        raw_invested = bool(signal_close.iloc[i] > ma_today) if pd.notna(ma_today) else False
+        price_today = closes.iloc[i]
+        hedge_price_today = hedge_close.iloc[i]
+
+        if not started:
+            regime_invested = raw_invested
+            if is_rebalance_day:
+                selected = do_select(i)
+                if selected is not None:
+                    started = True
+                    if regime_invested:
+                        state = "invested"
+                        shares = buy(selected, 100.0, price_today)
+                        selections.append({"date": d.strftime("%Y-%m-%d"),
+                                            "tickers": [t.replace(".NS", "") for t in selected],
+                                            "trigger": "initial_entry"})
+                    else:
+                        state = "cash"
+                        hedge_units = 100.0 / hedge_price_today
+            if started:
+                val = hedge_units * hedge_price_today if state == "cash" else sum(shares.get(tk, 0.0) * price_today.get(tk, 0.0) for tk in shares)
+                index_level.iloc[i] = val
+                state_log.append((d, state))
+            continue
+
+        if raw_invested == (state == "invested"):
+            opposite_streak = 0
+            regime_invested = (state == "invested")
+        else:
+            opposite_streak += 1
+            if opposite_streak >= confirm_days:
+                regime_invested = raw_invested
+                opposite_streak = 0
+            else:
+                regime_invested = (state == "invested")
+
+        if state == "invested":
+            value_before = sum(shares.get(tk, 0.0) * price_today.get(tk, 0.0) for tk in shares if pd.notna(price_today.get(tk)))
+            if value_before <= 0:
+                value_before = index_level.iloc[i - 1]
+        else:
+            value_before = hedge_units * hedge_price_today
+
+        if state == "invested" and not regime_invested:
+            state = "cash"
+            shares = {}
+            hedge_units = value_before / hedge_price_today
+            val = value_before
+        elif state == "cash" and regime_invested:
+            selected = do_select(i)
+            if selected is not None:
+                shares = buy(selected, value_before, price_today)
+                state = "invested"
+                hedge_units = 0.0
+                selections.append({"date": d.strftime("%Y-%m-%d"),
+                                    "tickers": [t.replace(".NS", "") for t in selected],
+                                    "trigger": "regime_reentry"})
+            val = value_before
+        elif state == "invested" and regime_invested and is_rebalance_day:
+            selected = do_select(i)
+            if selected is not None:
+                shares = buy(selected, value_before, price_today)
+                selections.append({"date": d.strftime("%Y-%m-%d"),
+                                    "tickers": [t.replace(".NS", "") for t in selected],
+                                    "trigger": "scheduled_rebalance"})
+            val = sum(shares.get(tk, 0.0) * price_today.get(tk, 0.0) for tk in shares if pd.notna(price_today.get(tk)))
+        else:
+            if state == "invested":
+                val = sum(shares.get(tk, 0.0) * price_today.get(tk, 0.0) for tk in shares if pd.notna(price_today.get(tk)))
+                if val <= 0:
+                    val = value_before
+            else:
+                val = hedge_units * hedge_price_today
+
+        index_level.iloc[i] = val
+        state_log.append((d, state))
+
+    return index_level.dropna(), selections, state_log
+
+
 def cash_blocks_from_log(state_log, min_days=MIN_CASH_BLOCK_DAYS):
     if not state_log:
         return [], 0.0
