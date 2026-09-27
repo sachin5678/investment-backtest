@@ -23,6 +23,8 @@ const ICON_LINK = "M9 15 15 9 M12 6l2-2a4 4 0 1 1 6 6l-2 2 M12 18l-2 2a4 4 0 1 1
 const ICON_SCALE = "M12,3v18 M5,7h14 M5,7l-3,6a3,3 0 0 0 6,0z M19,7l-3,6a3,3 0 0 0 6,0z";
 const ICON_TUNE = "M4 6h16 M9 4v4 M4 12h16 M15 10v4 M4 18h16 M7 16v4";
 const ICON_COMPARE = "M12 3v18 M7 7 3 12l4 5 M17 7l4 5-4 5";
+const ICON_FLIP = "M4 7h11l-3-3 M20 17H9l3 3";
+const ICON_PEAK = "M3 19l5-9 4 5 4-9 5 13 M16 6h4v4";
 
 export const GROUPS = [
   {
@@ -122,6 +124,8 @@ export const GROUPS = [
       { id: "32", file: "results31.json", icon: ICON_SCALE, title: "Midcap Momentum 10 — 2x Kotak Neo MTF Leverage", subtitle: "Real MTF interest, doubled charges, and modeled margin-call risk" },
       { id: "33", file: "results32.json", icon: ICON_TUNE, title: "Midcap Momentum 10 — 12-1 Skip-Month Formula", subtitle: "The academic momentum convention, tested against the original" },
       { id: "34", file: "results33.json", icon: ICON_COMPARE, title: "Midcap Momentum 10 — Relative Momentum vs. NIFTY 50", subtitle: "Rank on excess return over the market, not absolute return" },
+      { id: "35", file: "results34.json", icon: ICON_FLIP, title: "Midcap Momentum 10 — Bottom-10 Reversal Sanity Check", subtitle: "Deliberately buy the worst-ranked stocks — does momentum survive the flip test?" },
+      { id: "36", file: "results35.json", icon: ICON_PEAK, title: "Midcap Momentum 10 — 52-Week-High Proximity", subtitle: "A genuinely different momentum proxy, tested against the original" },
     ],
   },
 ];

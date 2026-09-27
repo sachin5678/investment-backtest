@@ -2504,5 +2504,133 @@
     ]
    }
   ]
+ },
+ "35": {
+  "title": "Midcap Momentum 10 — Bottom-10 Reversal Sanity Check",
+  "subtitle": "Not a formula refinement — a discipline check. Exact same score as the original formula, but this report deliberately buys the WORST 10 stocks by that score each rebalance instead of the best 10. If momentum is real, bottom-10 should reliably lose to top-10.",
+  "source_line": "2008-12-31–2026-08-24 · 36 rebalances Report generated 2026-09-27 11:14",
+  "pages": [
+   {
+    "file": "35_midcap_momentum10_bottom10_reversal.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "positive",
+        "text": "momentum passes the sanity check"
+       },
+       {
+        "kind": "neutral",
+        "text": "0 shared names across all rebalances (harness sanity check)"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Every other formula variant in this project tweaks one piece of the momentum score and checks whether the result changes sensibly. This one is different in kind: it asks whether the score is capturing something real at all. Bottom-10 uses the EXACT same 6m/12m risk-adjusted, cross-sectionally Z-scored score as the original — the only change is selecting the lowest-ranked 10 names instead of the highest-ranked 10.",
+       "The result: bottom-10 clearly loses. CAGR +22.9% vs. top-10's +40.6%, and a much deeper max drawdown (-56.7% vs. -35.1%). That's real evidence the score is doing genuine work, not noise a different random seed would just as easily reverse — see the honesty note below for one important caveat: bottom-10 still beat NIFTY 50 itself, which is worth understanding correctly rather than over-reading."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "What this does and doesn't prove",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "The clean gap between top-10 and bottom-10 — both 17.7% points of CAGR and a much deeper drawdown for bottom-10 — is exactly what a genuine momentum effect should produce, and is good evidence that the score used throughout reports 11-19/24-34 is capturing something real about these stocks, not noise from an arbitrarily lucky simulation.",
+       "One important thing this does NOT show: that bottom-10 is a bad strategy in absolute terms. Bottom-10 still compounded at +22.9% — comfortably ahead of NIFTY 50's own +12.7% — despite being the deliberately worst-ranked names in the universe by this score. That's most plausibly explained by the general midcap risk premium over this specific 18-year window (even the WORST midcap picks by this measure benefited from midcaps broadly outperforming large caps over most of 2008-2026, per every other midcap-vs-NIFTY comparison in this project), not by any skill in this bottom-ranking. Don't read \"bottom-10 beat the index\" as \"reversal also works\" — it's a reminder that a rising-universe backdrop can flatter even a strategy's designed-to-fail control group.",
+       "This result also does not validate every OTHER variant tested in this project's momentum family (reports 25, 27, 30, 33, 34) — it only confirms that the underlying score, at its two extremes, behaves the way a real momentum effect should. Each of those other reports still needs to be judged on its own comparison to the original, which is exactly what they each do."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Today's fixed NIFTY Midcap 150 constituent list is applied retroactively across the whole window for both selections equally (survivorship bias) — same disclosed approximation as every other reconstruction here.",
+       "Zero transaction costs, slippage, or taxes modeled — same as reports 11-19/24-34's frictionless numbers (see report 32 for what real Kotak Neo charges do to a similar strategy).",
+       "Equal weighting (not free-float market-cap x momentum score) and no F&O-eligibility screen, same as every other reconstruction in this project.",
+       "Prices are unadjusted; no dividends are modeled for any holding. This is a single, fixed 18-year historical path — a window with less of a general midcap-over-largecap tailwind could show bottom-10 losing to NIFTY 50 too, unlike here."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "36": {
+  "title": "Midcap Momentum 10 — 52-Week-High Proximity",
+  "subtitle": "A genuinely different momentum proxy, not a tweak of the existing one: rank by how close today's price is to its own trailing 52-week high (George & Hwang, 2004), instead of 6m/12m risk-adjusted return. Same top-10, equal-weight, June/December rebalance, Midcap150 universe.",
+  "source_line": "2008-12-31–2026-08-24 · 36 rebalances Report generated 2026-09-27 11:16",
+  "pages": [
+   {
+    "file": "36_midcap_momentum10_52wk_high.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "neutral",
+        "text": "only 20.9% average pick overlap — a genuinely different portfolio"
+       },
+       {
+        "kind": "negative",
+        "text": "underperforms the original formula on both return and drawdown"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "52-week-high proximity is well-documented US academic literature — a stock trading near its own 52-week high is argued to behave differently than the same total return achieved while still well below it, because the high itself is a salient, widely-watched reference price. It's a real reformulation, not a parameter tweak: only 20.9% of each rebalance's top 10 overlaps with the original formula's picks — the most divergent variant tested in this comparison series so far (vs. 59.3% for the skip-month variant and 92.2% for relative momentum).",
+       "The honest result: on this strategy, this window, this universe, 52-week-high proximity clearly underperforms — CAGR +27.2% vs. the original's +40.6%, and a deeper max drawdown (-44.5% vs. -35.1%). It still comfortably beats NIFTY 50 (+12.7% CAGR) — so it's not a broken signal, just a weaker one here than the project's existing formula. See the honesty note below for why."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why a real academic signal underperforms this project's formula here",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "A stock can sit at 100% of its own 52-week high while having barely moved over the past 6-12 months — a slow, low-volatility grinder that hasn't drawn down much simply because it hasn't done much at all, and hasn't been particularly volatile either way. The 6m/12m risk-adjusted return formula specifically REWARDS large, sustained moves (adjusted for how volatile the stock normally is); 52-week-high proximity doesn't distinguish \"just made a new high after a huge run\" from \"never fell much from a high set a while ago and has been flat since.\" In a concentrated top-10 book, picking several names in the second category instead of the first is a real, structural reason to underperform a return-based momentum score — not a fluke of this particular window.",
+       "This doesn't mean 52-week-high proximity is a bad signal in general — the George & Hwang research it's based on is real and widely cited, typically studied on US large-cap universes with different rebalancing conventions than this project's twice-a-year Indian midcap setup. It means that, specifically as a drop-in replacement for THIS project's existing 6m/12m formula, on THIS strategy, it's a weaker choice — a useful, disclosed negative result about combining two things (a different signal, a different market/cadence) that weren't necessarily meant to be interchangeable."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "No volatility adjustment or cross-sectional Z-scoring is applied to the 52-week-high ratio — the module docstring explains why this is a reasonable simplification (the ratio is already naturally comparable across stocks, and Z-scoring a single factor is rank-preserving), but it does mean this variant's construction differs slightly in KIND from the project's usual Z-score+combine approach, not just in which factor is used.",
+       "Today's fixed NIFTY Midcap 150 constituent list is applied retroactively across the whole window for both formulas equally (survivorship bias) — same disclosed approximation as every other reconstruction here.",
+       "Zero transaction costs, slippage, or taxes modeled — same as reports 11-19/24-35's frictionless numbers (see report 32 for what real Kotak Neo charges do to a similar strategy).",
+       "Equal weighting (not free-float market-cap x momentum score) and no F&O-eligibility screen, same as every other reconstruction in this project.",
+       "Prices are unadjusted; no dividends are modeled for any holding. This is a single, fixed 18-year historical path — a different window or universe could rank these two formulas differently."
+      ]
+     }
+    ]
+   }
+  ]
  }
 }
