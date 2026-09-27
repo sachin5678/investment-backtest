@@ -2439,5 +2439,70 @@
     ]
    }
   ]
+ },
+ "34": {
+  "title": "Midcap Momentum 10 — Relative Momentum (Excess Return over NIFTY 50)",
+  "subtitle": "Same top-10, equal-weight, June/December strategy — but ranked on EXCESS return over NIFTY 50 (stock's 6m/12m return minus NIFTY 50's own 6m/12m return over the identical window) instead of the original's absolute return. Isolates stocks beating the market, not just riding it up with everything else.",
+  "source_line": "2008-12-31–2026-08-24 · 36 rebalances Report generated 2026-09-27 11:10",
+  "pages": [
+   {
+    "file": "34_midcap_momentum10_relative_momentum.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "neutral",
+        "text": "92.2% average pick overlap with the original — far higher than report 33's skip-month variant"
+       },
+       {
+        "kind": "neutral",
+        "text": "near-identical result to the original formula"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Subtracting NIFTY 50's own return from every stock's return before ranking shifts every stock's number by the SAME amount that day — which, on its own, wouldn't change the ranking at all (subtracting a constant preserves rank order). What actually changes the outcome is that this shift happens BEFORE dividing by each stock's own (different) volatility — so the same constant shift affects a low-volatility stock's ratio more than a high-volatility stock's. That's a real mechanism, just a much gentler one than report 33's skip-month change, which is exactly why the overlap here (92.2%) is so much higher than there (59.3%).",
+       "The honest result: relative momentum lands within a hair of the original — CAGR +39.9% vs. +40.6%, identical -35.1% max drawdown to one decimal place. Both comfortably beat NIFTY 50 itself (+12.7% CAGR / -38.4% DD) by a wide margin — see the honesty note below for why this particular reformulation was always likely to be a near-equivalent, not a genuinely different bet."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why this reformulation barely moved the needle",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "Subtracting the SAME benchmark return from every stock that day is mathematically a shared, constant shift — it cannot, by itself, reorder which stock has the higher or lower raw return. The only reason relative momentum picks a DIFFERENT top 10 at all is that this shift happens before dividing by each stock's OWN volatility, which differs stock to stock: a low-volatility stock's score moves more (in ratio terms) from the same absolute shift than a high-volatility stock's does. That's a real effect, but a second-order one — which is exactly why 92.2% of picks stay the same, versus only 59.3% for report 33's skip-month variant, which changes the entire reference date every calculation is anchored to (a first-order effect, not a second-order one).",
+       "This is a useful negative result in its own right: it shows that \"absolute vs. relative momentum\" — a distinction that sounds conceptually important, and IS important in a genuinely divergent market (a crash where relative winners fall less, or a narrow rally where only some stocks participate) — doesn't necessarily produce a materially different portfolio in a market where midcap winners and the broad index have moved in the same general direction most of the time. A market regime with a sharper divergence between NIFTY 50 and midcap leadership (a narrow large-cap-only rally, for instance) would very plausibly separate these two formulas much more than this 18-year window happened to."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "NIFTY 50 (a large-cap index) is used as the benchmark for a MIDCAP strategy, purely because it's the only benchmark with full history back to 2008 — MID150BEES.NS (the real, tradable midcap ETF used elsewhere in this project) only starts 2019-02-04. A midcap-specific benchmark could plausibly change this result, especially in periods where midcap and large-cap leadership diverge.",
+       "The stock's own absolute volatility is still used as the risk-adjustment denominator for the relative-return version — an alternative would use TRACKING ERROR (volatility of the stock's return minus the benchmark's return) instead, which is the more theoretically \"pure\" relative-momentum risk adjustment; that variant was not tested here.",
+       "Today's fixed NIFTY Midcap 150 constituent list is applied retroactively across the whole window for both formulas equally (survivorship bias) — same disclosed approximation as every other reconstruction here.",
+       "Zero transaction costs, slippage, or taxes modeled — same as reports 11-19/24-33's frictionless numbers (see report 32 for what real Kotak Neo charges do to a similar strategy).",
+       "Equal weighting (not free-float market-cap x momentum score) and no F&O-eligibility screen, same as every other reconstruction in this project.",
+       "Prices are unadjusted; no dividends are modeled for any holding. This is a single, fixed 18-year historical path — a different window with sharper NIFTY-vs-midcap divergence could separate these two formulas far more than shown here."
+      ]
+     }
+    ]
+   }
+  ]
  }
 }

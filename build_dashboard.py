@@ -31,6 +31,7 @@ ICON_LOCK = '<rect x="5" y="11" width="14" height="10" rx="1.5" fill="none"/><pa
 ICON_LINK = '<path d="M9 15 15 9" fill="none"/><path d="M12 6l2-2a4 4 0 1 1 6 6l-2 2" fill="none"/><path d="M12 18l-2 2a4 4 0 1 1-6-6l2-2" fill="none"/>'
 ICON_SCALE = '<path d="M12 3v18" fill="none"/><path d="M5 7h14" fill="none"/><path d="M5 7l-3 6a3 3 0 0 0 6 0z" fill="none"/><path d="M19 7l-3 6a3 3 0 0 0 6 0z" fill="none"/>'
 ICON_TUNE = '<line x1="4" y1="6" x2="20" y2="6"/><circle cx="9" cy="6" r="2" fill="currentColor" stroke="none"/><line x1="4" y1="12" x2="20" y2="12"/><circle cx="15" cy="12" r="2" fill="currentColor" stroke="none"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="7" cy="18" r="2" fill="currentColor" stroke="none"/>'
+ICON_COMPARE = '<path d="M12 3v18" fill="none"/><path d="M7 7 3 12l4 5" fill="none"/><path d="M17 7l4 5-4 5" fill="none"/>'
 
 GROUPS = [
     {
@@ -162,6 +163,8 @@ GROUPS = [
              "title": "Midcap Momentum 10 — 2x Kotak Neo MTF Leverage", "subtitle": "Real MTF interest, doubled charges, and modeled margin-call risk"},
             {"id": "33", "file": "33_midcap_momentum10_12_1_skip_month.html", "icon": ICON_TUNE,
              "title": "Midcap Momentum 10 — 12-1 Skip-Month Formula", "subtitle": "The academic momentum convention, tested against the original"},
+            {"id": "34", "file": "34_midcap_momentum10_relative_momentum.html", "icon": ICON_COMPARE,
+             "title": "Midcap Momentum 10 — Relative Momentum vs. NIFTY 50", "subtitle": "Rank on excess return over the market, not absolute return"},
         ],
     },
 ]
