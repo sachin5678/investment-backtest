@@ -44,6 +44,7 @@ const ICON_TRAIL_STOP = "M3 18l4-8 5 3 5-9 4 3 M7 10v11 M17 4v17";
 const ICON_FORK_SPEED = "M12 3v6 M12 9l-7 4v8 M12 9l7 4v8 M16 9l3 4-4 1";
 const ICON_GATE = "M4 21V9l8-6 8 6v12 M4 15h16";
 const ICON_DIMMER = "M12,3a9,9 0 1 0 0,18a9,9 0 1 0 0,-18";
+const ICON_DIMMER_COIN = "M10,4a8,8 0 1 0 0,16a8,8 0 1 0 0,-16 M19,2.8a3.2,3.2 0 1 0 0,6.4a3.2,3.2 0 1 0 0,-6.4";
 
 export const GROUPS = [
   {
@@ -176,6 +177,7 @@ export const GROUPS = [
       { id: "65", file: "results64.json", icon: ICON_DIMMER, title: "Midcap Momentum 10 — Volatility-Scaled Smooth Exposure", subtitle: "Beats the binary filter on CAGR at every band width tested" },
       { id: "66", file: "results65.json", icon: ICON_DIMMER, title: "Smallcap250 Momentum 10 — Volatility-Scaled Smooth Exposure", subtitle: "Wider bands dominate the binary filter outright — better CAGR AND drawdown" },
       { id: "67", file: "results66.json", icon: ICON_DIMMER, title: "NIFTY100 Momentum 10 — Volatility-Scaled Smooth Exposure", subtitle: "The pattern reverses — the binary filter dominates every smooth band" },
+      { id: "68", file: "results67.json", icon: ICON_DIMMER_COIN, title: "Midcap Momentum 10 — Smooth Exposure + Gold / Liquid Fund", subtitle: "Gold wins outright; a liquid-fund yield assumption gives a smaller, still-real edge over cash" },
     ],
   },
 ];

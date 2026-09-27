@@ -492,6 +492,25 @@ def build_smooth_exposure(fully_invested_series, signal_close, ema, band_pct=0.1
     return blended, exposure
 
 
+def build_smooth_exposure_with_hedge(fully_invested_series, signal_close, ema, hedge_close, band_pct=0.15):
+    """Same mechanics as build_smooth_exposure, except the UNEXPOSED
+    portion of the portfolio earns hedge_close's own daily return instead
+    of a flat 0% — e.g. gold (GOLDBEES.NS) or a liquid-fund proxy —
+    exactly mirroring how build_index_regime_filtered_with_hedge extends
+    the binary filter's cash sleeve to hold something other than cash.
+    Same look-ahead-safe ordering: today's blended return uses
+    YESTERDAY's exposure fraction."""
+    ratio = (signal_close / ema - (1 - band_pct)) / band_pct
+    exposure = ratio.clip(lower=0.0, upper=1.0)
+    exposure = exposure.reindex(fully_invested_series.index).ffill().fillna(0.0)
+    exposure_used = exposure.shift(1).fillna(0.0)
+    rets = fully_invested_series.pct_change().fillna(0.0)
+    hedge_rets = hedge_close.reindex(fully_invested_series.index).ffill().pct_change().fillna(0.0)
+    blended_ret = exposure_used * rets + (1 - exposure_used) * hedge_rets
+    blended = (1 + blended_ret).cumprod() * float(fully_invested_series.iloc[0])
+    return blended, exposure
+
+
 def cash_blocks_from_log(state_log, min_days=MIN_CASH_BLOCK_DAYS):
     if not state_log:
         return [], 0.0

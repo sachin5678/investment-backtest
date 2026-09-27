@@ -4582,5 +4582,81 @@
     ]
    }
   ]
+ },
+ "68": {
+  "title": "Midcap150 Momentum 10 — Smooth Exposure, Combined With Gold and a Liquid Fund",
+  "subtitle": "Reports 65-67 ramped equity exposure down smoothly instead of a hard on/off switch, holding plain 0%-return cash for the de-risked portion. This report tests two better homes for that de-risked capital: GOLDBEES.NS (the same real gold ETF from reports 48-50) and a liquid-fund proxy for the safe overnight yield idle capital would actually earn. Same 200-day EMA signal, same three band widths (10%/15%/20%) as reports 65-67 — the ONLY change is what the unexposed portion holds.",
+  "source_line": "2010-06-30–2026-08-24 Report generated 2026-09-27 15:31",
+  "pages": [
+   {
+    "file": "68_midcap_momentum10_smooth_exposure_hedged.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "data caveat found while building this report"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "LIQUIDBEES.NS's Yahoo Finance price is effectively FLAT for its entire 2009-2026 history — it sits at ~₹1000.00 every single day, moving by fractions of a rupee at most. Real liquid-fund yield is paid out as additional bonus units, NOT reflected in this per-unit price feed at all. Using that raw price directly would have silently modeled \"liquid fund\" as earning exactly 0%, identical to plain cash — a misleading result to present as a finding.",
+       "Instead, the \"liquid fund\" sleeve below is modeled as a flat ASSUMED 6% annual yield, compounding daily — a round-number approximation of India's long-run overnight/liquid-fund yield (actual yields ranged roughly 3%-9% across this 18-year window, both above and below 6% at different points). This is clearly a MODELED ASSUMPTION, not real market data, unlike gold's real ETF price series below."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "positive",
+        "text": "gold wins outright; the liquid-fund assumption gives a smaller, still-real edge"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "At every band width, gold beats cash on CAGR by a wide margin AND matches or beats it on drawdown too — at the 15% band, cash gives +37.2% CAGR / -27.5% drawdown, gold gives +38.9% CAGR / -26.7% drawdown — a clean upgrade, no trade-off at all, echoing reports 48-50's binary-filter finding.",
+       "The liquid-fund assumption also beats cash — +37.8% CAGR at the 15% band, a smaller but real edge over cash, roughly matching cash's own drawdown. It's the more CONSERVATIVE upgrade of the two: no market risk (unlike gold, whose price can fall), just capturing yield that idle capital would realistically earn in a real liquid fund instead of literally nothing."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Two upgrades, two different reasons they work",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "Gold's edge comes from the same mechanism reports 48-50 found for the binary filter: it has historically had low or negative correlation to Indian equities during broad selloffs, so it doesn't need to rise to help here — it just needs to not fall alongside the momentum stocks the exposure ramp is de-risking away from. Since gold ALSO had a genuinely strong run over this specific 2010-2026 window (see the real GOLDBEES.NS buy-and-hold row above), it adds real compounding on top of that diversification benefit, which is why it beats even the (optimistic) 6% liquid-fund assumption here.",
+       "The liquid-fund edge is a completely different, much more mundane mechanism: it isn't diversification or a bet on an asset's own returns at all, just capturing the safe yield that idle capital would realistically earn instead of sitting at literally zero. It's a smaller edge than gold's, but it comes with essentially no additional risk — a real liquid fund's NAV doesn't meaningfully fall in a crisis the way gold's price occasionally can. Which of the two an investor should prefer is a genuine risk-appetite choice, not a strictly-better-or-worse comparison."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "The liquid-fund sleeve is a MODELED ASSUMPTION (flat 6% p.a.), not real market data — see the data caveat above. Real liquid-fund yields varied roughly 3%-9% across this window, so the true edge over cash would have been smaller in low-rate years (2020-2021) and larger in high-rate years (2008-2013).",
+       "GOLDBEES.NS's history only starts mid-2010, so this report's window EXCLUDES the 2008-2009 global financial crisis — same disclosed limitation as reports 48-50.",
+       "This is a SIMPLIFIED implementation: exposure scales the ALREADY-COMPUTED fully-invested strategy's own daily returns (blended with the hedge sleeve's), not a re-simulation of actual partial share purchases.",
+       "Zero transaction costs on continuously adjusting the stock/hedge split — a real implementation would need periodic rebalancing trades between sleeves.",
+       "GOLDBEES.NS tracks domestic gold prices in INR, which also move with the rupee's own exchange rate, a real but separate driver from \"gold as a crisis hedge.\"",
+       "Today's fixed Midcap150 constituent list is applied retroactively (survivorship bias). Equal weighting, no F&O-eligibility screen, unadjusted prices, no dividends modeled — same as every other reconstruction here."
+      ]
+     }
+    ]
+   }
+  ]
  }
 }

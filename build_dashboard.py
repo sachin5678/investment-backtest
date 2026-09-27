@@ -53,6 +53,7 @@ ICON_TRAIL_STOP = '<polyline points="3,18 7,10 12,13 17,4 21,7" fill="none"/><li
 ICON_FORK_SPEED = '<path d="M12 3v6" fill="none"/><path d="M12 9l-7 4v8" fill="none"/><path d="M12 9l7 4v8" fill="none"/><polyline points="16,9 19,13 15,14" fill="none"/>'
 ICON_GATE = '<path d="M4 21V9l8-6 8 6v12" fill="none"/><line x1="4" y1="15" x2="20" y2="15"/><circle cx="12" cy="18" r="1.4" fill="currentColor" stroke="none"/>'
 ICON_DIMMER = '<circle cx="12" cy="12" r="9" fill="none"/><path d="M12 3A9 9 0 0 1 12 21z" fill="currentColor" stroke="none"/>'
+ICON_DIMMER_COIN = '<circle cx="10" cy="12" r="8" fill="none"/><path d="M10 4A8 8 0 0 1 10 20z" fill="currentColor" stroke="none"/><circle cx="19" cy="6" r="3.2" fill="none"/>'
 
 GROUPS = [
     {
@@ -252,6 +253,8 @@ GROUPS = [
              "title": "Smallcap250 Momentum 10 — Volatility-Scaled Smooth Exposure", "subtitle": "Wider bands dominate the binary filter outright — better CAGR AND drawdown"},
             {"id": "67", "file": "67_nifty100_momentum10_smooth_exposure.html", "icon": ICON_DIMMER,
              "title": "NIFTY100 Momentum 10 — Volatility-Scaled Smooth Exposure", "subtitle": "The pattern reverses — the binary filter dominates every smooth band"},
+            {"id": "68", "file": "68_midcap_momentum10_smooth_exposure_hedged.html", "icon": ICON_DIMMER_COIN,
+             "title": "Midcap Momentum 10 — Smooth Exposure + Gold / Liquid Fund", "subtitle": "Gold wins outright; a liquid-fund yield assumption gives a smaller, still-real edge over cash"},
         ],
     },
 ]
