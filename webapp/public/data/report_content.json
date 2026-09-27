@@ -2980,7 +2980,7 @@
       "what_this_shows": null,
       "paragraphs": [
        "The filter costs a little CAGR — +40.6% falls to +38.5% — but buys a LOT of drawdown protection: max drawdown improves from -35.1% to -23.5%, nearly 12 percentage points shallower. It genuinely sat out the worst of the 2020 COVID crash (see the cash-periods table below).",
-       "The cost that doesn't show up in CAGR or drawdown: this filter is FAR more active than the underlying strategy's own June/December schedule. Over the same 36 scheduled rebalances, NIFTY 50 crossed its own 200-EMA often enough to trigger 69 separate re-entries — almost 1x as many buy/sell events as the strategy would otherwise ever generate. Every one of those is a FULL portfolio sell-and-rebuy in this frictionless model. See the honesty note for what that really costs."
+       "The cost that doesn't show up in CAGR or drawdown: this filter is FAR more active than the underlying strategy's own June/December schedule. Over the same 36 scheduled rebalances, NIFTY 50 crossed its own 200-EMA often enough to trigger 69 separate re-entries — almost 1.9x as many buy/sell events as the strategy would otherwise ever generate. Every one of those is a FULL portfolio sell-and-rebuy in this frictionless model. See the honesty note for what that really costs."
       ],
       "list_items": []
      },
@@ -3017,6 +3017,342 @@
        "A single EMA span (200 trading days) was tested — no sensitivity check against other common spans (100, 150, 250) or a simple moving average instead of exponential.",
        "Today's fixed Midcap150 constituent list is applied retroactively across the whole window (survivorship bias), same disclosed approximation as every other reconstruction here.",
        "Equal weighting, no F&O-eligibility screen, unadjusted prices, no dividends modeled — same as every other reconstruction in this project. This is a single, fixed 18-year historical path."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "43": {
+  "title": "NIFTY500 Momentum 10 — 200-Day EMA Regime Filter on NIFTY 50",
+  "subtitle": "Report 42 tested holding a top-10 momentum portfolio only while NIFTY 50 is above its own 200-day EMA, sitting fully in cash otherwise. This applies the IDENTICAL filter mechanics to report 18's NIFTY500 Momentum 10 (500-stock universe) — a second, much broader data point on whether the filter's small-CAGR-cost-for-big-drawdown-cut pattern generalizes.",
+  "source_line": "2008-12-31–2026-08-24 Report generated 2026-09-27 13:52",
+  "pages": [
+   {
+    "file": "43_nifty500_momentum10_200ema_regime_filter.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "positive",
+        "text": "same shape of result as Midcap150 (report 42)"
+       },
+       {
+        "kind": "assumption",
+        "text": "23.7% of trading days spent in cash"
+       },
+       {
+        "kind": "negative",
+        "text": "69 regime re-entries over 18 years"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "On NIFTY500 Momentum 10, the filter again costs a little CAGR — +37.6% to +36.5% — for a large drawdown improvement, from -39.2% to -31.2%, about 8 percentage points shallower.",
+       "The regime signal itself is identical to report 42 — it's computed purely from NIFTY 50's own price, independent of which universe the momentum portfolio is drawn from — so the time-in-cash and re-entry counts are exactly the same (23.7%, 69 re-entries) as Midcap150. Only the underlying portfolio being protected changes. See reports 44-45 for Smallcap250 and NIFTY100."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "A second universe, the same trade-off",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "Unlike the front-loaded-momentum reformulation tested in reports 37-41 — which HELPED on broad universes and HURT on narrow ones — this regime filter doesn't depend on the momentum universe at all. It's a pure market-timing overlay on NIFTY 50's own price, so it protects whatever portfolio sits underneath it in roughly the same way: a modest CAGR give-up for a large cut to max drawdown. NIFTY500's slightly smaller drawdown improvement here (8 points vs. Midcap150's ~12) is mostly because NIFTY500 Momentum 10's OWN unfiltered drawdown (-39.2%) already overlaps more with NIFTY 50's own decline pattern than Midcap150's does.",
+       "The same 69-re-entries-vs-36-scheduled-rebalances whipsaw cost from report 42 applies here unchanged — this backtest still charges zero for every one of those switches, and the real gap between filtered and unfiltered CAGR would be smaller once realistic transaction costs are included."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Zero transaction costs on ANY regime switch — 69 re-entries over 18 years, all free in this model (see report 42's honesty note).",
+       "Cash earns exactly 0% while the filter is out of the market, same convention as reports 03 and 42.",
+       "The regime signal and the strategy's own execution both act on the SAME day's close — no next-day execution lag modeled.",
+       "Only ONE EMA span (200 trading days) is tested here — see report 46 for a span-sensitivity comparison.",
+       "Today's fixed NIFTY500 constituent list is applied retroactively across the whole window (survivorship bias), same disclosed approximation as report 18 and every other reconstruction here.",
+       "Equal weighting, no F&O-eligibility screen, unadjusted prices, no dividends modeled — same as every other reconstruction in this project. This is a single, fixed 18-year historical path."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "44": {
+  "title": "Smallcap250 Momentum 10 — 200-Day EMA Regime Filter on NIFTY 50",
+  "subtitle": "Reports 42-43 tested the 200-day-EMA cash/invested filter on Midcap150 and NIFTY500. This applies the IDENTICAL filter mechanics to report 16/29's Smallcap250 Momentum 10 (250-stock universe) — the highest-volatility universe tested with this filter so far, and arguably the one where a drawdown cut matters most.",
+  "source_line": "2008-12-31–2026-08-24 Report generated 2026-09-27 13:52",
+  "pages": [
+   {
+    "file": "44_smallcap250_momentum10_200ema_regime_filter.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "positive",
+        "text": "the biggest drawdown cut of the three universes so far"
+       },
+       {
+        "kind": "assumption",
+        "text": "23.7% of trading days spent in cash"
+       },
+       {
+        "kind": "negative",
+        "text": "69 regime re-entries over 18 years"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "On Smallcap250 Momentum 10, the filter costs almost nothing in CAGR — +40.2% to +39.7%, barely half a point — while cutting max drawdown from -44.8% to -31.8%, 13 percentage points shallower — the largest drawdown improvement of any universe tested with this filter.",
+       "That makes intuitive sense: Smallcap250 Momentum 10's own unfiltered drawdown (-44.8%) is the deepest of any universe in this project, so there was simply more downside for a market-timing overlay to cut into. The regime signal itself (from NIFTY 50's own price) is identical to reports 42-43 — same 23.7% time in cash, same 69 re-entries."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "More volatility, more to protect",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "Smallcap stocks are typically the most volatile, least liquid names in the market — which is exactly why Smallcap250 Momentum 10's own unfiltered drawdown (-44.8%) is deeper than Midcap150's or NIFTY500's. A regime filter driven by NIFTY 50's price doesn't know or care which universe it's protecting — it just removes exposure during the SAME broad-market downturns regardless. Applied to a universe with more downside to begin with, the same filter mechanically produces a bigger absolute cut, which is what shows up here.",
+       "The same 69-re-entries-vs-36-scheduled-rebalances whipsaw cost from report 42 applies unchanged here — this backtest still charges zero for every switch, and smallcap stocks in particular tend to have wider real-world bid/ask spreads than this project's other universes, so the real transaction cost of that many switches would likely bite harder here than on Midcap150 or NIFTY500."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Zero transaction costs on ANY regime switch — 69 re-entries over 18 years, all free in this model, and smallcaps in particular tend to have wider real-world spreads than this backtest assumes.",
+       "Cash earns exactly 0% while the filter is out of the market, same convention as reports 03, 42-43.",
+       "The regime signal and the strategy's own execution both act on the SAME day's close — no next-day execution lag modeled.",
+       "Only ONE EMA span (200 trading days) is tested here — see report 46 for a span-sensitivity comparison.",
+       "No official \"Smallcap250 Momentum 10\" index exists — the June/December cadence and min-eligible threshold are borrowed conventions from this project's other smallcap reconstructions, not a real index's rulebook.",
+       "Today's fixed Smallcap250 constituent list is applied retroactively across the whole window (survivorship bias). Equal weighting, no F&O-eligibility screen, unadjusted prices, no dividends modeled — same as every other reconstruction here. This is a single, fixed 18-year historical path."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "45": {
+  "title": "NIFTY100 Momentum 10 — 200-Day EMA Regime Filter on NIFTY 50",
+  "subtitle": "Reports 42-44 tested the 200-day-EMA cash/invested filter on Midcap150, NIFTY500, and Smallcap250. This applies the IDENTICAL filter mechanics to report 12's NIFTY100 Momentum 10 (100-stock universe) — the same universe where front-loaded momentum weighting (report 41) was the ONE variant that actively backfired. Does this filter also break down on the narrowest universe, or is it a different kind of change entirely?",
+  "source_line": "2008-12-31–2026-08-21 Report generated 2026-09-27 13:52",
+  "pages": [
+   {
+    "file": "45_nifty100_momentum10_200ema_regime_filter.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "positive",
+        "text": "close to a free lunch — almost no CAGR cost at all"
+       },
+       {
+        "kind": "assumption",
+        "text": "23.7% of trading days spent in cash"
+       },
+       {
+        "kind": "negative",
+        "text": "69 regime re-entries over 18 years"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "On NIFTY100 Momentum 10, the filter costs almost NOTHING in CAGR — +30.7% to +30.7%, a difference of a few hundredths of a point — while cutting max drawdown from -35.3% to -25.6%, nearly 10 percentage points shallower.",
+       "Unlike report 41's front-loaded-momentum test — where NIFTY100 was the ONE universe that broke the pattern seen elsewhere — this regime filter helps NIFTY100 about as much as it helps every other universe in reports 42-44. The two formula changes are simply different in kind: front-loading changes WHICH stocks get picked (and a narrow universe has fewer alternatives to fall back on when that goes wrong), while this filter changes WHEN the strategy is in the market at all, using a signal that has nothing to do with universe breadth."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why this filter doesn't break down on NIFTY100 (unlike front-loading)",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "Report 41 found front-loaded momentum weighting actively HURT NIFTY100 — a narrower universe gave the reformulated stock-picking formula fewer genuine alternatives to fall back on, so short-term spikes that later reversed were more likely to occupy a top-10 slot. This regime filter is a completely different kind of change: it doesn't touch stock SELECTION at all — it only decides whether to hold the SAME top-10 selection the unfiltered strategy would have picked anyway, or hold nothing. Since the signal (NIFTY 50's own 200-EMA) is entirely independent of which universe sits underneath it, there's no \"fewer candidates to choose from\" failure mode here — the filter works essentially the same way regardless of universe breadth, which is exactly the 23.7%-time-in-cash / 69-re-entries figures being IDENTICAL across reports 42-45.",
+       "The whipsaw cost from report 42 still applies unchanged: 69 re-entries against 36 scheduled rebalances, all free of charge in this model. That caveat doesn't depend on universe either — it would apply just as much here as on Midcap150."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Zero transaction costs on ANY regime switch — 69 re-entries over 18 years, all free in this model.",
+       "Cash earns exactly 0% while the filter is out of the market, same convention as reports 03, 42-44.",
+       "The regime signal and the strategy's own execution both act on the SAME day's close — no next-day execution lag modeled.",
+       "Only ONE EMA span (200 trading days) is tested here — see report 46 for a span-sensitivity comparison.",
+       "Today's fixed NIFTY100 constituent list (report 12's config) is applied retroactively across the whole window (survivorship bias).",
+       "Equal weighting, no F&O-eligibility screen, unadjusted prices, no dividends modeled — same as every other reconstruction here. This is a single, fixed 18-year historical path."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "46": {
+  "title": "Midcap150 Momentum 10 — EMA-Span Sensitivity for the Regime Filter",
+  "subtitle": "Report 42 picked 200 trading days for the EMA span without testing alternatives. This report runs the IDENTICAL cash/invested filter mechanics with four different spans — 100, 150, 200, 250 trading days — to see whether 200 was actually a good choice, and how a wider or narrower span trades off drawdown protection against whipsaw.",
+  "source_line": "2008-12-31–2026-08-24 Report generated 2026-09-27 13:56",
+  "pages": [
+   {
+    "file": "46_midcap_momentum10_ema_span_sensitivity.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "NOT a smooth dial — wider isn't always better"
+       },
+       {
+        "kind": "positive",
+        "text": "100-day gave the shallowest drawdown (-14.5%)"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Shrinking the span from 200 to 150 to 100 days makes the filter progressively MORE protective — drawdown improves from -23.5% (200-day) to -20.5% (150-day) to -14.5% (100-day) — but at the cost of far more whipsaw: 69 re-entries at 200 days climbs to 93 at 150 days and 116 at 100 days.",
+       "Going WIDER than 200, to 250 days, does NOT continue any clean trend — it's the worst span tested on BOTH dimensions at once: CAGR falls to +36.0% (worse than 200-day's +38.5%) AND drawdown gets deeper, -28.5% vs. 200-day's -23.5% — despite triggering the FEWEST re-entries of any span tested. A slower signal isn't automatically a better one; it can just mean late exits and late re-entries that miss both the protection and the recovery."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Reading the trade-off correctly",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "A shorter EMA span tracks price more closely, so it reacts to a downturn sooner — which is why 100-day gives the shallowest drawdown of any span tested (-14.5%). The cost is that a closely-tracking average also crosses back and forth more often during ordinary volatility that ISN'T a real trend change, which is why 100-day also has by far the most re-entries (116 vs. 200-day's 69) — nearly 1.7x the whipsaw, and this backtest still charges nothing for any of them.",
+       "250-day's poor showing on BOTH axes is the more surprising result: it has the FEWEST re-entries (66) of any span, confirming it really is the \"calmest\" signal — but calmness alone didn't help here. A slow-moving average exits late into declines (giving back more before the filter reacts) and re-enters late into recoveries (missing more of the bounce), and in this specific 18-year path that combination cost both CAGR and drawdown protection relative to 200-day. This is a genuine finding about THIS historical window, not a general law that \"wider is worse\" — a different window could rank these four spans differently."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Zero transaction costs on ANY regime switch across all four spans — the shorter spans in particular would look meaningfully worse once realistic per-trade costs are included, given how much more often they switch.",
+       "Cash earns exactly 0% while any span is out of the market, same convention as reports 03, 42-45.",
+       "Only four spans were tested (100/150/200/250) — the true optimum, if one exists, could sit between or outside these points; this is a coarse sensitivity check, not an exhaustive search.",
+       "Only ONE historical window (2008-2026) is tested — report 46's \"250 is worse than 200\" finding is specific to this path and is not guaranteed to hold in a different period. See report 47 for a different kind of whipsaw fix (a confirmation delay) applied to the 200-day span specifically.",
+       "Today's fixed Midcap150 constituent list is applied retroactively across the whole window (survivorship bias). Equal weighting, no F&O-eligibility screen, unadjusted prices, no dividends modeled — same as every other reconstruction here."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "47": {
+  "title": "Midcap150 Momentum 10 — Confirmation-Delay Sensitivity for the Regime Filter",
+  "subtitle": "Report 42's biggest disclosed weakness: 69 regime re-entries over 18 years, almost 2x its own scheduled rebalance count, all free of transaction costs in that model. This report tests the user's whipsaw-reduction idea directly — require NIFTY 50's signal to disagree with the current state for 3, 5, 10 CONSECUTIVE trading days (not just 1) before the filter actually switches — same 200-day EMA, same Midcap150 Momentum 10 formula throughout.",
+  "source_line": "2008-12-31–2026-08-24 Report generated 2026-09-27 13:58",
+  "pages": [
+   {
+    "file": "47_midcap_momentum10_confirmation_delay_sensitivity.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "negative",
+        "text": "fewer whipsaws, but NOT a free improvement"
+       },
+       {
+        "kind": "positive",
+        "text": "re-entries fall from 69 to 15 (1-day vs. 10-day confirmation)"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Requiring confirmation works exactly as intended on whipsaw: re-entries drop steadily as the delay grows — 69 (1-day, report 42's original) → 30 (3-day) → 22 (5-day) → 15 (10-day).",
+       "But CAGR falls steadily too — +38.5% → +36.4% → +34.0% → +33.3% — and drawdown does NOT reliably improve to compensate: 3-day confirmation is actually WORSE on drawdown (-28.8%) than the immediate 1-day switch (-23.5%), before 10-day finally edges it out slightly (-22.4%) at a much larger CAGR cost. In this historical window, the immediate-switch version from report 42 is the best risk-adjusted choice of the four tested — the whipsaw-reduction idea reduces trading activity as intended, but doesn't pay for itself here."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why \"wait for confirmation\" isn't a free whipsaw fix",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "A confirmation delay works by definition: it ignores single-day or short-lived crossings of the EMA, so it only acts on moves that persist. That's exactly why re-entries fall so sharply (69 → 15 from 1-day to 10-day). The problem is that a REAL trend change also starts as a single day that has to persist before it's \"confirmed\" — so every extra day of confirmation is also an extra day of being on the wrong side of a genuine move, both entering AND exiting. Over 18 years, those extra wrong-side days added up to more lost CAGR than the avoided whipsaws saved, which is the honest reason the immediate 1-day switch — the version this project already tested in report 42 — comes out ahead of every slower alternative tried here.",
+       "This does NOT mean confirmation delays are a bad idea in general — a different EMA span, a different confirmation window, or a different market history could rank these differently, and a real trader who cares specifically about NOT paying commissions on 69 round-trips might still prefer a slower, cheaper-to-run variant even at this CAGR cost. What this report shows is that \"add a confirmation delay\" is a REAL trade-off to be made deliberately, not a strictly-better refinement of report 42's filter."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Zero transaction costs on ANY regime switch across all four variants — the shorter-delay variants would look relatively BETTER once realistic per-trade costs are included, since they're being compared here on a frictionless basis that ignores their own whipsaw cost.",
+       "Cash earns exactly 0% while any variant is out of the market, same convention as reports 03, 42-46.",
+       "Only one EMA span (200 trading days, report 42's choice) was tested with confirmation delays — see report 46 for span sensitivity WITHOUT a confirmation delay; the two haven't been tested in combination.",
+       "Only four confirmation delays were tested (1/3/5/10 days) — the true optimum, if one exists, could sit between or outside these points.",
+       "Only ONE historical window (2008-2026) is tested — this ranking is specific to this path and is not guaranteed to hold in a different period.",
+       "Today's fixed Midcap150 constituent list is applied retroactively across the whole window (survivorship bias). Equal weighting, no F&O-eligibility screen, unadjusted prices, no dividends modeled — same as every other reconstruction here."
       ]
      }
     ]

@@ -40,6 +40,11 @@ ICON_LAYERS = '<polygon points="12,3 21,8 12,13 3,8" fill="none"/><polyline poin
 ICON_SPROUT = '<path d="M12 21V11" fill="none"/><path d="M12 11C12 6 8 4 4 4c0 4 2 8 8 8" fill="none"/><path d="M12 14c0-4 4-6 8-6 0 4-2 7-8 8" fill="none"/>'
 ICON_FUNNEL = '<path d="M4 4h16l-6 8v6l-4 2v-8z" fill="none"/>'
 ICON_SHIELD_OFF = '<path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3z" fill="none"/><line x1="8" y1="8" x2="16" y2="16"/><line x1="16" y1="8" x2="8" y2="16"/>'
+ICON_SHIELD_500 = '<path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3z" fill="none"/><path d="M9 12l2.2 2.2L15.5 9.5" fill="none"/><circle cx="18" cy="6" r="3" fill="currentColor" stroke="none"/>'
+ICON_SHIELD_SPROUT = '<path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3z" fill="none"/><path d="M12 16v-6" fill="none"/><path d="M12 10c0-3-2.5-4-5-4 0 3 1.5 5 5 5" fill="none"/>'
+ICON_SHIELD_FUNNEL = '<path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3z" fill="none"/><path d="M9 8h6l-2.2 3v3l-1.6.8v-3.8z" fill="none"/>'
+ICON_RULER = '<path d="M4 15l5-9 11 6-5 9z" fill="none"/><path d="M12 8l1.5 2.5" fill="none"/><path d="M10 11.5l1.5 2.5" fill="none"/><path d="M8 15l1.5 2.5" fill="none"/>'
+ICON_HOURGLASS = '<path d="M6 3h12" fill="none"/><path d="M6 21h12" fill="none"/><path d="M7 3c0 5 5 6 5 9s-5 4-5 9" fill="none"/><path d="M17 3c0 5-5 6-5 9s5 4 5 9" fill="none"/>'
 
 GROUPS = [
     {
@@ -189,6 +194,16 @@ GROUPS = [
              "title": "NIFTY100 Momentum 10 — Front-Loaded vs. Old Logic", "subtitle": "The narrowest universe yet — front-loading loses on both CAGR and drawdown"},
             {"id": "42", "file": "42_midcap_momentum10_200ema_regime_filter.html", "icon": ICON_SHIELD_OFF,
              "title": "Midcap Momentum 10 — 200-Day EMA Regime Filter", "subtitle": "Cash whenever NIFTY 50 is below its own 200-EMA — small CAGR cost, big drawdown cut"},
+            {"id": "43", "file": "43_nifty500_momentum10_200ema_regime_filter.html", "icon": ICON_SHIELD_500,
+             "title": "NIFTY500 Momentum 10 — 200-Day EMA Regime Filter", "subtitle": "Same filter, second universe — the same trade-off holds"},
+            {"id": "44", "file": "44_smallcap250_momentum10_200ema_regime_filter.html", "icon": ICON_SHIELD_SPROUT,
+             "title": "Smallcap250 Momentum 10 — 200-Day EMA Regime Filter", "subtitle": "The most volatile universe gets the biggest drawdown cut"},
+            {"id": "45", "file": "45_nifty100_momentum10_200ema_regime_filter.html", "icon": ICON_SHIELD_FUNNEL,
+             "title": "NIFTY100 Momentum 10 — 200-Day EMA Regime Filter", "subtitle": "Almost a free lunch — unlike front-loading, this filter doesn't break down on a narrow universe"},
+            {"id": "46", "file": "46_midcap_momentum10_ema_span_sensitivity.html", "icon": ICON_RULER,
+             "title": "Midcap Momentum 10 — EMA-Span Sensitivity (100/150/200/250)", "subtitle": "Wider isn't always better — 250 days is the worst span on both CAGR and drawdown"},
+            {"id": "47", "file": "47_midcap_momentum10_confirmation_delay_sensitivity.html", "icon": ICON_HOURGLASS,
+             "title": "Midcap Momentum 10 — Confirmation-Delay Sensitivity", "subtitle": "Waiting a few days to reduce whipsaw cuts trades but costs more CAGR than it saves"},
         ],
     },
 ]

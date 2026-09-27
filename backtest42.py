@@ -38,7 +38,13 @@ EMA_SPAN = 200
 MIN_CASH_BLOCK_DAYS = 10   # ignore single-digit-day noise when listing "cash periods" for the report
 
 
-def build_index_regime_filtered(closes, nifty_close, ema, rbdates, select_fn):
+def build_index_regime_filtered(closes, nifty_close, ema, rbdates, select_fn, confirm_days=1):
+    """confirm_days=1 (default) flips state the first day the signal
+    disagrees with it — the original report 42 behavior, unchanged. A
+    higher confirm_days requires the OPPOSITE signal to hold for that many
+    CONSECUTIVE trading days before the state actually flips (a whipsaw
+    dampener); a day that agrees with the current state resets the streak
+    to zero, same as most practical "N-day confirmation" trend filters."""
     dates = closes.index
     rb_set = set(rbdates)
     index_level = pd.Series(np.nan, index=dates)
@@ -47,6 +53,7 @@ def build_index_regime_filtered(closes, nifty_close, ema, rbdates, select_fn):
     state = "cash"
     selections = []
     state_log = []   # (date, state) once started
+    opposite_streak = 0
 
     def do_select(t_idx):
         return select_fn(closes, t_idx)
@@ -58,10 +65,11 @@ def build_index_regime_filtered(closes, nifty_close, ema, rbdates, select_fn):
     for i, d in enumerate(dates):
         is_rebalance_day = d in rb_set
         ema_today = ema.iloc[i]
-        regime_invested = bool(nifty_close.iloc[i] > ema_today) if pd.notna(ema_today) else False
+        raw_invested = bool(nifty_close.iloc[i] > ema_today) if pd.notna(ema_today) else False
         price_today = closes.iloc[i]
 
         if not started:
+            regime_invested = raw_invested
             if is_rebalance_day:
                 selected = do_select(i)
                 if selected is not None:
@@ -80,6 +88,17 @@ def build_index_regime_filtered(closes, nifty_close, ema, rbdates, select_fn):
                 index_level.iloc[i] = val
                 state_log.append((d, state))
             continue
+
+        if raw_invested == (state == "invested"):
+            opposite_streak = 0
+            regime_invested = (state == "invested")
+        else:
+            opposite_streak += 1
+            if opposite_streak >= confirm_days:
+                regime_invested = raw_invested
+                opposite_streak = 0
+            else:
+                regime_invested = (state == "invested")
 
         if state == "invested":
             value_before = sum(shares.get(tk, 0.0) * price_today.get(tk, 0.0) for tk in shares if pd.notna(price_today.get(tk)))
