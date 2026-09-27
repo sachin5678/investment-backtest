@@ -28,6 +28,8 @@ const ICON_PEAK = "M3 19l5-9 4 5 4-9 5 13 M16 6h4v4";
 const ICON_WEIGHT = "M12,3a3,3 0 1 0 0,6a3,3 0 1 0 0,-6 M7 21l2-9h6l2 9 M6 21h12";
 const ICON_SPLIT = "M6 4v6a6,6 0 0 0 6,6v4 M18 4v6a6,6 0 0 1 -6,6";
 const ICON_LAYERS = "M12 3 21 8 12 13 3 8z M3 13l9 5 9-5 M3 18l9 5 9-5";
+const ICON_SPROUT = "M12 21V11 M12 11C12 6 8 4 4 4c0 4 2 8 8 8 M12 14c0-4 4-6 8-6 0 4-2 7-8 8";
+const ICON_FUNNEL = "M4 4h16l-6 8v6l-4 2v-8z";
 
 export const GROUPS = [
   {
@@ -132,6 +134,8 @@ export const GROUPS = [
       { id: "37", file: "results36.json", icon: ICON_WEIGHT, title: "Midcap Momentum 10 — Front-Loaded 3m/6m/12m Weights", subtitle: "50/30/20 weighting toward recent momentum — a real risk/return trade-off" },
       { id: "38", file: "results37.json", icon: ICON_SPLIT, title: "Midcap Momentum 10 — Front-Loaded Weighting, Two Splits", subtitle: "50/30/20 vs. a gentler 40/35/25 — the trade-off isn't a smooth dial" },
       { id: "39", file: "results38.json", icon: ICON_LAYERS, title: "NIFTY500 Momentum 10 — Front-Loaded vs. Old Logic", subtitle: "Same reformulation, different universe — the opposite result from Midcap150" },
+      { id: "40", file: "results39.json", icon: ICON_SPROUT, title: "Smallcap250 Momentum 10 — Front-Loaded vs. Old Logic", subtitle: "A third universe confirms NIFTY500's clean win, not Midcap150's trade-off" },
+      { id: "41", file: "results40.json", icon: ICON_FUNNEL, title: "NIFTY100 Momentum 10 — Front-Loaded vs. Old Logic", subtitle: "The narrowest universe yet — front-loading loses on both CAGR and drawdown" },
     ],
   },
 ];

@@ -2823,5 +2823,134 @@
     ]
    }
   ]
+ },
+ "40": {
+  "title": "Smallcap250 Momentum 10 — Front-Loaded Weighting vs. the Old Logic",
+  "subtitle": "Report 39 found the front-loaded 50%/30%/20% reformulation beats the old equal-weighted formula on BOTH dimensions on NIFTY500 (500 stocks) — the opposite of what reports 37-38 found on Midcap150 (150 stocks). This applies the same reformulation to report 16/29's Smallcap250 Momentum 10 config (top 10, June/December) — 250 stocks, a THIRD data point on whether universe breadth changes the answer.",
+  "source_line": "2008-12-31–2026-08-24 · 36 rebalances Report generated 2026-09-27 11:47",
+  "pages": [
+   {
+    "file": "40_smallcap250_momentum10_frontloaded_vs_old.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "positive",
+        "text": "confirms the NIFTY500 pattern, not the Midcap150 one"
+       },
+       {
+        "kind": "neutral",
+        "text": "53.5% average pick overlap with the old formula"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "On Smallcap250 Momentum 10, front-loading recent momentum again wins on BOTH dimensions — the same shape of result as NIFTY500 (report 39), not the trade-off seen on Midcap150 (reports 37-38). CAGR rises from +40.2% to +40.7% — a small edge — while max drawdown improves dramatically, from -44.8% to -34.3%, over 10 percentage points shallower.",
+       "This is now TWO broader universes (500-stock NIFTY500, 250-stock Smallcap250) where front-loading is an unambiguous improvement, against ONE narrower universe (150-stock Midcap150) where it's a genuine trade-off — strengthening, but not yet proving, the \"broader universe helps front-loading\" hypothesis. See the honesty note below, and report 41 (NIFTY100, only 100 stocks — narrower than even Midcap150) for the sharpest test of it yet."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "A second broad universe, the same pattern",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "Smallcap250's universe (250 stocks) sits between Midcap150 (150) and NIFTY500 (500) in breadth, and its result sits closer to NIFTY500's pattern than Midcap150's: front-loading wins clean here too, and the drawdown improvement is actually the LARGEST of the three universes tested so far. This is consistent with report 39's hypothesis — a broader pool of candidate stocks gives a 3-month-heavy score more genuinely-strong names to fill the top 10 from, diluting the \"short-term spike that reverses\" risk that a narrower universe is more exposed to.",
+       "It's worth noting Smallcap250 stocks are typically less liquid and more volatile than NIFTY500's large/mid-cap-heavy mix, so breadth alone may not be the whole explanation — small caps in general may simply be more prone to the kind of sharp, unwinding drawdowns that a front-loaded score (which reacts faster to deteriorating 3-month momentum too, not just improving momentum) is better at avoiding. Report 41 tests NIFTY100 — a universe narrower than even Midcap150 — to see whether breadth or something else is really driving this pattern."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Only ONE weighting scheme (50/30/20) was tested here — report 38 found the choice between splits itself matters on Midcap150 in a non-obvious way, and that same sensitivity was not re-tested on Smallcap250.",
+       "All three windows still divide by the SAME trailing-1-year volatility as the risk-adjustment denominator, same simplification disclosed in reports 37-39.",
+       "No official \"Smallcap250 Momentum 10\" index exists — the June/December cadence and min-eligible threshold are borrowed conventions from this project's other smallcap reconstructions, not a real index's actual rulebook.",
+       "Today's fixed Smallcap250 constituent list is applied retroactively across the whole window for both formulas equally (survivorship bias), same disclosed approximation as every other reconstruction here.",
+       "Zero transaction costs, slippage, or taxes modeled — same as every prior report's frictionless numbers (see report 32 for what real Kotak Neo charges do to a similar strategy). Smallcaps in particular tend to have wider real-world spreads than this backtest assumes.",
+       "Equal weighting (not free-float market-cap x momentum score) and no F&O-eligibility screen, same as every other reconstruction in this project. Prices are unadjusted; no dividends are modeled. This is a single, fixed 18-year historical path."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "41": {
+  "title": "NIFTY100 Momentum 10 — Front-Loaded Weighting vs. the Old Logic",
+  "subtitle": "Reports 39-40 found the front-loaded 50%/30%/20% reformulation wins clean on NIFTY500 (500 stocks) and Smallcap250 (250 stocks) — broader universes than Midcap150 (150 stocks), where reports 37-38 found only a trade-off. NIFTY100 (report 12's config: top 10 out of just 100 stocks — the narrowest, most liquid universe tested in this series) is the sharpest test yet of whether universe breadth is really what's driving the pattern.",
+  "source_line": "2008-12-31–2026-08-21 · 36 rebalances Report generated 2026-09-27 11:51",
+  "pages": [
+   {
+    "file": "41_nifty100_momentum10_frontloaded_vs_old.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "negative",
+        "text": "the sharpest result against front-loading yet"
+       },
+       {
+        "kind": "neutral",
+        "text": "51.5% average pick overlap with the old formula"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "On NIFTY100 Momentum 10, front-loading recent momentum LOSES on both dimensions — not the Midcap150-style trade-off (reports 37-38), and the opposite of NIFTY500/Smallcap250's clean win (reports 39-40). CAGR falls from +30.7% to +27.5%, and max drawdown gets WORSE too, from -35.3% to -40.7% — a straight loss, not a trade for safety.",
+       "Across all four universes tested, the pattern now tracks universe size cleanly: NIFTY500 (500 stocks, clean win) → Smallcap250 (250 stocks, clean win) → Midcap150 (150 stocks, trade-off) → NIFTY100 (100 stocks, clean loss). This is the strongest support yet for the \"broader universe helps front-loading\" hypothesis — see the honesty note below."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why the narrowest universe hurts front-loading most",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "NIFTY100 is the narrowest and most liquid universe tested in this series — 100 large-cap names, versus 150 (Midcap150), 250 (Smallcap250), and 500 (NIFTY500). With so few candidates, a 3-month-heavy score has almost no \"bench\" to draw alternatives from: when a large-cap name has a short-term spike (a results beat, a sector re-rating, a one-off news event) that later reverses, it is FAR more likely to occupy one of only 10 slots out of 100 eligible stocks than one of 10 slots out of 500. Large caps also tend to have LOWER idiosyncratic volatility than mid/small caps, so a genuine 3-month move and a temporary spike are harder to tell apart using the same vol-adjustment denominator this formula relies on throughout.",
+       "Lining up all four universes by size makes the pattern unusually clean: NIFTY500 (500, win) → Smallcap250 (250, win) → Midcap150 (150, trade-off) → NIFTY100 (100, loss). That ordering by stock count matching the ordering by outcome is the strongest evidence yet for the breadth hypothesis raised in report 39 — though four data points across one set of formula weights (50/30/20) and one historical window is still not enough to call this settled. A useful next test would be varying the front-load weights (like report 38 did for Midcap150) specifically on NIFTY100, to see whether a gentler split narrows or removes this loss."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Only ONE weighting scheme (50/30/20) was tested here — report 38 found the choice between splits itself matters on Midcap150 in a non-obvious way, and that same sensitivity was not re-tested on NIFTY100. A gentler split might behave differently here.",
+       "All three windows still divide by the SAME trailing-1-year volatility as the risk-adjustment denominator, same simplification disclosed in reports 37-40.",
+       "Today's fixed NIFTY100 constituent list (report 12's config) is applied retroactively across the whole window for both formulas equally (survivorship bias), same disclosed approximation as every other reconstruction here.",
+       "Zero transaction costs, slippage, or taxes modeled — same as every prior report's frictionless numbers (see report 32 for what real Kotak Neo charges do to a similar strategy).",
+       "Equal weighting (not free-float market-cap x momentum score) and no F&O-eligibility screen, same as every other reconstruction in this project. Prices are unadjusted; no dividends are modeled. This is a single, fixed 18-year historical path — a different window could rank these two formulas differently, or narrow the gap seen here."
+      ]
+     }
+    ]
+   }
+  ]
  }
 }
