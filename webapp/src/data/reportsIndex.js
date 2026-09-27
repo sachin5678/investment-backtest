@@ -30,6 +30,7 @@ const ICON_SPLIT = "M6 4v6a6,6 0 0 0 6,6v4 M18 4v6a6,6 0 0 1 -6,6";
 const ICON_LAYERS = "M12 3 21 8 12 13 3 8z M3 13l9 5 9-5 M3 18l9 5 9-5";
 const ICON_SPROUT = "M12 21V11 M12 11C12 6 8 4 4 4c0 4 2 8 8 8 M12 14c0-4 4-6 8-6 0 4-2 7-8 8";
 const ICON_FUNNEL = "M4 4h16l-6 8v6l-4 2v-8z";
+const ICON_SHIELD_OFF = "M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3z M8 8l8 8 M16 8l-8 8";
 
 export const GROUPS = [
   {
@@ -136,6 +137,7 @@ export const GROUPS = [
       { id: "39", file: "results38.json", icon: ICON_LAYERS, title: "NIFTY500 Momentum 10 — Front-Loaded vs. Old Logic", subtitle: "Same reformulation, different universe — the opposite result from Midcap150" },
       { id: "40", file: "results39.json", icon: ICON_SPROUT, title: "Smallcap250 Momentum 10 — Front-Loaded vs. Old Logic", subtitle: "A third universe confirms NIFTY500's clean win, not Midcap150's trade-off" },
       { id: "41", file: "results40.json", icon: ICON_FUNNEL, title: "NIFTY100 Momentum 10 — Front-Loaded vs. Old Logic", subtitle: "The narrowest universe yet — front-loading loses on both CAGR and drawdown" },
+      { id: "42", file: "results41.json", icon: ICON_SHIELD_OFF, title: "Midcap Momentum 10 — 200-Day EMA Regime Filter", subtitle: "Cash whenever NIFTY 50 is below its own 200-EMA — small CAGR cost, big drawdown cut" },
     ],
   },
 ];

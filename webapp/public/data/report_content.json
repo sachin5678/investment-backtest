@@ -2952,5 +2952,75 @@
     ]
    }
   ]
+ },
+ "42": {
+  "title": "Midcap150 Momentum 10 — 200-Day EMA Regime Filter on NIFTY 50",
+  "subtitle": "The user's idea: only ever hold the momentum portfolio while NIFTY 50 (the \"main index\") closes above its own 200-day EMA. The moment it closes below, sell everything and sit in 100% cash until it closes back above — re-entering with a fresh top-10 selection, not waiting for the next scheduled rebalance. Same top-10, equal-weight, June/December Midcap150 Momentum 10 formula as every other report in this series; the ONLY change is this cash/invested switch layered on top.",
+  "source_line": "2008-12-31–2026-08-24 Report generated 2026-09-27 13:30",
+  "pages": [
+   {
+    "file": "42_midcap_momentum10_200ema_regime_filter.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "positive",
+        "text": "a real risk/return trade, not a free lunch"
+       },
+       {
+        "kind": "assumption",
+        "text": "23.7% of trading days spent in cash"
+       },
+       {
+        "kind": "negative",
+        "text": "69 regime re-entries over 18 years"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "The filter costs a little CAGR — +40.6% falls to +38.5% — but buys a LOT of drawdown protection: max drawdown improves from -35.1% to -23.5%, nearly 12 percentage points shallower. It genuinely sat out the worst of the 2020 COVID crash (see the cash-periods table below).",
+       "The cost that doesn't show up in CAGR or drawdown: this filter is FAR more active than the underlying strategy's own June/December schedule. Over the same 36 scheduled rebalances, NIFTY 50 crossed its own 200-EMA often enough to trigger 69 separate re-entries — almost 1x as many buy/sell events as the strategy would otherwise ever generate. Every one of those is a FULL portfolio sell-and-rebuy in this frictionless model. See the honesty note for what that really costs."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "What the drawdown improvement is really costing",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "A 200-day EMA is a LAGGING signal by construction — it only turns down after a decline has already been running for weeks, and it only turns back up well after a bottom has already formed. That means this filter never fully avoids a crash's first leg down, and it always re-enters after missing some of the recovery. What it's good at is avoiding the LONG, grinding second half of a real bear market — exactly what the 2020 COVID period (111 trading days entirely in cash) and the 2015-16 slowdown (also 111 days) show in the table above.",
+       "The number this report is most honest about: 69 regime re-entries against only 36 scheduled rebalances. NIFTY 50 crosses its own 200-EMA far more often than twice a year — in choppy, range-bound markets it can whipsaw back and forth across the line repeatedly within a few weeks, triggering a full sell of 10 stocks followed shortly after by a full buy of a (possibly identical) 10 stocks. This backtest charges ZERO for every one of those switches. Report 32 shows what real Kotak Neo brokerage, STT, and other charges do to a strategy with only 36 buy/sell events over 18 years — a strategy with 69 would pay a multiple of that, and the real gap between the filtered and unfiltered CAGR shown here would be smaller than +40.6% minus +38.5% once those costs are included.",
+       "The other simplification worth flagging: cash here earns exactly 0%. In practice this money would likely sit in a liquid fund or sweep account earning something (India's short-term rates have run roughly 5-7% p.a. across most of this window), which would modestly narrow the CAGR gap in the filter's favor — a small offset against the whipsaw cost above, not a full cancellation of it."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Zero transaction costs on ANY regime switch — the single biggest omission here, given 69 re-entries over 18 years (see the honesty note above).",
+       "Cash earns exactly 0% while the filter is out of the market — same convention as report 03's \"Wait for the Dip,\" and likely a modest understatement of the filtered version's real-world return.",
+       "The regime signal and the strategy's own execution both act on the SAME day's close — no next-day execution lag is modeled for either the entry/exit signal or the trade itself.",
+       "A single EMA span (200 trading days) was tested — no sensitivity check against other common spans (100, 150, 250) or a simple moving average instead of exponential.",
+       "Today's fixed Midcap150 constituent list is applied retroactively across the whole window (survivorship bias), same disclosed approximation as every other reconstruction here.",
+       "Equal weighting, no F&O-eligibility screen, unadjusted prices, no dividends modeled — same as every other reconstruction in this project. This is a single, fixed 18-year historical path."
+      ]
+     }
+    ]
+   }
+  ]
  }
 }

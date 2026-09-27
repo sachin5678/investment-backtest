@@ -39,6 +39,7 @@ ICON_SPLIT = '<path d="M6 4v6a6 6 0 0 0 6 6v4" fill="none"/><path d="M18 4v6a6 6
 ICON_LAYERS = '<polygon points="12,3 21,8 12,13 3,8" fill="none"/><polyline points="3,13 12,18 21,13" fill="none"/><polyline points="3,18 12,23 21,18" fill="none"/>'
 ICON_SPROUT = '<path d="M12 21V11" fill="none"/><path d="M12 11C12 6 8 4 4 4c0 4 2 8 8 8" fill="none"/><path d="M12 14c0-4 4-6 8-6 0 4-2 7-8 8" fill="none"/>'
 ICON_FUNNEL = '<path d="M4 4h16l-6 8v6l-4 2v-8z" fill="none"/>'
+ICON_SHIELD_OFF = '<path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3z" fill="none"/><line x1="8" y1="8" x2="16" y2="16"/><line x1="16" y1="8" x2="8" y2="16"/>'
 
 GROUPS = [
     {
@@ -186,6 +187,8 @@ GROUPS = [
              "title": "Smallcap250 Momentum 10 — Front-Loaded vs. Old Logic", "subtitle": "A third universe confirms NIFTY500's clean win, not Midcap150's trade-off"},
             {"id": "41", "file": "41_nifty100_momentum10_frontloaded_vs_old.html", "icon": ICON_FUNNEL,
              "title": "NIFTY100 Momentum 10 — Front-Loaded vs. Old Logic", "subtitle": "The narrowest universe yet — front-loading loses on both CAGR and drawdown"},
+            {"id": "42", "file": "42_midcap_momentum10_200ema_regime_filter.html", "icon": ICON_SHIELD_OFF,
+             "title": "Midcap Momentum 10 — 200-Day EMA Regime Filter", "subtitle": "Cash whenever NIFTY 50 is below its own 200-EMA — small CAGR cost, big drawdown cut"},
         ],
     },
 ]
