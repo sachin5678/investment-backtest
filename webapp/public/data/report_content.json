@@ -5175,5 +5175,78 @@
     ]
    }
   ]
+ },
+ "76": {
+  "title": "Midcap150 Momentum 10 — Report 48 Replicated with a 400-Day EMA",
+  "subtitle": "Report 48's exact design — binary regime filter, gold instead of cash — replicated with a 400-day EMA instead of 200, considerably wider than reports 46/47's own 100-250 span-sensitivity test (which already found 250 was the WORST span tested there, for the cash version). Part two holds this 400-day EMA fixed and instead varies how often the top-10 momentum picks themselves get refreshed — semi-annual (June/December, this project's usual cadence), yearly, and every 4 months — while the regime check itself stays continuous/daily throughout.",
+  "source_line": "2009-06-30–2026-08-24 Report generated 2026-09-27 17:51",
+  "pages": [
+   {
+    "file": "76_midcap150_ema400_gold_rebalance_cadence.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "negative",
+        "text": "400-day EMA loses to 200-day on both CAGR and drawdown, gold or not"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Widening the EMA from 200 to 400 days drops CAGR from +42.7% to +40.1% and makes the drawdown WORSE too — -23.4% vs. -31.6% — the same \"wider isn't better\" pattern reports 46/47 already found for the cash version, now confirmed to hold with gold as the hedge asset too. A slower-moving 400-day average reacts to a real trend change later in both directions: later into the hedge on the way down, and later back into momentum on the way up, missing more of the recovery.",
+       "On rebalance cadence (holding the 400-day EMA fixed): yearly is the worst of the three on both CAGR (+37.6%) and drawdown (-32.9%) — refreshing the momentum picks less often means holding a stale, aging portfolio through more of each holding period. Every-4-months (+38.4% CAGR, -27.4% drawdown) doesn't beat the semi-annual baseline's CAGR, but its drawdown lands closer to gold's own -27.4% — refreshing the basket more often gives the strategy more chances to rotate out of names that have already peaked."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "What actually changes between the three cadences",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "mechanism"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the regime filter's OWN switch timing (into/out of gold) is identical in all three; only the top-10 stock-selection refresh rate differs.",
+      "paragraphs": [
+       "Semi-annual rebalances the momentum picks 38 times across this window (June and December); yearly rebalances 19 times (June only); every-4-months rebalances 57 times (February, June, October). All three share the same 400-day EMA continuously checked against NIFTY 50's own close every single day — a regime switch into or out of gold happens on exactly the same dates regardless of which cadence is running. The ONLY thing that differs is which specific 10 stocks are held during each \"on\" stretch, and how stale that basket is allowed to get before being refreshed."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why a wider EMA and a slower rebalance cadence both hurt the same way",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "A 400-day EMA and a yearly rebalance are both, in different ways, a \"slower to react\" design — the EMA reacts slower to a genuine regime change, and a yearly refresh reacts slower to the momentum picks themselves going stale. Both cost CAGR and drawdown here for the same underlying reason: momentum's edge decays as a stock's own recent strength ages, and anything that holds the SAME 10 stocks or the SAME hedge/invested state for longer than necessary gives up more of that edge before the next chance to correct course.",
+       "The 4-monthly result is the interesting exception: it doesn't beat semi-annual on CAGR, but its drawdown is noticeably shallower — refreshing the basket more often gives the strategy more OPPORTUNITIES to rotate away from names that have already turned down, even while the regime filter's own gold/momentum switch timing is unchanged. That's a genuinely different lever from the EMA span itself, and it's the one place in this report where \"more frequent\" clearly helped rather than hurt."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Only ONE wide span (400 days) was tested against the 200-day baseline — this doesn't map\n        the full CAGR/drawdown curve between 250 (reports 46/47's widest cash test) and 400 days.",
+       "Only THREE rebalance cadences were tested, all anchored to keep June as a shared month — a genuinely\n        different calendar (e.g. March/July/November) could behave differently even at the same 4-month spacing.",
+       "Zero transaction costs on any regime switch or scheduled rebalance — same disclosed omission as\n        every other reconstruction here; the 4-monthly cadence also trades 50% more often per year than semi-annual, so\n        real-world costs would scale up correspondingly, not stay flat.",
+       "Today's fixed Midcap150 constituent list is applied retroactively across the whole window\n        (survivorship bias). Equal weighting, no F&O-eligibility screen, unadjusted prices, no dividends modeled — same as\n        every other reconstruction here."
+      ]
+     }
+    ]
+   }
+  ]
  }
 }

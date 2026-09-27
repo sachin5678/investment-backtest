@@ -158,6 +158,15 @@ def process_universe(universe_name, closes, nifty_close, select_fn, select_fn_fr
         add_row(universe_name, "Filter + Hedge", "200-EMA regime filter + gold", report_numbers["filter_gold"],
                 gold_series, nifty_close, idx_g)
 
+        ema400_gold_num = report_numbers.get("filter_gold_ema400")
+        if ema400_gold_num:
+            ema400 = nifty_close.ewm(span=400, adjust=False).mean()
+            gold400_series, _, _ = build_index_regime_filtered_with_hedge(
+                closes, nifty_close, ema400, rbdates, select_fn, gold_aligned)
+            idx_g400 = gold400_series.index.intersection(nifty_close.index).intersection(gold_close.index)
+            add_row(universe_name, "Filter + Hedge", "400-EMA regime filter + gold", ema400_gold_num,
+                    gold400_series, nifty_close, idx_g400)
+
         # Core-satellite: a PERMANENT momentum/gold split held at all times
         # (not just a cash/invested switch), with a full 100%-to-gold
         # liquidation on the same 200-EMA signal. Each split ratio tested
@@ -256,7 +265,8 @@ def main():
         midcapietf, "MIDCAPIETF.NS", 30,
         {"original": 16, "frontloaded": 37, "filter_cash": 42, "filter_gold": 48, "invvol": 51,
          "own_signal": 54, "asymmetric": 59, "abs_gate": 62, "smooth": 65, "smooth_hedge": 68,
-         "trailing_stop": 58, "core_satellite_70_30": 71, "core_satellite_50_50": 72, "basket_50": 73},
+         "trailing_stop": 58, "core_satellite_70_30": 71, "core_satellite_50_50": 72, "basket_50": 73,
+         "filter_gold_ema400": 76},
         gold_close=gold_close_full,
     )
 
