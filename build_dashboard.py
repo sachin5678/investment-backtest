@@ -34,6 +34,7 @@ ICON_TUNE = '<line x1="4" y1="6" x2="20" y2="6"/><circle cx="9" cy="6" r="2" fil
 ICON_COMPARE = '<path d="M12 3v18" fill="none"/><path d="M7 7 3 12l4 5" fill="none"/><path d="M17 7l4 5-4 5" fill="none"/>'
 ICON_FLIP = '<path d="M4 7h11l-3-3" fill="none"/><path d="M20 17H9l3 3" fill="none"/>'
 ICON_PEAK = '<polyline points="3,19 8,10 12,15 16,6 21,19" fill="none"/><line x1="16" y1="6" x2="20" y2="6"/><line x1="16" y1="6" x2="16" y2="10"/>'
+ICON_WEIGHT = '<circle cx="12" cy="6" r="3" fill="none"/><path d="M7 21l2-9h6l2 9" fill="none"/><line x1="6" y1="21" x2="18" y2="21"/>'
 
 GROUPS = [
     {
@@ -171,6 +172,8 @@ GROUPS = [
              "title": "Midcap Momentum 10 — Bottom-10 Reversal Sanity Check", "subtitle": "Deliberately buy the worst-ranked stocks — does momentum survive the flip test?"},
             {"id": "36", "file": "36_midcap_momentum10_52wk_high.html", "icon": ICON_PEAK,
              "title": "Midcap Momentum 10 — 52-Week-High Proximity", "subtitle": "A genuinely different momentum proxy, tested against the original"},
+            {"id": "37", "file": "37_midcap_momentum10_frontloaded_weights.html", "icon": ICON_WEIGHT,
+             "title": "Midcap Momentum 10 — Front-Loaded 3m/6m/12m Weights", "subtitle": "50/30/20 weighting toward recent momentum — a real risk/return trade-off"},
         ],
     },
 ]

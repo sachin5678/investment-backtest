@@ -2632,5 +2632,70 @@
     ]
    }
   ]
+ },
+ "37": {
+  "title": "Midcap Momentum 10 — Front-Loaded 3m/6m/12m Weighted Momentum",
+  "subtitle": "Same top-10, equal-weight, June/December strategy — but the momentum score now blends THREE windows (3-month, 6-month, 12-month risk-adjusted return) instead of two, weighted 50%/30%/20% toward the most recent window instead of the original's equal 50/50 split between 6m and 12m.",
+  "source_line": "2008-12-31–2026-08-24 · 36 rebalances Report generated 2026-09-27 11:29",
+  "pages": [
+   {
+    "file": "37_midcap_momentum10_frontloaded_weights.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "neutral",
+        "text": "53.6% average pick overlap with the original"
+       },
+       {
+        "kind": "assumption",
+        "text": "a genuine risk/return trade-off, not a straight downgrade"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Unlike most other variants tested in this comparison series, front-loading recent momentum doesn't just move CAGR and drawdown in the same direction — it trades one for the other. CAGR comes in at +38.0% versus the original's +40.6% (2.6% points lower), but max drawdown is actually SHALLOWER at -33.9% versus -35.1% (1.1% points better).",
+       "The mechanism is intuitive: weighting the most recent 3 months at 50% makes the score react faster to a deteriorating trend (cutting exposure to a stock that's started rolling over sooner than a 12-month-anchored score would), which cushions the worst drawdowns a little — but it also means the score can chase a short-lived 3-month spike that later fades, giving up some of the longer-horizon trend-persistence edge the equal-weighted 6m/12m blend was capturing. Whether that trade-off is worth it depends on how much you value a shallower drawdown against a lower total return — this report doesn't declare a winner, just shows the trade honestly."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why this one is a genuine trade-off, not a clean win or loss",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "Every other variant in this comparison series (reports 33, 34, 36) moved CAGR and max drawdown in the SAME direction — better or worse on both, or a near-tie on both. This one splits: 2.6% points lower CAGR, but 1.1% points shallower drawdown. That's exactly what you'd expect from making the score react faster to recent price action: a 3-month-heavy score notices a stock rolling over sooner than a formula anchored more to the past 12 months, so it drops that stock from the top 10 a bit earlier in a real decline — cushioning the worst drawdowns — but it also means the score gives real weight to short 3-month moves that sometimes reverse before the 6- and 12-month windows would have confirmed the trend, costing some of the longer-run compounding.",
+       "Neither number is \"wrong\" — this is the standard responsiveness-vs-persistence trade-off in momentum investing, showing up cleanly in a real backtest instead of just as a theoretical concern. Whether 2.6% points of CAGR is worth 1.1% points of shallower drawdown is a preference call this report doesn't make on your behalf."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Only ONE weighting scheme (50%/30%/20%) was tested — the user-specified weights, not a search over alternatives; a different split (e.g. 40/40/20, or 60/25/15) could land anywhere between the original and this result, or outside that range entirely.",
+       "All three windows still divide by the SAME trailing-1-year volatility as the risk-adjustment denominator — a genuinely \"3-month-native\" version might use 3-month volatility for the 3-month leg instead, which was not tested here.",
+       "Today's fixed NIFTY Midcap 150 constituent list is applied retroactively across the whole window for both formulas equally (survivorship bias) — same disclosed approximation as every other reconstruction here.",
+       "Zero transaction costs, slippage, or taxes modeled — same as reports 11-19/24-36's frictionless numbers (see report 32 for what real Kotak Neo charges do to a similar strategy).",
+       "Equal weighting (not free-float market-cap x momentum score) and no F&O-eligibility screen, same as every other reconstruction in this project.",
+       "Prices are unadjusted; no dividends are modeled for any holding. This is a single, fixed 18-year historical path — a choppier or trendier market regime could shift this specific trade-off in either direction."
+      ]
+     }
+    ]
+   }
+  ]
  }
 }

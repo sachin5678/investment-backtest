@@ -25,6 +25,7 @@ const ICON_TUNE = "M4 6h16 M9 4v4 M4 12h16 M15 10v4 M4 18h16 M7 16v4";
 const ICON_COMPARE = "M12 3v18 M7 7 3 12l4 5 M17 7l4 5-4 5";
 const ICON_FLIP = "M4 7h11l-3-3 M20 17H9l3 3";
 const ICON_PEAK = "M3 19l5-9 4 5 4-9 5 13 M16 6h4v4";
+const ICON_WEIGHT = "M12,3a3,3 0 1 0 0,6a3,3 0 1 0 0,-6 M7 21l2-9h6l2 9 M6 21h12";
 
 export const GROUPS = [
   {
@@ -126,6 +127,7 @@ export const GROUPS = [
       { id: "34", file: "results33.json", icon: ICON_COMPARE, title: "Midcap Momentum 10 — Relative Momentum vs. NIFTY 50", subtitle: "Rank on excess return over the market, not absolute return" },
       { id: "35", file: "results34.json", icon: ICON_FLIP, title: "Midcap Momentum 10 — Bottom-10 Reversal Sanity Check", subtitle: "Deliberately buy the worst-ranked stocks — does momentum survive the flip test?" },
       { id: "36", file: "results35.json", icon: ICON_PEAK, title: "Midcap Momentum 10 — 52-Week-High Proximity", subtitle: "A genuinely different momentum proxy, tested against the original" },
+      { id: "37", file: "results36.json", icon: ICON_WEIGHT, title: "Midcap Momentum 10 — Front-Loaded 3m/6m/12m Weights", subtitle: "50/30/20 weighting toward recent momentum — a real risk/return trade-off" },
     ],
   },
 ];
