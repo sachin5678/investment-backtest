@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { GROUPS, ALL_ITEMS, isPremiumReport } from "../data/reportsIndex";
 import { useAuth } from "../context/AuthContext";
-import { supabase, SUPABASE_CONFIGURED } from "../lib/supabaseClient";
 import { extractSeries } from "../lib/viewmodel";
 import { pct } from "../lib/format";
 import Icon from "../components/Icon";
@@ -52,30 +51,6 @@ function downsampleCurve(curve, maxPoints = 36) {
 export default function Overview() {
   const [cards, setCards] = useState(null); // null = loading
   const [activeGroup, setActiveGroup] = useState("All");
-  const [landingStats, setLandingStats] = useState(null);
-
-  // The homepage's "best CAGR found" / "markets covered" stats come from a
-  // small PUBLIC (no-login) table, computed once across all 31 reports —
-  // see supabase/schema.sql + scripts/seed_supabase.py. That's deliberate:
-  // these are marketing-teaser aggregates with no per-strategy detail
-  // attached, so they can stay true and stable regardless of whether the
-  // visitor is logged in, instead of silently shrinking to whatever the
-  // free tier alone can show.
-  useEffect(() => {
-    if (!SUPABASE_CONFIGURED) return;
-    let cancelled = false;
-    supabase
-      .from("landing_stats")
-      .select("*")
-      .eq("id", 1)
-      .single()
-      .then(({ data }) => {
-        if (!cancelled && data) setLandingStats(data);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -111,21 +86,10 @@ export default function Overview() {
   const visible = cards?.filter((c) => activeGroup === "All" || groupOf[c.item.id] === activeGroup) ?? [];
 
   const stats = useMemo(() => {
-    // Preferred path: the public landing_stats row, true across all 31
-    // reports regardless of login state (see the fetch effect above).
-    if (landingStats) {
-      return {
-        count: landingStats.strategies_tested,
-        bestCagr: landingStats.best_cagr_pct,
-        markets: landingStats.markets_covered,
-        years: landingStats.longest_backtest_years,
-      };
-    }
-    // Fallback for a dev environment with no Supabase project configured
-    // at all: best-effort numbers from whatever free-tier data this
-    // browser could actually fetch — necessarily incomplete once any
-    // report is premium-gated, which is exactly why the table above is
-    // the real source of truth once Supabase is set up.
+    // Every report's own results file is a public static asset (see
+    // AuthContext.jsx — the login is a UI-only gate, not a data one), so
+    // this computes correctly across all reports regardless of whether
+    // the visitor is logged in.
     if (!cards) return null;
     const withHeadline = cards.filter((c) => c.headline);
     const bestCagr = Math.max(...withHeadline.map((c) => c.headline.growthPct ?? -Infinity));
@@ -137,7 +101,7 @@ export default function Overview() {
           (365.25 * 24 * 3600 * 1000)
         : 0;
     return { count: ALL_ITEMS.length, bestCagr, markets: currencies.size, years: Math.round(years) };
-  }, [cards, landingStats]);
+  }, [cards]);
 
   return (
     <div className="min-h-full">
@@ -348,7 +312,12 @@ function StrategyCard({ item, headline, currency, category }) {
       <h3 className="text-[15px] font-semibold text-text leading-snug mb-1">{item.title}</h3>
       <p className="text-[12.5px] text-muted leading-snug mb-4 line-clamp-2">{item.subtitle}</p>
 
-      {headline ? (
+      {locked ? (
+        <div className="flex items-center gap-2 text-[12px] text-assumption py-4">
+          <Icon path={ICON_LOCK} className="w-[14px] h-[14px] shrink-0" />
+          Log in to see performance
+        </div>
+      ) : headline ? (
         <>
           <div className="flex items-end justify-between gap-3 mb-2">
             <div>
@@ -364,11 +333,6 @@ function StrategyCard({ item, headline, currency, category }) {
           </div>
           <Sparkline points={sparkPoints} positive={positive} />
         </>
-      ) : locked ? (
-        <div className="flex items-center gap-2 text-[12px] text-assumption py-4">
-          <Icon path={ICON_LOCK} className="w-[14px] h-[14px] shrink-0" />
-          Log in to see performance
-        </div>
       ) : (
         <div className="text-[12px] text-muted italic py-4">Data unavailable</div>
       )}

@@ -39,10 +39,9 @@ function ProsePanel({ panel }) {
  * default so the default view stays scannable — nothing is summarized or
  * dropped, it's the same text, just tucked behind one click.
  *
- * `locked`: when true (not logged in), this text was never fetched at all
- * — see ReportPage.jsx, which only requests report_prose from Supabase
- * for a signed-in session — so there's nothing to toggle; a login prompt
- * renders instead. */
+ * `locked`: when true (not logged in), this text is simply not rendered
+ * — a login prompt shows instead. It's a UI gate only: report_content.json
+ * is a public static file like everything else here (see AuthContext.jsx). */
 export default function ProseSection({ content, open, onToggle, locked }) {
   const [loginOpen, setLoginOpen] = useState(false);
 

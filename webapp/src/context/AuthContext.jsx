@@ -1,52 +1,59 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { supabase, SUPABASE_CONFIGURED, usernameToEmail } from "../lib/supabaseClient";
+
+// Pure client-side gate — no backend. This is a soft gate for casual
+// browsing, not real security: anyone who opens dev tools can read
+// USERNAME/PASSWORD below, or just flip the localStorage flag directly.
+// It was originally built this way, then moved to a Supabase-backed
+// version for genuine access control, then moved back here because a
+// paused free-tier database and per-platform build env vars (GitHub
+// Pages vs. Vercel) were real deployment friction for a personal
+// portfolio site where that tradeoff isn't worth it. If real content
+// secrecy is ever needed again, the report gating (see reportsIndex.js's
+// isPremiumReport) will also need report data to live somewhere other
+// than a static public file, since anyone can already fetch
+// webapp/public/data/*.json directly regardless of what this component
+// does.
+const STORAGE_KEY = "signal_lab_auth";
+const USERNAME = "sachin";
+const PASSWORD = "121101";
 
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [session, setSession] = useState(null);
-  const [loading, setLoading] = useState(SUPABASE_CONFIGURED);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    if (!SUPABASE_CONFIGURED) return;
-    supabase.auth.getSession().then(({ data }) => {
-      setSession(data.session);
-      setLoading(false);
-    });
-    const { data: sub } = supabase.auth.onAuthStateChange((_event, newSession) => {
-      setSession(newSession);
-    });
-    return () => sub.subscription.unsubscribe();
+    try {
+      setIsLoggedIn(localStorage.getItem(STORAGE_KEY) === "true");
+    } catch {
+      // private window / blocked storage — just stay logged out
+    }
   }, []);
 
-  async function login(username, password) {
-    if (!SUPABASE_CONFIGURED) {
-      return { error: "Login isn't configured yet — this deployment has no Supabase project connected." };
-    }
-    const email = usernameToEmail(username);
-    if (!email) {
-      return { error: "Unknown username." };
-    }
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) {
+  function login(username, password) {
+    const ok = username.trim().toLowerCase() === USERNAME && password === PASSWORD;
+    if (!ok) {
       return { error: "Incorrect username or password." };
     }
+    try {
+      localStorage.setItem(STORAGE_KEY, "true");
+    } catch {
+      // storage blocked — login still works for this tab/session via state
+    }
+    setIsLoggedIn(true);
     return { error: null };
   }
 
-  async function logout() {
-    if (!SUPABASE_CONFIGURED) return;
-    await supabase.auth.signOut();
+  function logout() {
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+    } catch {
+      // ignore
+    }
+    setIsLoggedIn(false);
   }
 
-  const value = {
-    isLoggedIn: Boolean(session),
-    loading,
-    login,
-    logout,
-  };
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ isLoggedIn, loading: false, login, logout }}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() {

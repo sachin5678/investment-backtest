@@ -127,12 +127,13 @@ export const ITEM_BY_ID = Object.fromEntries(ALL_ITEMS.map((i) => [i.id, i]));
 
 // Reports 01-10 (breakout, cash-timing, basic SIP overlays) are the free
 // tier. Everything from 11 onward — every momentum/rotation/RSI/gold
-// reconstruction and every trade-level-detail report — is premium: its
-// full results data lives only in Supabase's RLS-protected
-// premium_reports table, not in a public static file (see
-// supabase/schema.sql). Every report's disclosure/analysis text (prose)
-// is ALSO always gated behind login, including for the free tier — see
-// report_prose in the same schema.
+// reconstruction and every trade-level-detail report — is premium.
+// NOTE: this is a UI-only gate (see AuthContext.jsx) — every report's
+// results file and the shared report_content.json prose file are public
+// static assets like any other, reachable directly by anyone who looks;
+// login just controls whether the app SHOWS them. Every report's
+// disclosure/analysis text is ALSO always hidden until logged in,
+// including for the free tier.
 export const PREMIUM_MIN_ID = 11;
 export function isPremiumReport(id) {
   return Number(id) >= PREMIUM_MIN_ID;

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ITEM_BY_ID, isPremiumReport } from "../data/reportsIndex";
 import { useAuth } from "../context/AuthContext";
-import { supabase, SUPABASE_CONFIGURED } from "../lib/supabaseClient";
 import { extractSeries } from "../lib/viewmodel";
 import KpiTable from "../components/KpiTable";
 import SmoothChart from "../components/SmoothChart";
@@ -17,7 +16,7 @@ const DATA_BASE = "./data/";
 export default function ReportPage() {
   const { id } = useParams();
   const item = ITEM_BY_ID[id];
-  const { isLoggedIn, loading: authLoading } = useAuth();
+  const { isLoggedIn } = useAuth();
   const premium = item ? isPremiumReport(id) : false;
   const locked = premium && !isLoggedIn;
 
@@ -36,52 +35,29 @@ export default function ReportPage() {
     setError(null);
     setTrades(null);
     setTradeStats(null);
-    // Locked premium reports never fetch anything at all — the KPI/chart
-    // data genuinely doesn't reach the browser in this state, not just
-    // hidden by CSS. Wait for auth state to resolve first so a logged-in
-    // visitor doesn't briefly flash the locked gate on page load.
-    if (!item || authLoading || locked) return;
+    // A locked premium report skips the fetch entirely — it's a UI gate
+    // only (every report's data actually sits in the public static
+    // webapp/public/data/ files, reachable directly by anyone who looks),
+    // but there's no reason to pull the bytes down just to immediately
+    // hide them.
+    if (!item || locked) return;
 
-    // Results: free reports (id < 11) still come from the public static
-    // files; premium reports (id >= 11) come only from Supabase's
-    // RLS-protected premium_reports table, readable only because we're
-    // logged in at this point.
-    const resultsPromise = premium
-      ? supabase
-          .from("premium_reports")
-          .select("results")
-          .eq("report_id", id)
-          .single()
-          .then(({ data, error: err }) => {
-            if (err) throw new Error(`Could not load premium data for report ${id}: ${err.message}`);
-            return data.results;
-          })
-      : fetch(DATA_BASE + item.file).then((r) => {
-          if (!r.ok) throw new Error(`Could not load ${item.file}`);
-          return r.json();
-        });
-
-    // Prose (strategy logic, disclosures & limitations) is ALWAYS gated
-    // behind login, for every report including the free tier — only
-    // fetched here because we already know isLoggedIn is true (locked
-    // covers premium-and-signed-out; free-and-signed-out falls through to
-    // this effect but skips the prose fetch below).
-    const prosePromise = isLoggedIn && SUPABASE_CONFIGURED
-      ? supabase
-          .from("report_prose")
-          .select("content")
-          .eq("report_id", id)
-          .single()
-          .then(({ data }) => data?.content ?? null)
-          .catch(() => null)
-      : Promise.resolve(null);
-
-    Promise.all([resultsPromise, prosePromise])
-      .then(([raw, proseContent]) => {
+    Promise.all([
+      fetch(DATA_BASE + item.file).then((r) => {
+        if (!r.ok) throw new Error(`Could not load ${item.file}`);
+        return r.json();
+      }),
+      // Prose (strategy logic, disclosures & limitations) lives in one
+      // shared public file for every report — always fetched, but only
+      // ever DISPLAYED when logged in (see ProseSection's locked prop
+      // below), matching "always hide analysis from free users."
+      fetch(DATA_BASE + "report_content.json").then((r) => (r.ok ? r.json() : null)).catch(() => null),
+    ])
+      .then(([raw, allContent]) => {
         const found = extractSeries(raw);
         setSeries(found);
         setSymbol(raw.currency_symbol || "₹");
-        setContent(proseContent);
+        setContent(allContent?.[id] ?? null);
         // only present on reports that carry a full trade-by-trade log —
         // every other report simply has no "trades" key and TradeLog
         // renders nothing.
@@ -89,7 +65,7 @@ export default function ReportPage() {
         setTradeStats(raw.trade_stats ?? null);
       })
       .catch((e) => setError(e.message));
-  }, [id, item, premium, locked, isLoggedIn, authLoading]);
+  }, [id, item, locked]);
 
   if (!item) {
     return (
@@ -97,10 +73,6 @@ export default function ReportPage() {
         <p className="text-text">Unknown report id “{id}”.</p>
       </Panel>
     );
-  }
-
-  if (authLoading) {
-    return <div className="text-muted text-sm animate-pulse">Loading…</div>;
   }
 
   if (locked) {
@@ -112,14 +84,8 @@ export default function ReportPage() {
       <Panel accent="danger">
         <p className="text-text">Couldn't load this report's data: {error}</p>
         <p className="text-muted text-sm mt-2">
-          {premium
-            ? "Premium report data comes from Supabase — make sure the project is configured and seeded (see scripts/seed_supabase.py)."
-            : (
-              <>
-                If you're running this locally, make sure <code className="font-mono">{item.file}</code> exists in{" "}
-                <code className="font-mono">public/data/</code>.
-              </>
-            )}
+          If you're running this locally, make sure <code className="font-mono">{item.file}</code> exists in{" "}
+          <code className="font-mono">public/data/</code>.
         </p>
       </Panel>
     );
