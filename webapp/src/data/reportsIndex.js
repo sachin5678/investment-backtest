@@ -182,6 +182,7 @@ export const GROUPS = [
       { id: "70", file: "results69.json", icon: ICON_DIMMER_COIN, title: "NIFTY100 Momentum 10 — Smooth Exposure + Gold / Liquid Fund", subtitle: "Gold wins clearly on CAGR everywhere tested — drawdown effect ranges from a bonus to a wash" },
       { id: "71", file: "results70.json", icon: ICON_SPLIT, title: "Midcap Momentum 10 — Core-Satellite (70/30) + Full Gold Switch", subtitle: "The shallowest drawdown of any combination tested here — at a real CAGR cost" },
       { id: "72", file: "results71.json", icon: ICON_SPLIT, title: "Midcap Momentum 10 — Core-Satellite (50/50) + Full Gold Switch", subtitle: "More gold, more CAGR given up — but zero extra drawdown protection here" },
+      { id: "73", file: "results72.json", icon: ICON_LAYERS, title: "Midcap150 Momentum 50 — A Much Wider Basket", subtitle: "Loses on BOTH CAGR and drawdown against the flagship top-10" },
     ],
   },
 ];

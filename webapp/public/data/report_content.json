@@ -4981,5 +4981,78 @@
     ]
    }
   ]
+ },
+ "73": {
+  "title": "Midcap150 Momentum 50 — A Much Wider Basket, Same Formula",
+  "subtitle": "Every other report in this project's flagship line picks the top 10 out of Midcap150 by momentum score. This report changes exactly one thing — top_n from 10 to 50, roughly a third of the entire 150-stock universe — using the identical formula, price history, and June/December rebalance schedule, to see what a much broader basket does to CAGR and drawdown.",
+  "source_line": "2008-12-31–2026-08-24 Report generated 2026-09-27 17:03",
+  "pages": [
+   {
+    "file": "73_midcap150_momentum50.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "negative",
+        "text": "a wider basket loses on BOTH CAGR and drawdown here"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Widening the basket from top-10 to top-50 cuts CAGR from +40.6% to +30.6% — and drawdown gets slightly WORSE too, not better: -35.1% (top-10) vs. -36.8% (top-50). There's no diversification trade-off to point to here — this isn't \"lower return, lower risk,\" it's lower return with no risk benefit at all.",
+       "The likely reason: momentum's edge comes specifically from the STRONGEST-ranked names — diluting the portfolio with names ranked 11th to 50th (weaker momentum scores, by definition) pulls in stocks the formula itself considers less attractive, without actually smoothing out the concentrated portfolio's stock-specific risk enough to show up in max drawdown."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "How the basket behaves",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "mechanism"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the plumbing behind the headline numbers.",
+      "paragraphs": [
+       "The top-50 basket held exactly 50 names at every one of the 36 rebalances — the eligible pool (stocks with a full 12-month price history on that date) never dropped below 50 even at the very start of the window, so the basket was never forced smaller than intended. And because both baskets are drawn from the SAME momentum ranking on the same date, the top-10 picks are always a strict subset of the top-50 basket by construction (100% overlap, every rebalance) — not a finding, just how the two are related."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why concentration wins here",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "Momentum investing's entire premise is that recent relative strength predicts near-term future strength — which means the formula's OWN ranking is claiming stock #1 is a better bet than stock #50. Concentrating in the top-10 takes that claim at face value; diversifying out to top-50 means holding 40 more names the formula itself ranks weaker, which should mechanically drag CAGR toward the broader index's own return — consistent with what happened here (+30.6%, well below top-10's +40.6% but still well above NIFTY 50's +12.7%).",
+       "The surprising part is that drawdown didn't improve at all despite the extra breadth — a broader basket is usually expected to smooth out single-stock blowups. That it didn't here suggests Midcap150's worst drawdowns in this window were broad, market-wide moves (most stocks falling together) rather than a few concentrated single-name disasters that diversification would have diluted."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Only ONE alternative basket size (50) was tested against the flagship top-10 — this doesn't map out the\n        full CAGR/drawdown curve across every basket size between 10 and 150 (that would need several more runs, e.g. 20/30/75).",
+       "Equal weighting within the basket (each of the 50 names gets 2% at every rebalance) — a cap-weighted or\n        score-weighted top-50 could behave differently, since it would still overweight the strongest-ranked names within the\n        broader basket.",
+       "Zero transaction costs — same disclosed omission as every other reconstruction here; a 50-name\n        portfolio also has 5x as many individual buy/sell legs per rebalance as the top-10 version, so real-world costs would\n        scale up correspondingly, not stay flat.",
+       "Today's fixed Midcap150 constituent list is applied retroactively across the whole window (survivorship\n        bias). No F&O-eligibility screen, unadjusted prices, no dividends modeled — same as every other reconstruction here."
+      ]
+     }
+    ]
+   }
+  ]
  }
 }

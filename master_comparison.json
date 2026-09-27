@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-27 16:52",
+  "generated": "2026-09-27 17:07",
   "rows": [
     {
       "universe": "Midcap150",
@@ -115,6 +115,23 @@
       "net_return_pct": 30216.946070096135,
       "sharpe": 1.7108449775476313,
       "sortino": 2.2618115551249396,
+      "bench_cagr_pct": 12.65249908563031,
+      "bench_max_drawdown_pct": -38.43985245274211,
+      "bench_sharpe": 0.7699912429190561,
+      "bench_sortino": 1.0470507807268283
+    },
+    {
+      "universe": "Midcap150",
+      "category": "Basket Size",
+      "label": "Top-50 (vs. the flagship top-10)",
+      "report": 73,
+      "start_date": "2008-12-31",
+      "end_date": "2026-08-24",
+      "cagr_pct": 30.598523028081388,
+      "max_drawdown_pct": -36.75872236659961,
+      "net_return_pct": 11011.755356636097,
+      "sharpe": 1.6150124183424805,
+      "sortino": 1.9741924344976418,
       "bench_cagr_pct": 12.65249908563031,
       "bench_max_drawdown_pct": -38.43985245274211,
       "bench_sharpe": 0.7699912429190561,

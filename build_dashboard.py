@@ -263,6 +263,8 @@ GROUPS = [
              "title": "Midcap Momentum 10 — Core-Satellite (70/30) + Full Gold Switch", "subtitle": "The shallowest drawdown of any combination tested here — at a real CAGR cost"},
             {"id": "72", "file": "72_midcap_momentum10_core_satellite_5050_gold.html", "icon": ICON_SPLIT,
              "title": "Midcap Momentum 10 — Core-Satellite (50/50) + Full Gold Switch", "subtitle": "More gold, more CAGR given up — but zero extra drawdown protection here"},
+            {"id": "73", "file": "73_midcap150_momentum50.html", "icon": ICON_LAYERS,
+             "title": "Midcap150 Momentum 50 — A Much Wider Basket", "subtitle": "Loses on BOTH CAGR and drawdown against the flagship top-10"},
         ],
     },
 ]

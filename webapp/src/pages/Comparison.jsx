@@ -10,6 +10,7 @@ const UNIVERSES = ["Midcap150", "Smallcap250", "NIFTY100", "NIFTY500"];
 const CATEGORIES = [
   "Baseline",
   "Weighting",
+  "Basket Size",
   "Regime Filter",
   "Filter + Hedge",
   "Core-Satellite",
@@ -21,6 +22,7 @@ const CATEGORIES = [
 const CATEGORY_COLOR = {
   Baseline: "text-muted-2 border-muted-2/40",
   Weighting: "text-accent border-accent/40",
+  "Basket Size": "text-[#f25ca6] border-[#f25ca6]/40",
   "Regime Filter": "text-positive border-positive/40",
   "Filter + Hedge": "text-assumption border-assumption/40",
   "Core-Satellite": "text-[#ff8a5c] border-[#ff8a5c]/40",

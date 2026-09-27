@@ -182,6 +182,18 @@ def process_universe(universe_name, closes, nifty_close, select_fn, select_fn_fr
     add_row(universe_name, "Weighting", "Inverse-volatility weighting", report_numbers["invvol"],
             invvol_series, nifty_close, idx)
 
+    # Basket size: same formula, same select_fn, just a much wider top_n
+    # (e.g. 50 instead of 10) — every select_fn in this project accepts
+    # top_n/min_eligible kwargs, so this generalizes across universes even
+    # though only Midcap150 has actually been tested so far.
+    basket_num = report_numbers.get("basket_50")
+    if basket_num:
+        wide_series, _ = build_index_generic(
+            closes, rbdates, lambda c, t_idx: select_fn(c, t_idx, top_n=50, min_eligible=50))
+        idx_w = common_idx.intersection(wide_series.index)
+        add_row(universe_name, "Basket Size", "Top-50 (vs. the flagship top-10)", basket_num,
+                wide_series, nifty_close, idx_w)
+
     if own_signal_close is not None:
         own_idx = closes.index.intersection(nifty_close.index).intersection(own_signal_close.index)
         own_ema = own_signal_close.loc[own_idx].ewm(span=EMA_SPAN, adjust=False).mean()
@@ -244,7 +256,7 @@ def main():
         midcapietf, "MIDCAPIETF.NS", 30,
         {"original": 11, "frontloaded": 37, "filter_cash": 42, "filter_gold": 48, "invvol": 51,
          "own_signal": 54, "asymmetric": 59, "abs_gate": 62, "smooth": 65, "smooth_hedge": 68,
-         "trailing_stop": 58, "core_satellite_70_30": 71, "core_satellite_50_50": 72},
+         "trailing_stop": 58, "core_satellite_70_30": 71, "core_satellite_50_50": 72, "basket_50": 73},
         gold_close=gold_close_full,
     )
 
