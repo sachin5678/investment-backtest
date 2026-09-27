@@ -321,6 +321,7 @@ def build():
   :root {{
     --ground:#08171E; --panel:#0F2630; --border:#1E3A45;
     --positive:#37F083; --assumption:#F2B03C; --negative:#F2643C; --text:#E6EDF0; --muted:#7E97A0;
+    --accent:#6AE4FF;
   }}
   html,body{{height:100%;margin:0;background:var(--ground);color:var(--text);
     font-family:'Fira Sans',ui-sans-serif,system-ui,-apple-system,sans-serif;}}
@@ -333,6 +334,10 @@ def build():
   #brand{{padding:22px 20px 16px;border-bottom:1px solid var(--border);}}
   #brand h1{{font-size:16px;font-weight:700;margin:0;color:var(--text);letter-spacing:-0.01em;}}
   #brand p{{font-size:12px;color:var(--muted);margin:4px 0 0;line-height:1.4;}}
+  #masterCmpLink{{display:inline-flex;align-items:center;gap:4px;margin-top:10px;font-size:12px;font-weight:600;
+    color:var(--accent);text-decoration:none;padding:6px 10px;border:1px solid var(--border);border-radius:8px;
+    transition:border-color 120ms ease,background-color 120ms ease;}}
+  #masterCmpLink:hover{{border-color:var(--accent);background:rgba(106,228,255,0.08);}}
   #jumpWrap{{padding:14px 20px 12px;border-bottom:1px solid var(--border);}}
   #jumpLabel{{font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;
     color:var(--muted);display:block;margin-bottom:6px;}}
@@ -389,6 +394,7 @@ def build():
     <div id="brand">
       <h1>NIFTY &amp; Midcap Strategy Lab</h1>
       <p>{len(ALL_ITEMS)} backtested strategies &middot; NIFTY 50, NIFTY Midcap 150 &amp; a momentum factor &middot; each report is a full standalone analysis</p>
+      <a id="masterCmpLink" href="master_comparison.html" target="_blank" rel="noopener">Master comparison table &rarr;</a>
     </div>
     {jump_html}
     {nav_html}
