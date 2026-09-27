@@ -265,6 +265,10 @@ GROUPS = [
              "title": "Midcap Momentum 10 — Core-Satellite (50/50) + Full Gold Switch", "subtitle": "More gold, more CAGR given up — but zero extra drawdown protection here"},
             {"id": "73", "file": "73_midcap150_momentum50.html", "icon": ICON_LAYERS,
              "title": "Midcap150 Momentum 50 — A Much Wider Basket", "subtitle": "Loses on BOTH CAGR and drawdown against the flagship top-10"},
+            {"id": "74", "file": "74_nifty500_quality50_rebalanced.html", "icon": ICON_FLASK,
+             "title": "NIFTY500 Quality 50 — A Real Rebalanced Backtest", "subtitle": "Only ~14 months of data support this, but it's a genuine rebalance, not a snapshot"},
+            {"id": "75", "file": "75_midcap150_quality10_rebalanced.html", "icon": ICON_FLASK,
+             "title": "Midcap150 Quality 10 — A Real Rebalanced Backtest", "subtitle": "Quality lost money outright here — the momentum flagship did not"},
         ],
     },
 ]

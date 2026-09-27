@@ -5054,5 +5054,126 @@
     ]
    }
   ]
+ },
+ "74": {
+  "title": "NIFTY500 Quality 50 — A Real Rebalanced Backtest, Not a Snapshot",
+  "subtitle": "Report 13's Quality-50 basket was a one-time, buy-and-hold snapshot — this report actually REBALANCES it, using the real NSE Quality formula (0.33*Z(ROE) - 0.33*Z(D/E) - 0.33*Z(EPS growth variability), same as report 13) recomputed at each of the only two point-in-time-correct fundamentals snapshots this project's data cache actually supports.",
+  "source_line": "2025-06-02–2026-08-24 Report generated 2026-09-27 17:33",
+  "pages": [
+   {
+    "file": "74_nifty500_quality50_rebalanced.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "only ~14 months of real data exist for this — read this before the numbers below"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "yfinance's cached annual balance-sheet/financials history is only ~3 usable fiscal years deep for most NIFTY500 tickers. Under the SAME eligibility bar report 13 already used (a real, non-degenerate EPS growth-variability measure needs at least 2 year-over-year growth figures, i.e. 3 annual EPS points), a broad, 450+/500-ticker-wide universe first becomes scoreable as of fiscal year ending 2025-03-31 — not 2022, 2023, or 2024. The only OTHER broad snapshot in this cache is FY 2026-03-31. That means this \"backtest\" has exactly ONE real rebalance event, not the 18 years and dozens of rebalances every momentum report in this project uses — a fundamentally different, much thinner kind of evidence. Take the CAGR figures below with real skepticism; annualizing a 14-month return exaggerates whatever happened to occur in this one specific window. The net return figures are the more honest number to anchor on.",
+       "A 2-calendar-month reporting lag is assumed before each fiscal year's fundamentals are usable (a disclosed assumption, not a measured one) — so the FY2025-03-31 basket is formed 2025-06-02, and rebalanced into the FY2026-03-31 basket on 2026-06-01."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why this isn't a strong test of \"quality\" as a factor",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the honest limits of what one rebalance event can tell you.",
+      "paragraphs": [
+       "Every momentum report in this project earns its credibility from surviving MANY market regimes across 18 years — bull runs, the 2020 crash, multiple rate cycles. This report has exactly one ~14-month window and one rebalance event. Whatever the Quality-50 basket did here — beat or lag the momentum flagship, beat or lag NIFTY 50 — is one data point, not a track record. A single quiet or volatile stretch can flatter or unfairly punish ANY factor, quality included.",
+       "This report exists to show what a REAL, point-in-time-correct rebalance looks like with the fundamentals data actually available — not to make a claim about whether quality investing works in India. That would need years more fundamentals history than yfinance's free tier currently caches for this project."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Only TWO rebalance dates exist in this data cache — this is a ~14-month test, not an 18-year one.\n        See the disclosure panel above for exactly why.",
+       "The 2-calendar-month reporting lag is an assumption, not a measured company-by-company disclosure\n        date — real result-announcement timing varies (large caps often report faster, small/mid caps sometimes slower).",
+       "Equal weighting (not free-float-market-cap x quality-score weighted, the real NSE index's own\n        methodology) — same disclosed simplification report 13 used.",
+       "Today's fixed NIFTY500 constituent list is applied retroactively (survivorship bias) — same as\n        every other reconstruction here. A ticker with usable fundamentals but no price yet on the rebalance date (a real\n        case found while building this: a name that IPO'd shortly after a rebalance) is excluded from that rebalance's\n        eligible pool, same as momentum's own price-eligibility filters.",
+       "Zero transaction costs, no dividends modeled, unadjusted prices — same as every other\n        reconstruction here."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "75": {
+  "title": "Midcap150 Quality 10 — A Real Rebalanced Backtest, Not a Snapshot",
+  "subtitle": "The Midcap150 counterpart to report 74's NIFTY500 Quality 50 — same real NSE Quality formula, same rebalance mechanics and same data-availability limits, applied to this project's flagship Midcap150 universe (10 out of 150 stocks — proportionally close to 50 out of 500).",
+  "source_line": "2025-06-02–2026-08-24 Report generated 2026-09-27 17:34",
+  "pages": [
+   {
+    "file": "75_midcap150_quality10_rebalanced.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "negative",
+        "text": "quality-10 lost money outright in this window — the momentum flagship did not"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Over the same ~14-month stretch (see report 74's data-availability disclosure — only two real fundamentals snapshots exist in this cache, so this is one rebalance event, not an 18-year track record), the Midcap150 Quality-10 basket returned -16.4% — a real loss — while the Midcap150 Momentum-10 flagship returned +9.2% and even NIFTY 50 itself came in at -2.0%. Quality was the worst of the three here, by a wide margin, and its drawdown (-29.0%) was also the deepest of the three.",
+       "This is a genuinely unflattering result for quality investing over this specific window, reported exactly as computed — a concentrated 10-stock basket (vs. 50 on NIFTY500) has much more idiosyncratic risk than a broader quality basket, and one bad stretch for a couple of names in a 10-stock portfolio can dominate the whole result. See the honesty note below for why this single data point shouldn't be read as \"quality doesn't work.\""
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why this isn't a strong test of \"quality\" as a factor",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the honest limits of what one rebalance event, on a 10-stock basket, can tell you.",
+      "paragraphs": [
+       "Every momentum report in this project earns its credibility from surviving MANY market regimes across 18 years. This report has exactly one ~14-month window, one rebalance event, and only 10 stocks — small enough that one or two names having a bad stretch can dominate the whole basket's return, independent of whether \"quality\" as a factor is sound. The formula also only had 2-3 years of trailing annual data to average over at this point (see quality_pit.py's docstring) — a much noisier ROE/D-E/EPS-growth-variability estimate than a mature index with a decade of history to average across.",
+       "This report exists to show what a REAL, point-in-time-correct rebalance looks like with the fundamentals data actually available — not to make a claim about whether quality investing works on Indian midcaps. A single bad (or good) stretch for a concentrated basket is one data point, not a verdict."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Only TWO rebalance dates exist in this data cache — this is a ~14-month test, not an 18-year one.\n        See report 74's disclosure panel for exactly why.",
+       "Only 10 stocks — much more concentrated (and idiosyncratic-risk-exposed) than report 74's 50-stock\n        NIFTY500 Quality basket.",
+       "The 2-calendar-month reporting lag is an assumption, not a measured company-by-company disclosure\n        date.",
+       "Equal weighting (not free-float-market-cap x quality-score weighted, the real index's own\n        methodology) — same disclosed simplification report 13 used.",
+       "Today's fixed Midcap150 constituent list is applied retroactively (survivorship bias) — same as\n        every other reconstruction here. A ticker with usable fundamentals but no price yet on the rebalance date is\n        excluded from that rebalance's eligible pool, same as momentum's own price-eligibility filters.",
+       "Zero transaction costs, no dividends modeled, unadjusted prices — same as every other\n        reconstruction here."
+      ]
+     }
+    ]
+   }
+  ]
  }
 }

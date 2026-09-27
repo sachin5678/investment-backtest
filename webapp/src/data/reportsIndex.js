@@ -183,6 +183,8 @@ export const GROUPS = [
       { id: "71", file: "results70.json", icon: ICON_SPLIT, title: "Midcap Momentum 10 — Core-Satellite (70/30) + Full Gold Switch", subtitle: "The shallowest drawdown of any combination tested here — at a real CAGR cost" },
       { id: "72", file: "results71.json", icon: ICON_SPLIT, title: "Midcap Momentum 10 — Core-Satellite (50/50) + Full Gold Switch", subtitle: "More gold, more CAGR given up — but zero extra drawdown protection here" },
       { id: "73", file: "results72.json", icon: ICON_LAYERS, title: "Midcap150 Momentum 50 — A Much Wider Basket", subtitle: "Loses on BOTH CAGR and drawdown against the flagship top-10" },
+      { id: "74", file: "results73.json", icon: ICON_FLASK, title: "NIFTY500 Quality 50 — A Real Rebalanced Backtest", subtitle: "Only ~14 months of data support this, but it's a genuine rebalance, not a snapshot" },
+      { id: "75", file: "results74.json", icon: ICON_FLASK, title: "Midcap150 Quality 10 — A Real Rebalanced Backtest", subtitle: "Quality lost money outright here — the momentum flagship did not" },
     ],
   },
 ];
