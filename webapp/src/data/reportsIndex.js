@@ -39,6 +39,8 @@ const ICON_HOURGLASS = "M6 3h12 M6 21h12 M7 3c0 5 5 6 5 9s-5 4-5 9 M17 3c0 5-5 6
 const ICON_COIN_SHIELD = "M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3z M12 8a3 3 0 1 0 0 6 3 3 0 0 0 0-6z";
 const ICON_SCALE_10 = "M6,3a3,3 0 1 0 0,6a3,3 0 1 0 0,-6 M12,7.8a2.2,2.2 0 1 0 0,4.4a2.2,2.2 0 1 0 0,-4.4 M18,4.6a1.4,1.4 0 1 0 0,2.8a1.4,1.4 0 1 0 0,-2.8 M4 18h16 M6 9v9 M12 12.2v5.8 M18 7.4v9.6";
 const ICON_TARGET_SELF = "M12,3a9,9 0 1 0 0,18a9,9 0 1 0 0,-18 M12,7a5,5 0 1 0 0,10a5,5 0 1 0 0,-10 M12 10.5v3 M10.5 12h3";
+const ICON_BREADTH = "M3 21v-7 M8 21v-12 M13 21v-17 M18 21v-10 M3 7l6-3 5 2 7-4";
+const ICON_TRAIL_STOP = "M3 18l4-8 5 3 5-9 4 3 M7 10v11 M17 4v17";
 
 export const GROUPS = [
   {
@@ -160,6 +162,8 @@ export const GROUPS = [
       { id: "54", file: "results53.json", icon: ICON_TARGET_SELF, title: "Midcap Momentum 10 — Universe-Specific Trend Filter", subtitle: "Inconclusive — the midcap ETF proxy's short history limits this test" },
       { id: "55", file: "results54.json", icon: ICON_TARGET_SELF, title: "Smallcap250 Momentum 10 — Universe-Specific Trend Filter", subtitle: "A real index, full history — better drawdown, some CAGR cost" },
       { id: "56", file: "results55.json", icon: ICON_TARGET_SELF, title: "NIFTY100 Momentum 10 — Universe-Specific Trend Filter", subtitle: "Same trade-off as Smallcap250 — two of three full-history tests agree" },
+      { id: "57", file: "results56.json", icon: ICON_BREADTH, title: "Midcap Momentum 10 — Breadth Confirmation for the Regime Filter", subtitle: "Barely moves the needle — breadth and NIFTY 50's trend are highly correlated" },
+      { id: "58", file: "results57.json", icon: ICON_TRAIL_STOP, title: "Midcap Momentum 10 — Trailing Stop vs. Report 27's Fixed Stop", subtitle: "A tight trailing stop backfires badly; a wide one genuinely beats the fixed version" },
     ],
   },
 ];

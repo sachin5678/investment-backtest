@@ -251,6 +251,104 @@ def build_index_regime_filtered_with_hedge(closes, signal_close, signal_ma, rbda
     return index_level.dropna(), selections, state_log
 
 
+def build_index_regime_filtered_breadth(closes, nifty_close, ema, rbdates, select_fn, breadth_threshold=0.5, breadth_ema_span=EMA_SPAN):
+    """Same 200-day EMA regime filter as build_index_regime_filtered, PLUS
+    a second condition: NIFTY 50 must be above its own 200-EMA AND at
+    least breadth_threshold (e.g. 0.5 = 50%) of the relevant top-10
+    candidates must ALSO be above their own 200-day EMA (same span,
+    computed per-stock). While invested, "the relevant top-10" is
+    whatever is CURRENTLY HELD (cheap to check, no recomputation). While
+    in cash and NIFTY's condition is met, today's candidate top-10 is
+    recomputed via select_fn specifically to check its breadth before
+    deciding whether to actually buy — if breadth fails, the strategy
+    stays in cash and re-checks the next day, exactly like a real
+    "wait for confirmation before entering" rule would."""
+    stock_ema = closes.ewm(span=breadth_ema_span, adjust=False).mean()
+    dates = closes.index
+    rb_set = set(rbdates)
+    index_level = pd.Series(np.nan, index=dates)
+    shares = {}
+    started = False
+    state = "cash"
+    selections = []
+    state_log = []
+
+    def do_select(t_idx):
+        return select_fn(closes, t_idx)
+
+    def buy(selected, value_before, price_today):
+        dollar_each = value_before / len(selected)
+        return {tk: dollar_each / price_today[tk] for tk in selected}
+
+    def breadth_ok(tickers, i):
+        if not tickers:
+            return False
+        price_today = closes.iloc[i]
+        ema_today = stock_ema.iloc[i]
+        cnt = sum(1 for tk in tickers
+                   if pd.notna(price_today.get(tk)) and pd.notna(ema_today.get(tk)) and price_today[tk] > ema_today[tk])
+        return (cnt / len(tickers)) >= breadth_threshold
+
+    for i, d in enumerate(dates):
+        is_rebalance_day = d in rb_set
+        ema_today = ema.iloc[i]
+        nifty_ok = bool(nifty_close.iloc[i] > ema_today) if pd.notna(ema_today) else False
+        price_today = closes.iloc[i]
+
+        if not started:
+            if is_rebalance_day and nifty_ok:
+                selected = do_select(i)
+                if selected is not None and breadth_ok(selected, i):
+                    started = True
+                    state = "invested"
+                    shares = buy(selected, 100.0, price_today)
+                    selections.append({"date": d.strftime("%Y-%m-%d"),
+                                        "tickers": [t.replace(".NS", "") for t in selected],
+                                        "trigger": "initial_entry"})
+            if started:
+                val = sum(shares.get(tk, 0.0) * price_today.get(tk, 0.0) for tk in shares)
+                index_level.iloc[i] = val
+                state_log.append((d, state))
+            continue
+
+        if state == "invested":
+            value_before = sum(shares.get(tk, 0.0) * price_today.get(tk, 0.0) for tk in shares if pd.notna(price_today.get(tk)))
+            if value_before <= 0:
+                value_before = index_level.iloc[i - 1]
+            still_ok = nifty_ok and breadth_ok(list(shares.keys()), i)
+            if not still_ok:
+                state = "cash"
+                shares = {}
+                val = value_before
+            elif is_rebalance_day:
+                selected = do_select(i)
+                if selected is not None:
+                    shares = buy(selected, value_before, price_today)
+                    selections.append({"date": d.strftime("%Y-%m-%d"),
+                                        "tickers": [t.replace(".NS", "") for t in selected],
+                                        "trigger": "scheduled_rebalance"})
+                val = sum(shares.get(tk, 0.0) * price_today.get(tk, 0.0) for tk in shares if pd.notna(price_today.get(tk)))
+            else:
+                val = value_before
+        else:
+            value_before = index_level.iloc[i - 1]
+            val = value_before
+            if nifty_ok:
+                selected = do_select(i)
+                if selected is not None and breadth_ok(selected, i):
+                    shares = buy(selected, value_before, price_today)
+                    state = "invested"
+                    selections.append({"date": d.strftime("%Y-%m-%d"),
+                                        "tickers": [t.replace(".NS", "") for t in selected],
+                                        "trigger": "regime_reentry"})
+                    val = value_before
+
+        index_level.iloc[i] = val
+        state_log.append((d, state))
+
+    return index_level.dropna(), selections, state_log
+
+
 def cash_blocks_from_log(state_log, min_days=MIN_CASH_BLOCK_DAYS):
     if not state_log:
         return [], 0.0

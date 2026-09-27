@@ -3908,5 +3908,130 @@
     ]
    }
   ]
+ },
+ "57": {
+  "title": "Midcap150 Momentum 10 — Breadth Confirmation for the Regime Filter",
+  "subtitle": "Reports 42-56 triggered the cash/invested switch purely from NIFTY 50's own 200-day EMA. This report adds a second condition: NIFTY 50 must be above its own 200-EMA AND at least a minimum share of the relevant top-10 candidates must ALSO be above their own 200-day EMA — so one index's price alone isn't the sole trigger. Four thresholds tested (30%/50%/70%/90%), same Midcap150 Momentum 10 formula throughout.",
+  "source_line": "2009-06-30–2026-08-24 Report generated 2026-09-27 14:46",
+  "pages": [
+   {
+    "file": "57_midcap_momentum10_breadth_confirmation.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "neutral",
+        "text": "barely moves the needle at any reasonable threshold"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "At 30%, 50%, and 70% breadth thresholds, CAGR and max drawdown are essentially IDENTICAL to the NIFTY-50-only filter (+38.3% / -23.5%) — the breadth condition is almost always already satisfied whenever NIFTY 50 itself is above its 200-EMA. Only at a strict 90% threshold does the filter start behaving noticeably differently, and even then it's WORSE, not better: re-entries climb to 82 (vs. 69 for NIFTY-only) for essentially the same CAGR and drawdown.",
+       "The honest reading: in this Midcap150 universe, breadth and NIFTY 50's own trend are highly correlated — when the broad market is above its 200-day average, more than half (often more than 70%) of midcap stocks tend to be too, simply because they're all reacting to the same broad economic and market conditions. Requiring extra breadth confirmation adds complexity without adding much genuinely NEW information, at least at the thresholds tested here."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why breadth confirmation didn't add much here",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "Breadth confirmation is a real, commonly-used idea in technical analysis — the logic is that a \"healthy\" market advance should be broad, not just a few large names pulling the index up while everything else lags, and a market where the index looks fine but breadth is deteriorating underneath is sometimes flagged as an early warning sign. That logic didn't pay off here because Midcap150 and NIFTY 50, despite trading different stocks, are both driven by the SAME broad economic and liquidity conditions — interest rates, FII flows, macro sentiment — so their trend signals move together far more often than they diverge. A confirmation rule only helps when the two signals genuinely disagree often enough to matter, and in this dataset, they mostly don't.",
+       "The 90% threshold's slightly WORSE result (more re-entries for no better CAGR or drawdown) is itself instructive: a very strict breadth requirement doesn't wait for a genuinely different signal, it just makes the SAME underlying NIFTY-50 signal jumpier, since requiring near-unanimous participation is itself sensitive to whichever single stock happens to be right at its own 200-EMA on a given day. This is a cautionary example against reflexively adding \"confirmation\" conditions without checking whether they're independent enough of the base signal to actually change anything."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Breadth is checked against the CURRENTLY HELD top-10 while invested, and against a freshly recomputed candidate top-10 while in cash — a different, arguably stricter design (e.g. checking breadth across the FULL 150-stock universe rather than just the top-10) could behave differently.",
+       "The per-stock breadth EMA uses the same 200-day span as the main NIFTY 50 signal — this wasn't varied independently.",
+       "Zero transaction costs on ANY regime switch — same disclosed omission as reports 42-56.",
+       "Cash earns exactly 0% while any variant is out of the market, same convention as reports 03, 42-56.",
+       "Only ONE universe (Midcap150) and ONE historical window were tested — a market with more genuine large-cap/midcap divergence than 2008-2026 India could show a bigger effect from breadth confirmation.",
+       "Today's fixed Midcap150 constituent list is applied retroactively (survivorship bias). Equal weighting, no F&O-eligibility screen, unadjusted prices, no dividends modeled — same as every other reconstruction here."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "58": {
+  "title": "Midcap150 Momentum 10 — Per-Stock Trailing Stop vs. Report 27's Fixed Stop",
+  "subtitle": "Report 27 tested a FIXED stop-loss (15% and 30% below each position's own ENTRY price, never moving). This report tests the same two thresholds measured off each position's own PEAK price since entry instead — a trailing stop that ratchets UP as a winning position's peak rises, cutting individual losers without needing report 42-57's portfolio-wide regime switch at all. Same realistic Low/Open fill methodology as report 27, cash until the next rebalance.",
+  "source_line": "2008-12-31–2026-08-24 Report generated 2026-09-27 14:48",
+  "pages": [
+   {
+    "file": "58_midcap_momentum10_trailing_stop.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "negative",
+        "text": "a tight trailing stop is far more destructive than a tight fixed one"
+       },
+       {
+        "kind": "negative",
+        "text": "15% trailing stopped out 90.0% of ALL positions"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "At 15%, trailing is dramatically WORSE than fixed: CAGR collapses from +23.6% (fixed) to +8.8% (trailing) — because a stop that RATCHETS UP with every new high triggers on completely normal volatility, not just genuine reversals. It stopped out 90.0% of every position ever held, at an AVERAGE return of +2.4% — often a small gain, not a loss, because the stop was simply too tight to survive ordinary price noise.",
+       "At 30%, the picture flips: trailing BEATS fixed on drawdown — -32.1% (fixed) improves to -29.4% (trailing) — for a modest CAGR cost, +35.0% to +31.3%. A WIDE trailing stop genuinely locks in gains on winners without over-triggering; a TIGHT one just adds noise-driven churn."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why \"trailing\" isn't automatically \"better\"",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "A fixed stop is anchored to the ENTRY price for the whole holding period — a stock that rallies 40% then pulls back 15% from its peak is nowhere near a 15%-off-entry fixed stop (it's still up ~19% from entry), so it survives. A TRAILING stop has no such cushion: the moment that same stock's peak rises, the stop level rises right along with it, so a routine 15% pullback from ANY new high — completely normal for a volatile midcap stock, several times a year even during a genuine uptrend — triggers an exit. That's exactly why 90.0% of every position held was stopped out at 15% trailing, at a barely-positive average return: the stop was firing on ordinary noise, not on actual reversals.",
+       "A wide trailing stop (30%) avoids that failure mode — normal volatility rarely swings 30% from a recent peak within a 6-month window, so it mostly triggers on genuine, sustained reversals, which is exactly the scenario where locking in a rising floor pays off. The lesson generalizes beyond stop-losses: any rule that reacts to a MOVING reference point (a trailing peak, a moving average, a recent high) needs to be set wide enough to filter out routine noise, or it ends up reacting to volatility itself rather than to the trend it was meant to protect against — the same lesson report 46 found for EMA span and report 47 found for confirmation delay."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Today's peak folds in AFTER today's stop check (using yesterday's peak to avoid same-day look-ahead) — a same-day update would be slightly more optimistic and is NOT what's modeled here.",
+       "Only two thresholds (15%, 30%) were tested — the true \"sweet spot\" between trailing-15's collapse and trailing-30's modest win could sit anywhere in between, or beyond 30%.",
+       "Money freed by any stop-loss sits in cash (0% return) until the next scheduled rebalance — no rule for reinvesting it into a new stock mid-period, same as report 27.",
+       "Zero transaction costs, slippage, or taxes modeled beyond the realistic Low/Open fill mechanics — a strategy that stops out 90.0% of positions (trailing 15%) would incur FAR more real-world brokerage than the 36-rebalance baseline (see report 32 for what real charges do to even the un-stopped strategy).",
+       "Today's fixed Midcap150 constituent list is applied retroactively (survivorship bias). Equal weighting, no F&O-eligibility screen, unadjusted prices, no dividends modeled — same as every other reconstruction here. This is a single, fixed 18-year historical path."
+      ]
+     }
+    ]
+   }
+  ]
  }
 }

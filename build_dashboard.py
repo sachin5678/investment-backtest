@@ -48,6 +48,8 @@ ICON_HOURGLASS = '<path d="M6 3h12" fill="none"/><path d="M6 21h12" fill="none"/
 ICON_COIN_SHIELD = '<path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3z" fill="none"/><circle cx="12" cy="11" r="3" fill="none"/><path d="M12 9v.5" fill="none"/><path d="M12 12.5v.5" fill="none"/>'
 ICON_SCALE_10 = '<circle cx="6" cy="6" r="3" fill="none"/><circle cx="12" cy="10" r="2.2" fill="none"/><circle cx="18" cy="6" r="1.4" fill="none"/><path d="M4 18h16" fill="none"/><path d="M6 9v9" fill="none"/><path d="M12 12.2v5.8" fill="none"/><path d="M18 7.4v9.6" fill="none"/>'
 ICON_TARGET_SELF = '<circle cx="12" cy="12" r="9" fill="none"/><circle cx="12" cy="12" r="5" fill="none"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/>'
+ICON_BREADTH = '<rect x="3" y="14" width="3" height="7" rx="0.5"/><rect x="8" y="9" width="3" height="12" rx="0.5"/><rect x="13" y="4" width="3" height="17" rx="0.5"/><rect x="18" y="11" width="3" height="10" rx="0.5"/><polyline points="3,7 9,4 14,6 21,2" fill="none"/>'
+ICON_TRAIL_STOP = '<polyline points="3,18 7,10 12,13 17,4 21,7" fill="none"/><line x1="7" y1="10" x2="7" y2="21"/><line x1="17" y1="4" x2="17" y2="21"/>'
 
 GROUPS = [
     {
@@ -225,6 +227,10 @@ GROUPS = [
              "title": "Smallcap250 Momentum 10 — Universe-Specific Trend Filter", "subtitle": "A real index, full history — better drawdown, some CAGR cost"},
             {"id": "56", "file": "56_nifty100_momentum10_own_index_trend_filter.html", "icon": ICON_TARGET_SELF,
              "title": "NIFTY100 Momentum 10 — Universe-Specific Trend Filter", "subtitle": "Same trade-off as Smallcap250 — two of three full-history tests agree"},
+            {"id": "57", "file": "57_midcap_momentum10_breadth_confirmation.html", "icon": ICON_BREADTH,
+             "title": "Midcap Momentum 10 — Breadth Confirmation for the Regime Filter", "subtitle": "Barely moves the needle — breadth and NIFTY 50's trend are highly correlated"},
+            {"id": "58", "file": "58_midcap_momentum10_trailing_stop.html", "icon": ICON_TRAIL_STOP,
+             "title": "Midcap Momentum 10 — Trailing Stop vs. Report 27's Fixed Stop", "subtitle": "A tight trailing stop backfires badly; a wide one genuinely beats the fixed version"},
         ],
     },
 ]
