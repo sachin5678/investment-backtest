@@ -1,15 +1,18 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { GROUPS, ALL_ITEMS, isPremiumReport } from "../data/reportsIndex";
 import { useAuth } from "../context/AuthContext";
 import Icon from "./Icon";
 import Logo from "./Logo";
 
 const ICON_LOCK_SMALL = "M6 11h12v9h-12z M9 11V7a3 3 0 0 1 6 0v4";
+const ICON_COMPARE = "M4 21V9l8-6 8 6v12 M4 15h16 M9 15v6 M15 15v6";
 
 export default function Sidebar({ open, onClose }) {
   const navigate = useNavigate();
   const { id: activeId } = useParams();
+  const location = useLocation();
   const { isLoggedIn } = useAuth();
+  const onCompare = location.pathname === "/compare";
 
   function go(id) {
     navigate(`/report/${id}`);
@@ -57,6 +60,14 @@ export default function Sidebar({ open, onClose }) {
             </optgroup>
           ))}
         </select>
+        <button
+          onClick={() => { navigate("/compare"); onClose?.(); }}
+          className={`w-full flex items-center gap-2 mt-2.5 px-3 py-2.5 rounded-lg border cursor-pointer transition-colors text-[13px] font-semibold
+            ${onCompare ? "bg-accent-dim border-accent text-accent" : "border-border text-muted hover:text-text hover:border-muted-2"}`}
+        >
+          <Icon path={ICON_COMPARE} className="w-[16px] h-[16px] shrink-0" />
+          Compare all strategies
+        </button>
       </div>
 
       {GROUPS.map((g) => (

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Outlet, useParams, Link } from "react-router-dom";
+import { Outlet, useParams, useLocation, Link } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import AuthButton from "./AuthButton";
 import { ITEM_BY_ID } from "../data/reportsIndex";
@@ -7,7 +7,9 @@ import { ITEM_BY_ID } from "../data/reportsIndex";
 export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { id } = useParams();
+  const location = useLocation();
   const item = ITEM_BY_ID[id];
+  const isCompare = location.pathname === "/compare";
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -33,6 +35,20 @@ export default function Layout() {
               <div className="min-w-0 flex-1">
                 <h2 className="text-[15px] font-semibold text-text truncate">{item.title}</h2>
                 <p className="text-xs text-muted truncate">{item.subtitle}</p>
+              </div>
+              <AuthButton />
+              <Link
+                to="/"
+                className="hidden sm:inline-flex items-center gap-1.5 text-[13px] font-medium text-accent border border-accent/40 rounded-full px-3.5 py-1.5 shrink-0 transition-colors hover:bg-accent-dim focus-visible:outline-2 focus-visible:outline-accent"
+              >
+                Overview
+              </Link>
+            </>
+          ) : isCompare ? (
+            <>
+              <div className="min-w-0 flex-1">
+                <h2 className="text-[15px] font-semibold text-text truncate">Master Comparison</h2>
+                <p className="text-xs text-muted truncate">Every strategy variant, sortable and filterable, against NIFTY 50</p>
               </div>
               <AuthButton />
               <Link

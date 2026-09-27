@@ -2,6 +2,7 @@ import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./components/Layout";
 import ReportPage from "./pages/ReportPage";
 import Overview from "./pages/Overview";
+import Comparison from "./pages/Comparison";
 import { AuthProvider } from "./context/AuthContext";
 
 // HashRouter (not BrowserRouter) is deliberate: it makes every route work
@@ -21,6 +22,7 @@ export default function App() {
           <Route path="/" element={<Overview />} />
           <Route path="/" element={<Layout />}>
             <Route path="report/:id" element={<ReportPage />} />
+            <Route path="compare" element={<Comparison />} />
           </Route>
           {/* Defensive fallback: HashRouter treats the WHOLE url hash as its
               routing namespace, so a plain in-page anchor like #methodology
