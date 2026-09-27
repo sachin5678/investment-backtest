@@ -4033,5 +4033,554 @@
     ]
    }
   ]
+ },
+ "59": {
+  "title": "Midcap150 Momentum 10 — Asymmetric EMA Regime Filter",
+  "subtitle": "Reports 42-58 used the SAME 200-day EMA for both exiting and re-entering. This report tests exiting on the slow 200-day EMA (unchanged, avoids whipsaw on the way out) but re-entering on a FASTER 50-day EMA — the idea being to catch a market recovery sooner instead of waiting for the slow average to catch up, directly targeting the \"always re-enters late\" pattern flagged in reports 42, 55, and 56.",
+  "source_line": "2008-12-31–2026-08-24 Report generated 2026-09-27 15:02",
+  "pages": [
+   {
+    "file": "59_midcap_momentum10_asymmetric_ema.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "negative",
+        "text": "the fix backfires — more than double the whipsaw, worse drawdown"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Re-entering faster does NOT catch the recovery cleanly — it mostly catches FALSE starts. CAGR falls from +38.5% (symmetric 200/200) to +37.4% (asymmetric 200/50), and max drawdown gets WORSE, not better: -23.5% to -24.6%.",
+       "Re-entries more than DOUBLE, from 69 to 148 — the faster signal re-enters, gets caught in the STILL-slow 200-day exit shortly after, exits again, and repeats, adding exposure to further declines that the original symmetric filter would have avoided entirely."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why \"catch the recovery sooner\" backfires",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "A 50-day EMA is much choppier than a 200-day one — it crosses back and forth across the price far more often, which is exactly why it's faster to react in the first place. The problem is that \"faster to react\" cuts both ways: it re-enters at the first sign of strength, but a first sign of strength during a bear market is very often a temporary bounce, not a genuine turn. The exit condition is STILL the slow 200-day EMA, so once that false start reverses, the position has to fall a meaningful amount further before the slow exit signal triggers again — the asymmetry doesn't add a fast exit to match the fast entry, it just adds MORE round trips into declines that haven't finished yet.",
+       "This is a useful lesson about combining signals of different speeds: pairing a fast trigger with a slow one doesn't automatically get \"the best of both\" — it can just import the fast signal's false-positive rate into a strategy that was otherwise built around the slow signal's reliability."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Only ONE re-entry span (50 days) was tested — a less aggressive choice (e.g. 100 days) might strike a better balance, though report 46 already found narrower spans generally trade CAGR for drawdown rather than improving both.",
+       "Zero transaction costs on ANY regime switch — with 148 re-entries, this omission matters even more here than in report 42's already-flagged case.",
+       "Cash earns exactly 0% while out of the market, same convention as every regime-filter report here.",
+       "Today's fixed Midcap150 constituent list is applied retroactively (survivorship bias). Equal weighting, no F&O-eligibility screen, unadjusted prices, no dividends modeled — same as every other reconstruction here."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "60": {
+  "title": "Smallcap250 Momentum 10 — Asymmetric EMA Regime Filter",
+  "subtitle": "Report 59 tested exiting on the slow 200-day EMA but re-entering on a faster 50-day EMA, on Midcap150 — a clean loss. This applies the identical mechanics to report 16/29's Smallcap250 Momentum 10 config, to see whether the idea fares any better on a second universe.",
+  "source_line": "2008-12-31–2026-08-24 Report generated 2026-09-27 15:02",
+  "pages": [
+   {
+    "file": "60_smallcap250_momentum10_asymmetric_ema.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "negative",
+        "text": "the same failure mode as Midcap150 (report 59)"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "On Smallcap250, CAGR is roughly flat — +39.7% (symmetric) to +39.6% (asymmetric) — but drawdown gets meaningfully WORSE: -31.8% to -35.6%, and re-entries again more than double, 69 to 148.",
+       "Same mechanism as report 59: a faster re-entry signal catches false starts during a still-declining market, and the slow 200-day exit signal doesn't react quickly enough to cut the resulting extra exposure short."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "A second universe, the same false-start problem",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "Same explanation as report 59: the 50-day EMA is choppy enough to flag \"recovery\" on moves that turn out to be temporary bounces within a still-declining market, and the slow 200-day exit signal doesn't cut that exposure short quickly enough to avoid the follow-through decline. Smallcap stocks, being typically MORE volatile than midcaps, would be expected to produce even MORE false starts from a fast signal — consistent with re-entries again more than doubling here.",
+       "Two universes now agree: pairing a fast re-entry signal with a slow exit signal doesn't get \"the best of both speeds\" — it imports the fast signal's false-positive rate into an otherwise slow, reliable filter."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Only ONE re-entry span (50 days) was tested — a less aggressive choice might behave differently.",
+       "Zero transaction costs on ANY regime switch — with 148 re-entries, this omission matters even more here.",
+       "Cash earns exactly 0% while out of the market, same convention as every regime-filter report here.",
+       "No official \"Smallcap250 Momentum 10\" index exists — the June/December cadence is a borrowed convention. Today's fixed constituent list is applied retroactively (survivorship bias). This is a single, fixed 18-year historical path."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "61": {
+  "title": "NIFTY100 Momentum 10 — Asymmetric EMA Regime Filter",
+  "subtitle": "Reports 59-60 tested exiting on the slow 200-day EMA but re-entering on a faster 50-day EMA, on Midcap150 and Smallcap250 — both a clean loss. This applies the identical mechanics to report 12's NIFTY100 Momentum 10 config, the third and final universe in this comparison.",
+  "source_line": "2008-12-31–2026-08-21 Report generated 2026-09-27 15:02",
+  "pages": [
+   {
+    "file": "61_nifty100_momentum10_asymmetric_ema.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "negative",
+        "text": "drawdown still worse, even where CAGR ticks up slightly"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "On NIFTY100, CAGR actually edges up slightly — +30.7% (symmetric) to +30.9% (asymmetric) — the one place across all three universes where the asymmetric version doesn't lose on CAGR. But drawdown is STILL worse: -25.6% to -27.7%, with re-entries again more than doubling (69 to 147).",
+       "Three for three: on every universe tested, the asymmetric design's extra re-entries add MORE drawdown, not less — the one dimension the idea was specifically meant to improve. Whatever small CAGR upside shows up here isn't a consistent enough pattern to call this a working idea."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Three for three against the asymmetric design",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "Even on the one universe where CAGR nudges up, the drawdown outcome is consistent with reports 59-60: more, faster re-entries mean more exposure to the tail end of declines that the slow 200-day exit hasn't caught up to yet. The small CAGR gain here likely reflects NIFTY100's own lower volatility (large-cap names) producing fewer truly bad false starts than the midcap/smallcap universes — but even the \"best case\" outcome across three tests still shows the intended benefit (better drawdown) failing to materialize.",
+       "Taken together, reports 59-61 are a fairly clean rejection of the \"fast re-entry, slow exit\" idea across the whole universe-breadth spectrum this project tests — from NIFTY100's 100 large caps down to Smallcap250's 250 smaller, more volatile names."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Only ONE re-entry span (50 days) was tested — a less aggressive choice might behave differently.",
+       "Zero transaction costs on ANY regime switch — with 147 re-entries, this omission matters even more here.",
+       "Cash earns exactly 0% while out of the market, same convention as every regime-filter report here.",
+       "Today's fixed NIFTY100 constituent list (report 12's config) is applied retroactively (survivorship bias). This is a single, fixed historical path."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "62": {
+  "title": "Midcap150 Momentum 10 — Absolute Momentum Gate",
+  "subtitle": "Classic dual-momentum idea: only hold a stock if ITS OWN 12-month return is positive, even if it ranks in the top 10 by RELATIVE momentum against its peers. A slot with no qualifying candidate sits in cash (0% return) rather than being filled by the next-best relatively-ranked stock regardless of its own direction. Same selection formula and ranking otherwise, same top 10, same June/December schedule.",
+  "source_line": "2008-12-31–2026-08-24 · 36 rebalances Report generated 2026-09-27 15:04",
+  "pages": [
+   {
+    "file": "62_midcap_momentum10_absolute_momentum_gate.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "neutral",
+        "text": "the gate almost never fires, so almost nothing changes"
+       },
+       {
+        "kind": "neutral",
+        "text": "only 1 of 36 rebalances ever had an unfilled slot"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Drawdown is IDENTICAL to the original (-35.1% either way), and CAGR is slightly WORSE: +40.6% to +40.3%. Across 36 rebalances, the gate excluded a candidate in only 1 of them, averaging 9.86 of 10 slots filled.",
+       "The reason: a stock that ranks in the top 10 by RELATIVE momentum out of 150 midcap names is, in a normal market, very likely already up over the past year — the relative ranking and the absolute-return gate are checking almost the same thing most of the time. The gate only bites in the rare, extreme scenario where very few stocks in the whole universe are up at all (right after a severe crash) — and even then, it costs a little return without changing the drawdown outcome at all."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why relative and absolute momentum mostly agree",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "Dual momentum (relative ranking PLUS an absolute-return gate) is a well-known idea specifically because in some asset classes and time periods, the two disagree often enough to matter — e.g. picking the \"least bad\" of a set of assets that are ALL falling, which an absolute gate would correctly veto. Report 35's bottom-10 reversal sanity check already showed something related: even this project's WORST-ranked picks still beat NIFTY 50 on this dataset, suggesting a general midcap risk premium runs through nearly the whole universe most of the time, not just the top of it. That same effect is likely why the absolute gate barely fires here — when the broad universe is up, the RELATIVE top 10 is almost always ALSO absolute-positive, so the gate has almost nothing to veto.",
+       "The one rebalance where it did bite (5 of 10 slots filled) was very likely the December 2008 or June 2009 window, in the immediate aftermath of the global financial crisis — exactly the kind of moment dual momentum is designed to protect against. That it only fires there, and still doesn't move the drawdown number, suggests the strategy's EXISTING risk-adjustment (dividing by trailing volatility) is already doing most of the work an absolute gate would otherwise add."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "The gate is checked only at scheduled June/December rebalances — a stock that qualifies at entry but turns absolute-negative mid-period is still held until the next rebalance, same \"no mid-period reaction\" convention as every non-stop-loss report here.",
+       "Only a 12-month absolute-return threshold (> 0%) was tested — a different lookback window or a small positive buffer (e.g. requiring >5%, not just >0%) could behave differently.",
+       "Unfilled slots sit in cash at 0% return, same convention as every cash-holding report here.",
+       "Zero transaction costs, slippage, or taxes modeled — same as every other reconstruction in this project.",
+       "Today's fixed Midcap150 constituent list is applied retroactively (survivorship bias). This is a single, fixed 18-year historical path — a period with only one truly severe crash (2008) to test the gate against."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "63": {
+  "title": "Smallcap250 Momentum 10 — Absolute Momentum Gate",
+  "subtitle": "Report 62 tested the classic dual-momentum absolute-return gate on Midcap150 — the gate barely fired and cost a little CAGR for no drawdown benefit. This applies the identical gate to report 16/29's Smallcap250 Momentum 10 config.",
+  "source_line": "2008-12-31–2026-08-24 · 36 rebalances Report generated 2026-09-27 15:05",
+  "pages": [
+   {
+    "file": "63_smallcap250_momentum10_absolute_momentum_gate.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "negative",
+        "text": "same non-event, but a bigger CAGR cost this time"
+       },
+       {
+        "kind": "neutral",
+        "text": "only 1 of 36 rebalances ever had an unfilled slot"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Drawdown is again IDENTICAL to the original (-44.8% either way), but the CAGR cost is larger than Midcap150's: +40.2% to +37.5%. The gate still only fired in 1 of 36 rebalances, averaging 9.75 of 10 slots filled.",
+       "The mechanism is the same as report 62 — relative and absolute momentum mostly agree — but smallcap stocks are more volatile, so the FEW positions the gate does exclude are likely names with larger swings, and losing access to even one or two big winners in a 10-stock portfolio has a bigger relative impact on CAGR than in a calmer universe."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "A bigger cost for the same non-result",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "As in report 62, the gate hardly ever fires — relative top-10 status and positive absolute 12-month return are highly correlated in a normal market. But when it DOES exclude a name here, that name is drawn from a more volatile universe, so its would-have-been contribution to the portfolio (positive or negative) tends to be larger in magnitude. Since the gate specifically fires only in the AFTERMATH of a crash — precisely when a genuine V-shaped recovery candidate might otherwise be excluded for still showing a negative 12-month return even as it's about to rip higher — a bigger CAGR cost for smallcaps (which tend to have sharper V-shaped recoveries than midcaps) is a plausible explanation, though this report can't isolate that from other noise with only one real crash in the data.",
+       "The drawdown result is unchanged from report 62's finding: the gate doesn't touch the specific stretch where the worst decline happens, because by the time the crash is UNDERWAY, the top-10 by relative score is typically still absolute-positive (the crash hasn't lasted 12 months yet)."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "The gate is checked only at scheduled June/December rebalances — a stock that qualifies at entry but turns absolute-negative mid-period is still held until the next rebalance.",
+       "Only a 12-month absolute-return threshold (> 0%) was tested — a different lookback window or buffer could behave differently.",
+       "Unfilled slots sit in cash at 0% return, same convention as every cash-holding report here.",
+       "Zero transaction costs, slippage, or taxes modeled — same as every other reconstruction in this project.",
+       "No official \"Smallcap250 Momentum 10\" index exists — the June/December cadence is a borrowed convention. This is a single, fixed 18-year historical path with only one truly severe crash (2008) to test the gate against."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "64": {
+  "title": "NIFTY100 Momentum 10 — Absolute Momentum Gate",
+  "subtitle": "Reports 62-63 tested the absolute-return gate on Midcap150 and Smallcap250 — the gate barely fired and cost some CAGR for no drawdown benefit on either. This applies the identical gate to report 12's NIFTY100 Momentum 10 config, the third and final universe in this comparison.",
+  "source_line": "2008-12-31–2026-08-21 · 36 rebalances Report generated 2026-09-27 15:04",
+  "pages": [
+   {
+    "file": "64_nifty100_momentum10_absolute_momentum_gate.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "negative",
+        "text": "three for three — the gate never helps, only costs"
+       },
+       {
+        "kind": "neutral",
+        "text": "only 1 of 36 rebalances ever had an unfilled slot"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "On NIFTY100 too, drawdown is IDENTICAL (-35.3% either way), and CAGR is again worse: +30.7% to +29.7%. Across all three universes tested (reports 62-64), the absolute momentum gate has now NEVER once improved drawdown, and has cost CAGR every single time.",
+       "The honest verdict: on this project's 2008-2026 Indian equity data, adding an absolute-momentum gate on top of an already risk-adjusted (vol-divided) relative momentum score is not a useful refinement — the two signals overlap too much for the gate to add real protection, and its rare interventions have so far only cost return."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "A consistent, honest non-result across all three universes",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "Reports 62-64 form a clean, consistent set: on Midcap150, Smallcap250, and NIFTY100 alike, the absolute momentum gate rarely fires (1-2 out of 36 rebalances per universe), never changes the max drawdown, and costs a little CAGR every time it does exclude a name. The consistent reason is that this project's underlying formula already divides every return by trailing volatility before ranking — a stock with weak, volatile, negative-leaning price action already scores poorly on THAT basis and rarely makes the top 10 in the first place, so the extra absolute-return check is mostly redundant with work the risk-adjustment step is already doing.",
+       "This doesn't mean absolute momentum gates are never useful — they're a real, published technique (Gary Antonacci's dual momentum) that has shown value in other contexts, particularly for asset-class-level allocation (e.g. choosing between equities, bonds, and cash) rather than for filtering an ALREADY-momentum-ranked stock-picking universe. This project's specific setup — vol-adjusted relative scoring, applied within a single equity universe — appears to be exactly the kind of context where the extra gate adds complexity without adding real protection."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "The gate is checked only at scheduled June/December rebalances — a stock that qualifies at entry but turns absolute-negative mid-period is still held until the next rebalance.",
+       "Only a 12-month absolute-return threshold (> 0%) was tested — a different lookback window or buffer could behave differently, though the consistent 3-universe non-result makes that seem unlikely to change the conclusion much.",
+       "Unfilled slots sit in cash at 0% return, same convention as every cash-holding report here.",
+       "Zero transaction costs, slippage, or taxes modeled — same as every other reconstruction in this project.",
+       "Today's fixed NIFTY100 constituent list (report 12's config) is applied retroactively (survivorship bias). This is a single, fixed historical path with only one truly severe crash (2008) to test the gate against."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "65": {
+  "title": "Midcap150 Momentum 10 — Volatility-Scaled (Smooth) Exposure",
+  "subtitle": "Reports 42-64's regime filter flips 100%/0% the instant NIFTY 50 crosses its 200-day EMA. This report replaces the hard switch with a CONTINUOUS ramp: exposure scales linearly from 100% (at or above the EMA) down to 0% (a band_pct below it), removing the whipsaw problem at its root rather than tuning around it — there is no discrete state here at all, so there is nothing to \"re-enter\" or \"confirm.\" Three band widths tested (10%/15%/20%) against the original and report 42's binary filter, all on the identical window.",
+  "source_line": "2008-12-31–2026-08-24 Report generated 2026-09-27 15:15",
+  "pages": [
+   {
+    "file": "65_midcap_momentum10_smooth_exposure.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "positive",
+        "text": "beats the binary filter on CAGR at every band width"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Every band tested gives a HIGHER CAGR than the binary filter — +38.5% (binary) vs. +39.5% (10% band), +39.8% (15%), and +40.0% (20%) — while still cutting drawdown meaningfully versus no filter at all (-35.1%): -26.1%, -27.5%, and -28.3% respectively.",
+       "The trade-off: none of these bands protect drawdown as deeply as the binary filter's -23.5%. This forms a clean, non-dominated frontier — no filter (best CAGR, worst drawdown) → wider band → narrower band → binary filter (worst CAGR, best drawdown) — with every point on it a genuinely different, reasonable choice depending on how much an investor weights return versus downside protection, not a single \"best\" answer."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why removing the whipsaw at its root pays off",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "The binary filter's own honesty notes (reports 42, 46, 47) repeatedly found that its biggest hidden cost is 69 whipsaw round-trips — full sells and full buys triggered by ordinary volatility near the 200-EMA, all charged nothing in this frictionless model but expensive in reality. A smooth ramp has NO discrete flip to whipsaw on: a day where price wobbles slightly above and below the EMA just nudges exposure a few percentage points, rather than triggering a full round-trip. Removing that specific cost is exactly why the smooth version's CAGR comes out ahead of the binary filter's at every band width tested, even though the binary filter still protects drawdown more deeply (it goes all the way to 0% exposure at the depth of a real crash, which the smooth version with a narrow band width only approaches asymptotically).",
+       "This IS still a genuinely different mechanism worth weighing, not a strict improvement: the 3.3% of days at fully zero exposure under the tightest (10%) band shows it still fully de-risks during the depths of a real crash, just via a smoother path in and out rather than a single hard switch."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "This is a SIMPLIFIED implementation: exposure is applied by scaling the ALREADY-COMPUTED fully-invested strategy's own daily returns, not by re-simulating actual partial share purchases day by day — in practice, continuously adjusting a real portfolio's stock/cash split would itself require frequent (small) trades, which this model charges nothing for.",
+       "Exposure uses YESTERDAY's close-to-EMA ratio to scale TODAY's return (disclosed in the function itself) — getting this ordering backwards was an actual bug caught and fixed while building this report; readers implementing something similar should watch for the same look-ahead trap.",
+       "Cash (the unexposed portion) earns exactly 0%, same convention as every cash-holding report here.",
+       "Only three band widths were tested (10%/15%/20%) — the true efficient frontier between \"no filter\" and \"binary filter\" could have better points elsewhere.",
+       "Today's fixed Midcap150 constituent list is applied retroactively (survivorship bias). Equal weighting, no F&O-eligibility screen, unadjusted prices, no dividends modeled — same as every other reconstruction here."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "66": {
+  "title": "Smallcap250 Momentum 10 — Volatility-Scaled (Smooth) Exposure",
+  "subtitle": "Report 65 found smooth exposure beats the binary 200-EMA filter on CAGR at every band width on Midcap150, forming a genuine trade-off frontier against drawdown. This applies the identical mechanics to report 16/29's Smallcap250 Momentum 10 config — and finds something even better here.",
+  "source_line": "2008-12-31–2026-08-24 Report generated 2026-09-27 15:15",
+  "pages": [
+   {
+    "file": "66_smallcap250_momentum10_smooth_exposure.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "positive",
+        "text": "the 15% and 20% bands beat the binary filter on BOTH dimensions at once"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Unlike Midcap150's genuine trade-off, the 15% and 20% bands here are NOT a trade against the binary filter — they WIN outright. Binary gives +39.7% CAGR / -31.8% drawdown; the 20% band gives +40.4% CAGR (better) AND -31.2% drawdown (also shallower) — a clean dominance, not a trade-off. The 15% band (+40.0% / -31.4%) dominates too, by a smaller margin.",
+       "Only the tightest band (10%) is worse than binary here — +39.2% CAGR for the SAME -31.8% drawdown, a strictly dominated choice on this universe. The practical takeaway: on Smallcap250, a wider, gentler exposure ramp is simply a better mechanism than the hard switch, full stop — not a different point on a trade-off curve."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why smooth exposure wins outright here, but not on Midcap150",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "Smallcap250 Momentum 10's own unfiltered drawdown (-44.8%) is the deepest universe reconstruction in this project — deeper than Midcap150's. That means the binary filter's 69 whipsaw round-trips here are cutting into a MORE volatile, MORE frequently-whipsawing underlying strategy, so removing that whipsaw cost (which the smooth ramp does, having no discrete state to flip) recovers relatively more return here than on the calmer Midcap150 universe — enough more to overtake the binary filter's own drawdown protection too, not just its CAGR.",
+       "This is a genuinely different finding from Midcap150's trade-off frontier (report 65), and both are true at once: which exposure design \"wins\" depends on how much whipsaw cost the underlying universe's own volatility is creating for the binary switch to begin with. A universe where the binary filter is already very whipsaw-prone (like this one) benefits more from smoothing it out."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "This is a SIMPLIFIED implementation: exposure scales the ALREADY-COMPUTED fully-invested strategy's own daily returns, not a re-simulation of actual partial share purchases — a real continuously-adjusted stock/cash split would itself require frequent small trades, charged nothing here.",
+       "Exposure uses YESTERDAY's close-to-EMA ratio to scale TODAY's return, avoiding same-day look-ahead (see report 65 for the bug this guards against).",
+       "Cash (the unexposed portion) earns exactly 0%, same convention as every cash-holding report here.",
+       "Only three band widths were tested (10%/15%/20%) — an even wider band might dominate the binary filter by an even larger margin, or might not; this wasn't checked.",
+       "No official \"Smallcap250 Momentum 10\" index exists — the June/December cadence is a borrowed convention. Today's fixed constituent list is applied retroactively (survivorship bias). This is a single, fixed 18-year historical path."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "67": {
+  "title": "NIFTY100 Momentum 10 — Volatility-Scaled (Smooth) Exposure",
+  "subtitle": "Reports 65-66 found smooth exposure beats the binary 200-EMA filter on Midcap150 (trade-off frontier) and dominates it outright on Smallcap250 (wins on both CAGR and drawdown). This applies the identical mechanics to report 12's NIFTY100 Momentum 10 config — the third and final universe in this comparison, and the one where the pattern breaks.",
+  "source_line": "2008-12-31–2026-08-21 Report generated 2026-09-27 15:15",
+  "pages": [
+   {
+    "file": "67_nifty100_momentum10_smooth_exposure.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "negative",
+        "text": "the pattern reverses — the binary filter dominates EVERY smooth band"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "On NIFTY100, the binary filter (+30.7% CAGR / -25.6% drawdown) beats EVERY smooth band on BOTH dimensions — 10% (+29.7% / -25.7%), 15% (+30.1% / -25.9%), and 20% (+30.4% / -26.0%). This is the OPPOSITE of Smallcap250's result (report 66), where the wider smooth bands dominated the binary filter instead.",
+       "Lined up with reports 65-66, the honest pattern: the binary filter's whipsaw cost is only worth removing (via smoothing) when that whipsaw cost is large to begin with. NIFTY100's binary filter has 69 re-entries — the SAME regime-signal count as every other universe (since the signal is NIFTY 50's own price, independent of what it protects) — but a calmer, lower-volatility universe like NIFTY100 apparently pays a smaller whipsaw tax for the SAME number of round-trips than a choppier one like Smallcap250 does, leaving less for smoothing to recover."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Reading three universes together",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "NIFTY100's own unfiltered drawdown (-35.3%) is the SHALLOWEST of the three universes tested across reports 65-67 — shallower than Midcap150's and much shallower than Smallcap250's. Report 45 already found the binary filter costs NIFTY100 almost nothing in CAGR (30.70% -> 30.67%) — there was very little whipsaw damage for smoothing to recover in the first place, so a smoother ramp here just gives up some of the binary filter's clean, sharp de-risking without much offsetting benefit.",
+       "Put the three reports together and a genuinely useful rule of thumb emerges: smooth exposure scaling is worth trying specifically on universes where the binary filter ALREADY shows meaningful whipsaw cost (like Smallcap250); on a universe where the binary filter is already nearly free (like NIFTY100), there's less to gain and the binary switch's crisper full de-risking wins outright. This is exactly the kind of conditional, universe-dependent finding this project has repeatedly surfaced (see also reports 37-41's front-loaded momentum) — no single design choice is universally best."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "This is a SIMPLIFIED implementation: exposure scales the ALREADY-COMPUTED fully-invested strategy's own daily returns, not a re-simulation of actual partial share purchases.",
+       "Exposure uses YESTERDAY's close-to-EMA ratio to scale TODAY's return, avoiding same-day look-ahead.",
+       "Cash (the unexposed portion) earns exactly 0%, same convention as every cash-holding report here.",
+       "Only three band widths were tested (10%/15%/20%) — none of them beat the binary filter here, but a wider or narrower band wasn't checked and might close the gap.",
+       "Today's fixed NIFTY100 constituent list (report 12's config) is applied retroactively (survivorship bias). This is a single, fixed historical path."
+      ]
+     }
+    ]
+   }
+  ]
  }
 }

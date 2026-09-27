@@ -349,6 +349,149 @@ def build_index_regime_filtered_breadth(closes, nifty_close, ema, rbdates, selec
     return index_level.dropna(), selections, state_log
 
 
+REENTRY_EMA_SPAN = 50
+
+
+def build_index_regime_filtered_asymmetric(closes, signal_close, exit_ema, reentry_ema, rbdates, select_fn, confirm_days=1):
+    """Same regime-filter mechanics as build_index_regime_filtered, except
+    the signal used to decide EXIT (while invested) and the signal used
+    to decide RE-ENTRY (while in cash) are DIFFERENT EMAs of the same
+    price series — a slow one (e.g. 200-day) for exits, so the filter
+    doesn't whipsaw out on every minor dip, and a fast one (e.g. 50-day)
+    for re-entries, so the filter doesn't sit out the early part of a
+    recovery waiting for the slow average to catch up. confirm_days
+    behaves exactly as in build_index_regime_filtered, applied
+    separately to whichever condition is currently in force."""
+    dates = closes.index
+    rb_set = set(rbdates)
+    index_level = pd.Series(np.nan, index=dates)
+    shares = {}
+    started = False
+    state = "cash"
+    selections = []
+    state_log = []
+    opposite_streak = 0
+
+    def do_select(t_idx):
+        return select_fn(closes, t_idx)
+
+    def buy(selected, value_before, price_today):
+        dollar_each = value_before / len(selected)
+        return {tk: dollar_each / price_today[tk] for tk in selected}
+
+    def raw_signal(i, currently_invested):
+        ma = (exit_ema if currently_invested else reentry_ema).iloc[i]
+        return bool(signal_close.iloc[i] > ma) if pd.notna(ma) else False
+
+    for i, d in enumerate(dates):
+        is_rebalance_day = d in rb_set
+        price_today = closes.iloc[i]
+
+        if not started:
+            regime_invested = raw_signal(i, currently_invested=False)
+            if is_rebalance_day:
+                selected = do_select(i)
+                if selected is not None:
+                    started = True
+                    if regime_invested:
+                        state = "invested"
+                        shares = buy(selected, 100.0, price_today)
+                        selections.append({"date": d.strftime("%Y-%m-%d"),
+                                            "tickers": [t.replace(".NS", "") for t in selected],
+                                            "trigger": "initial_entry"})
+                    else:
+                        state = "cash"
+                        shares = {}
+            if started:
+                val = 100.0 if state == "cash" else sum(shares.get(tk, 0.0) * price_today.get(tk, 0.0) for tk in shares)
+                index_level.iloc[i] = val
+                state_log.append((d, state))
+            continue
+
+        raw_invested = raw_signal(i, currently_invested=(state == "invested"))
+        if raw_invested == (state == "invested"):
+            opposite_streak = 0
+            regime_invested = (state == "invested")
+        else:
+            opposite_streak += 1
+            if opposite_streak >= confirm_days:
+                regime_invested = raw_invested
+                opposite_streak = 0
+            else:
+                regime_invested = (state == "invested")
+
+        if state == "invested":
+            value_before = sum(shares.get(tk, 0.0) * price_today.get(tk, 0.0) for tk in shares if pd.notna(price_today.get(tk)))
+            if value_before <= 0:
+                value_before = index_level.iloc[i - 1]
+        else:
+            value_before = index_level.iloc[i - 1]
+
+        if state == "invested" and not regime_invested:
+            state = "cash"
+            shares = {}
+            val = value_before
+        elif state == "cash" and regime_invested:
+            selected = do_select(i)
+            if selected is not None:
+                shares = buy(selected, value_before, price_today)
+                state = "invested"
+                selections.append({"date": d.strftime("%Y-%m-%d"),
+                                    "tickers": [t.replace(".NS", "") for t in selected],
+                                    "trigger": "regime_reentry"})
+            val = value_before
+        elif state == "invested" and regime_invested and is_rebalance_day:
+            selected = do_select(i)
+            if selected is not None:
+                shares = buy(selected, value_before, price_today)
+                selections.append({"date": d.strftime("%Y-%m-%d"),
+                                    "tickers": [t.replace(".NS", "") for t in selected],
+                                    "trigger": "scheduled_rebalance"})
+            val = sum(shares.get(tk, 0.0) * price_today.get(tk, 0.0) for tk in shares if pd.notna(price_today.get(tk)))
+        else:
+            if state == "invested":
+                val = sum(shares.get(tk, 0.0) * price_today.get(tk, 0.0) for tk in shares if pd.notna(price_today.get(tk)))
+                if val <= 0:
+                    val = value_before
+            else:
+                val = value_before
+
+        index_level.iloc[i] = val
+        state_log.append((d, state))
+
+    return index_level.dropna(), selections, state_log
+
+
+def build_smooth_exposure(fully_invested_series, signal_close, ema, band_pct=0.15):
+    """A continuous alternative to the binary cash/invested switch: scale
+    equity exposure smoothly between 100% (signal_close at or above its
+    EMA) and 0% (signal_close at or below (1-band_pct) times its EMA),
+    linear in between, instead of a hard on/off flip. There is no
+    discrete "state" here at all, so there is nothing to whipsaw between
+    — the exposure fraction just moves a little day to day as the ratio
+    moves.
+
+    Mechanically this reuses the ALREADY-COMPUTED fully-invested equity
+    curve's own daily returns (fully_invested_series, e.g. from
+    build_index_generic) and scales each day's return by that day's
+    exposure fraction — cash contributes a flat 0% for the unexposed
+    portion, same convention as every other cash-holding report here.
+    Today's exposure fraction is derived from YESTERDAY's close-to-EMA
+    ratio (shifted by one day) so that today's return isn't scaled using
+    information only available at today's own close — the same
+    same-day-signal-next-day-effect ordering implied throughout reports
+    42-64, just made explicit here since a continuous fraction makes the
+    ordering easy to get backwards by accident."""
+    ratio = (signal_close / ema - (1 - band_pct)) / band_pct
+    exposure = ratio.clip(lower=0.0, upper=1.0)
+    exposure = exposure.reindex(fully_invested_series.index).ffill().fillna(0.0)
+    exposure_used = exposure.shift(1).fillna(0.0)
+    rets = fully_invested_series.pct_change().fillna(0.0)
+    blended_ret = exposure_used * rets
+    blended = (1 + blended_ret).cumprod() * float(fully_invested_series.iloc[0])
+    return blended, exposure
+
+
 def cash_blocks_from_log(state_log, min_days=MIN_CASH_BLOCK_DAYS):
     if not state_log:
         return [], 0.0

@@ -41,6 +41,9 @@ const ICON_SCALE_10 = "M6,3a3,3 0 1 0 0,6a3,3 0 1 0 0,-6 M12,7.8a2.2,2.2 0 1 0 0
 const ICON_TARGET_SELF = "M12,3a9,9 0 1 0 0,18a9,9 0 1 0 0,-18 M12,7a5,5 0 1 0 0,10a5,5 0 1 0 0,-10 M12 10.5v3 M10.5 12h3";
 const ICON_BREADTH = "M3 21v-7 M8 21v-12 M13 21v-17 M18 21v-10 M3 7l6-3 5 2 7-4";
 const ICON_TRAIL_STOP = "M3 18l4-8 5 3 5-9 4 3 M7 10v11 M17 4v17";
+const ICON_FORK_SPEED = "M12 3v6 M12 9l-7 4v8 M12 9l7 4v8 M16 9l3 4-4 1";
+const ICON_GATE = "M4 21V9l8-6 8 6v12 M4 15h16";
+const ICON_DIMMER = "M12,3a9,9 0 1 0 0,18a9,9 0 1 0 0,-18";
 
 export const GROUPS = [
   {
@@ -164,6 +167,15 @@ export const GROUPS = [
       { id: "56", file: "results55.json", icon: ICON_TARGET_SELF, title: "NIFTY100 Momentum 10 — Universe-Specific Trend Filter", subtitle: "Same trade-off as Smallcap250 — two of three full-history tests agree" },
       { id: "57", file: "results56.json", icon: ICON_BREADTH, title: "Midcap Momentum 10 — Breadth Confirmation for the Regime Filter", subtitle: "Barely moves the needle — breadth and NIFTY 50's trend are highly correlated" },
       { id: "58", file: "results57.json", icon: ICON_TRAIL_STOP, title: "Midcap Momentum 10 — Trailing Stop vs. Report 27's Fixed Stop", subtitle: "A tight trailing stop backfires badly; a wide one genuinely beats the fixed version" },
+      { id: "59", file: "results58.json", icon: ICON_FORK_SPEED, title: "Midcap Momentum 10 — Asymmetric EMA (Fast Re-Entry)", subtitle: "Catching the recovery sooner backfires — more than double the whipsaw, worse drawdown" },
+      { id: "60", file: "results59.json", icon: ICON_FORK_SPEED, title: "Smallcap250 Momentum 10 — Asymmetric EMA (Fast Re-Entry)", subtitle: "Same false-start problem as Midcap150, on a second universe" },
+      { id: "61", file: "results60.json", icon: ICON_FORK_SPEED, title: "NIFTY100 Momentum 10 — Asymmetric EMA (Fast Re-Entry)", subtitle: "Three for three against the asymmetric design" },
+      { id: "62", file: "results61.json", icon: ICON_GATE, title: "Midcap Momentum 10 — Absolute Momentum Gate", subtitle: "The gate almost never fires, so almost nothing changes" },
+      { id: "63", file: "results62.json", icon: ICON_GATE, title: "Smallcap250 Momentum 10 — Absolute Momentum Gate", subtitle: "Same non-event, but a bigger CAGR cost this time" },
+      { id: "64", file: "results63.json", icon: ICON_GATE, title: "NIFTY100 Momentum 10 — Absolute Momentum Gate", subtitle: "Three for three — the gate never helps, only costs" },
+      { id: "65", file: "results64.json", icon: ICON_DIMMER, title: "Midcap Momentum 10 — Volatility-Scaled Smooth Exposure", subtitle: "Beats the binary filter on CAGR at every band width tested" },
+      { id: "66", file: "results65.json", icon: ICON_DIMMER, title: "Smallcap250 Momentum 10 — Volatility-Scaled Smooth Exposure", subtitle: "Wider bands dominate the binary filter outright — better CAGR AND drawdown" },
+      { id: "67", file: "results66.json", icon: ICON_DIMMER, title: "NIFTY100 Momentum 10 — Volatility-Scaled Smooth Exposure", subtitle: "The pattern reverses — the binary filter dominates every smooth band" },
     ],
   },
 ];

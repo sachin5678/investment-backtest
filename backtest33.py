@@ -207,6 +207,49 @@ def build_index_generic_invvol(closes, rbdates, select_fn, vol_lookback=LOOKBACK
     return index_level.dropna(), selections
 
 
+def build_index_generic_gated(closes, rbdates, select_fn, slot_count=TOP_N):
+    """Same rebalance/portfolio-construction loop as build_index_generic,
+    except the dollar-per-slot size is fixed at value_before/slot_count
+    REGARDLESS of how many tickers select_fn actually returns — if
+    select_fn returns fewer than slot_count tickers (e.g. an absolute-
+    momentum gate rejected some candidates), the unfilled slots' capital
+    is tracked as an explicit cash reserve (0% return) rather than being
+    redistributed across the names that DID qualify, until the next
+    rebalance re-evaluates everything."""
+    dates = closes.index
+    rb_set = set(rbdates)
+    date_pos = {d: i for i, d in enumerate(dates)}
+    index_level = pd.Series(np.nan, index=dates)
+    shares = {}
+    cash_reserve = 0.0
+    started = False
+    selections = []
+
+    for i, d in enumerate(dates):
+        if d in rb_set:
+            t_idx = date_pos[d]
+            selected = select_fn(closes, t_idx)
+            if selected is not None:
+                price_today = closes.iloc[t_idx]
+                if not started:
+                    value_before = 100.0
+                    started = True
+                else:
+                    value_before = sum(shares.get(tk, 0.0) * price_today.get(tk, 0.0) for tk in shares) + cash_reserve
+                    if value_before <= 0:
+                        value_before = index_level.iloc[i - 1] if i > 0 else 100.0
+                dollar_each = value_before / slot_count
+                shares = {tk: dollar_each / price_today[tk] for tk in selected}
+                cash_reserve = value_before - dollar_each * len(selected)
+                selections.append({"date": d.strftime("%Y-%m-%d"), "tickers": [t.replace(".NS", "") for t in selected],
+                                    "num_filled": len(selected), "num_slots": slot_count})
+        if started:
+            price_today = closes.iloc[i]
+            val = sum(shares.get(tk, 0.0) * price_today.get(tk, 0.0) for tk in shares if pd.notna(price_today.get(tk))) + cash_reserve
+            index_level.iloc[i] = val
+    return index_level.dropna(), selections
+
+
 def overlap_stats(sel_a, sel_b):
     """% of the top-10 in common, per matching rebalance date, across both
     selection lists (assumes both use the same rebalance calendar, which

@@ -50,6 +50,9 @@ ICON_SCALE_10 = '<circle cx="6" cy="6" r="3" fill="none"/><circle cx="12" cy="10
 ICON_TARGET_SELF = '<circle cx="12" cy="12" r="9" fill="none"/><circle cx="12" cy="12" r="5" fill="none"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/>'
 ICON_BREADTH = '<rect x="3" y="14" width="3" height="7" rx="0.5"/><rect x="8" y="9" width="3" height="12" rx="0.5"/><rect x="13" y="4" width="3" height="17" rx="0.5"/><rect x="18" y="11" width="3" height="10" rx="0.5"/><polyline points="3,7 9,4 14,6 21,2" fill="none"/>'
 ICON_TRAIL_STOP = '<polyline points="3,18 7,10 12,13 17,4 21,7" fill="none"/><line x1="7" y1="10" x2="7" y2="21"/><line x1="17" y1="4" x2="17" y2="21"/>'
+ICON_FORK_SPEED = '<path d="M12 3v6" fill="none"/><path d="M12 9l-7 4v8" fill="none"/><path d="M12 9l7 4v8" fill="none"/><polyline points="16,9 19,13 15,14" fill="none"/>'
+ICON_GATE = '<path d="M4 21V9l8-6 8 6v12" fill="none"/><line x1="4" y1="15" x2="20" y2="15"/><circle cx="12" cy="18" r="1.4" fill="currentColor" stroke="none"/>'
+ICON_DIMMER = '<circle cx="12" cy="12" r="9" fill="none"/><path d="M12 3A9 9 0 0 1 12 21z" fill="currentColor" stroke="none"/>'
 
 GROUPS = [
     {
@@ -231,6 +234,24 @@ GROUPS = [
              "title": "Midcap Momentum 10 — Breadth Confirmation for the Regime Filter", "subtitle": "Barely moves the needle — breadth and NIFTY 50's trend are highly correlated"},
             {"id": "58", "file": "58_midcap_momentum10_trailing_stop.html", "icon": ICON_TRAIL_STOP,
              "title": "Midcap Momentum 10 — Trailing Stop vs. Report 27's Fixed Stop", "subtitle": "A tight trailing stop backfires badly; a wide one genuinely beats the fixed version"},
+            {"id": "59", "file": "59_midcap_momentum10_asymmetric_ema.html", "icon": ICON_FORK_SPEED,
+             "title": "Midcap Momentum 10 — Asymmetric EMA (Fast Re-Entry)", "subtitle": "Catching the recovery sooner backfires — more than double the whipsaw, worse drawdown"},
+            {"id": "60", "file": "60_smallcap250_momentum10_asymmetric_ema.html", "icon": ICON_FORK_SPEED,
+             "title": "Smallcap250 Momentum 10 — Asymmetric EMA (Fast Re-Entry)", "subtitle": "Same false-start problem as Midcap150, on a second universe"},
+            {"id": "61", "file": "61_nifty100_momentum10_asymmetric_ema.html", "icon": ICON_FORK_SPEED,
+             "title": "NIFTY100 Momentum 10 — Asymmetric EMA (Fast Re-Entry)", "subtitle": "Three for three against the asymmetric design"},
+            {"id": "62", "file": "62_midcap_momentum10_absolute_momentum_gate.html", "icon": ICON_GATE,
+             "title": "Midcap Momentum 10 — Absolute Momentum Gate", "subtitle": "The gate almost never fires, so almost nothing changes"},
+            {"id": "63", "file": "63_smallcap250_momentum10_absolute_momentum_gate.html", "icon": ICON_GATE,
+             "title": "Smallcap250 Momentum 10 — Absolute Momentum Gate", "subtitle": "Same non-event, but a bigger CAGR cost this time"},
+            {"id": "64", "file": "64_nifty100_momentum10_absolute_momentum_gate.html", "icon": ICON_GATE,
+             "title": "NIFTY100 Momentum 10 — Absolute Momentum Gate", "subtitle": "Three for three — the gate never helps, only costs"},
+            {"id": "65", "file": "65_midcap_momentum10_smooth_exposure.html", "icon": ICON_DIMMER,
+             "title": "Midcap Momentum 10 — Volatility-Scaled Smooth Exposure", "subtitle": "Beats the binary filter on CAGR at every band width tested"},
+            {"id": "66", "file": "66_smallcap250_momentum10_smooth_exposure.html", "icon": ICON_DIMMER,
+             "title": "Smallcap250 Momentum 10 — Volatility-Scaled Smooth Exposure", "subtitle": "Wider bands dominate the binary filter outright — better CAGR AND drawdown"},
+            {"id": "67", "file": "67_nifty100_momentum10_smooth_exposure.html", "icon": ICON_DIMMER,
+             "title": "NIFTY100 Momentum 10 — Volatility-Scaled Smooth Exposure", "subtitle": "The pattern reverses — the binary filter dominates every smooth band"},
         ],
     },
 ]
