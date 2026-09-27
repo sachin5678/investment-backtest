@@ -86,13 +86,32 @@ def build():
       <div class="flex items-start justify-between gap-6">
         <div>
           <h1 class="text-2xl font-bold text-[#E6EDF0]">NIFTY100 Momentum 10 — Smooth Exposure, Combined With Gold and a Liquid Fund</h1>
-          <p class="text-[#9FB4BB] text-sm mt-1">Reports 68-69 combined the smooth exposure ramp with gold and a liquid-fund yield assumption on Midcap150 (gold won outright) and Smallcap250 (a genuine trade-off). This applies the identical mechanics to report 12's NIFTY100 Momentum 10 config, the third and final universe in this comparison.</p>
+          <p class="text-[#9FB4BB] text-sm mt-1">Reports 68-69 combined the smooth exposure ramp with gold and a liquid-fund yield assumption on Midcap150 and Smallcap250 — gold delivers a clear CAGR edge on both, with a drawdown effect ranging from clearly positive to roughly neutral. This applies the identical mechanics to report 12's NIFTY100 Momentum 10 config, the third and final universe in this comparison.</p>
         </div>
         <div class="text-right {MUTED} mono shrink-0">
           {esc(R['start_date'])}–{esc(R['end_date'])}<br/>Report generated {esc(R['generated'])}
         </div>
       </div>
     </header>
+    """
+
+    correction_note = f"""
+    <div class="px-10 pt-6">
+      <div class="{PANEL} border-2 border-[#6AE4FF]">
+        <div class="flex items-center gap-2 mb-3 flex-wrap">
+          {pill('correction to an earlier version of this report', 'assumption')}
+        </div>
+        <p class="text-[13.5px] text-[#C9D6DA] leading-relaxed">
+          An earlier version of this report (and reports 68-69) stated GOLDBEES.NS's history "starts mid-2010" and used a
+          window starting 2010-06-30 on that basis. That claim was WRONG — GOLDBEES.NS actually has price history from
+          2009-01-02. The real cause of the earlier truncation was a bug in how the closes data was restricted before the
+          momentum formula's own lookback ran. This version uses the full window matching report 67 exactly — the conclusion
+          is unchanged (gold still wins here), just with slightly better absolute numbers. Report 69's corrected version also
+          revised its own finding — its earlier "genuine trade-off" framing for Smallcap250 did not hold up once its window
+          was fixed.
+        </p>
+      </div>
+    </div>
     """
 
     lead_disclosure = f"""
@@ -146,7 +165,7 @@ def build():
         <h3 class="text-base font-bold text-[#E6EDF0]">Every band × every sleeve, side by side</h3>
         {pill('highlighted row = gold at the 15% band, the best all-round result here', 'neutral')}
       </div>
-      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — all nine combinations of band width and de-risked-sleeve choice, over the identical {esc(R['start_date'])}–{esc(R['end_date'])} window. Window is shorter than reports 67's because GOLDBEES.NS's history starts mid-2010.</p>
+      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — all nine combinations of band width and de-risked-sleeve choice, over the identical {esc(R['start_date'])}–{esc(R['end_date'])} window, matching report 67's.</p>
       <table class="data-table">
         <thead><tr><th>Design</th><th>Net return</th><th>CAGR</th><th>Max drawdown</th></tr></thead>
         <tbody>
@@ -182,14 +201,16 @@ def build():
       <p class="text-[13.5px] text-[#C9D6DA] leading-relaxed mb-3">
         NIFTY100's own unfiltered drawdown is the shallowest of the three universes tested across reports 68-70 — its worst
         stretches are milder large-cap-driven declines, closer in character to Midcap150's than to Smallcap250's deeper,
-        sharper ones. Gold's historical tendency to hold up during broad, large-cap-led selloffs seems to line up well with
-        BOTH of those universes' crash profiles, but not with Smallcap250's, which is consistent with report 69's finding.
+        sharper ones. Gold's historical tendency to hold up during broad, large-cap-led selloffs lines up well with both
+        Midcap150's and NIFTY100's crash profiles (a clear drawdown improvement on top of the CAGR edge), and roughly a wash
+        on Smallcap250's (report 69) — never a real cost, but not always an extra benefit either.
       </p>
       <p class="text-[13.5px] text-[#C9D6DA] leading-relaxed">
-        The practical takeaway across all three reports: gold is a strong default choice for the de-risked sleeve, but not
-        an unconditional one — checking it against the specific universe being protected (as done here) is worth doing
-        rather than assuming it. The liquid-fund assumption, despite being a smaller edge, is the safer generic default
-        precisely because it never made drawdown worse on any of the three universes tested.
+        The practical takeaway across all three reports: gold delivers a clear, large CAGR edge everywhere, and its
+        drawdown effect ranges from a genuine bonus to a neutral wash depending on the universe — checking it against the
+        specific universe being protected (as done here) is worth doing rather than assuming a uniform effect. The
+        liquid-fund assumption, despite being a smaller CAGR edge, is the safer generic default precisely because it never
+        made drawdown worse than cash on any of the three universes tested.
       </p>
     </div>
     """
@@ -203,7 +224,7 @@ def build():
       <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — every simplification behind this backtest.</p>
       <ul class="text-[13px] text-[#C9D6DA] list-disc pl-5 leading-relaxed">
         <li class="mb-1.5">The liquid-fund sleeve is a MODELED ASSUMPTION (flat {R['assumed_liquid_yield_pct']:.0f}% p.a.), not real market data — see report 68's data caveat. Real yields varied roughly 3%-9% across this window.</li>
-        <li class="mb-1.5">GOLDBEES.NS's history only starts mid-2010, so this report's window excludes the 2008-2009 global financial crisis.</li>
+        <li class="mb-1.5">GOLDBEES.NS's real history starts 2009-01-02 — the first two calendar days of this window use a forward/backward-filled gold price rather than a real traded one, a negligible approximation over an 18-year span.</li>
         <li class="mb-1.5">This is a SIMPLIFIED implementation: exposure scales the ALREADY-COMPUTED fully-invested strategy's own daily returns, not a re-simulation of actual partial share purchases.</li>
         <li class="mb-1.5">Zero transaction costs on continuously adjusting the stock/hedge split.</li>
         <li class="mb-1.5">Today's fixed NIFTY100 constituent list (report 12's config) is applied retroactively (survivorship bias). This is a single, fixed historical path.</li>
@@ -213,6 +234,7 @@ def build():
 
     body = f"""
     {header}
+    {correction_note}
     {lead_disclosure}
     <div class="px-10 py-6">
       {kpi_grid}

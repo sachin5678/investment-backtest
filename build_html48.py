@@ -87,13 +87,32 @@ def build():
       <div class="flex items-start justify-between gap-6">
         <div>
           <h1 class="text-2xl font-bold text-[#E6EDF0]">Midcap150 Momentum 10 — Gold Instead of Cash During the 200-EMA Filter</h1>
-          <p class="text-[#9FB4BB] text-sm mt-1">Reports 42-47 held plain 0%-return cash whenever NIFTY 50 closed below its own 200-day EMA. This report holds GOLDBEES.NS instead — the same gold ETF used in reports 14/20's blends. GOLDBEES.NS only has price history from mid-2010, so ALL series here (including the cash version) are recomputed fresh on this shorter, common window for a fair comparison, not re-quoted from report 42's longer window.</p>
+          <p class="text-[#9FB4BB] text-sm mt-1">Reports 42-47 held plain 0%-return cash whenever NIFTY 50 closed below its own 200-day EMA. This report holds GOLDBEES.NS instead — the same gold ETF used in reports 14/20's blends. All series here are recomputed fresh (not re-quoted from report 42) over the same full window reports 42-47 use, since GOLDBEES.NS's real history starts 2009-01-02 — close enough to this project's usual 2008-12-31 start that no window shortening is needed.</p>
         </div>
         <div class="text-right {MUTED} mono shrink-0">
           {esc(R['start_date'])}–{esc(R['end_date'])}<br/>Report generated {esc(R['generated'])}
         </div>
       </div>
     </header>
+    """
+
+    correction_note = f"""
+    <div class="px-10 pt-6">
+      <div class="{PANEL} border-2 border-[#6AE4FF]">
+        <div class="flex items-center gap-2 mb-3 flex-wrap">
+          {pill('correction to an earlier version of this report', 'assumption')}
+        </div>
+        <p class="text-[13.5px] text-[#C9D6DA] leading-relaxed">
+          An earlier version of this report stated "GOLDBEES.NS only has price history from mid-2010" and used a window
+          starting 2010-06-30 on that basis. That claim was WRONG — GOLDBEES.NS actually has price history from 2009-01-02.
+          The real cause of the earlier truncation was a bug: the Midcap150 price data feeding the momentum formula's own
+          252-day lookback was restricted to gold's intersected window BEFORE the formula ran, which pushed the first valid
+          rebalance to June 2010 regardless of gold's real availability. This version uses the full 2008-2026 window, matching
+          reports 42-47 exactly — the numbers below are the corrected ones, generally a little BETTER than the original
+          version (the extra 1.5 years, 2009 to mid-2010, was a strong period for this combination).
+        </p>
+      </div>
+    </div>
     """
 
     lead_disclosure = f"""
@@ -143,7 +162,7 @@ def build():
         <h3 class="text-base font-bold text-[#E6EDF0]">All five, side by side</h3>
         {pill('grey rows = real benchmarks, not reconstructions', 'neutral')}
       </div>
-      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — every series over the identical {esc(R['start_date'])}–{esc(R['end_date'])} window (shorter than reports 42-47 because GOLDBEES.NS's history starts mid-2010).</p>
+      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — every series over the identical {esc(R['start_date'])}–{esc(R['end_date'])} window, the same span reports 42-47 use.</p>
       <table class="data-table">
         <thead><tr><th>Series</th><th>Net return</th><th>CAGR</th><th>Max drawdown</th><th>Longest underwater</th></tr></thead>
         <tbody>
@@ -221,7 +240,7 @@ def build():
       </div>
       <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — every simplification behind this backtest.</p>
       <ul class="text-[13px] text-[#C9D6DA] list-disc pl-5 leading-relaxed">
-        <li class="mb-1.5">GOLDBEES.NS's history only starts mid-2010, so this report's window EXCLUDES the 2008-2009 global financial crisis — the single biggest crash reports 42-47's longer window covers. Gold's behavior in that specific crisis is not tested here.</li>
+        <li class="mb-1.5">GOLDBEES.NS's real history starts 2009-01-02 — the first two calendar days of this window (2008-12-31 to 2009-01-01) use a forward/backward-filled gold price rather than a real traded one, a negligible approximation over an 18-year span.</li>
         <li class="mb-1.5">Zero transaction costs on ANY regime switch (into or out of gold) — same disclosed omission as reports 42-47, and switching into/out of an ETF position isn't free in reality.</li>
         <li class="mb-1.5">GOLDBEES.NS tracks domestic gold prices in INR, which also move with the rupee's own exchange rate — a INR depreciation can lift GOLDBEES.NS even if USD gold is flat, a real but separate driver from "gold as a crisis hedge."</li>
         <li class="mb-1.5">Only ONE EMA span (200 days) and immediate-switch (no confirmation delay) were tested here.</li>
@@ -232,6 +251,7 @@ def build():
 
     body = f"""
     {header}
+    {correction_note}
     {lead_disclosure}
     <div class="px-10 py-6">
       {kpi_grid}

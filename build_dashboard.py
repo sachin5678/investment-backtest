@@ -256,9 +256,9 @@ GROUPS = [
             {"id": "68", "file": "68_midcap_momentum10_smooth_exposure_hedged.html", "icon": ICON_DIMMER_COIN,
              "title": "Midcap Momentum 10 — Smooth Exposure + Gold / Liquid Fund", "subtitle": "Gold wins outright; a liquid-fund yield assumption gives a smaller, still-real edge over cash"},
             {"id": "69", "file": "69_smallcap250_momentum10_smooth_exposure_hedged.html", "icon": ICON_DIMMER_COIN,
-             "title": "Smallcap250 Momentum 10 — Smooth Exposure + Gold / Liquid Fund", "subtitle": "Gold wins on CAGR but loses on drawdown here — the liquid fund is the consistent performer"},
+             "title": "Smallcap250 Momentum 10 — Smooth Exposure + Gold / Liquid Fund", "subtitle": "Gold wins clearly on CAGR here too — drawdown differences are noise, not a real trade-off"},
             {"id": "70", "file": "70_nifty100_momentum10_smooth_exposure_hedged.html", "icon": ICON_DIMMER_COIN,
-             "title": "NIFTY100 Momentum 10 — Smooth Exposure + Gold / Liquid Fund", "subtitle": "Back to a clean win for gold — two out of three universes now"},
+             "title": "NIFTY100 Momentum 10 — Smooth Exposure + Gold / Liquid Fund", "subtitle": "Gold wins clearly on CAGR everywhere tested — drawdown effect ranges from a bonus to a wash"},
         ],
     },
 ]

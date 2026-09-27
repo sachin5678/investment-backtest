@@ -86,13 +86,31 @@ def build():
       <div class="flex items-start justify-between gap-6">
         <div>
           <h1 class="text-2xl font-bold text-[#E6EDF0]">Smallcap250 Momentum 10 — Gold Instead of Cash During the 200-EMA Filter</h1>
-          <p class="text-[#9FB4BB] text-sm mt-1">Report 48 tested holding GOLDBEES.NS instead of cash during the 200-day-EMA filter's risk-off periods on Midcap150. This applies the identical mechanics to Smallcap250 Momentum 10. GOLDBEES.NS only has price history from mid-2010, so ALL series here are recomputed fresh on this shorter, common window, not re-quoted from report 44's longer window.</p>
+          <p class="text-[#9FB4BB] text-sm mt-1">Report 48 tested holding GOLDBEES.NS instead of cash during the 200-day-EMA filter's risk-off periods on Midcap150. This applies the identical mechanics to Smallcap250 Momentum 10. All series here are recomputed fresh (not re-quoted from report 44) over the same full window report 44 uses, since GOLDBEES.NS's real history starts 2009-01-02.</p>
         </div>
         <div class="text-right {MUTED} mono shrink-0">
           {esc(R['start_date'])}–{esc(R['end_date'])}<br/>Report generated {esc(R['generated'])}
         </div>
       </div>
     </header>
+    """
+
+    correction_note = f"""
+    <div class="px-10 pt-6">
+      <div class="{PANEL} border-2 border-[#6AE4FF]">
+        <div class="flex items-center gap-2 mb-3 flex-wrap">
+          {pill('correction to an earlier version of this report', 'assumption')}
+        </div>
+        <p class="text-[13.5px] text-[#C9D6DA] leading-relaxed">
+          An earlier version of this report (and report 48) stated GOLDBEES.NS's history "starts mid-2010" and used a window
+          starting 2010-06-30 on that basis. That claim was WRONG — GOLDBEES.NS actually has price history from 2009-01-02.
+          The real cause of the earlier truncation was a bug in how the closes data was restricted before the momentum
+          formula's own lookback ran. This version uses the full 2008-2026 window, matching report 44 exactly — the
+          conclusion itself is unchanged (gold still wins cleanly here), just with slightly better absolute numbers now that
+          the extra 1.5 years of history (2009 to mid-2010) is included.
+        </p>
+      </div>
+    </div>
     """
 
     lead_disclosure = f"""
@@ -200,9 +218,10 @@ def build():
         risk-off periods, and that isolation produces the same result on this second, more volatile universe.
       </p>
       <p class="text-[13.5px] text-[#C9D6DA] leading-relaxed">
-        The same caveat from report 48 applies: gold and equities CAN fall together during a genuine liquidity crunch, and this
-        window (2010-2026) doesn't include the 2008 GFC, the one period in this project's data where that risk would be most
-        visible.
+        The same caveat from report 48 applies: gold and equities CAN fall together during a genuine liquidity crunch — this
+        window now DOES include the 2008-2009 global financial crisis (gold's real data starts 2009-01-02, essentially the
+        full window), so that risk is at least partially represented here, unlike the shorter window an earlier version of
+        this report mistakenly used.
       </p>
     </div>
     """
@@ -215,7 +234,7 @@ def build():
       </div>
       <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — every simplification behind this backtest.</p>
       <ul class="text-[13px] text-[#C9D6DA] list-disc pl-5 leading-relaxed">
-        <li class="mb-1.5">GOLDBEES.NS's history only starts mid-2010, excluding the 2008-2009 global financial crisis.</li>
+        <li class="mb-1.5">GOLDBEES.NS's real history starts 2009-01-02 — the first two calendar days of this window use a forward/backward-filled gold price rather than a real traded one, a negligible approximation over an 18-year span.</li>
         <li class="mb-1.5">Zero transaction costs on ANY regime switch (into or out of gold) — same disclosed omission as reports 42-48.</li>
         <li class="mb-1.5">GOLDBEES.NS tracks domestic gold prices in INR, which also move with the rupee's own exchange rate.</li>
         <li class="mb-1.5">Only ONE EMA span (200 days) and immediate-switch (no confirmation delay) were tested here.</li>
@@ -226,6 +245,7 @@ def build():
 
     body = f"""
     {header}
+    {correction_note}
     {lead_disclosure}
     <div class="px-10 py-6">
       {kpi_grid}

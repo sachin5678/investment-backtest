@@ -3361,12 +3361,26 @@
  },
  "48": {
   "title": "Midcap150 Momentum 10 — Gold Instead of Cash During the 200-EMA Filter",
-  "subtitle": "Reports 42-47 held plain 0%-return cash whenever NIFTY 50 closed below its own 200-day EMA. This report holds GOLDBEES.NS instead — the same gold ETF used in reports 14/20's blends. GOLDBEES.NS only has price history from mid-2010, so ALL series here (including the cash version) are recomputed fresh on this shorter, common window for a fair comparison, not re-quoted from report 42's longer window.",
-  "source_line": "2010-06-30–2026-08-24 Report generated 2026-09-27 14:24",
+  "subtitle": "Reports 42-47 held plain 0%-return cash whenever NIFTY 50 closed below its own 200-day EMA. This report holds GOLDBEES.NS instead — the same gold ETF used in reports 14/20's blends. All series here are recomputed fresh (not re-quoted from report 42) over the same full window reports 42-47 use, since GOLDBEES.NS's real history starts 2009-01-02 — close enough to this project's usual 2008-12-31 start that no window shortening is needed.",
+  "source_line": "2008-12-31–2026-08-24 Report generated 2026-09-27 15:56",
   "pages": [
    {
     "file": "48_midcap_momentum10_gold_vs_cash.html",
     "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "correction to an earlier version of this report"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "An earlier version of this report stated \"GOLDBEES.NS only has price history from mid-2010\" and used a window starting 2010-06-30 on that basis. That claim was WRONG — GOLDBEES.NS actually has price history from 2009-01-02. The real cause of the earlier truncation was a bug: the Midcap150 price data feeding the momentum formula's own 252-day lookback was restricted to gold's intersected window BEFORE the formula ran, which pushed the first valid rebalance to June 2010 regardless of gold's real availability. This version uses the full 2008-2026 window, matching reports 42-47 exactly — the numbers below are the corrected ones, generally a little BETTER than the original version (the extra 1.5 years, 2009 to mid-2010, was a strong period for this combination)."
+      ],
+      "list_items": []
+     },
      {
       "heading": null,
       "pills": [
@@ -3377,8 +3391,8 @@
       ],
       "what_this_shows": null,
       "paragraphs": [
-       "Swapping cash for gold during risk-off periods lifts CAGR from +36.0% to +41.1% — a real improvement — while max drawdown is essentially UNCHANGED: -23.5% (cash) vs. -23.4% (gold). Gold doesn't need to fall in lockstep with equities to make this work; it just needs to not be as bad as the crashing stocks the filter is protecting against, which is exactly gold's usual role.",
-       "For reference, gold alone over this window returned +13.0% CAGR with a -27.4% drawdown of its own — nowhere near as good as the strategy, but calm enough that holding it during the strategy's own risk-off periods adds return without meaningfully adding risk."
+       "Swapping cash for gold during risk-off periods lifts CAGR from +38.5% to +43.3% — a real improvement — while max drawdown is essentially UNCHANGED: -23.5% (cash) vs. -23.4% (gold). Gold doesn't need to fall in lockstep with equities to make this work; it just needs to not be as bad as the crashing stocks the filter is protecting against, which is exactly gold's usual role.",
+       "For reference, gold alone over this window returned +13.9% CAGR with a -27.4% drawdown of its own — nowhere near as good as the strategy, but calm enough that holding it during the strategy's own risk-off periods adds return without meaningfully adding risk."
       ],
       "list_items": []
      },
@@ -3392,7 +3406,7 @@
       ],
       "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
       "paragraphs": [
-       "The 200-EMA filter's job is to avoid the strategy's own worst stretches, which correlate with broad equity-market selloffs. Gold has historically had LOW or even negative correlation to Indian equities during exactly those stretches — it doesn't need to go UP during a crash to help here, it just needs to not crash alongside equities, which is why swapping it in for cash adds return (+41.1% vs. +36.0%) without meaningfully adding drawdown risk.",
+       "The 200-EMA filter's job is to avoid the strategy's own worst stretches, which correlate with broad equity-market selloffs. Gold has historically had LOW or even negative correlation to Indian equities during exactly those stretches — it doesn't need to go UP during a crash to help here, it just needs to not crash alongside equities, which is why swapping it in for cash adds return (+43.3% vs. +38.5%) without meaningfully adding drawdown risk.",
        "This is NOT guaranteed to hold in every future crisis — gold and equities can occasionally fall together during a genuine liquidity crunch (some investors sell everything, including gold, to raise cash) — but across THIS 2010-2026 window, holding gold during the strategy's own risk-off periods was a clean improvement over doing nothing with the cash."
       ],
       "list_items": []
@@ -3408,7 +3422,7 @@
       "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
       "paragraphs": [],
       "list_items": [
-       "GOLDBEES.NS's history only starts mid-2010, so this report's window EXCLUDES the 2008-2009 global financial crisis — the single biggest crash reports 42-47's longer window covers. Gold's behavior in that specific crisis is not tested here.",
+       "GOLDBEES.NS's real history starts 2009-01-02 — the first two calendar days of this window (2008-12-31 to 2009-01-01) use a forward/backward-filled gold price rather than a real traded one, a negligible approximation over an 18-year span.",
        "Zero transaction costs on ANY regime switch (into or out of gold) — same disclosed omission as reports 42-47, and switching into/out of an ETF position isn't free in reality.",
        "GOLDBEES.NS tracks domestic gold prices in INR, which also move with the rupee's own exchange rate — a INR depreciation can lift GOLDBEES.NS even if USD gold is flat, a real but separate driver from \"gold as a crisis hedge.\"",
        "Only ONE EMA span (200 days) and immediate-switch (no confirmation delay) were tested here.",
@@ -3421,12 +3435,26 @@
  },
  "49": {
   "title": "Smallcap250 Momentum 10 — Gold Instead of Cash During the 200-EMA Filter",
-  "subtitle": "Report 48 tested holding GOLDBEES.NS instead of cash during the 200-day-EMA filter's risk-off periods on Midcap150. This applies the identical mechanics to Smallcap250 Momentum 10. GOLDBEES.NS only has price history from mid-2010, so ALL series here are recomputed fresh on this shorter, common window, not re-quoted from report 44's longer window.",
-  "source_line": "2010-06-30–2026-08-24 Report generated 2026-09-27 14:24",
+  "subtitle": "Report 48 tested holding GOLDBEES.NS instead of cash during the 200-day-EMA filter's risk-off periods on Midcap150. This applies the identical mechanics to Smallcap250 Momentum 10. All series here are recomputed fresh (not re-quoted from report 44) over the same full window report 44 uses, since GOLDBEES.NS's real history starts 2009-01-02.",
+  "source_line": "2008-12-31–2026-08-24 Report generated 2026-09-27 15:57",
   "pages": [
    {
     "file": "49_smallcap250_momentum10_gold_vs_cash.html",
     "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "correction to an earlier version of this report"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "An earlier version of this report (and report 48) stated GOLDBEES.NS's history \"starts mid-2010\" and used a window starting 2010-06-30 on that basis. That claim was WRONG — GOLDBEES.NS actually has price history from 2009-01-02. The real cause of the earlier truncation was a bug in how the closes data was restricted before the momentum formula's own lookback ran. This version uses the full 2008-2026 window, matching report 44 exactly — the conclusion itself is unchanged (gold still wins cleanly here), just with slightly better absolute numbers now that the extra 1.5 years of history (2009 to mid-2010) is included."
+      ],
+      "list_items": []
+     },
      {
       "heading": null,
       "pills": [
@@ -3437,8 +3465,8 @@
       ],
       "what_this_shows": null,
       "paragraphs": [
-       "On Smallcap250, gold again beats cash on CAGR — +37.9% to +43.2% — while max drawdown stays essentially unchanged: -31.8% (cash) vs. -32.0% (gold).",
-       "For reference, gold alone over this window returned +13.0% CAGR with a -27.4% drawdown of its own. Two universes now show the same pattern — see report 50 for NIFTY100."
+       "On Smallcap250, gold again beats cash on CAGR — +39.7% to +44.5% — while max drawdown stays essentially unchanged: -31.8% (cash) vs. -32.0% (gold).",
+       "For reference, gold alone over this window returned +13.9% CAGR with a -27.4% drawdown of its own. Two universes now show the same pattern — see report 50 for NIFTY100."
       ],
       "list_items": []
      },
@@ -3453,7 +3481,7 @@
       "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
       "paragraphs": [
        "Same logic as report 48: gold's low correlation to Indian equities during broad selloffs means it doesn't need to rise to help here, it just needs to avoid crashing alongside the smallcap stocks the filter is protecting against. Since the regime signal is unchanged (NIFTY 50's own 200-EMA), the cash-vs-gold comparison isolates purely what's HELD during risk-off periods, and that isolation produces the same result on this second, more volatile universe.",
-       "The same caveat from report 48 applies: gold and equities CAN fall together during a genuine liquidity crunch, and this window (2010-2026) doesn't include the 2008 GFC, the one period in this project's data where that risk would be most visible."
+       "The same caveat from report 48 applies: gold and equities CAN fall together during a genuine liquidity crunch — this window now DOES include the 2008-2009 global financial crisis (gold's real data starts 2009-01-02, essentially the full window), so that risk is at least partially represented here, unlike the shorter window an earlier version of this report mistakenly used."
       ],
       "list_items": []
      },
@@ -3468,7 +3496,7 @@
       "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
       "paragraphs": [],
       "list_items": [
-       "GOLDBEES.NS's history only starts mid-2010, excluding the 2008-2009 global financial crisis.",
+       "GOLDBEES.NS's real history starts 2009-01-02 — the first two calendar days of this window use a forward/backward-filled gold price rather than a real traded one, a negligible approximation over an 18-year span.",
        "Zero transaction costs on ANY regime switch (into or out of gold) — same disclosed omission as reports 42-48.",
        "GOLDBEES.NS tracks domestic gold prices in INR, which also move with the rupee's own exchange rate.",
        "Only ONE EMA span (200 days) and immediate-switch (no confirmation delay) were tested here.",
@@ -3481,12 +3509,26 @@
  },
  "50": {
   "title": "NIFTY100 Momentum 10 — Gold Instead of Cash During the 200-EMA Filter",
-  "subtitle": "Reports 48-49 tested holding GOLDBEES.NS instead of cash during the 200-day-EMA filter's risk-off periods on Midcap150 and Smallcap250. This applies the identical mechanics to NIFTY100 Momentum 10 — the third and final universe in this comparison. GOLDBEES.NS only has price history from mid-2010, so ALL series here are recomputed fresh on this shorter, common window, not re-quoted from report 45's longer window.",
-  "source_line": "2010-06-30–2026-08-21 Report generated 2026-09-27 14:24",
+  "subtitle": "Reports 48-49 tested holding GOLDBEES.NS instead of cash during the 200-day-EMA filter's risk-off periods on Midcap150 and Smallcap250. This applies the identical mechanics to NIFTY100 Momentum 10 — the third and final universe in this comparison. All series here are recomputed fresh (not re-quoted from report 45) over the same full window report 45 uses, since GOLDBEES.NS's real history starts 2009-01-02.",
+  "source_line": "2008-12-31–2026-08-21 Report generated 2026-09-27 15:57",
   "pages": [
    {
     "file": "50_nifty100_momentum10_gold_vs_cash.html",
     "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "correction to an earlier version of this report"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "An earlier version of this report (and reports 48-49) stated GOLDBEES.NS's history \"starts mid-2010\" and used a window starting 2010-06-30 on that basis. That claim was WRONG — GOLDBEES.NS actually has price history from 2009-01-02. The real cause of the earlier truncation was a bug in how the closes data was restricted before the momentum formula's own lookback ran. This version uses the full window matching report 45 exactly — the conclusion is unchanged (gold still wins cleanly here), just with slightly better absolute numbers now that the extra 1.5 years of history is included."
+      ],
+      "list_items": []
+     },
      {
       "heading": null,
       "pills": [
@@ -3497,7 +3539,7 @@
       ],
       "what_this_shows": null,
       "paragraphs": [
-       "On NIFTY100 too, gold beats cash on CAGR — +27.9% to +32.6% — while max drawdown stays essentially unchanged: -25.6% (cash) vs. -26.1% (gold).",
+       "On NIFTY100 too, gold beats cash on CAGR — +30.7% to +35.0% — while max drawdown stays essentially unchanged: -25.6% (cash) vs. -26.1% (gold).",
        "Across Midcap150 (report 48), Smallcap250 (report 49), and NIFTY100 here, \"gold instead of cash\" is a consistent, clean improvement — unlike the front-loaded-momentum reformulation (reports 37-41), which flipped sign by universe, this change works the same way everywhere because it doesn't touch stock selection at all, only what's held while the regime filter is in its risk-off state."
       ],
       "list_items": []
@@ -3513,7 +3555,7 @@
       "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
       "paragraphs": [
        "\"Gold instead of cash\" changes what the strategy holds during ~a quarter of trading days (whenever the NIFTY-50-driven filter is risk-off) but never touches which stocks get picked the rest of the time. Since gold's low correlation to Indian equities during broad selloffs doesn't depend on whether the underlying strategy trades large caps, midcaps, or smallcaps, this change works the same way on all three universes tested — reports 48-50 all show the same shape of result: meaningfully higher CAGR, essentially unchanged drawdown.",
-       "The same caveat applies everywhere: this window (2010-2026) excludes the 2008 GFC, and gold CAN fall alongside equities during a genuine liquidity crunch — this is a consistently good result across three universes on ONE historical period, not a guarantee gold always helps."
+       "The same caveat applies everywhere: gold CAN fall alongside equities during a genuine liquidity crunch, and even though this window now includes the 2008-2009 global financial crisis, it's still ONE historical period — this is a consistently good result across three universes on that one path, not a guarantee gold always helps."
       ],
       "list_items": []
      },
@@ -3528,7 +3570,7 @@
       "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
       "paragraphs": [],
       "list_items": [
-       "GOLDBEES.NS's history only starts mid-2010, excluding the 2008-2009 global financial crisis.",
+       "GOLDBEES.NS's real history starts 2009-01-02 — the first two calendar days of this window use a forward/backward-filled gold price rather than a real traded one, a negligible approximation over an 18-year span.",
        "Zero transaction costs on ANY regime switch (into or out of gold) — same disclosed omission as reports 42-49.",
        "GOLDBEES.NS tracks domestic gold prices in INR, which also move with the rupee's own exchange rate.",
        "Only ONE EMA span (200 days) and immediate-switch (no confirmation delay) were tested here.",
@@ -4586,7 +4628,7 @@
  "68": {
   "title": "Midcap150 Momentum 10 — Smooth Exposure, Combined With Gold and a Liquid Fund",
   "subtitle": "Reports 65-67 ramped equity exposure down smoothly instead of a hard on/off switch, holding plain 0%-return cash for the de-risked portion. This report tests two better homes for that de-risked capital: GOLDBEES.NS (the same real gold ETF from reports 48-50) and a liquid-fund proxy for the safe overnight yield idle capital would actually earn. Same 200-day EMA signal, same three band widths (10%/15%/20%) as reports 65-67 — the ONLY change is what the unexposed portion holds.",
-  "source_line": "2010-06-30–2026-08-24 Report generated 2026-09-27 15:31",
+  "source_line": "2008-12-31–2026-08-24 Report generated 2026-09-27 15:59",
   "pages": [
    {
     "file": "68_midcap_momentum10_smooth_exposure_hedged.html",
@@ -4610,14 +4652,28 @@
       "heading": null,
       "pills": [
        {
+        "kind": "assumption",
+        "text": "correction to an earlier version of this report"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "An earlier version of this report stated \"GOLDBEES.NS's history only starts mid-2010\" and used a window starting 2010-06-30 on that basis. That claim was WRONG — GOLDBEES.NS actually has price history from 2009-01-02. The real cause of the earlier truncation was a bug: `closes` was restricted to the gold-intersected window BEFORE the momentum formula's own lookback ran. This version uses the full 2008-2026 window, matching reports 65-67 exactly — the conclusion is unchanged (gold still wins outright here), just with slightly better absolute numbers."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": null,
+      "pills": [
+       {
         "kind": "positive",
         "text": "gold wins outright; the liquid-fund assumption gives a smaller, still-real edge"
        }
       ],
       "what_this_shows": null,
       "paragraphs": [
-       "At every band width, gold beats cash on CAGR by a wide margin AND matches or beats it on drawdown too — at the 15% band, cash gives +37.2% CAGR / -27.5% drawdown, gold gives +38.9% CAGR / -26.7% drawdown — a clean upgrade, no trade-off at all, echoing reports 48-50's binary-filter finding.",
-       "The liquid-fund assumption also beats cash — +37.8% CAGR at the 15% band, a smaller but real edge over cash, roughly matching cash's own drawdown. It's the more CONSERVATIVE upgrade of the two: no market risk (unlike gold, whose price can fall), just capturing yield that idle capital would realistically earn in a real liquid fund instead of literally nothing."
+       "At every band width, gold beats cash on CAGR by a wide margin AND matches or beats it on drawdown too — at the 15% band, cash gives +39.8% CAGR / -27.5% drawdown, gold gives +42.1% CAGR / -26.7% drawdown — a clean upgrade, no trade-off at all, echoing reports 48-50's binary-filter finding.",
+       "The liquid-fund assumption also beats cash — +40.4% CAGR at the 15% band, a smaller but real edge over cash, roughly matching cash's own drawdown. It's the more CONSERVATIVE upgrade of the two: no market risk (unlike gold, whose price can fall), just capturing yield that idle capital would realistically earn in a real liquid fund instead of literally nothing."
       ],
       "list_items": []
      },
@@ -4648,7 +4704,7 @@
       "paragraphs": [],
       "list_items": [
        "The liquid-fund sleeve is a MODELED ASSUMPTION (flat 6% p.a.), not real market data — see the data caveat above. Real liquid-fund yields varied roughly 3%-9% across this window, so the true edge over cash would have been smaller in low-rate years (2020-2021) and larger in high-rate years (2008-2013).",
-       "GOLDBEES.NS's history only starts mid-2010, so this report's window EXCLUDES the 2008-2009 global financial crisis — same disclosed limitation as reports 48-50.",
+       "GOLDBEES.NS's real history starts 2009-01-02 — the first two calendar days of this window use a forward/backward-filled gold price rather than a real traded one, a negligible approximation over an 18-year span.",
        "This is a SIMPLIFIED implementation: exposure scales the ALREADY-COMPUTED fully-invested strategy's own daily returns (blended with the hedge sleeve's), not a re-simulation of actual partial share purchases.",
        "Zero transaction costs on continuously adjusting the stock/hedge split — a real implementation would need periodic rebalancing trades between sleeves.",
        "GOLDBEES.NS tracks domestic gold prices in INR, which also move with the rupee's own exchange rate, a real but separate driver from \"gold as a crisis hedge.\"",
@@ -4661,8 +4717,8 @@
  },
  "69": {
   "title": "Smallcap250 Momentum 10 — Smooth Exposure, Combined With Gold and a Liquid Fund",
-  "subtitle": "Report 68 combined the smooth exposure ramp with gold and a liquid-fund yield assumption on Midcap150, where gold won outright. This applies the identical mechanics to report 16/29's Smallcap250 Momentum 10 config — and finds a genuine trade-off instead.",
-  "source_line": "2010-06-30–2026-08-24 Report generated 2026-09-27 15:40",
+  "subtitle": "Report 68 combined the smooth exposure ramp with gold and a liquid-fund yield assumption on Midcap150, where gold won outright. This applies the identical mechanics to report 16/29's Smallcap250 Momentum 10 config.",
+  "source_line": "2008-12-31–2026-08-24 Report generated 2026-09-27 16:00",
   "pages": [
    {
     "file": "69_smallcap250_momentum10_smooth_exposure_hedged.html",
@@ -4672,18 +4728,32 @@
       "pills": [
        {
         "kind": "assumption",
-        "text": "gold wins on CAGR but LOSES on drawdown here — the opposite of Midcap150"
+        "text": "correction — an earlier version of this report reached a different conclusion"
        }
       ],
       "what_this_shows": null,
       "paragraphs": [
-       "At the 15% band, gold gives the best CAGR of the three sleeves — +38.5% vs. +36.8% (cash) and +37.4% (liquid fund) — but its drawdown is the WORST of the three: -34.5% vs. -31.4% (cash) and -31.2% (liquid fund). Unlike Midcap150 (report 68), where gold was a clean upgrade on both axes, here it's a genuine trade-off.",
-       "The liquid-fund assumption is the cleanest performer here: it slightly beats cash on CAGR while ALSO giving the shallowest drawdown of all three sleeves — the safest, least eventful choice, not the highest-conviction one."
+       "An earlier version of this report stated GOLDBEES.NS's history \"starts mid-2010\" and used a window starting 2010-06-30 on that basis, needlessly excluding ~1.5 years of valid data (GOLDBEES.NS actually has price history from 2009-01-02). That version's headline finding — \"gold wins CAGR but LOSES on drawdown here, the opposite of Midcap150\" — does NOT hold up on the corrected, full window: gold's drawdown across the three band widths tested is essentially a WASH against cash (sometimes marginally better, sometimes marginally worse, never by more than about half a point), not the clear loss the shorter window showed. The lead finding below reflects the corrected data."
       ],
       "list_items": []
      },
      {
-      "heading": "Why gold's edge flips into a trade-off here",
+      "heading": null,
+      "pills": [
+       {
+        "kind": "positive",
+        "text": "gold wins clearly on CAGR; drawdown differences are noise, not a real trade-off"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "At the 15% band, gold gives the best CAGR of the three sleeves by a wide margin — +42.3% vs. +40.0% (cash) and +40.6% (liquid fund) — while its drawdown, -31.5%, is within a tenth of a point of cash's -31.4%. Across all three band widths tested, gold's drawdown is sometimes marginally better than cash's and sometimes marginally worse — never a meaningful difference either way.",
+       "The liquid-fund assumption is the more conservative choice: a smaller CAGR edge over cash with no market risk of its own, roughly matching cash's drawdown across all three bands. Both are genuine improvements over plain cash; gold is simply the higher-conviction one, and here — unlike the earlier, bugged version of this report suggested — it doesn't cost anything on drawdown to get that extra return."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why gold's drawdown effect is a wash here, not a clean win like Midcap150",
       "pills": [
        {
         "kind": "assumption",
@@ -4692,8 +4762,8 @@
       ],
       "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
       "paragraphs": [
-       "Smallcap250 Momentum 10's own unfiltered drawdown (-47.5%) is the deepest universe tested in this project — and its worst stretches don't perfectly line up with gold's own calmest periods. Where Midcap150's crashes and gold's own quiet patches happened to overlap well (report 68), here gold's price apparently had enough of its OWN volatility DURING Smallcap250's worst drawdown windows to add to the pain rather than cushion it, even while still delivering the best average annual return of the three sleeves.",
-       "This is a useful reminder that \"gold as a crisis hedge\" is a historical tendency, not a guarantee, and it can vary by which specific downturns a given strategy's own worst periods happen to coincide with — reports 68-70 together show gold winning cleanly on two universes (Midcap150, NIFTY100) and trading off on this one."
+       "Smallcap250 Momentum 10's own unfiltered drawdown (-44.8%) is the deepest universe tested in this project, and its worst stretches don't line up quite as cleanly with gold's own calmest periods as Midcap150's do (report 68). That's enough to erase gold's small drawdown edge over cash seen elsewhere, but not enough to turn it into a real cost either — across the three band widths tested, gold's drawdown moves within about half a point of cash's, in both directions. The CAGR edge, by contrast, is large and consistent at every band.",
+       "This is a useful reminder that \"gold as a crisis hedge\" is a historical tendency, not a guarantee, and it can vary by which specific downturns a given strategy's own worst periods happen to coincide with — reports 68-70 together show gold delivering a clear, meaningful CAGR edge on all three universes, with a drawdown effect that ranges from clearly positive (Midcap150, NIFTY100) to roughly neutral (here)."
       ],
       "list_items": []
      },
@@ -4709,7 +4779,7 @@
       "paragraphs": [],
       "list_items": [
        "The liquid-fund sleeve is a MODELED ASSUMPTION (flat 6% p.a.), not real market data — see report 68's data caveat. Real yields varied roughly 3%-9% across this window.",
-       "GOLDBEES.NS's history only starts mid-2010, so this report's window excludes the 2008-2009 global financial crisis.",
+       "GOLDBEES.NS's real history starts 2009-01-02 — the first two calendar days of this window use a forward/backward-filled gold price rather than a real traded one, a negligible approximation over an 18-year span.",
        "This is a SIMPLIFIED implementation: exposure scales the ALREADY-COMPUTED fully-invested strategy's own daily returns, not a re-simulation of actual partial share purchases.",
        "Zero transaction costs on continuously adjusting the stock/hedge split.",
        "No official \"Smallcap250 Momentum 10\" index exists — the June/December cadence is a borrowed convention. Today's fixed constituent list is applied retroactively (survivorship bias). This is a single, fixed 18-year historical path."
@@ -4721,12 +4791,26 @@
  },
  "70": {
   "title": "NIFTY100 Momentum 10 — Smooth Exposure, Combined With Gold and a Liquid Fund",
-  "subtitle": "Reports 68-69 combined the smooth exposure ramp with gold and a liquid-fund yield assumption on Midcap150 (gold won outright) and Smallcap250 (a genuine trade-off). This applies the identical mechanics to report 12's NIFTY100 Momentum 10 config, the third and final universe in this comparison.",
-  "source_line": "2010-06-30–2026-08-21 Report generated 2026-09-27 15:40",
+  "subtitle": "Reports 68-69 combined the smooth exposure ramp with gold and a liquid-fund yield assumption on Midcap150 and Smallcap250 — gold delivers a clear CAGR edge on both, with a drawdown effect ranging from clearly positive to roughly neutral. This applies the identical mechanics to report 12's NIFTY100 Momentum 10 config, the third and final universe in this comparison.",
+  "source_line": "2008-12-31–2026-08-21 Report generated 2026-09-27 16:00",
   "pages": [
    {
     "file": "70_nifty100_momentum10_smooth_exposure_hedged.html",
     "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "correction to an earlier version of this report"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "An earlier version of this report (and reports 68-69) stated GOLDBEES.NS's history \"starts mid-2010\" and used a window starting 2010-06-30 on that basis. That claim was WRONG — GOLDBEES.NS actually has price history from 2009-01-02. The real cause of the earlier truncation was a bug in how the closes data was restricted before the momentum formula's own lookback ran. This version uses the full window matching report 67 exactly — the conclusion is unchanged (gold still wins here), just with slightly better absolute numbers. Report 69's corrected version also revised its own finding — its earlier \"genuine trade-off\" framing for Smallcap250 did not hold up once its window was fixed."
+      ],
+      "list_items": []
+     },
      {
       "heading": null,
       "pills": [
@@ -4737,7 +4821,7 @@
       ],
       "what_this_shows": null,
       "paragraphs": [
-       "On NIFTY100, gold is again the best all-round choice — +29.0% CAGR / -25.7% drawdown, both better than cash's +27.4% / -25.9% and roughly matching or beating the liquid-fund assumption's +27.9% / -25.7%.",
+       "On NIFTY100, gold is again the best all-round choice — +32.2% CAGR / -25.7% drawdown, both better than cash's +30.1% / -25.9% and roughly matching or beating the liquid-fund assumption's +30.7% / -25.7%.",
        "Lined up with reports 68-69: gold wins cleanly on Midcap150 and NIFTY100, but trades CAGR for worse drawdown on Smallcap250 — a 2-out-of-3 result, not a universal law. The liquid-fund assumption is the more CONSISTENT performer across all three: a smaller edge over cash every time, with no instance of making drawdown worse."
       ],
       "list_items": []
@@ -4752,8 +4836,8 @@
       ],
       "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
       "paragraphs": [
-       "NIFTY100's own unfiltered drawdown is the shallowest of the three universes tested across reports 68-70 — its worst stretches are milder large-cap-driven declines, closer in character to Midcap150's than to Smallcap250's deeper, sharper ones. Gold's historical tendency to hold up during broad, large-cap-led selloffs seems to line up well with BOTH of those universes' crash profiles, but not with Smallcap250's, which is consistent with report 69's finding.",
-       "The practical takeaway across all three reports: gold is a strong default choice for the de-risked sleeve, but not an unconditional one — checking it against the specific universe being protected (as done here) is worth doing rather than assuming it. The liquid-fund assumption, despite being a smaller edge, is the safer generic default precisely because it never made drawdown worse on any of the three universes tested."
+       "NIFTY100's own unfiltered drawdown is the shallowest of the three universes tested across reports 68-70 — its worst stretches are milder large-cap-driven declines, closer in character to Midcap150's than to Smallcap250's deeper, sharper ones. Gold's historical tendency to hold up during broad, large-cap-led selloffs lines up well with both Midcap150's and NIFTY100's crash profiles (a clear drawdown improvement on top of the CAGR edge), and roughly a wash on Smallcap250's (report 69) — never a real cost, but not always an extra benefit either.",
+       "The practical takeaway across all three reports: gold delivers a clear, large CAGR edge everywhere, and its drawdown effect ranges from a genuine bonus to a neutral wash depending on the universe — checking it against the specific universe being protected (as done here) is worth doing rather than assuming a uniform effect. The liquid-fund assumption, despite being a smaller CAGR edge, is the safer generic default precisely because it never made drawdown worse than cash on any of the three universes tested."
       ],
       "list_items": []
      },
@@ -4769,7 +4853,7 @@
       "paragraphs": [],
       "list_items": [
        "The liquid-fund sleeve is a MODELED ASSUMPTION (flat 6% p.a.), not real market data — see report 68's data caveat. Real yields varied roughly 3%-9% across this window.",
-       "GOLDBEES.NS's history only starts mid-2010, so this report's window excludes the 2008-2009 global financial crisis.",
+       "GOLDBEES.NS's real history starts 2009-01-02 — the first two calendar days of this window use a forward/backward-filled gold price rather than a real traded one, a negligible approximation over an 18-year span.",
        "This is a SIMPLIFIED implementation: exposure scales the ALREADY-COMPUTED fully-invested strategy's own daily returns, not a re-simulation of actual partial share purchases.",
        "Zero transaction costs on continuously adjusting the stock/hedge split.",
        "Today's fixed NIFTY100 constituent list (report 12's config) is applied retroactively (survivorship bias). This is a single, fixed historical path."

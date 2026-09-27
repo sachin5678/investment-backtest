@@ -6,12 +6,20 @@ cash). Same NIFTY-50-driven 200-day EMA signal, same Midcap150 Momentum
 is below its own 200-EMA: GOLDBEES.NS (the Nippon India Gold BeES ETF,
 already used for the gold blends in reports 14/20) instead of idle cash.
 
-GOLDBEES.NS only has price history from mid-2010, so this report's
-window is shorter than reports 42-47's full 2008-2026 span — the
-CASH-based comparison below is recomputed FRESH on this identical,
-shorter window (not re-quoted from report 42) so the two are a fair,
-apples-to-apples comparison rather than being skewed by a different
-start date.
+CORRECTION: an earlier version of this report stated "GOLDBEES.NS only
+has price history from mid-2010" and used a window starting 2010-06-30
+on that basis. That claim was WRONG — GOLDBEES.NS actually has price
+history from 2009-01-02, almost the full span of every other report
+here. The real cause of the earlier truncation was a bug: `closes` (the
+Midcap150 price data feeding the momentum formula's own 252-day lookback)
+was restricted to the gold-intersected window BEFORE the formula ran,
+which pushed the first valid rebalance to June 2010 regardless of gold's
+real availability. This version computes the original/cash/gold series
+on the SAME full window as reports 42-47 (gold is reindexed onto that
+window, forward/back-filled over the ~2-day gap before its first real
+price), so all three series below now share the identical 2008-2026
+window used everywhere else in this project — no shorter-window caveat
+needed anymore.
 """
 import json
 
@@ -28,24 +36,28 @@ def main():
     closes = load_midcap150_closes()
     nifty = fetch("^NSEI")
     gold = fetch_gold_cleaned()
-    common = closes.index.intersection(nifty.index).intersection(gold.index)
+    common = closes.index.intersection(nifty.index)
     closes = closes.loc[common]
     nifty_close = nifty.loc[common, "Close"]
-    gold_close = gold.loc[common, "Close"]
+    gold_close_aligned = gold["Close"].reindex(common).ffill().bfill()
     ema = nifty_close.ewm(span=EMA_SPAN, adjust=False).mean()
 
     rbdates = rebalance_dates(closes.index, months=(6, 12))
 
     original_series, _ = build_index_generic(closes, rbdates, select_top_original)
     cash_series, cash_sel, cash_log = build_index_regime_filtered(closes, nifty_close, ema, rbdates, select_top_original)
-    gold_series, gold_sel, gold_log = build_index_regime_filtered_with_hedge(closes, nifty_close, ema, rbdates, select_top_original, gold_close)
+    gold_series, gold_sel, gold_log = build_index_regime_filtered_with_hedge(closes, nifty_close, ema, rbdates, select_top_original, gold_close_aligned)
 
     common_idx = original_series.index.intersection(cash_series.index).intersection(gold_series.index)
     original_metrics = metrics_only(original_series, common_idx)
     cash_metrics = metrics_only(cash_series, common_idx)
     gold_metrics = metrics_only(gold_series, common_idx)
     nifty_metrics = metrics_only(nifty_close.loc[common_idx], common_idx)
-    gold_bench_metrics = metrics_only(gold_close.loc[common_idx], common_idx)
+    # gold buy-and-hold benchmark uses gold's OWN real prices (not the
+    # ffill/bfill-aligned series used just to feed the hedge sleeve above),
+    # restricted to the small overlap where it actually has data
+    real_gold_idx = common_idx.intersection(gold["Close"].index)
+    gold_bench_metrics = metrics_only(gold["Close"], real_gold_idx)
 
     cash_blocks, pct_cash = cash_blocks_from_log(cash_log)
     num_reentries = sum(1 for s in cash_sel if s["trigger"] == "regime_reentry")

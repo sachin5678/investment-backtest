@@ -6,6 +6,15 @@ report 16/29's Smallcap250 Momentum 10 config.
 Same LIQUIDBEES.NS data caveat as report 68: its Yahoo Finance price is
 flat for its whole history, so the liquid-fund sleeve here is modeled as
 a flat ASSUMED 6% p.a. yield, not real market data.
+
+CORRECTION: an earlier version of this report (and report 68) stated
+GOLDBEES.NS's history "starts mid-2010" and used a window starting
+2010-06-30 on that basis. That claim was WRONG — GOLDBEES.NS actually
+has price history from 2009-01-02. The truncation was caused by
+restricting `closes` to the gold-intersected window BEFORE the momentum
+formula's own lookback ran. This version computes the original series
+(and the cash/liquid smooth-exposure variants) on the SAME full window
+as report 66.
 """
 import json
 
@@ -27,10 +36,10 @@ def main():
     closes = load_smallcap250_closes()
     nifty = fetch("^NSEI")
     gold = fetch_gold_cleaned()
-    common = closes.index.intersection(nifty.index).intersection(gold.index)
+    common = closes.index.intersection(nifty.index)
     closes = closes.loc[common]
     nifty_close = nifty.loc[common, "Close"]
-    gold_close = gold.loc[common, "Close"]
+    gold_close = gold["Close"]
     ema = nifty_close.ewm(span=EMA_SPAN, adjust=False).mean()
 
     days_elapsed = (common - common[0]).days
@@ -46,12 +55,13 @@ def main():
         cash_series, _ = build_smooth_exposure(original_series, nifty_close, ema, band_pct=band)
         gold_series, _ = build_smooth_exposure_with_hedge(original_series, nifty_close, ema, gold_close, band_pct=band)
         liquid_series, _ = build_smooth_exposure_with_hedge(original_series, nifty_close, ema, liquid_close, band_pct=band)
-        common_idx = common_idx.intersection(cash_series.index).intersection(gold_series.index).intersection(liquid_series.index)
+        common_idx = common_idx.intersection(cash_series.index).intersection(liquid_series.index)
         variants[band] = {"cash": cash_series, "gold": gold_series, "liquid": liquid_series}
 
     original_metrics = metrics_only(original_series, common_idx)
     nifty_metrics = metrics_only(nifty_close.loc[common_idx], common_idx)
-    gold_bench_metrics = metrics_only(gold_close.loc[common_idx], common_idx)
+    real_gold_idx = common_idx.intersection(gold_close.index)
+    gold_bench_metrics = metrics_only(gold_close, real_gold_idx)
 
     bands_out = []
     for band in BANDS:

@@ -86,7 +86,7 @@ def build():
       <div class="flex items-start justify-between gap-6">
         <div>
           <h1 class="text-2xl font-bold text-[#E6EDF0]">Smallcap250 Momentum 10 — Smooth Exposure, Combined With Gold and a Liquid Fund</h1>
-          <p class="text-[#9FB4BB] text-sm mt-1">Report 68 combined the smooth exposure ramp with gold and a liquid-fund yield assumption on Midcap150, where gold won outright. This applies the identical mechanics to report 16/29's Smallcap250 Momentum 10 config — and finds a genuine trade-off instead.</p>
+          <p class="text-[#9FB4BB] text-sm mt-1">Report 68 combined the smooth exposure ramp with gold and a liquid-fund yield assumption on Midcap150, where gold won outright. This applies the identical mechanics to report 16/29's Smallcap250 Momentum 10 config.</p>
         </div>
         <div class="text-right {MUTED} mono shrink-0">
           {esc(R['start_date'])}–{esc(R['end_date'])}<br/>Report generated {esc(R['generated'])}
@@ -95,22 +95,43 @@ def build():
     </header>
     """
 
+    correction_note = f"""
+    <div class="px-10 pt-6">
+      <div class="{PANEL} border-2 border-[#6AE4FF]">
+        <div class="flex items-center gap-2 mb-3 flex-wrap">
+          {pill('correction — an earlier version of this report reached a different conclusion', 'assumption')}
+        </div>
+        <p class="text-[13.5px] text-[#C9D6DA] leading-relaxed">
+          An earlier version of this report stated GOLDBEES.NS's history "starts mid-2010" and used a window starting
+          2010-06-30 on that basis, needlessly excluding ~1.5 years of valid data (GOLDBEES.NS actually has price history
+          from 2009-01-02). That version's headline finding — "gold wins CAGR but LOSES on drawdown here, the opposite of
+          Midcap150" — does NOT hold up on the corrected, full window: gold's drawdown across the three band widths tested is
+          essentially a WASH against cash (sometimes marginally better, sometimes marginally worse, never by more than about
+          half a point), not the clear loss the shorter window showed. The lead finding below reflects the corrected data.
+        </p>
+      </div>
+    </div>
+    """
+
     lead_disclosure = f"""
     <div class="px-10 pt-6">
-      <div class="{PANEL} border-2 border-[#F2B03C]">
+      <div class="{PANEL} border-2 border-[#37F083]">
         <div class="flex items-center gap-2 mb-3 flex-wrap">
-          {pill('gold wins on CAGR but LOSES on drawdown here — the opposite of Midcap150', 'assumption')}
+          {pill('gold wins clearly on CAGR; drawdown differences are noise, not a real trade-off', 'positive')}
         </div>
         <p class="text-[14px] text-[#E6EDF0] leading-relaxed mb-3">
-          At the 15% band, gold gives the best CAGR of the three sleeves — <span class="font-semibold">{pct(b15['gold']['cagr_pct'])}</span>
-          vs. {pct(b15['cash']['cagr_pct'])} (cash) and {pct(b15['liquid']['cagr_pct'])} (liquid fund) — but its drawdown is
-          the WORST of the three: <span class="font-semibold">{pct(b15['gold']['max_drawdown_pct'],1,signed=False)}</span>
-          vs. {pct(b15['cash']['max_drawdown_pct'],1,signed=False)} (cash) and {pct(b15['liquid']['max_drawdown_pct'],1,signed=False)}
-          (liquid fund). Unlike Midcap150 (report 68), where gold was a clean upgrade on both axes, here it's a genuine trade-off.
+          At the 15% band, gold gives the best CAGR of the three sleeves by a wide margin —
+          <span class="font-semibold">{pct(b15['gold']['cagr_pct'])}</span> vs. {pct(b15['cash']['cagr_pct'])} (cash) and
+          {pct(b15['liquid']['cagr_pct'])} (liquid fund) — while its drawdown, {pct(b15['gold']['max_drawdown_pct'],1,signed=False)},
+          is within a tenth of a point of cash's {pct(b15['cash']['max_drawdown_pct'],1,signed=False)}. Across all three band
+          widths tested, gold's drawdown is sometimes marginally better than cash's and sometimes marginally worse — never a
+          meaningful difference either way.
         </p>
         <p class="text-[14px] text-[#E6EDF0] leading-relaxed">
-          The liquid-fund assumption is the cleanest performer here: it slightly beats cash on CAGR while ALSO giving the
-          shallowest drawdown of all three sleeves — the safest, least eventful choice, not the highest-conviction one.
+          The liquid-fund assumption is the more conservative choice: a smaller CAGR edge over cash with no market risk of
+          its own, roughly matching cash's drawdown across all three bands. Both are genuine improvements over plain cash;
+          gold is simply the higher-conviction one, and here — unlike the earlier, bugged version of this report suggested —
+          it doesn't cost anything on drawdown to get that extra return.
         </p>
       </div>
     </div>
@@ -125,7 +146,7 @@ def build():
         kpi_card("Max drawdown at the 15% band", "Largest peak-to-trough decline, identical window for all three sleeve choices.",
                   [("Cash (0%)", pct(b15["cash"]["max_drawdown_pct"], 1, signed=False), "neutral"),
                    ("Liquid fund (assumed 6%)", pct(b15["liquid"]["max_drawdown_pct"], 1, signed=False), "positive"),
-                   ("Gold (GOLDBEES.NS)", pct(b15["gold"]["max_drawdown_pct"], 1, signed=False), "negative"),
+                   ("Gold (GOLDBEES.NS)", pct(b15["gold"]["max_drawdown_pct"], 1, signed=False), "assumption"),
                    ("No filter (100% always)", pct(orig["max_drawdown_pct"], 1, signed=False), "negative")]),
     ]
     kpi_grid = f'<div class="grid grid-cols-1 gap-4 mt-6">{"".join(kpis)}</div>'
@@ -138,15 +159,15 @@ def build():
     for b in bands:
         for key in ("cash", "liquid", "gold"):
             v = b[key]
-            full_table_rows.append(row(f"{b['band_pct']:.0f}% band — {HEDGE_LABELS[key]}", v["cagr_pct"], v["max_drawdown_pct"], v["net_return_pct"], highlight=(b["band_pct"] == 15.0 and key == "liquid")))
+            full_table_rows.append(row(f"{b['band_pct']:.0f}% band — {HEDGE_LABELS[key]}", v["cagr_pct"], v["max_drawdown_pct"], v["net_return_pct"], highlight=(b["band_pct"] == 15.0 and key == "gold")))
 
     full_table = f"""
     <div class="{PANEL} mt-6">
       <div class="flex items-center justify-between mb-1">
         <h3 class="text-base font-bold text-[#E6EDF0]">Every band × every sleeve, side by side</h3>
-        {pill('highlighted row = liquid fund at the 15% band, the most consistent result here', 'neutral')}
+        {pill('highlighted row = gold at the 15% band, the best CAGR of the nine', 'neutral')}
       </div>
-      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — all nine combinations of band width and de-risked-sleeve choice, over the identical {esc(R['start_date'])}–{esc(R['end_date'])} window. Window is shorter than reports 66's because GOLDBEES.NS's history starts mid-2010.</p>
+      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — all nine combinations of band width and de-risked-sleeve choice, over the identical {esc(R['start_date'])}–{esc(R['end_date'])} window, matching report 66's.</p>
       <table class="data-table">
         <thead><tr><th>Design</th><th>Net return</th><th>CAGR</th><th>Max drawdown</th></tr></thead>
         <tbody>
@@ -177,19 +198,21 @@ def build():
 
     honesty_note = f"""
     <div class="{PANEL} mt-6 border-[#F2B03C]/40">
-      <div class="flex items-center gap-2 mb-2"><h3 class="text-base font-bold text-[#E6EDF0]">Why gold's edge flips into a trade-off here</h3>{pill('framing', 'assumption')}</div>
+      <div class="flex items-center gap-2 mb-2"><h3 class="text-base font-bold text-[#E6EDF0]">Why gold's drawdown effect is a wash here, not a clean win like Midcap150</h3>{pill('framing', 'assumption')}</div>
       <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — the mechanism, not just the scoreboard.</p>
       <p class="text-[13.5px] text-[#C9D6DA] leading-relaxed mb-3">
         Smallcap250 Momentum 10's own unfiltered drawdown ({pct(orig['max_drawdown_pct'],1,signed=False)}) is the deepest
-        universe tested in this project — and its worst stretches don't perfectly line up with gold's own calmest periods.
-        Where Midcap150's crashes and gold's own quiet patches happened to overlap well (report 68), here gold's price
-        apparently had enough of its OWN volatility DURING Smallcap250's worst drawdown windows to add to the pain rather
-        than cushion it, even while still delivering the best average annual return of the three sleeves.
+        universe tested in this project, and its worst stretches don't line up quite as cleanly with gold's own calmest
+        periods as Midcap150's do (report 68). That's enough to erase gold's small drawdown edge over cash seen elsewhere,
+        but not enough to turn it into a real cost either — across the three band widths tested, gold's drawdown moves
+        within about half a point of cash's, in both directions. The CAGR edge, by contrast, is large and consistent at
+        every band.
       </p>
       <p class="text-[13.5px] text-[#C9D6DA] leading-relaxed">
         This is a useful reminder that "gold as a crisis hedge" is a historical tendency, not a guarantee, and it can vary
         by which specific downturns a given strategy's own worst periods happen to coincide with — reports 68-70 together
-        show gold winning cleanly on two universes (Midcap150, NIFTY100) and trading off on this one.
+        show gold delivering a clear, meaningful CAGR edge on all three universes, with a drawdown effect that ranges from
+        clearly positive (Midcap150, NIFTY100) to roughly neutral (here).
       </p>
     </div>
     """
@@ -203,7 +226,7 @@ def build():
       <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — every simplification behind this backtest.</p>
       <ul class="text-[13px] text-[#C9D6DA] list-disc pl-5 leading-relaxed">
         <li class="mb-1.5">The liquid-fund sleeve is a MODELED ASSUMPTION (flat {R['assumed_liquid_yield_pct']:.0f}% p.a.), not real market data — see report 68's data caveat. Real yields varied roughly 3%-9% across this window.</li>
-        <li class="mb-1.5">GOLDBEES.NS's history only starts mid-2010, so this report's window excludes the 2008-2009 global financial crisis.</li>
+        <li class="mb-1.5">GOLDBEES.NS's real history starts 2009-01-02 — the first two calendar days of this window use a forward/backward-filled gold price rather than a real traded one, a negligible approximation over an 18-year span.</li>
         <li class="mb-1.5">This is a SIMPLIFIED implementation: exposure scales the ALREADY-COMPUTED fully-invested strategy's own daily returns, not a re-simulation of actual partial share purchases.</li>
         <li class="mb-1.5">Zero transaction costs on continuously adjusting the stock/hedge split.</li>
         <li class="mb-1.5">No official "Smallcap250 Momentum 10" index exists — the June/December cadence is a borrowed convention. Today's fixed constituent list is applied retroactively (survivorship bias). This is a single, fixed 18-year historical path.</li>
@@ -213,6 +236,7 @@ def build():
 
     body = f"""
     {header}
+    {correction_note}
     {lead_disclosure}
     <div class="px-10 py-6">
       {kpi_grid}

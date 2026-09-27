@@ -118,6 +118,23 @@ def build():
     </div>
     """
 
+    correction_note = f"""
+    <div class="px-10 pt-6">
+      <div class="{PANEL} border-2 border-[#6AE4FF]">
+        <div class="flex items-center gap-2 mb-3 flex-wrap">
+          {pill('correction to an earlier version of this report', 'assumption')}
+        </div>
+        <p class="text-[13.5px] text-[#C9D6DA] leading-relaxed">
+          An earlier version of this report stated "GOLDBEES.NS's history only starts mid-2010" and used a window starting
+          2010-06-30 on that basis. That claim was WRONG — GOLDBEES.NS actually has price history from 2009-01-02. The real
+          cause of the earlier truncation was a bug: `closes` was restricted to the gold-intersected window BEFORE the
+          momentum formula's own lookback ran. This version uses the full 2008-2026 window, matching reports 65-67 exactly —
+          the conclusion is unchanged (gold still wins outright here), just with slightly better absolute numbers.
+        </p>
+      </div>
+    </div>
+    """
+
     lead_disclosure = f"""
     <div class="px-10 pt-6">
       <div class="{PANEL} border-2 border-[#37F083]">
@@ -171,7 +188,7 @@ def build():
         <h3 class="text-base font-bold text-[#E6EDF0]">Every band × every sleeve, side by side</h3>
         {pill('highlighted row = gold at the 15% band, the best all-round result here', 'neutral')}
       </div>
-      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — all nine combinations of band width and de-risked-sleeve choice, over the identical {esc(R['start_date'])}–{esc(R['end_date'])} window. Window is shorter than reports 65-67's because GOLDBEES.NS's history starts mid-2010.</p>
+      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — all nine combinations of band width and de-risked-sleeve choice, over the identical {esc(R['start_date'])}–{esc(R['end_date'])} window, matching reports 65-67's.</p>
       <table class="data-table">
         <thead><tr><th>Design</th><th>Net return</th><th>CAGR</th><th>Max drawdown</th></tr></thead>
         <tbody>
@@ -231,7 +248,7 @@ def build():
       <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — every simplification behind this backtest.</p>
       <ul class="text-[13px] text-[#C9D6DA] list-disc pl-5 leading-relaxed">
         <li class="mb-1.5">The liquid-fund sleeve is a MODELED ASSUMPTION (flat {R['assumed_liquid_yield_pct']:.0f}% p.a.), not real market data — see the data caveat above. Real liquid-fund yields varied roughly 3%-9% across this window, so the true edge over cash would have been smaller in low-rate years (2020-2021) and larger in high-rate years (2008-2013).</li>
-        <li class="mb-1.5">GOLDBEES.NS's history only starts mid-2010, so this report's window EXCLUDES the 2008-2009 global financial crisis — same disclosed limitation as reports 48-50.</li>
+        <li class="mb-1.5">GOLDBEES.NS's real history starts 2009-01-02 — the first two calendar days of this window use a forward/backward-filled gold price rather than a real traded one, a negligible approximation over an 18-year span.</li>
         <li class="mb-1.5">This is a SIMPLIFIED implementation: exposure scales the ALREADY-COMPUTED fully-invested strategy's own daily returns (blended with the hedge sleeve's), not a re-simulation of actual partial share purchases.</li>
         <li class="mb-1.5">Zero transaction costs on continuously adjusting the stock/hedge split — a real implementation would need periodic rebalancing trades between sleeves.</li>
         <li class="mb-1.5">GOLDBEES.NS tracks domestic gold prices in INR, which also move with the rupee's own exchange rate, a real but separate driver from "gold as a crisis hedge."</li>
@@ -243,6 +260,7 @@ def build():
     body = f"""
     {header}
     {data_caveat}
+    {correction_note}
     {lead_disclosure}
     <div class="px-10 py-6">
       {kpi_grid}
