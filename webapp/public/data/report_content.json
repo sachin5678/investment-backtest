@@ -5438,5 +5438,65 @@
     ]
    }
   ]
+ },
+ "80": {
+  "title": "ETF Momentum Rotation — Top 5 Out of 25 Distinct NSE ETFs",
+  "subtitle": "This project's usual momentum formula (6m/12m risk-adjusted return, Z-scored, equal-weight top-5) applied to a universe of 25 DISTINCT NSE-listed ETFs — sectoral, smart-beta/factor, commodity, and international — instead of individual stocks, at three rebalance cadences: monthly, quarterly, and semi-annual (this project's usual cadence). Compared against NIFTY 50 and against simply holding all 25 ETFs equally weighted, no picking at all.",
+  "source_line": "2020-12-31–2026-09-28 Report generated 2026-09-28 10:15",
+  "pages": [
+   {
+    "file": "80_etf_momentum_rotation_top5.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "negative",
+        "text": "picking the top 5 ETFs by momentum LOSES to just holding all of them equally"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Every single cadence tested here — monthly (+24.9% CAGR), quarterly (+19.2%), and semi-annual (+21.7%) — trails simply holding all 25 ETFs equally weighted, no picking at all: +28.0% CAGR, with a SHALLOWER drawdown too (-14.5% vs. every momentum variant's -21.2%–-29.9%). All four comfortably beat NIFTY 50 (+8.9%) in absolute terms — this is a genuinely strong period for ETFs broadly — but concentrating in the \"best\" 5 by momentum was, over this specific window, a worse idea than not picking at all.",
+       "On cadence itself: monthly clearly beats quarterly and semi-annual here — the opposite of report 77's finding on individual stocks, where more frequent rebalancing hurt the hero design. ETF-level sector/factor leadership seems to rotate faster than individual-stock momentum does, so refreshing the picks more often paid off here even though it didn't for report 48's stock-picking design."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why picking lost to not picking, here",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "This window (roughly 2020-2026) was a strong, broad-based run for almost every ETF in this universe — gold, Nasdaq 100, FANG+, S&P 500 top 50, and most Indian sectors all rose substantially. When nearly everything in a universe is going up, concentrating in only 5 names gives up the benefit of just owning everything — and adds real risk if the formula's \"top 5\" happen to be whichever sector or factor is near the END of its own run rather than the start (chasing recent strength is exactly what momentum does, and it doesn't distinguish between a trend that's about to continue and one that's about to reverse).",
+       "This is a genuinely different result from the stock-level momentum reports in this project, where concentrating in the top 10 out of 150 stocks clearly beat the broader index. A likely reason: individual stocks have much more dispersion in outcomes than a basket of already-diversified ETFs does — momentum has more real signal to find among 150 individual companies than among 25 ETFs that are each already a basket of dozens of stocks, several of which overlap in what they're actually exposed to (e.g. NIFTYBEES and JUNIORBEES both hold large-cap Indian equities)."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "This is a ~6-year window (2020-2026), not 18 years — bounded by how recently many of these ETFs\n        actually launched, not by an arbitrary choice. A different, longer-history period could tell a different story.",
+       "The 25-ETF candidate list was hand-picked to be \"distinct\" (avoiding multiple ETFs tracking\n        the identical index) but is not exhaustive — other NSE ETFs exist that weren't included, and some categories (e.g.\n        REALTYIETF.NS, attempted but not found on yfinance) are missing entirely.",
+       "Some ETFs in this universe are NOT mutually exclusive exposures — NIFTYBEES and JUNIORBEES both\n        hold large-cap Indian equities, for instance — so \"top 5 out of 25\" isn't guaranteed to be 5 genuinely\n        uncorrelated bets.",
+       "Zero transaction costs on any rebalance — same disclosed omission as every other reconstruction\n        here; the monthly cadence trades far more often per year than semi-annual, so real-world costs would erode its\n        currently-best CAGR the most.",
+       "ETF prices used here are market prices (Close), not NAV — a thinly-traded ETF's market price can\n        diverge briefly from its underlying NAV, a real but usually small effect for these instruments. No dividends\n        modeled, unadjusted prices."
+      ]
+     }
+    ]
+   }
+  ]
  }
 }

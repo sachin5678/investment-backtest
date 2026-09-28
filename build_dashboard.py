@@ -277,6 +277,8 @@ GROUPS = [
              "title": "Midcap150 Momentum — Report 48 at 5 and 15 Stocks", "subtitle": "The gold-hedge filter barely helps at 5 stocks, but helps even more at 15"},
             {"id": "79", "file": "79_midcap150_report48_basket_size_top20.html", "icon": ICON_LAYERS,
              "title": "Midcap150 Momentum — Report 48's Design, Now Through Top-20", "subtitle": "Drawdown keeps improving; CAGR keeps falling — the filter stops closing the gap"},
+            {"id": "80", "file": "80_etf_momentum_rotation_top5.html", "icon": ICON_REFRESH,
+             "title": "ETF Momentum Rotation — Top 5 Out of 25 Distinct ETFs", "subtitle": "Picking the top 5 by momentum loses to just holding all of them equally"},
         ],
     },
 ]
