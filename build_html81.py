@@ -137,6 +137,34 @@ def build():
     ]
     kpi_grid = f'<div class="grid grid-cols-1 gap-4 mt-6">{"".join(kpis)}</div>'
 
+    unified_table = f"""
+    <div class="{PANEL} mt-6">
+      <div class="flex items-center justify-between mb-1">
+        <h3 class="text-base font-bold text-[#E6EDF0]">All four numbers together — CAGR and XIRR, averaging on and off</h3>
+        {pill('two different capital structures — not four independent results', 'neutral')}
+      </div>
+      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — the compounding columns (main comparison above) and the periodic new-capital columns (appendix below), side by side in one place. Compare DOWN each column (averaging's effect within one capital structure) — comparing ACROSS from CAGR to XIRR mixes two different money-management rules, not just two metrics.</p>
+      <table class="data-table">
+        <thead><tr><th>Averaging</th><th>Compounding — CAGR</th><th>Compounding — Max DD</th><th>New capital — XIRR</th><th>New capital — money multiple</th></tr></thead>
+        <tbody>
+          <tr><td>Off</td><td>{pct(plain['cagr_pct'])}</td><td>{pct(plain['max_drawdown_pct'],1,signed=False)}</td>
+              <td>{pct(base['xirr_pct'])}</td><td>{base['money_multiple']:.2f}x</td></tr>
+          <tr><td>On ({drop1:.0f}%/{drop2:.0f}%)</td><td>{pct(comp_avg['cagr_pct'])}</td><td>{pct(comp_avg['max_drawdown_pct'],1,signed=False)}</td>
+              <td>{pct(avg['xirr_pct'])}</td><td>{avg['money_multiple']:.2f}x</td></tr>
+        </tbody>
+      </table>
+      <p class="text-[13.5px] text-[#C9D6DA] leading-relaxed mt-3">
+        Reading down the CAGR column: averaging is a wash ({pct(plain['cagr_pct'])} → {pct(comp_avg['cagr_pct'])}). Reading
+        down the XIRR column: averaging looks like a clear win ({pct(base['xirr_pct'])} → {pct(avg['xirr_pct'])}). Both are
+        computed correctly; they disagree because they're answering different questions — CAGR asks "does this rule help
+        a single portfolio that never gets new money," XIRR asks "how efficiently was capital used, given that this
+        version keeps receiving new money to fund each top-up." Reading ACROSS a row (e.g. comparing {pct(plain['cagr_pct'])}
+        to {pct(base['xirr_pct'])} directly) isn't meaningful — those two numbers describe different strategies with the
+        same stock picks, not the same strategy measured two ways.
+      </p>
+    </div>
+    """
+
     def row(name, v, cls=""):
         c = f' class="{cls}"' if cls else ""
         return f"""<tr{c}><td>{esc(name)}</td><td>{pct(v['net_return_pct'])}</td><td>{pct(v['cagr_pct'])}</td>
@@ -287,6 +315,7 @@ def build():
     {lead_disclosure}
     <div class="px-10 py-6">
       {kpi_grid}
+      {unified_table}
       {full_table}
       {eq_panel}
       {dd_panel}
