@@ -38,12 +38,23 @@ from rebalance_signal import compute_current_picks, build_csv, REBALANCE_MONTHS,
 
 REMINDER_DAYS = (5, 3, 1)
 
-SMTP_HOST = os.environ.get("SMTP_HOST", "smtp.gmail.com")
-SMTP_PORT = int(os.environ.get("SMTP_PORT", "587"))
-SMTP_USER = os.environ.get("SMTP_USER")
-SMTP_PASS = os.environ.get("SMTP_PASS")
-EMAIL_FROM = os.environ.get("EMAIL_FROM", SMTP_USER)
-EMAIL_TO = os.environ.get("EMAIL_TO")
+
+def env_or(name, default=None):
+    """os.environ.get(name, default), but also falls back to `default`
+    when the variable is PRESENT but empty — which is exactly what a
+    GitHub Actions secret becomes when it isn't actually set (the env
+    var still gets created, just with an empty string value, so a plain
+    os.environ.get(..., default) never falls back)."""
+    value = os.environ.get(name)
+    return value if value else default
+
+
+SMTP_HOST = env_or("SMTP_HOST", "smtp.gmail.com")
+SMTP_PORT = int(env_or("SMTP_PORT", "587"))
+SMTP_USER = env_or("SMTP_USER")
+SMTP_PASS = env_or("SMTP_PASS")
+EMAIL_FROM = env_or("EMAIL_FROM", SMTP_USER)
+EMAIL_TO = env_or("EMAIL_TO")
 
 
 def estimated_rebalance_date(year, month):
