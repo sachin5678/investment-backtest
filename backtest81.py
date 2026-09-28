@@ -175,13 +175,14 @@ def simulate_compounding_with_averaging(closes, rbdates, select_fn, drop1=DROP_1
     reallocation, not a cash injection), so total portfolio value is
     unchanged at the instant of the trim and the whole thing compounds
     forward through every rebalance exactly like build_index_generic.
-    Returns a single equity_curve/selections, directly CAGR-comparable to
-    the plain (no-averaging) flagship series."""
+    Returns a single equity_curve/selections/trigger-count dict, directly
+    CAGR-comparable to the plain (no-averaging) flagship series."""
     dates = closes.index
     index_level = pd.Series(np.nan, index=dates)
     shares = {}
     started = False
     selections = []
+    total_positions, trigger_once, trigger_twice = 0, 0, 0
 
     for i, rb in enumerate(rbdates):
         t_idx = dates.get_loc(rb)
@@ -201,6 +202,7 @@ def simulate_compounding_with_averaging(closes, rbdates, select_fn, drop1=DROP_1
             peak = {tk: price_at_rb[tk] for tk in selected}
             averaged1 = {tk: False for tk in selected}
             averaged2 = {tk: False for tk in selected}
+            total_positions += len(selected)
             selections.append({"date": rb.strftime("%Y-%m-%d"), "tickers": [t.replace(".NS", "") for t in selected]})
 
         if not started:
@@ -241,12 +243,15 @@ def simulate_compounding_with_averaging(closes, rbdates, select_fn, drop1=DROP_1
                         shares[tk] += actual_cash / price
                     if trigger == "averaged1":
                         averaged1[tk] = True
+                        trigger_once += 1
                     else:
                         averaged2[tk] = True
+                        trigger_twice += 1
             index_level.loc[d] = sum(shares.get(tk, 0.0) * price_today.get(tk, 0.0) for tk in shares
                                       if pd.notna(price_today.get(tk)))
 
-    return index_level.dropna(), selections
+    trigger_counts = {"total_positions": total_positions, "trigger_once": trigger_once, "trigger_twice": trigger_twice}
+    return index_level.dropna(), selections, trigger_counts
 
 
 def main():
@@ -278,7 +283,7 @@ def main():
     # THE MAIN QUESTION: one continuous compounding portfolio, no new
     # external capital ever, averaging buys funded by trimming the other
     # 9 holdings instead — directly CAGR-comparable to plain_compounding.
-    compound_avg_series, compound_avg_sel = simulate_compounding_with_averaging(closes, rbdates, select_top_original)
+    compound_avg_series, compound_avg_sel, _ = simulate_compounding_with_averaging(closes, rbdates, select_top_original)
     compounding_with_averaging = metrics_only(compound_avg_series, common_idx.intersection(compound_avg_series.index))
     compounding_with_averaging["selections_sample"] = (
         compound_avg_sel[:3] + compound_avg_sel[-3:] if len(compound_avg_sel) > 6 else compound_avg_sel)

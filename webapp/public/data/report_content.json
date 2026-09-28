@@ -5571,5 +5571,64 @@
     ]
    }
   ]
+ },
+ "82": {
+  "title": "Midcap150 Momentum 10 — Averaging With Wider Triggers (25%/40%)",
+  "subtitle": "Report 81's compounding-with-averaging design (top-up funded by trimming the OTHER 9 holdings, one continuous portfolio, single CAGR) found 15%/30% averaging was roughly a CAGR wash but made drawdown meaningfully worse — because most 15% pullbacks in this dataset were pauses within a continuing uptrend, not real breakdowns, so trimming winners to fund the top-up mostly cost something for nothing. This report widens the triggers to 25% and 40% off peak-since-entry to see whether firing less often, on more genuine dips, changes that trade-off.",
+  "source_line": "2008-12-31–2026-08-24 Report generated 2026-09-28 23:44",
+  "pages": [
+   {
+    "file": "82_midcap150_momentum10_averaging_wider_triggers.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "positive",
+        "text": "wider triggers flip the result — CAGR improves, and the drawdown cost shrinks"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "At 25%/40%, CAGR actually goes UP to +42.1% — better than both the no-averaging baseline (+40.6%) AND the tighter 15%/30% version (+40.6%). Drawdown is still slightly worse than no averaging (-36.0% vs. -35.1%), but meaningfully better than 15%/30%'s -37.2%.",
+       "The mechanism lines up with report 81's own explanation: the 25%-from-peak trigger fired on only 109 of 360 stock-periods (30.3%), less than half as often as 15%'s 256 (71.1%). Firing less often means trimming the OTHER 9 (better-performing, on average) holdings less often too — less of the \"sell strength to buy weakness\" drag that made 15%/30% a net negative on the worst days."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why being more selective about WHICH dips to buy paid off",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "Report 81's core finding still applies: this formula picks stocks BECAUSE they've already risen a lot, and a pullback from a post-purchase peak is, more often than not, a pause rather than a breakdown. The 15% trigger fires on 71% of positions — it's reacting to completely normal, routine volatility for these names, and every one of those top-ups costs a real trim from the other 9 holdings. The 25% trigger fires on only 30% of positions — rare enough that when it DOES fire, it's more likely catching something genuinely unusual, worth averaging into.",
+       "This doesn't mean wider is always better — push the trigger too wide (say, 60%/80%) and it would almost never fire, converging back toward the plain no-averaging baseline by construction. Somewhere between \"fires on routine noise\" (15%/30%) and \"essentially never fires\" there's a width where averaging has the best chance of adding value, and this result suggests 25%/40% sits closer to that zone than 15%/30% does — not proof it's the optimal width, just evidence the direction of the adjustment mattered."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Only two trigger-width pairs have now been tested (15%/30% and 25%/40%) — this doesn't map the\n        full curve between them, or confirm 25%/40% is a local optimum rather than just a better point than 15%/30%.",
+       "Same averaging mechanics as report 81 throughout: top-up sized equal to the original per-stock\n        allocation, funded by trimming the other 9 holdings proportionally, no new external capital.",
+       "Zero transaction costs on any buy, sell, or trim — same disclosed omission as every other\n        reconstruction here; both averaging variants trade strictly more than the no-averaging baseline.",
+       "Today's fixed Midcap150 constituent list is applied retroactively across the whole window\n        (survivorship bias). No F&O-eligibility screen, unadjusted prices, no dividends modeled — same as every other\n        reconstruction here."
+      ]
+     }
+    ]
+   }
+  ]
  }
 }

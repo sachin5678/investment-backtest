@@ -191,6 +191,7 @@ export const GROUPS = [
       { id: "79", file: "results78.json", icon: ICON_LAYERS, title: "Midcap150 Momentum — Report 48's Design, Now Through Top-20", subtitle: "Drawdown keeps improving; CAGR keeps falling — the filter stops closing the gap" },
       { id: "80", file: "results79.json", icon: ICON_REFRESH, title: "ETF Momentum Rotation — Top 5 Out of 25 Distinct ETFs", subtitle: "Picking the top 5 by momentum loses to just holding all of them equally" },
       { id: "81", file: "results80.json", icon: ICON_SCALE_10, title: "Midcap150 Momentum 10 — Averaging Down Within the Holding Period", subtitle: "Basically a wash on CAGR, but makes the drawdown meaningfully worse" },
+      { id: "82", file: "results81.json", icon: ICON_SCALE_10, title: "Midcap150 Momentum 10 — Averaging With Wider Triggers (25%/40%)", subtitle: "Wider triggers flip the result — CAGR improves, drawdown cost shrinks" },
     ],
   },
 ];
