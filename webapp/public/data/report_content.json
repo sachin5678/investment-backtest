@@ -5379,5 +5379,64 @@
     ]
    }
   ]
+ },
+ "79": {
+  "title": "Midcap150 Momentum — Report 48's Design, Now Through Top-20",
+  "subtitle": "Report 78 found the 200-day EMA + gold filter's benefit GREW from top-5 (barely helps) to top-15 (helps more than the top-10 hero design). This report adds top-20 to see whether that trend keeps climbing, or whether report 73's \"wider eventually just loses\" pattern (found at top-50, no filter) starts to bite before 20 stocks. All four sizes are recomputed fresh together here — not quoted from report 78 — so every basket size shares the exact same date window.",
+  "source_line": "2009-01-02–2026-08-24 Report generated 2026-09-28 10:05",
+  "pages": [
+   {
+    "file": "79_midcap150_report48_basket_size_top20.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "drawdown keeps improving through top-20 — but CAGR keeps falling too, and the filter stops closing the gap"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Filtered drawdown keeps getting shallower as the basket widens — -31.6% (top-5) → -23.4% (top-10) → -22.4% (top-15) → -21.2% (top-20), the shallowest yet. But unfiltered CAGR keeps falling too — +45.2% → +40.5% → +37.2% → +34.0% — this is report 73's \"wider basket, lower CAGR\" pattern continuing exactly as expected. The filter's own CAGR boost, which grew from top-5 to top-15, stops growing at top-20: +36.8% vs. +34.0% unfiltered is a 2.9 percentage-point lift, smaller than top-15's 3.3-point lift.",
+       "Worth noting directly: top-20, EVEN WITH the filter's protection, already has a lower CAGR (+36.8%) than the top-10 hero design has WITHOUT any filter at all (+40.5%) — the CAGR cost of a much wider basket isn't something the filter can buy back. Drawdown protection and basket width are pulling in the same direction here; CAGR and basket width are pulling in opposite directions, and by top-20 that trade-off is becoming the dominant story."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Two independent trends, moving in opposite directions",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "Report 78's mechanism still holds: a wider basket dilutes any single stock's ability to dominate the drawdown, so more of what's left is genuine market-wide risk — exactly what the 200-EMA filter is built to catch, which is why drawdown keeps improving smoothly from top-5 through top-20. But report 73's mechanism is running at the same time, in the opposite direction: momentum's edge comes specifically from the strongest-ranked names, so every stock added past the top 10 is, by construction, one the formula itself ranks weaker — a real, structural cost to CAGR that has nothing to do with the regime filter and that the filter cannot offset.",
+       "These two trends don't cancel out; they just both keep happening. Which basket size is \"best\" depends entirely on how much CAGR you're willing to trade for how much extra drawdown protection — there's no single size that wins on both counts, and nothing in this data says top-20 is a turning point where that changes."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Only four basket sizes (5, 10, 15, 20) have now been tested with the filter, plus top-50 without it\n        (report 73) — this still doesn't map the full curve between 20 and 50, where report 73's decline is known to\n        continue.",
+       "Equal weighting within each basket — a 20-stock basket (5% each) is meaningfully less concentrated\n        per-name than a 5-stock one (20% each), which is itself part of why their risk profiles differ, separate from the\n        momentum-ranking effect discussed above.",
+       "Zero transaction costs on any regime switch or scheduled rebalance — same disclosed omission as\n        every other reconstruction here.",
+       "Today's fixed Midcap150 constituent list is applied retroactively across the whole window\n        (survivorship bias). No F&O-eligibility screen, unadjusted prices, no dividends modeled — same as every other\n        reconstruction here."
+      ]
+     }
+    ]
+   }
+  ]
  }
 }

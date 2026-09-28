@@ -188,6 +188,7 @@ export const GROUPS = [
       { id: "76", file: "results75.json", icon: ICON_RULER, title: "Midcap150 Momentum 10 — 400-Day EMA + Gold, Rebalance Cadence", subtitle: "Wider EMA loses on both metrics; more frequent rebalancing shallows drawdown" },
       { id: "77", file: "results76.json", icon: ICON_HOURGLASS, title: "Midcap150 Momentum 10 — Report 48, Rebalance Cadence", subtitle: "The hero design's own semi-annual cadence already looks close to right" },
       { id: "78", file: "results77.json", icon: ICON_LAYERS, title: "Midcap150 Momentum — Report 48 at 5 and 15 Stocks", subtitle: "The gold-hedge filter barely helps at 5 stocks, but helps even more at 15" },
+      { id: "79", file: "results78.json", icon: ICON_LAYERS, title: "Midcap150 Momentum — Report 48's Design, Now Through Top-20", subtitle: "Drawdown keeps improving; CAGR keeps falling — the filter stops closing the gap" },
     ],
   },
 ];

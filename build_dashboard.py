@@ -275,6 +275,8 @@ GROUPS = [
              "title": "Midcap150 Momentum 10 — Report 48, Rebalance Cadence", "subtitle": "The hero design's own semi-annual cadence already looks close to right"},
             {"id": "78", "file": "78_midcap150_report48_basket_size.html", "icon": ICON_LAYERS,
              "title": "Midcap150 Momentum — Report 48 at 5 and 15 Stocks", "subtitle": "The gold-hedge filter barely helps at 5 stocks, but helps even more at 15"},
+            {"id": "79", "file": "79_midcap150_report48_basket_size_top20.html", "icon": ICON_LAYERS,
+             "title": "Midcap150 Momentum — Report 48's Design, Now Through Top-20", "subtitle": "Drawdown keeps improving; CAGR keeps falling — the filter stops closing the gap"},
         ],
     },
 ]
