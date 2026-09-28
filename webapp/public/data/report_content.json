@@ -5320,5 +5320,64 @@
     ]
    }
   ]
+ },
+ "78": {
+  "title": "Midcap150 Momentum — Report 48's Design at 5 and 15 Stocks",
+  "subtitle": "Report 48's exact design — the 200-day EMA regime filter, gold instead of cash — replicated at top-5 (more concentrated) and top-15 (a bit broader), either side of the top-10 hero design. Not the same question as report 73's top-50 test: this stays close enough to top-10 that either size could plausibly be an improvement, not an obvious break from \"buy the strongest names.\"",
+  "source_line": "2009-01-02–2026-08-24 Report generated 2026-09-28 09:50",
+  "pages": [
+   {
+    "file": "78_midcap150_report48_basket_size.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "the gold-hedge filter barely helps a 5-stock basket, but helps MORE than the hero design at 15 stocks"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "At top-5, the filter is nearly a non-event: drawdown goes from -31.3% unfiltered to -31.6% filtered — actually a hair WORSE, not better — and CAGR barely moves (+45.2% to +44.9%). At top-10 (report 48's own hero design) the filter earns its keep clearly: drawdown improves from -35.1% to -23.4% and CAGR actually goes UP (+40.5% to +43.3%). At top-15 the filter helps MORE still — drawdown improves from -31.6% to -22.4%, the shallowest drawdown of all three basket sizes, filtered or not.",
+       "Likely reason: a 5-stock basket's worst drawdowns are driven more by stock-SPECIFIC blowups (a couple of names going badly wrong) than by the broad market regime NIFTY 50's own 200-EMA is built to detect — the filter can't protect against a risk it isn't watching for. A 10-15 stock basket's drawdowns are more diversified across names, so what's left over is closer to genuine market-wide risk, which is exactly what this filter is designed to catch."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why the filter's benefit depends on basket size",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "The 200-EMA regime filter watches NIFTY 50 — a broad, 50-stock market barometer — and switches to gold when THAT signal says risk-off. This protects well against drawdowns that are actually driven by broad market conditions. A 5-stock basket concentrates the portfolio enough that a single name (or two) having its own bad run — unrelated to whether the broad market is healthy — can drive a big chunk of the drawdown, and the filter has no way to see that coming: NIFTY 50 can be perfectly calm while one of your 5 stocks is falling apart on its own news.",
+       "Widening to 10 or 15 names dilutes any single stock's ability to dominate the drawdown, so what's LEFT over after diversification is increasingly the kind of broad, market-wide risk the filter is actually built to catch — which is exactly why the filter's benefit gets bigger, not smaller, from top-10 to top-15 here. This doesn't mean \"always use more stocks\" — report 73 already showed CAGR keeps falling well before top-50, since the formula's edge comes from concentrating in the strongest-ranked names. It means the regime filter's OWN benefit and the basket's own concentration trade off against each other in a way that isn't obvious from either number alone."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Only two basket sizes (5, 15) were tested either side of the top-10 hero design — this doesn't map\n        the full CAGR/drawdown curve between them (e.g. top-7, top-12 weren't tested), and report 73 already covers the\n        much-wider top-50 case separately.",
+       "Equal weighting within each basket (each of the 5, 10, or 15 names gets an equal share at every\n        rebalance) — a 5-stock basket is meaningfully more concentrated per-name (20% each) than a 15-stock one (~6.7% each),\n        which is itself part of why their risk profiles differ, separate from the momentum-ranking effect discussed above.",
+       "Zero transaction costs on any regime switch or scheduled rebalance — same disclosed omission as\n        every other reconstruction here.",
+       "Today's fixed Midcap150 constituent list is applied retroactively across the whole window\n        (survivorship bias). No F&O-eligibility screen, unadjusted prices, no dividends modeled — same as every other\n        reconstruction here."
+      ]
+     }
+    ]
+   }
+  ]
  }
 }

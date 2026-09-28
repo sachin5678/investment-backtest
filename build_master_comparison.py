@@ -176,6 +176,16 @@ def process_universe(universe_name, closes, nifty_close, select_fn, select_fn_fr
             add_row(universe_name, "Filter + Hedge", "200-EMA regime filter + gold, every 4 months", filter_gold_4monthly_num,
                     gold4m_series, nifty_close, idx_g4m)
 
+        filter_gold_basket_num = report_numbers.get("filter_gold_basket_size")
+        if filter_gold_basket_num:
+            for basket_n in (5, 15):
+                select_fn_n = lambda c, t_idx, n=basket_n: select_fn(c, t_idx, top_n=n)
+                goldn_series, _, _ = build_index_regime_filtered_with_hedge(
+                    closes, nifty_close, ema200, rbdates, select_fn_n, gold_aligned)
+                idx_gn = goldn_series.index.intersection(nifty_close.index).intersection(gold_close.index)
+                add_row(universe_name, "Filter + Hedge", f"200-EMA regime filter + gold, top-{basket_n}", filter_gold_basket_num,
+                        goldn_series, nifty_close, idx_gn)
+
         # Core-satellite: a PERMANENT momentum/gold split held at all times
         # (not just a cash/invested switch), with a full 100%-to-gold
         # liquidation on the same 200-EMA signal. Each split ratio tested
@@ -275,7 +285,7 @@ def main():
         {"original": 16, "frontloaded": 37, "filter_cash": 42, "filter_gold": 48, "invvol": 51,
          "own_signal": 54, "asymmetric": 59, "abs_gate": 62, "smooth": 65, "smooth_hedge": 68,
          "trailing_stop": 58, "core_satellite_70_30": 71, "core_satellite_50_50": 72, "basket_50": 73,
-         "filter_gold_ema400": 76, "filter_gold_4monthly": 77},
+         "filter_gold_ema400": 76, "filter_gold_4monthly": 77, "filter_gold_basket_size": 78},
         gold_close=gold_close_full,
     )
 

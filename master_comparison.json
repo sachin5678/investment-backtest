@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-28 09:43",
+  "generated": "2026-09-28 09:53",
   "rows": [
     {
       "universe": "Midcap150",
@@ -98,6 +98,40 @@
       "net_return_pct": 42187.192130661155,
       "sharpe": 1.830286202075002,
       "sortino": 2.445168203362554,
+      "bench_cagr_pct": 12.470504923770065,
+      "bench_max_drawdown_pct": -38.43985245274211,
+      "bench_sharpe": 0.7613713350199811,
+      "bench_sortino": 1.034701812712901
+    },
+    {
+      "universe": "Midcap150",
+      "category": "Filter + Hedge",
+      "label": "200-EMA regime filter + gold, top-5",
+      "report": 78,
+      "start_date": "2009-01-02",
+      "end_date": "2026-08-24",
+      "cagr_pct": 44.93579709630245,
+      "max_drawdown_pct": -31.578375819698444,
+      "net_return_pct": 69584.19515382445,
+      "sharpe": 1.8048129001622368,
+      "sortino": 2.640006901212678,
+      "bench_cagr_pct": 12.470504923770065,
+      "bench_max_drawdown_pct": -38.43985245274211,
+      "bench_sharpe": 0.7613713350199811,
+      "bench_sortino": 1.034701812712901
+    },
+    {
+      "universe": "Midcap150",
+      "category": "Filter + Hedge",
+      "label": "200-EMA regime filter + gold, top-15",
+      "report": 78,
+      "start_date": "2009-01-02",
+      "end_date": "2026-08-24",
+      "cagr_pct": 40.48459373871415,
+      "max_drawdown_pct": -22.376295692946822,
+      "net_return_pct": 40094.46238824267,
+      "sharpe": 1.9107141430504224,
+      "sortino": 2.511320027680176,
       "bench_cagr_pct": 12.470504923770065,
       "bench_max_drawdown_pct": -38.43985245274211,
       "bench_sharpe": 0.7613713350199811,
