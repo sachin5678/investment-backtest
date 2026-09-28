@@ -83,6 +83,7 @@ def kpi_card(label, definition, cols):
 
 def build():
     base, avg, nif = R["baseline"], R["averaged"], R["nifty"]
+    plain = R["plain_compounding"]
     sym = R["currency_symbol"]
     drop1, drop2 = R["drop_1_pct"], R["drop_2_pct"]
 
@@ -100,6 +101,34 @@ def build():
     </header>
     """
 
+    reconciliation_note = f"""
+    <div class="px-10 pt-6">
+      <div class="{PANEL} border-2 border-[#8B5CF6]">
+        <div class="flex items-center gap-2 mb-3 flex-wrap">
+          {pill("why the plain no-averaging XIRR doesn't match the flagship's own CAGR", "assumption")}
+        </div>
+        <p class="text-[14px] text-[#E6EDF0] leading-relaxed mb-3">
+          Same exact stock picks and prices, computed THREE ways. <span class="font-semibold">Plain compounding</span> —
+          the real flagship rule (report 16/33's own engine): every cycle's ending value becomes the ENTIRE bet for the
+          next cycle, fully compounding — gives <span class="font-semibold">{pct(plain['cagr_pct'])} CAGR</span>, matching
+          the flagship almost exactly. <span class="font-semibold">No averaging (periodic)</span> — this report's own
+          baseline, which calls a FIXED {money(R['base_alloc'], sym)}-per-stock allocation fresh every cycle
+          and pays out whatever it's worth rather than letting it ride — gives <span class="font-semibold">{pct(base['xirr_pct'])} XIRR</span>
+          instead. These are not the same statistic measuring the same thing gone wrong; they are two genuinely different
+          money-management rules applied to identical picks.
+        </p>
+        <p class="text-[14px] text-[#E6EDF0] leading-relaxed">
+          The periodic version reads higher here because this strategy's cycles are volatile (best single cycle
+          {pct(base['best_cycle_return_pct'])}, worst {pct(base['worst_cycle_return_pct'])}) — compounding lets a bad
+          cycle shrink whatever pile earlier good cycles built up, while resetting to a fixed bet every cycle never lets
+          one cycle's luck compound onto another's (sometimes called "variance drag"). Both numbers are real; they just
+          answer different questions. This reconciliation row exists so the averaging comparison below can be read against
+          the real flagship number too, not only against its own periodic-model twin.
+        </p>
+      </div>
+    </div>
+    """
+
     lead_disclosure = f"""
     <div class="px-10 pt-6">
       <div class="{PANEL} border-2 border-[#6AE4FF]">
@@ -108,9 +137,11 @@ def build():
         </div>
         <p class="text-[14px] text-[#E6EDF0] leading-relaxed mb-3">
           Averaging pushed XIRR up from {pct(base['xirr_pct'])} to <span class="font-semibold">{pct(avg['xirr_pct'])}</span> —
-          but it also required deploying nearly twice the capital ({money(base['total_invested'],sym)} → {money(avg['total_invested'],sym)}
-          over the same 18 years), and the MONEY MULTIPLE — total returned per rupee called, not annualized — actually went
-          the other way: <span class="font-semibold">{base['money_multiple']:.2f}x</span> for the plain baseline vs.
+          both still well above the flagship's own {pct(plain['cagr_pct'])} CAGR, but that's the periodic-vs-compounding gap
+          from the note above, not something averaging itself did. Averaging also required deploying nearly twice the
+          capital ({money(base['total_invested'],sym)} → {money(avg['total_invested'],sym)} over the same 18 years), and the
+          MONEY MULTIPLE — total returned per rupee called, not annualized — actually went the other way:
+          <span class="font-semibold">{base['money_multiple']:.2f}x</span> for the plain baseline vs.
           <span class="font-semibold">{avg['money_multiple']:.2f}x</span> with averaging.
         </p>
         <p class="text-[14px] text-[#E6EDF0] leading-relaxed">
@@ -126,6 +157,10 @@ def build():
     """
 
     kpis = [
+        kpi_card("Same picks, three money-management rules", "Plain compounding is the real flagship rule; the other two are this report's own periodic-capital model.",
+                  [("Plain compounding (flagship rule)", pct(plain["cagr_pct"]) + " CAGR", win_loss_kind(plain["cagr_pct"])),
+                   ("No averaging (periodic)", pct(base["xirr_pct"]) + " XIRR", win_loss_kind(base["xirr_pct"])),
+                   ("With averaging (periodic)", pct(avg["xirr_pct"]) + " XIRR", win_loss_kind(avg["xirr_pct"]))]),
         kpi_card("XIRR (money-weighted, annualized)", "The standard metric for capital called and returned at irregular times.",
                   [("No averaging", pct(base["xirr_pct"]), win_loss_kind(base["xirr_pct"])),
                    ("With averaging", pct(avg["xirr_pct"]), win_loss_kind(avg["xirr_pct"])),
@@ -144,10 +179,27 @@ def build():
     ]
     kpi_grid = f'<div class="grid grid-cols-1 gap-4 mt-6">{"".join(kpis)}</div>'
 
+    reconciliation_table = f"""
+    <div class="{PANEL} mt-6">
+      <div class="flex items-center justify-between mb-1">
+        <h3 class="text-base font-bold text-[#E6EDF0]">Reconciliation — same picks, three money-management rules</h3>
+        {pill('CAGR and XIRR are not interchangeable — see the note above', 'neutral')}
+      </div>
+      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — the flagship's real compounding rule vs. this report's own periodic-capital-call model, isolated from the averaging question entirely (both rows below have averaging OFF).</p>
+      <table class="data-table">
+        <thead><tr><th>Rule</th><th>Metric</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr class="real-bench"><td>Plain compounding (flagship rule, report 16/33)</td><td>CAGR</td><td>{pct(plain['cagr_pct'])}</td></tr>
+          <tr><td>No averaging, periodic capital call (this report's baseline)</td><td>XIRR</td><td>{pct(base['xirr_pct'])}</td></tr>
+        </tbody>
+      </table>
+    </div>
+    """
+
     full_table = f"""
     <div class="{PANEL} mt-6">
       <div class="flex items-center justify-between mb-1">
-        <h3 class="text-base font-bold text-[#E6EDF0]">Side by side</h3>
+        <h3 class="text-base font-bold text-[#E6EDF0]">Side by side — averaging on vs. off, periodic model</h3>
         {pill('capital-call model — see the lead disclosure for why XIRR + money multiple, not CAGR', 'neutral')}
       </div>
       <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — every figure over the identical {esc(R['start_date'])}–{esc(R['end_date'])} window, {R['num_rebalances']} rebalance cycles.</p>
@@ -252,9 +304,11 @@ def build():
 
     body = f"""
     {header}
+    {reconciliation_note}
     {lead_disclosure}
     <div class="px-10 py-6">
       {kpi_grid}
+      {reconciliation_table}
       {full_table}
       {eq_panel}
       {mechanism_note}

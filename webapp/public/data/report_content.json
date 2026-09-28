@@ -5502,11 +5502,26 @@
  "81": {
   "title": "Midcap150 Momentum 10 — Averaging Down Within the Holding Period",
   "subtitle": "Same top-10 momentum picks, same June/December rebalance — but instead of buying once and holding untouched, each stock's peak price since entry is tracked daily; the first time it falls 15% below that peak, an equal-sized top-up is bought with NEW capital, and if it falls 30% below peak, a second equal top-up follows. Each 6-month cycle calls a fresh ₹10-per-stock allocation and returns whatever it's worth at the next rebalance — a periodic capital-call model, not a compounding one, so both variants are measured with XIRR (money-weighted return), not CAGR.",
-  "source_line": "2008-12-31–2026-08-24 Report generated 2026-09-28 22:11",
+  "source_line": "2008-12-31–2026-08-24 Report generated 2026-09-28 23:14",
   "pages": [
    {
     "file": "81_midcap150_momentum10_averaging_down.html",
     "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "why the plain no-averaging XIRR doesn't match the flagship's own CAGR"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Same exact stock picks and prices, computed THREE ways. Plain compounding — the real flagship rule (report 16/33's own engine): every cycle's ending value becomes the ENTIRE bet for the next cycle, fully compounding — gives +40.6% CAGR, matching the flagship almost exactly. No averaging (periodic) — this report's own baseline, which calls a FIXED ₹10-per-stock allocation fresh every cycle and pays out whatever it's worth rather than letting it ride — gives +55.1% XIRR instead. These are not the same statistic measuring the same thing gone wrong; they are two genuinely different money-management rules applied to identical picks.",
+       "The periodic version reads higher here because this strategy's cycles are volatile (best single cycle +85.8%, worst -7.8%) — compounding lets a bad cycle shrink whatever pile earlier good cycles built up, while resetting to a fixed bet every cycle never lets one cycle's luck compound onto another's (sometimes called \"variance drag\"). Both numbers are real; they just answer different questions. This reconciliation row exists so the averaging comparison below can be read against the real flagship number too, not only against its own periodic-model twin."
+      ],
+      "list_items": []
+     },
      {
       "heading": null,
       "pills": [
@@ -5517,7 +5532,7 @@
       ],
       "what_this_shows": null,
       "paragraphs": [
-       "Averaging pushed XIRR up from +55.1% to +66.2% — but it also required deploying nearly twice the capital (₹3,600 → ₹6,820 over the same 18 years), and the MONEY MULTIPLE — total returned per rupee called, not annualized — actually went the other way: 1.20x for the plain baseline vs. 1.17x with averaging.",
+       "Averaging pushed XIRR up from +55.1% to +66.2% — both still well above the flagship's own +40.6% CAGR, but that's the periodic-vs-compounding gap from the note above, not something averaging itself did. Averaging also required deploying nearly twice the capital (₹3,600 → ₹6,820 over the same 18 years), and the MONEY MULTIPLE — total returned per rupee called, not annualized — actually went the other way: 1.20x for the plain baseline vs. 1.17x with averaging.",
        "Both numbers are real, and they're not contradicting each other — they're measuring different things. Averaging buys typically go in partway through a 6-month cycle, closer to the exit than the entry, so the SAME dollar of profit on that late-arriving capital compounds to a higher ANNUALIZED rate (XIRR) even though it represents a smaller total gain in absolute terms. Read XIRR as \"how efficiently capital was used while it was deployed,\" and the money multiple as \"how much profit you actually banked per rupee committed\" — this report shows both because picking only one would tell a one-sided story."
       ],
       "list_items": []

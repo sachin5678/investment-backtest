@@ -180,7 +180,16 @@ def main():
     baseline = simulate(closes, rbdates, select_top_original, use_averaging=False)
     averaged = simulate(closes, rbdates, select_top_original, use_averaging=True)
 
+    # Reconciliation row: the REAL flagship money-management rule (report
+    # 16/33's own engine) — every cycle's ending value becomes the entire
+    # bet for the next cycle, fully compounding, no averaging. This is the
+    # SAME picks/prices as "baseline" above, just with the opposite
+    # capital-management rule, specifically to show WHY its CAGR doesn't
+    # match "baseline"'s XIRR even though both are "no averaging" — the
+    # two structures amount to different bets, not different arithmetic.
+    plain_series, _ = build_index_generic(closes, rbdates, select_top_original)
     common_idx = closes.index[closes.index >= rbdates[0]]
+    plain_compounding = metrics_only(plain_series, common_idx.intersection(plain_series.index))
     nifty_metrics = metrics_only(nifty_close.loc[common_idx.intersection(nifty_close.index)], common_idx)
 
     results = {
@@ -189,6 +198,7 @@ def main():
         "start_date": rbdates[0].strftime("%Y-%m-%d"), "end_date": closes.index[-1].strftime("%Y-%m-%d"),
         "base_alloc": BASE_ALLOC, "drop_1_pct": DROP_1 * 100, "drop_2_pct": DROP_2 * 100,
         "num_rebalances": len(rbdates),
+        "plain_compounding": plain_compounding,
         "baseline": baseline, "averaged": averaged,
         "nifty": nifty_metrics,
     }
@@ -197,6 +207,8 @@ def main():
         json.dump(results, f, indent=2)
 
     print(f"window {results['start_date']} -> {results['end_date']}, {len(rbdates)} rebalances")
+    print(f"plain compounding (real flagship rule) CAGR {plain_compounding['cagr_pct']:.2f}% / "
+          f"DD {plain_compounding['max_drawdown_pct']:.1f}%")
     for label, r in (("baseline (no averaging)", baseline), ("with averaging", averaged)):
         print(f"{label:<26} XIRR {r['xirr_pct']:.2f}% | called {CURRENCY_SYMBOL}{r['total_invested']:,.0f} "
               f"-> returned {CURRENCY_SYMBOL}{r['total_returned']:,.0f} ({r['money_multiple']:.2f}x) | "
