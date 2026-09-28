@@ -166,6 +166,89 @@ def simulate(closes, rbdates, select_fn, use_averaging):
     }
 
 
+def simulate_compounding_with_averaging(closes, rbdates, select_fn, drop1=DROP_1, drop2=DROP_2):
+    """The SAME averaging idea (top up on -15%/-30% from peak-since-entry,
+    same size as the original per-stock allocation), but as ONE continuous
+    compounding portfolio like every other flagship report — no new
+    external capital ever enters. Each averaging buy is funded by trimming
+    the OTHER currently-held positions proportionally (a same-day internal
+    reallocation, not a cash injection), so total portfolio value is
+    unchanged at the instant of the trim and the whole thing compounds
+    forward through every rebalance exactly like build_index_generic.
+    Returns a single equity_curve/selections, directly CAGR-comparable to
+    the plain (no-averaging) flagship series."""
+    dates = closes.index
+    index_level = pd.Series(np.nan, index=dates)
+    shares = {}
+    started = False
+    selections = []
+
+    for i, rb in enumerate(rbdates):
+        t_idx = dates.get_loc(rb)
+        price_at_rb = closes.loc[rb]
+        selected = select_fn(closes, t_idx)
+        if selected is not None:
+            if not started:
+                value_before = 100.0
+                started = True
+            else:
+                value_before = sum(shares.get(tk, 0.0) * price_at_rb.get(tk, 0.0) for tk in shares)
+                if value_before <= 0:
+                    value_before = index_level.iloc[dates.get_loc(rb) - 1]
+            dollar_each = value_before / len(selected)
+            shares = {tk: dollar_each / price_at_rb[tk] for tk in selected}
+            original_alloc = {tk: dollar_each for tk in selected}
+            peak = {tk: price_at_rb[tk] for tk in selected}
+            averaged1 = {tk: False for tk in selected}
+            averaged2 = {tk: False for tk in selected}
+            selections.append({"date": rb.strftime("%Y-%m-%d"), "tickers": [t.replace(".NS", "") for t in selected]})
+
+        if not started:
+            continue
+
+        index_level.loc[rb] = sum(shares.get(tk, 0.0) * price_at_rb.get(tk, 0.0) for tk in shares)
+
+        next_rb = rbdates[i + 1] if i + 1 < len(rbdates) else None
+        day_range = dates[(dates > rb) & (dates < next_rb)] if next_rb is not None else dates[dates > rb]
+
+        for d in day_range:
+            price_today = closes.loc[d]
+            for tk in list(shares.keys()):
+                price = price_today.get(tk)
+                if pd.isna(price):
+                    continue
+                if price > peak[tk]:
+                    peak[tk] = price
+                trigger = None
+                if not averaged1[tk] and price <= peak[tk] * (1 - drop1):
+                    trigger = "averaged1"
+                elif averaged1[tk] and not averaged2[tk] and price <= peak[tk] * (1 - drop2):
+                    trigger = "averaged2"
+                if trigger:
+                    need_cash = original_alloc[tk]
+                    others = [t for t in shares if t != tk]
+                    other_value = sum(shares[t] * price_today.get(t, 0.0) for t in others
+                                       if pd.notna(price_today.get(t)))
+                    if other_value > 0:
+                        actual_cash = min(need_cash, other_value)
+                        for t in others:
+                            p_t = price_today.get(t)
+                            if pd.isna(p_t) or p_t <= 0:
+                                continue
+                            t_value = shares[t] * p_t
+                            reduction_value = t_value * (actual_cash / other_value)
+                            shares[t] -= reduction_value / p_t
+                        shares[tk] += actual_cash / price
+                    if trigger == "averaged1":
+                        averaged1[tk] = True
+                    else:
+                        averaged2[tk] = True
+            index_level.loc[d] = sum(shares.get(tk, 0.0) * price_today.get(tk, 0.0) for tk in shares
+                                      if pd.notna(price_today.get(tk)))
+
+    return index_level.dropna(), selections
+
+
 def main():
     closes = load_midcap150_closes()
     nifty = fetch("^NSEI")
@@ -192,6 +275,14 @@ def main():
     plain_compounding = metrics_only(plain_series, common_idx.intersection(plain_series.index))
     nifty_metrics = metrics_only(nifty_close.loc[common_idx.intersection(nifty_close.index)], common_idx)
 
+    # THE MAIN QUESTION: one continuous compounding portfolio, no new
+    # external capital ever, averaging buys funded by trimming the other
+    # 9 holdings instead — directly CAGR-comparable to plain_compounding.
+    compound_avg_series, compound_avg_sel = simulate_compounding_with_averaging(closes, rbdates, select_top_original)
+    compounding_with_averaging = metrics_only(compound_avg_series, common_idx.intersection(compound_avg_series.index))
+    compounding_with_averaging["selections_sample"] = (
+        compound_avg_sel[:3] + compound_avg_sel[-3:] if len(compound_avg_sel) > 6 else compound_avg_sel)
+
     results = {
         "generated": pd.Timestamp.now().strftime("%Y-%m-%d %H:%M"),
         "currency_symbol": CURRENCY_SYMBOL,
@@ -199,6 +290,7 @@ def main():
         "base_alloc": BASE_ALLOC, "drop_1_pct": DROP_1 * 100, "drop_2_pct": DROP_2 * 100,
         "num_rebalances": len(rbdates),
         "plain_compounding": plain_compounding,
+        "compounding_with_averaging": compounding_with_averaging,
         "baseline": baseline, "averaged": averaged,
         "nifty": nifty_metrics,
     }
@@ -207,8 +299,10 @@ def main():
         json.dump(results, f, indent=2)
 
     print(f"window {results['start_date']} -> {results['end_date']}, {len(rbdates)} rebalances")
-    print(f"plain compounding (real flagship rule) CAGR {plain_compounding['cagr_pct']:.2f}% / "
-          f"DD {plain_compounding['max_drawdown_pct']:.1f}%")
+    print(f"MAIN COMPARISON (one compounding portfolio, no external capital):")
+    print(f"  plain, no averaging      CAGR {plain_compounding['cagr_pct']:.2f}% / DD {plain_compounding['max_drawdown_pct']:.1f}%")
+    print(f"  with averaging (15/30%)  CAGR {compounding_with_averaging['cagr_pct']:.2f}% / DD {compounding_with_averaging['max_drawdown_pct']:.1f}%")
+    print(f"\n(secondary, periodic-capital-call framing, XIRR-based — see report text for why this is a different question)")
     for label, r in (("baseline (no averaging)", baseline), ("with averaging", averaged)):
         print(f"{label:<26} XIRR {r['xirr_pct']:.2f}% | called {CURRENCY_SYMBOL}{r['total_invested']:,.0f} "
               f"-> returned {CURRENCY_SYMBOL}{r['total_returned']:,.0f} ({r['money_multiple']:.2f}x) | "

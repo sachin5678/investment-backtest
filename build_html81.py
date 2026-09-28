@@ -1,7 +1,7 @@
 """Builds 81_midcap150_momentum10_averaging_down.html from results80.json."""
 import json
 import html
-from svg_charts import line_chart, COL
+from svg_charts import line_chart, area_underwater_chart, COL
 
 with open("results80.json") as f:
     R = json.load(f)
@@ -82,8 +82,8 @@ def kpi_card(label, definition, cols):
 
 
 def build():
+    plain, comp_avg = R["plain_compounding"], R["compounding_with_averaging"]
     base, avg, nif = R["baseline"], R["averaged"], R["nifty"]
-    plain = R["plain_compounding"]
     sym = R["currency_symbol"]
     drop1, drop2 = R["drop_1_pct"], R["drop_2_pct"]
 
@@ -92,7 +92,7 @@ def build():
       <div class="flex items-start justify-between gap-6">
         <div>
           <h1 class="text-2xl font-bold text-[#E6EDF0]">Midcap150 Momentum 10 — Averaging Down Within the Holding Period</h1>
-          <p class="text-[#9FB4BB] text-sm mt-1">Same top-10 momentum picks, same June/December rebalance — but instead of buying once and holding untouched, each stock's peak price since entry is tracked daily; the first time it falls {drop1:.0f}% below that peak, an equal-sized top-up is bought with NEW capital, and if it falls {drop2:.0f}% below peak, a second equal top-up follows. Each 6-month cycle calls a fresh {sym}10-per-stock allocation and returns whatever it's worth at the next rebalance — a periodic capital-call model, not a compounding one, so both variants are measured with XIRR (money-weighted return), not CAGR.</p>
+          <p class="text-[#9FB4BB] text-sm mt-1">Same top-10 momentum picks, same June/December rebalance, ONE continuous compounding portfolio — but instead of buying once and holding untouched, each stock's peak price since entry is tracked daily; the first time it falls {drop1:.0f}% below that peak, an equal-sized top-up is bought, and if it falls {drop2:.0f}% below peak, a second equal top-up follows. No new external money is used — every averaging buy is funded by trimming the OTHER 9 holdings proportionally, so the whole portfolio still compounds forward through every rebalance exactly like every other report here, and both variants get a single, directly comparable CAGR.</p>
         </div>
         <div class="text-right {MUTED} mono shrink-0">
           {esc(R['start_date'])}–{esc(R['end_date'])}<br/>Report generated {esc(R['generated'])}
@@ -101,110 +101,144 @@ def build():
     </header>
     """
 
-    reconciliation_note = f"""
-    <div class="px-10 pt-6">
-      <div class="{PANEL} border-2 border-[#8B5CF6]">
-        <div class="flex items-center gap-2 mb-3 flex-wrap">
-          {pill("why the plain no-averaging XIRR doesn't match the flagship's own CAGR", "assumption")}
-        </div>
-        <p class="text-[14px] text-[#E6EDF0] leading-relaxed mb-3">
-          Same exact stock picks and prices, computed THREE ways. <span class="font-semibold">Plain compounding</span> —
-          the real flagship rule (report 16/33's own engine): every cycle's ending value becomes the ENTIRE bet for the
-          next cycle, fully compounding — gives <span class="font-semibold">{pct(plain['cagr_pct'])} CAGR</span>, matching
-          the flagship almost exactly. <span class="font-semibold">No averaging (periodic)</span> — this report's own
-          baseline, which calls a FIXED {money(R['base_alloc'], sym)}-per-stock allocation fresh every cycle
-          and pays out whatever it's worth rather than letting it ride — gives <span class="font-semibold">{pct(base['xirr_pct'])} XIRR</span>
-          instead. These are not the same statistic measuring the same thing gone wrong; they are two genuinely different
-          money-management rules applied to identical picks.
-        </p>
-        <p class="text-[14px] text-[#E6EDF0] leading-relaxed">
-          The periodic version reads higher here because this strategy's cycles are volatile (best single cycle
-          {pct(base['best_cycle_return_pct'])}, worst {pct(base['worst_cycle_return_pct'])}) — compounding lets a bad
-          cycle shrink whatever pile earlier good cycles built up, while resetting to a fixed bet every cycle never lets
-          one cycle's luck compound onto another's (sometimes called "variance drag"). Both numbers are real; they just
-          answer different questions. This reconciliation row exists so the averaging comparison below can be read against
-          the real flagship number too, not only against its own periodic-model twin.
-        </p>
-      </div>
-    </div>
-    """
-
     lead_disclosure = f"""
     <div class="px-10 pt-6">
-      <div class="{PANEL} border-2 border-[#6AE4FF]">
+      <div class="{PANEL} border-2 border-[#F2643C]">
         <div class="flex items-center gap-2 mb-3 flex-wrap">
-          {pill('XIRR looks better with averaging — but the total money multiple is actually slightly worse', 'assumption')}
+          {pill('averaging is basically a wash on CAGR, and makes the drawdown WORSE, not better', 'negative')}
         </div>
         <p class="text-[14px] text-[#E6EDF0] leading-relaxed mb-3">
-          Averaging pushed XIRR up from {pct(base['xirr_pct'])} to <span class="font-semibold">{pct(avg['xirr_pct'])}</span> —
-          both still well above the flagship's own {pct(plain['cagr_pct'])} CAGR, but that's the periodic-vs-compounding gap
-          from the note above, not something averaging itself did. Averaging also required deploying nearly twice the
-          capital ({money(base['total_invested'],sym)} → {money(avg['total_invested'],sym)} over the same 18 years), and the
-          MONEY MULTIPLE — total returned per rupee called, not annualized — actually went the other way:
-          <span class="font-semibold">{base['money_multiple']:.2f}x</span> for the plain baseline vs.
-          <span class="font-semibold">{avg['money_multiple']:.2f}x</span> with averaging.
+          CAGR barely moves: <span class="font-semibold">{pct(plain['cagr_pct'])}</span> without averaging vs.
+          <span class="font-semibold">{pct(comp_avg['cagr_pct'])}</span> with it — a difference of
+          {abs(comp_avg['cagr_pct']-plain['cagr_pct']):.2f} percentage points, functionally noise over 18 years. Max
+          drawdown, though, gets meaningfully WORSE: {pct(plain['max_drawdown_pct'],1,signed=False)} without averaging vs.
+          <span class="font-semibold">{pct(comp_avg['max_drawdown_pct'],1,signed=False)}</span> with it.
         </p>
         <p class="text-[14px] text-[#E6EDF0] leading-relaxed">
-          Both numbers are real, and they're not contradicting each other — they're measuring different things. Averaging
-          buys typically go in partway through a 6-month cycle, closer to the exit than the entry, so the SAME dollar of
-          profit on that late-arriving capital compounds to a higher ANNUALIZED rate (XIRR) even though it represents a
-          smaller total gain in absolute terms. Read XIRR as "how efficiently capital was used while it was deployed," and
-          the money multiple as "how much profit you actually banked per rupee committed" — this report shows both because
-          picking only one would tell a one-sided story.
+          The mechanism is exactly what you'd expect once you look at where the money for each top-up actually comes from:
+          since no new cash enters this portfolio, buying more of a stock that's already down {drop1:.0f}-{drop2:.0f}% means
+          SELLING a slice of the other 9 holdings — on average, the stocks that are doing BETTER — to fund it. That's
+          selling strength to buy weakness, concentrating more of the portfolio into the position that's currently
+          struggling, right when it's struggling. It roughly breaks even on return and makes the worst days worse.
         </p>
       </div>
     </div>
     """
 
     kpis = [
-        kpi_card("Same picks, three money-management rules", "Plain compounding is the real flagship rule; the other two are this report's own periodic-capital model.",
-                  [("Plain compounding (flagship rule)", pct(plain["cagr_pct"]) + " CAGR", win_loss_kind(plain["cagr_pct"])),
-                   ("No averaging (periodic)", pct(base["xirr_pct"]) + " XIRR", win_loss_kind(base["xirr_pct"])),
-                   ("With averaging (periodic)", pct(avg["xirr_pct"]) + " XIRR", win_loss_kind(avg["xirr_pct"]))]),
-        kpi_card("XIRR (money-weighted, annualized)", "The standard metric for capital called and returned at irregular times.",
-                  [("No averaging", pct(base["xirr_pct"]), win_loss_kind(base["xirr_pct"])),
-                   ("With averaging", pct(avg["xirr_pct"]), win_loss_kind(avg["xirr_pct"])),
-                   ("NIFTY 50 CAGR (loose reference only)", pct(nif["cagr_pct"]), "neutral")]),
-        kpi_card("Money multiple — total returned per rupee called, NOT annualized", "Total realized + current open value, divided by total capital called.",
-                  [("No averaging", f"{base['money_multiple']:.2f}x", win_loss_kind(base['money_multiple']-1)),
-                   ("With averaging", f"{avg['money_multiple']:.2f}x", win_loss_kind(avg['money_multiple']-1))]),
-        kpi_card("Total capital called over 18 years", f"{R['num_rebalances']} rebalance cycles, {sym}{R['base_alloc']:.0f} per stock per call.",
-                  [("No averaging", money(base["total_invested"], sym), "neutral"),
-                   ("With averaging", money(avg["total_invested"], sym), "neutral")]),
-        kpi_card("Best / worst single 6-month cycle", "Each cycle's own return on its own called capital — the fair way to compare volatility here.",
-                  [("No averaging — worst", pct(base["worst_cycle_return_pct"]), "negative"),
-                   ("No averaging — best", pct(base["best_cycle_return_pct"]), "positive"),
-                   ("With averaging — worst", pct(avg["worst_cycle_return_pct"]), "negative"),
-                   ("With averaging — best", pct(avg["best_cycle_return_pct"]), "positive")]),
+        kpi_card("CAGR — one compounding portfolio, no new capital", "Same picks, same prices — only the mid-period averaging rule differs.",
+                  [("No averaging", pct(plain["cagr_pct"]), win_loss_kind(plain["cagr_pct"])),
+                   (f"With averaging ({drop1:.0f}%/{drop2:.0f}%)", pct(comp_avg["cagr_pct"]), win_loss_kind(comp_avg["cagr_pct"])),
+                   ("NIFTY 50", pct(nif["cagr_pct"]), "neutral")]),
+        kpi_card("Max drawdown — one compounding portfolio", "Largest peak-to-trough decline, identical window for every series.",
+                  [("No averaging", pct(plain["max_drawdown_pct"], 1, signed=False), "positive"),
+                   (f"With averaging ({drop1:.0f}%/{drop2:.0f}%)", pct(comp_avg["max_drawdown_pct"], 1, signed=False), "negative"),
+                   ("NIFTY 50", pct(nif["max_drawdown_pct"], 1, signed=False), "negative")]),
     ]
     kpi_grid = f'<div class="grid grid-cols-1 gap-4 mt-6">{"".join(kpis)}</div>'
 
-    reconciliation_table = f"""
+    def row(name, v, cls=""):
+        c = f' class="{cls}"' if cls else ""
+        return f"""<tr{c}><td>{esc(name)}</td><td>{pct(v['net_return_pct'])}</td><td>{pct(v['cagr_pct'])}</td>
+        <td>{pct(v['max_drawdown_pct'],1,signed=False)}</td><td>{v['longest_underwater_days']:,}d</td></tr>"""
+
+    full_table = f"""
     <div class="{PANEL} mt-6">
       <div class="flex items-center justify-between mb-1">
-        <h3 class="text-base font-bold text-[#E6EDF0]">Reconciliation — same picks, three money-management rules</h3>
-        {pill('CAGR and XIRR are not interchangeable — see the note above', 'neutral')}
+        <h3 class="text-base font-bold text-[#E6EDF0]">Side by side</h3>
+        {pill('grey row = real benchmark, not a reconstruction', 'neutral')}
       </div>
-      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — the flagship's real compounding rule vs. this report's own periodic-capital-call model, isolated from the averaging question entirely (both rows below have averaging OFF).</p>
+      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — every series over the identical {esc(R['start_date'])}–{esc(R['end_date'])} window, {R['num_rebalances']} rebalances, one continuous compounding portfolio throughout.</p>
       <table class="data-table">
-        <thead><tr><th>Rule</th><th>Metric</th><th>Result</th></tr></thead>
+        <thead><tr><th>Series</th><th>Net return</th><th>CAGR</th><th>Max drawdown</th><th>Longest underwater</th></tr></thead>
         <tbody>
-          <tr class="real-bench"><td>Plain compounding (flagship rule, report 16/33)</td><td>CAGR</td><td>{pct(plain['cagr_pct'])}</td></tr>
-          <tr><td>No averaging, periodic capital call (this report's baseline)</td><td>XIRR</td><td>{pct(base['xirr_pct'])}</td></tr>
+          {row("Midcap150 Momentum 10 — no averaging (flagship)", plain)}
+          {row(f"Midcap150 Momentum 10 — averaging ({drop1:.0f}%/{drop2:.0f}%, funded by trimming other 9)", comp_avg)}
+          {row("NIFTY 50 (real index)", nif, "real-bench")}
         </tbody>
       </table>
     </div>
     """
 
-    full_table = f"""
+    eq_series = [
+        {"name": "No averaging", "color": COL["positive"], "points": plain["equity_curve"]},
+        {"name": f"With averaging ({drop1:.0f}%/{drop2:.0f}%)", "color": COL["negative"], "points": comp_avg["equity_curve"]},
+    ]
+    eq_svg, eq_legend = line_chart(eq_series, height=420, value_fmt=lambda v: f"{v:,.0f}", chart_id="eq_81")
+    eq_panel = f"""
     <div class="{PANEL} mt-6">
-      <div class="flex items-center justify-between mb-1">
-        <h3 class="text-base font-bold text-[#E6EDF0]">Side by side — averaging on vs. off, periodic model</h3>
-        {pill('capital-call model — see the lead disclosure for why XIRR + money multiple, not CAGR', 'neutral')}
-      </div>
-      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — every figure over the identical {esc(R['start_date'])}–{esc(R['end_date'])} window, {R['num_rebalances']} rebalance cycles.</p>
+      <h3 class="text-base font-bold text-[#E6EDF0] mb-1">Growth of 100 — {esc(R['start_date'])} to {esc(R['end_date'])}</h3>
+      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — how {sym}100 invested at the start of the window grew under each version, linear axis, not log-scaled. The two lines track each other closely almost throughout.</p>
+      <div class="flex items-center mb-2">{eq_legend}</div>
+      {eq_svg}
+    </div>
+    """
+
+    def dd_points(equity):
+        out, peak = [], None
+        for d, v in equity:
+            peak = v if peak is None else max(peak, v)
+            out.append([d, (v / peak - 1.0) * 100.0])
+        return out
+
+    dd_series = [
+        {"name": "No averaging", "color": COL["positive"], "points": dd_points(plain["equity_curve"])},
+        {"name": f"With averaging ({drop1:.0f}%/{drop2:.0f}%)", "color": COL["negative"], "points": dd_points(comp_avg["equity_curve"])},
+    ]
+    dd_svg, dd_legend = area_underwater_chart(dd_series, height=220, chart_id="dd_81")
+    dd_panel = f"""
+    <div class="{PANEL} mt-6">
+      <h3 class="text-base font-bold text-[#E6EDF0] mb-1">Drawdown comparison</h3>
+      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — averaging's line dips visibly deeper at the worst points, exactly where concentrating more capital into an already-falling stock hurts most.</p>
+      <div class="flex items-center mb-2">{dd_legend}</div>
+      {dd_svg}
+    </div>
+    """
+
+    mechanism_note = f"""
+    <div class="{PANEL} mt-6 border-[#6AE4FF]/40">
+      <div class="flex items-center gap-2 mb-2"><h3 class="text-base font-bold text-[#E6EDF0]">How often the triggers actually fired</h3>{pill('mechanism', 'assumption')}</div>
+      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — out of {avg['total_positions']} total stock-holding-periods (10 stocks × {R['num_rebalances']} rebalances). Trigger counts are identical between the compounding and periodic versions of this report — same signal, same picks, same prices.</p>
+      <p class="text-[13.5px] text-[#C9D6DA] leading-relaxed">
+        The {drop1:.0f}%-from-peak trigger fired <span class="font-semibold text-[#E6EDF0]">{avg['trigger_once']}</span> times
+        ({avg['trigger_once']/avg['total_positions']*100:.1f}% of all stock-periods) — a momentum pick pulling back
+        {drop1:.0f}% from its own peak-since-entry within a single 6-month window is common, not rare, for these volatile
+        midcap names. The deeper {drop2:.0f}% trigger fired <span class="font-semibold text-[#E6EDF0]">{avg['trigger_twice']}</span> times
+        ({avg['trigger_twice']/avg['total_positions']*100:.1f}%) — a real minority of positions, but still frequent enough
+        to matter for how much gets trimmed from the winners.
+      </p>
+    </div>
+    """
+
+    honesty_note = f"""
+    <div class="{PANEL} mt-6 border-[#F2B03C]/40">
+      <div class="flex items-center gap-2 mb-2"><h3 class="text-base font-bold text-[#E6EDF0]">Why "sell winners to buy the loser" roughly breaks even, but hurts on the worst days</h3>{pill('framing', 'assumption')}</div>
+      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — the mechanism, not just the scoreboard.</p>
+      <p class="text-[13.5px] text-[#C9D6DA] leading-relaxed mb-3">
+        This project's momentum formula tends to pick stocks BECAUSE they've already risen a lot — that's the entire
+        selection criterion. A pick that then falls {drop1:.0f}% from its post-purchase peak was, in this dataset, more
+        often a pause within a continuing uptrend than the start of a real breakdown ({avg['trigger_once']} triggers out
+        of {avg['total_positions']} positions is a LOT) — which is exactly why the CAGR effect nets out close to zero:
+        money moved OUT of winners that mostly kept winning, and INTO a "loser" that mostly recovered anyway. Two
+        roughly-offsetting costs, not a free lunch and not a disaster.
+      </p>
+      <p class="text-[13.5px] text-[#C9D6DA] leading-relaxed">
+        The drawdown cost is less forgiving: on the genuinely bad stretches — the ones that actually drive the portfolio's
+        WORST days — concentrating more capital into the stock that's falling, funded by trimming the ones holding up
+        better, is precisely the wrong trade at precisely the wrong moment. That's why max drawdown gets worse
+        ({pct(plain['max_drawdown_pct'],1,signed=False)} → {pct(comp_avg['max_drawdown_pct'],1,signed=False)}) even though
+        the average outcome (CAGR) barely changes — the cost of averaging down shows up disproportionately in the tail,
+        not in the typical case.
+      </p>
+    </div>
+    """
+
+    appendix_note = f"""
+    <div class="{PANEL} mt-6 border-[#8B5CF6]/40">
+      <div class="flex items-center gap-2 mb-2"><h3 class="text-base font-bold text-[#E6EDF0]">Appendix — the same idea, funded with new capital instead</h3>{pill('secondary framing, XIRR-based', 'neutral')}</div>
+      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — an earlier version of this analysis funded the averaging buys with fresh EXTERNAL capital each time (never trimming the other 9 holdings), which breaks compounding — no single CAGR applies, since new money keeps entering. That version is kept here for reference, measured the only way that's valid for a growing-capital-base structure: XIRR (money-weighted return), the same convention this project's report 4/20 already use for capital-injection strategies.</p>
       <table class="data-table">
-        <thead><tr><th>Variant</th><th>Called</th><th>Returned</th><th>Multiple</th><th>XIRR</th><th>Worst cycle</th><th>Best cycle</th></tr></thead>
+        <thead><tr><th>Variant (new capital, periodic {money(R['base_alloc'],sym)}/stock calls)</th><th>Called</th><th>Returned</th><th>Multiple</th><th>XIRR</th><th>Worst cycle</th><th>Best cycle</th></tr></thead>
         <tbody>
           <tr><td>No averaging</td><td>{money(base['total_invested'],sym)}</td><td>{money(base['total_returned'],sym)}</td>
               <td>{base['money_multiple']:.2f}x</td><td>{pct(base['xirr_pct'])}</td>
@@ -214,62 +248,12 @@ def build():
               <td>{pct(avg['worst_cycle_return_pct'])}</td><td>{pct(avg['best_cycle_return_pct'])}</td></tr>
         </tbody>
       </table>
-    </div>
-    """
-
-    eq_series = [
-        {"name": "No averaging — capital called (cumulative)", "color": COL["muted"], "points": base["invested_curve"], "dash": True},
-        {"name": "With averaging — capital called (cumulative)", "color": COL["assumption"], "points": avg["invested_curve"], "dash": True},
-        {"name": "No averaging — open position value", "color": COL["positive"], "points": base["value_curve"]},
-        {"name": "With averaging — open position value", "color": COL["negative"], "points": avg["value_curve"]},
-    ]
-    eq_svg, eq_legend = line_chart(eq_series, height=420, value_fmt=lambda v: f"{v:,.0f}", chart_id="eq_81")
-    eq_panel = f"""
-    <div class="{PANEL} mt-6">
-      <h3 class="text-base font-bold text-[#E6EDF0] mb-1">Cumulative capital called vs. currently-open position value</h3>
-      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — the dashed lines only ever climb (capital called is cumulative and never comes back down); the solid lines are the mark-to-market value of whichever cycle is CURRENTLY open, resetting to a small number every rebalance since each cycle's proceeds are realized, not carried forward. The gap between a solid line and its dashed counterpart is NOT a "loss" — it's simply capital already returned in earlier cycles.</p>
-      <div class="flex items-center mb-2">{eq_legend}</div>
-      {eq_svg}
-    </div>
-    """
-
-    mechanism_note = f"""
-    <div class="{PANEL} mt-6 border-[#6AE4FF]/40">
-      <div class="flex items-center gap-2 mb-2"><h3 class="text-base font-bold text-[#E6EDF0]">How often the triggers actually fired</h3>{pill('mechanism', 'assumption')}</div>
-      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — out of {avg['total_positions']} total stock-holding-periods (10 stocks × {R['num_rebalances']} rebalances).</p>
-      <p class="text-[13.5px] text-[#C9D6DA] leading-relaxed">
-        The {drop1:.0f}%-from-peak trigger fired <span class="font-semibold text-[#E6EDF0]">{avg['trigger_once']}</span> times
-        ({avg['trigger_once']/avg['total_positions']*100:.1f}% of all stock-periods) — a momentum pick pulling back
-        {drop1:.0f}% from its own peak-since-entry within a single 6-month window is common, not rare, for these volatile
-        midcap names. The deeper {drop2:.0f}% trigger fired <span class="font-semibold text-[#E6EDF0]">{avg['trigger_twice']}</span> times
-        ({avg['trigger_twice']/avg['total_positions']*100:.1f}%) — a real minority of positions, but still frequent enough
-        to matter for the capital-required comparison above.
-      </p>
-    </div>
-    """
-
-    honesty_note = f"""
-    <div class="{PANEL} mt-6 border-[#F2B03C]/40">
-      <div class="flex items-center gap-2 mb-2"><h3 class="text-base font-bold text-[#E6EDF0]">Why the worst cycle got better and the best cycle got worse</h3>{pill('framing', 'assumption')}</div>
-      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — the mechanism, not just the scoreboard.</p>
-      <p class="text-[13.5px] text-[#C9D6DA] leading-relaxed mb-3">
-        Averaging did exactly what averaging is supposed to do at the position level: the worst single cycle improved from
-        {pct(base['worst_cycle_return_pct'])} to {pct(avg['worst_cycle_return_pct'])} — buying more at a lower price
-        reduces the blended cost basis, so a partial recovery by cycle-end turns a smaller loss into a smaller-still loss.
-        The cost is on the upside: the best cycle fell from {pct(base['best_cycle_return_pct'])} to
-        {pct(avg['best_cycle_return_pct'])} — money that goes in late, after a pick has already run up and then pulled
-        back, buys in at a worse (higher) price than the ORIGINAL entry would have captured on a stock that just kept
-        rising without ever triggering a dip-buy. Averaging smooths the distribution of outcomes; it doesn't shift the
-        average outcome for free.
-      </p>
-      <p class="text-[13.5px] text-[#C9D6DA] leading-relaxed">
-        The most important caveat: this project's fixed Midcap150 momentum formula tends to pick stocks BECAUSE they've
-        already risen a lot — a strong recent uptrend is the whole selection criterion. A stock like that pulling back 15%
-        or 30% from its post-purchase peak within 6 months, in this specific dataset, was more often a pause within a
-        continuing uptrend than the start of a real breakdown ({avg['trigger_once']} triggers out of {avg['total_positions']}
-        positions is a LOT). That pattern won't hold in every market regime — a -30% pullback in a genuine bear market is a
-        very different signal than the same number during 2009's historic recovery rally, which dominates this window's
-        earliest cycles.
+      <p class="text-[13.5px] text-[#C9D6DA] leading-relaxed mt-3">
+        Note this tells a DIFFERENT story from the main comparison above — XIRR goes up with averaging here
+        ({pct(base['xirr_pct'])} → {pct(avg['xirr_pct'])}) instead of roughly flat. That's not a contradiction: with new
+        capital, averaging never costs the other 9 positions anything, so there's no "sell winners to buy the loser" drag
+        to offset the benefit of buying a dip. The main comparison above is the more realistic one if you're not planning
+        to keep injecting fresh cash specifically to fund dip-buys — most real portfolios aren't.
       </p>
     </div>
     """
@@ -282,19 +266,15 @@ def build():
       </div>
       <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — every simplification behind this backtest.</p>
       <ul class="text-[13px] text-[#C9D6DA] list-disc pl-5 leading-relaxed">
-        <li class="mb-1.5">Averaging buys use NEW, external capital (confirmed with the user before building) — not money
-        taken from the other 9 positions. A version funded by trimming winners instead would show a different, likely
-        worse, result (selling strength to buy weakness is a real cost this version doesn't pay).</li>
-        <li class="mb-1.5">Each averaging top-up is sized equal to the original per-stock allocation (also confirmed
-        before building) — a different sizing rule (e.g. half-sized top-ups) would change both the capital required and
-        the blended-cost-basis effect.</li>
-        <li class="mb-1.5">This is a periodic capital-call model (fixed {sym}10/stock called fresh every cycle, proceeds
-        realized not compounded forward) specifically so the averaging effect could be isolated via XIRR — it is NOT
-        directly comparable to this project's other CAGR-based Midcap150 Momentum 10 reports, which let profits compound
-        forward instead of returning capital every 6 months.</li>
-        <li class="mb-1.5">Zero transaction costs on any buy or sell, including the averaging top-ups themselves (which
-        are, by construction, extra trades the no-averaging baseline never makes) — same disclosed omission as every
-        other reconstruction here, but the averaging variant's real-world cost drag would be proportionally larger.</li>
+        <li class="mb-1.5">Each averaging top-up is sized equal to the stock's ORIGINAL per-stock allocation at that
+        rebalance (confirmed with the user before building) — a different sizing rule (e.g. half-sized top-ups) would
+        change how much gets trimmed from the other 9 holdings and the resulting drag.</li>
+        <li class="mb-1.5">When a top-up is triggered, the OTHER 9 holdings are trimmed proportionally to their current
+        value to fund it — a different trimming rule (e.g. always sell the single biggest winner) would spread the cost
+        differently across the portfolio.</li>
+        <li class="mb-1.5">Zero transaction costs on any buy, sell, or trim — same disclosed omission as every other
+        reconstruction here, but the averaging variant makes strictly more trades (every top-up is an extra buy AND an
+        extra sell across the other 9 positions), so real-world costs would erode it more than the baseline.</li>
         <li class="mb-1.5">Today's fixed Midcap150 constituent list is applied retroactively across the whole window
         (survivorship bias). No F&O-eligibility screen, unadjusted prices, no dividends modeled — same as every other
         reconstruction here.</li>
@@ -304,15 +284,15 @@ def build():
 
     body = f"""
     {header}
-    {reconciliation_note}
     {lead_disclosure}
     <div class="px-10 py-6">
       {kpi_grid}
-      {reconciliation_table}
       {full_table}
       {eq_panel}
+      {dd_panel}
       {mechanism_note}
       {honesty_note}
+      {appendix_note}
       {limitations}
     </div>
     """
