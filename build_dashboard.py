@@ -279,6 +279,8 @@ GROUPS = [
              "title": "Midcap150 Momentum — Report 48's Design, Now Through Top-20", "subtitle": "Drawdown keeps improving; CAGR keeps falling — the filter stops closing the gap"},
             {"id": "80", "file": "80_etf_momentum_rotation_top5.html", "icon": ICON_REFRESH,
              "title": "ETF Momentum Rotation — Top 5 Out of 25 Distinct ETFs", "subtitle": "Picking the top 5 by momentum loses to just holding all of them equally"},
+            {"id": "81", "file": "81_midcap150_momentum10_averaging_down.html", "icon": ICON_SCALE_10,
+             "title": "Midcap150 Momentum 10 — Averaging Down Within the Holding Period", "subtitle": "XIRR improves, but the total money multiple is actually slightly worse"},
         ],
     },
 ]

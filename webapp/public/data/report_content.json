@@ -5498,5 +5498,79 @@
     ]
    }
   ]
+ },
+ "81": {
+  "title": "Midcap150 Momentum 10 — Averaging Down Within the Holding Period",
+  "subtitle": "Same top-10 momentum picks, same June/December rebalance — but instead of buying once and holding untouched, each stock's peak price since entry is tracked daily; the first time it falls 15% below that peak, an equal-sized top-up is bought with NEW capital, and if it falls 30% below peak, a second equal top-up follows. Each 6-month cycle calls a fresh ₹10-per-stock allocation and returns whatever it's worth at the next rebalance — a periodic capital-call model, not a compounding one, so both variants are measured with XIRR (money-weighted return), not CAGR.",
+  "source_line": "2008-12-31–2026-08-24 Report generated 2026-09-28 22:11",
+  "pages": [
+   {
+    "file": "81_midcap150_momentum10_averaging_down.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "XIRR looks better with averaging — but the total money multiple is actually slightly worse"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Averaging pushed XIRR up from +55.1% to +66.2% — but it also required deploying nearly twice the capital (₹3,600 → ₹6,820 over the same 18 years), and the MONEY MULTIPLE — total returned per rupee called, not annualized — actually went the other way: 1.20x for the plain baseline vs. 1.17x with averaging.",
+       "Both numbers are real, and they're not contradicting each other — they're measuring different things. Averaging buys typically go in partway through a 6-month cycle, closer to the exit than the entry, so the SAME dollar of profit on that late-arriving capital compounds to a higher ANNUALIZED rate (XIRR) even though it represents a smaller total gain in absolute terms. Read XIRR as \"how efficiently capital was used while it was deployed,\" and the money multiple as \"how much profit you actually banked per rupee committed\" — this report shows both because picking only one would tell a one-sided story."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "How often the triggers actually fired",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "mechanism"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — out of 360 total stock-holding-periods (10 stocks × 36 rebalances).",
+      "paragraphs": [
+       "The 15%-from-peak trigger fired 256 times (71.1% of all stock-periods) — a momentum pick pulling back 15% from its own peak-since-entry within a single 6-month window is common, not rare, for these volatile midcap names. The deeper 30% trigger fired 66 times (18.3%) — a real minority of positions, but still frequent enough to matter for the capital-required comparison above."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why the worst cycle got better and the best cycle got worse",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "Averaging did exactly what averaging is supposed to do at the position level: the worst single cycle improved from -7.8% to -5.6% — buying more at a lower price reduces the blended cost basis, so a partial recovery by cycle-end turns a smaller loss into a smaller-still loss. The cost is on the upside: the best cycle fell from +85.8% to +64.2% — money that goes in late, after a pick has already run up and then pulled back, buys in at a worse (higher) price than the ORIGINAL entry would have captured on a stock that just kept rising without ever triggering a dip-buy. Averaging smooths the distribution of outcomes; it doesn't shift the average outcome for free.",
+       "The most important caveat: this project's fixed Midcap150 momentum formula tends to pick stocks BECAUSE they've already risen a lot — a strong recent uptrend is the whole selection criterion. A stock like that pulling back 15% or 30% from its post-purchase peak within 6 months, in this specific dataset, was more often a pause within a continuing uptrend than the start of a real breakdown (256 triggers out of 360 positions is a LOT). That pattern won't hold in every market regime — a -30% pullback in a genuine bear market is a very different signal than the same number during 2009's historic recovery rally, which dominates this window's earliest cycles."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Averaging buys use NEW, external capital (confirmed with the user before building) — not money\n        taken from the other 9 positions. A version funded by trimming winners instead would show a different, likely\n        worse, result (selling strength to buy weakness is a real cost this version doesn't pay).",
+       "Each averaging top-up is sized equal to the original per-stock allocation (also confirmed\n        before building) — a different sizing rule (e.g. half-sized top-ups) would change both the capital required and\n        the blended-cost-basis effect.",
+       "This is a periodic capital-call model (fixed ₹10/stock called fresh every cycle, proceeds\n        realized not compounded forward) specifically so the averaging effect could be isolated via XIRR — it is NOT\n        directly comparable to this project's other CAGR-based Midcap150 Momentum 10 reports, which let profits compound\n        forward instead of returning capital every 6 months.",
+       "Zero transaction costs on any buy or sell, including the averaging top-ups themselves (which\n        are, by construction, extra trades the no-averaging baseline never makes) — same disclosed omission as every\n        other reconstruction here, but the averaging variant's real-world cost drag would be proportionally larger.",
+       "Today's fixed Midcap150 constituent list is applied retroactively across the whole window\n        (survivorship bias). No F&O-eligibility screen, unadjusted prices, no dividends modeled — same as every other\n        reconstruction here."
+      ]
+     }
+    ]
+   }
+  ]
  }
 }
