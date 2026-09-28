@@ -1,0 +1,29 @@
+name: Rebalance notification (report 48 proof of concept)
+on:
+  schedule:
+    # 12:00 UTC = 17:30 IST, after NSE's 15:30 IST close.
+    - cron: "0 12 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Send even if today isn't in the rebalance alert window"
+        type: boolean
+        default: true
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pandas numpy yfinance requests
+      - env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          if [ "${{ inputs.force }}" = "true" ]; then
+            python notify_rebalance.py --force
+          else
+            python notify_rebalance.py
+          fi
