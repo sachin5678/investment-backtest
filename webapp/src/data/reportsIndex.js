@@ -186,6 +186,7 @@ export const GROUPS = [
       { id: "74", file: "results73.json", icon: ICON_FLASK, title: "NIFTY500 Quality 50 — A Real Rebalanced Backtest", subtitle: "Only ~14 months of data support this, but it's a genuine rebalance, not a snapshot" },
       { id: "75", file: "results74.json", icon: ICON_FLASK, title: "Midcap150 Quality 10 — A Real Rebalanced Backtest", subtitle: "Quality lost money outright here — the momentum flagship did not" },
       { id: "76", file: "results75.json", icon: ICON_RULER, title: "Midcap150 Momentum 10 — 400-Day EMA + Gold, Rebalance Cadence", subtitle: "Wider EMA loses on both metrics; more frequent rebalancing shallows drawdown" },
+      { id: "77", file: "results76.json", icon: ICON_HOURGLASS, title: "Midcap150 Momentum 10 — Report 48, Rebalance Cadence", subtitle: "The hero design's own semi-annual cadence already looks close to right" },
     ],
   },
 ];

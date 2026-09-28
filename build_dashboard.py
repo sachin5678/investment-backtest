@@ -271,6 +271,8 @@ GROUPS = [
              "title": "Midcap150 Quality 10 — A Real Rebalanced Backtest", "subtitle": "Quality lost money outright here — the momentum flagship did not"},
             {"id": "76", "file": "76_midcap150_ema400_gold_rebalance_cadence.html", "icon": ICON_RULER,
              "title": "Midcap150 Momentum 10 — 400-Day EMA + Gold, Rebalance Cadence", "subtitle": "Wider EMA loses on both metrics; more frequent rebalancing shallows drawdown"},
+            {"id": "77", "file": "77_midcap150_report48_rebalance_cadence.html", "icon": ICON_HOURGLASS,
+             "title": "Midcap150 Momentum 10 — Report 48, Rebalance Cadence", "subtitle": "The hero design's own semi-annual cadence already looks close to right"},
         ],
     },
 ]

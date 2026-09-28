@@ -5248,5 +5248,77 @@
     ]
    }
   ]
+ },
+ "77": {
+  "title": "Midcap150 Momentum 10 — Report 48's Own Design, Rebalanced Every 4 Months",
+  "subtitle": "Report 76 found that a MORE frequent stock-selection refresh shallowed drawdown on a 400-day-EMA design, without beating its CAGR. This report asks whether that same benefit shows up on the actual hero design — report 48's own 200-day EMA regime filter + gold — or whether it was specific to the 400-day EMA's slower-reacting signal. Same continuous/daily 200-EMA regime check throughout; only the top-10 stock-selection cadence changes between the three variants below.",
+  "source_line": "2009-06-30–2026-08-24 Report generated 2026-09-28 09:40",
+  "pages": [
+   {
+    "file": "77_midcap150_report48_rebalance_cadence.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "negative",
+        "text": "report 76's benefit does NOT transfer to the hero design — more frequent rebalancing hurts here"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "On the 200-day EMA — this project's actual best Midcap150 CAGR/drawdown combination — the semi-annual cadence report 48 already uses is essentially the BEST of the three: CAGR +42.7% and drawdown -23.4%. Yearly comes in almost identical (+42.5% / -23.7%). Every 4 months is clearly WORSE on both counts — +40.2% CAGR (barely above the unfiltered +40.1% baseline) and a slightly deeper -24.4% drawdown.",
+       "This directly contradicts report 76's finding on the 400-day EMA, where every-4-months clearly shallowed the drawdown. The likely reason: the 400-day EMA's regime signal reacts so slowly that the held stock basket had genuinely gone stale by the time report 76's semi-annual cadence refreshed it, so a faster refresh had real staleness to fix. The 200-day EMA reacts quickly enough that this staleness barely exists — refreshing the basket more often here mostly just adds transaction churn and rotates OUT of stocks before their momentum has actually faded, at a real CAGR cost, without a comparable amount of \"already gone stale\" upside to recover."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "What actually changes between the three cadences",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "mechanism"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the regime filter's OWN switch timing (into/out of gold) is identical in all three; only the top-10 stock-selection refresh rate differs.",
+      "paragraphs": [
+       "Semi-annual rebalances the momentum picks 38 times across this window (June and December); yearly rebalances 19 times (June only); every-4-months rebalances 57 times (February, June, October) — identical cadence definitions to report 76, applied here to the 200-day EMA instead of 400. All three share the exact same regime signal, checked daily against NIFTY 50's own close; a switch into or out of gold happens on the same dates in every version. The ONLY difference is which specific 10 stocks are held during each \"on\" stretch."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why report 76's benefit doesn't carry over",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "A more frequent rebalance only helps when the existing cadence is letting the basket go genuinely stale between refreshes. Report 76's 400-day EMA is slow enough that this staleness was real — refreshing more often gave the strategy real, recoverable value. Report 48's 200-day EMA reacts fast enough, and its semi-annual cadence is already close enough to \"fresh,\" that there's little staleness left to fix. What's left when you rebalance more often anyway is mostly the downside of turnover: exiting stocks whose momentum hasn't actually faded yet, on a schedule driven by the calendar rather than by any real signal that the basket needs refreshing.",
+       "The practical takeaway: \"rebalance more often\" is not a universal fix — whether it helps depends on how slow (and therefore how prone to staleness) the underlying signal already is. On report 48's own well-tuned design, the existing semi-annual cadence already looks close to right."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Only THREE rebalance cadences were tested, all anchored to keep June as a shared month — a genuinely\n        different calendar (e.g. March/July/November) or a non-4-month spacing (e.g. quarterly) could behave differently.",
+       "Zero transaction costs on any regime switch or scheduled rebalance — same disclosed omission as\n        every other reconstruction here; the every-4-months cadence also trades 50% more often per year than semi-annual,\n        so real-world costs would scale up correspondingly and make its already-worse CAGR look worse still.",
+       "Today's fixed Midcap150 constituent list is applied retroactively across the whole window\n        (survivorship bias). Equal weighting, no F&O-eligibility screen, unadjusted prices, no dividends modeled — same as\n        every other reconstruction here."
+      ]
+     }
+    ]
+   }
+  ]
  }
 }
