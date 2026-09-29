@@ -192,6 +192,7 @@ export const GROUPS = [
       { id: "80", file: "results79.json", icon: ICON_REFRESH, title: "ETF Momentum Rotation — Top 5 Out of 25 Distinct ETFs", subtitle: "Picking the top 5 by momentum loses to just holding all of them equally" },
       { id: "81", file: "results80.json", icon: ICON_SCALE_10, title: "Midcap150 Momentum 10 — Averaging Down Within the Holding Period", subtitle: "Basically a wash on CAGR, but makes the drawdown meaningfully worse" },
       { id: "82", file: "results81.json", icon: ICON_SCALE_10, title: "Midcap150 Momentum 10 — Averaging With Wider Triggers (25%/40%)", subtitle: "Wider triggers flip the result — CAGR improves, drawdown cost shrinks" },
+      { id: "83", file: "results82.json", icon: ICON_SCALE_10, title: "Midcap150 Momentum 10 — Pyramiding Up Instead of Averaging Down", subtitle: "Buying more of a winner beats buying more of a loser, on both CAGR and drawdown" },
     ],
   },
 ];

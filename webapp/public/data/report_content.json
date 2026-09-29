@@ -5630,5 +5630,79 @@
     ]
    }
   ]
+ },
+ "83": {
+  "title": "Midcap150 Momentum 10 — Pyramiding Up Instead of Averaging Down",
+  "subtitle": "Reports 81/82 tested buying MORE of a stock as it falls (15-40% below its own peak-since-entry). This report reverses the idea: buy more of a stock as it RISES — the first time it closes 20% above its own buy price, top up with an amount equal to the original allocation; the first time it closes 40% above buy price, a second equal top-up follows. Same funding mechanism as 81/82 (trim the other 9 holdings proportionally, no new external capital, one continuous compounding portfolio, single CAGR) — the only thing that changes is the direction of the trigger.",
+  "source_line": "2008-12-31–2026-08-24 Report generated 2026-09-29 22:55",
+  "pages": [
+   {
+    "file": "83_midcap150_momentum10_pyramiding_up.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "positive",
+        "text": "buying more of a winner while it keeps winning beats buying more of a loser hoping it recovers"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Pyramiding up lifts CAGR from +40.6% to +41.6% — a real, if modest, improvement — for only a small drawdown cost: -35.1% without it vs. -35.6% with it. That's a meaningfully BETTER trade-off than either down-side design tested in reports 81/82 — report 81's 15%/30% averaging-down was a CAGR wash with a bigger drawdown cost (-37.2%), and report 82's wider 25%/40% down-trigger beat this on CAGR (+42.1%) but at a deeper drawdown (-36.0%) than pyramiding up's -35.6%.",
+       "The mechanism makes sense given what this formula actually selects for: these are picks chosen BECAUSE they already rose a lot over the past 6-12 months. Buying more as that same trend continues is betting WITH the selection criterion; buying more as it reverses is betting AGAINST it. Pyramiding up is the more momentum-consistent of the two ideas, and it performs like it."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "How often the triggers actually fired",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "mechanism"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — out of 360 total stock-holding-periods (10 stocks × 36 rebalances).",
+      "paragraphs": [
+       "The +20% trigger fired 204 times (56.7% of all stock-periods) — a Midcap150 momentum pick rising another 20% within the SAME 6-month holding period it was already bought for having risen a lot is common, not rare, here. The +40% trigger fired 104 times (28.9%) — still a substantial share of positions, higher than either down-side trigger in reports 81/82 fired at their respective second thresholds."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why \"buy more of what's working\" fits this formula better than \"buy more of what isn't\"",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "Every top-up in this report, like reports 81/82, is funded by trimming the OTHER 9 holdings — there's no free lunch, capital always comes from somewhere. The difference is WHICH stock gets the extra capital. Averaging down (81/82) moves money INTO the stock that's currently underperforming, funded by trimming the ones that are doing better. Pyramiding up moves money INTO the stock that's currently outperforming, funded by trimming the ones doing relatively worse (or at least less spectacularly well) — which is a bet more aligned with the momentum formula's own premise: recent strength tends to persist more often than it reverses, in this specific dataset.",
+       "This doesn't mean pyramiding up is \"safe\" — it still concentrates more capital into fewer names (whichever ones happen to be running hardest), which is a real concentration risk if a big winner reverses sharply AFTER the top-up rather than before it. The relatively small drawdown cost here (-35.1% → -35.6%) reflects what happened in THIS specific 18-year window, not a guarantee that concentrating into recent winners is always low-risk."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "The trigger reference is the FIXED entry (buy) price throughout the holding period, not a\n        trailing peak like reports 81/82 use for the down-side — a stock that rises 20%, pulls back, then rises again\n        past 20% would NOT re-trigger here (each trigger only fires once per position), by construction.",
+       "Only one width pair (+20%/+40%) has been tested — this doesn't map the full curve of possible\n        thresholds, or confirm this is an optimal pair rather than just a better one than reports 81/82's down-side design.",
+       "Each top-up is sized equal to the original per-stock allocation, funded by trimming the other 9\n        holdings proportionally — same convention as reports 81/82, for direct comparability.",
+       "Zero transaction costs on any buy, sell, or trim — same disclosed omission as every other\n        reconstruction here; pyramiding trades strictly more than the no-overlay baseline.",
+       "Today's fixed Midcap150 constituent list is applied retroactively across the whole window\n        (survivorship bias). No F&O-eligibility screen, unadjusted prices, no dividends modeled — same as every other\n        reconstruction here."
+      ]
+     }
+    ]
+   }
+  ]
  }
 }
