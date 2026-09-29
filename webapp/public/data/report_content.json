@@ -5704,5 +5704,64 @@
     ]
    }
   ]
+ },
+ "85": {
+  "title": "Midcap150 Momentum 10 — Report 48, Rebalance Month Offset",
+  "subtitle": "Report 48's exact design — the 200-day EMA regime filter, gold instead of cash — tested across five different semi-annual rebalance calendars: June/December (report 48's own convention), July/January, August/February, September/March, and October/April. Report 25 already tested this exact idea on the plain (no-filter) strategy; this asks whether the calendar offset matters once the gold-hedged regime filter is layered on top. Same continuous daily 200-EMA regime check throughout — only the stock-selection calendar changes between the five variants.",
+  "source_line": "2009-02-27–2026-08-24 Report generated 2026-09-29 23:25",
+  "pages": [
+   {
+    "file": "85_midcap150_report48_rebalance_month_offset.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "report 48's own June/December calendar is the SAFEST of the five, not the highest-CAGR one"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Among the five gold-hedged variants, June/December has the SHALLOWEST drawdown (-23.4%) — but also the LOWEST CAGR (+42.7%) of the five. The best CAGR belongs to July / January (+44.7%), at the cost of a deeper drawdown (-26.0%).",
+       "The spread here is real but not huge — CAGR ranges about 2 percentage points across all five calendars, and drawdown ranges about 2.6 points. This is a genuinely different, smaller-magnitude question than report 25's finding on the plain strategy, since the 200-EMA regime filter (identical daily signal in all five variants) is doing most of the risk-reduction work regardless of which two months the stock picks happen to refresh in."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why the offset matters less here than it did for the plain strategy",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "Report 25 found the rebalance calendar mattered for the PLAIN momentum strategy because with no regime filter, the stock-selection calendar is the ONLY lever determining when the portfolio reacts to changing conditions. Here, the 200-EMA regime filter reacts to NIFTY 50's close EVERY SINGLE DAY, completely independent of which two months the stock picks happen to refresh in — the calendar only controls which specific 10 stocks are held DURING an \"on\" stretch, not whether the strategy is exposed to the market at all. That's a smaller lever, which is why the spread here (about 2 points of CAGR, 2.6 of drawdown) is real but modest.",
+       "Report 48's June/December choice was inherited from this project's original momentum-formula convention (NSE's own semi-annual reconstitution cadence), not chosen for its risk/return profile specifically. This report shows that choice happens to land on the safest end of the offset spectrum, not the highest-return end — a reasonable trade to have made, even if not deliberately optimized for."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Only five of the six possible semi-annual offsets were tested (November/May was left out) —\n        this doesn't claim June/December is provably the best OR worst of all six, just where it sits among these five.",
+       "The common comparison window starts a little later than report 48's own (2009-02-27\n        vs. report 48's 2009-01-02) because five different calendars each take a slightly different number of days to\n        first reach a valid 252-day-lookback rebalance — the intersection of all five pushes the shared start date out.",
+       "Zero transaction costs on any regime switch or scheduled rebalance — same disclosed omission\n        as every other reconstruction here.",
+       "Today's fixed Midcap150 constituent list is applied retroactively across the whole window\n        (survivorship bias). Equal weighting, no F&O-eligibility screen, unadjusted prices, no dividends modeled — same\n        as every other reconstruction here."
+      ]
+     }
+    ]
+   }
+  ]
  }
 }

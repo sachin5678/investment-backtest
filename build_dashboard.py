@@ -285,6 +285,8 @@ GROUPS = [
              "title": "Midcap150 Momentum 10 — Averaging With Wider Triggers (25%/40%)", "subtitle": "Wider triggers flip the result — CAGR improves, drawdown cost shrinks"},
             {"id": "83", "file": "83_midcap150_momentum10_pyramiding_up.html", "icon": ICON_SCALE_10,
              "title": "Midcap150 Momentum 10 — Pyramiding Up Instead of Averaging Down", "subtitle": "Buying more of a winner beats buying more of a loser, on both CAGR and drawdown"},
+            {"id": "85", "file": "85_midcap150_report48_rebalance_month_offset.html", "icon": ICON_COMPASS,
+             "title": "Midcap150 Momentum 10 — Report 48, Rebalance Month Offset", "subtitle": "June/December is the safest of five calendars tested, not the highest-CAGR one"},
         ],
     },
 ]
