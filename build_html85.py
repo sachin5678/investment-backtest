@@ -20,7 +20,7 @@ PILL_NEUTRAL = PILL_BASE + " bg-[#7E97A0]/15 text-[#7E97A0] border border-[#7E97
 KIND_COLOR = {"positive": "#37F083", "negative": "#F2643C", "neutral": "#E6EDF0", "assumption": "#F2B03C"}
 
 MONTH_LABEL = {"june_dec": "June / December (report 48)", "july_jan": "July / January", "aug_feb": "August / February",
-               "sept_mar": "September / March", "oct_apr": "October / April"}
+               "sept_mar": "September / March", "oct_apr": "October / April", "nov_may": "November / May"}
 
 
 def pill(text, kind="assumption"):
@@ -90,14 +90,16 @@ def build():
     original = {lbl: R[f"original_{lbl}"] for lbl in labels}
 
     best_cagr_lbl = max(labels, key=lambda l: filtered[l]["cagr_pct"])
+    worst_cagr_lbl = min(labels, key=lambda l: filtered[l]["cagr_pct"])
     best_dd_lbl = max(labels, key=lambda l: filtered[l]["max_drawdown_pct"])  # least negative = shallowest
+    n = len(labels)
 
     header = f"""
     <header class="border-b border-[#1E3A45] bg-[#0F2630]/60 px-10 py-6">
       <div class="flex items-start justify-between gap-6">
         <div>
           <h1 class="text-2xl font-bold text-[#E6EDF0]">Midcap150 Momentum 10 — Report 48, Rebalance Month Offset</h1>
-          <p class="text-[#9FB4BB] text-sm mt-1">Report 48's exact design — the {span}-day EMA regime filter, gold instead of cash — tested across five different semi-annual rebalance calendars: June/December (report 48's own convention), July/January, August/February, September/March, and October/April. Report 25 already tested this exact idea on the plain (no-filter) strategy; this asks whether the calendar offset matters once the gold-hedged regime filter is layered on top. Same continuous daily {span}-EMA regime check throughout — only the stock-selection calendar changes between the five variants.</p>
+          <p class="text-[#9FB4BB] text-sm mt-1">Report 48's exact design — the {span}-day EMA regime filter, gold instead of cash — tested across all {n} semi-annual rebalance calendars: June/December (report 48's own convention), July/January, August/February, September/March, October/April, and November/May. Report 25 already tested this exact idea on the plain (no-filter) strategy; this asks whether the calendar offset matters once the gold-hedged regime filter is layered on top. Same continuous daily {span}-EMA regime check throughout — only the stock-selection calendar changes between the {n} variants.</p>
         </div>
         <div class="text-right {MUTED} mono shrink-0">
           {esc(R['start_date'])}–{esc(R['end_date'])}<br/>Report generated {esc(R['generated'])}
@@ -110,19 +112,21 @@ def build():
     <div class="px-10 pt-6">
       <div class="{PANEL} border-2 border-[#6AE4FF]">
         <div class="flex items-center gap-2 mb-3 flex-wrap">
-          {pill("report 48's own June/December calendar is the SAFEST of the five, not the highest-CAGR one", 'assumption')}
+          {pill("report 48's own June/December calendar is the SAFEST of all six, but not the highest-CAGR one", 'assumption')}
         </div>
         <p class="text-[14px] text-[#E6EDF0] leading-relaxed mb-3">
-          Among the five gold-hedged variants, June/December has the SHALLOWEST drawdown
-          (<span class="font-semibold">{pct(filtered['june_dec']['max_drawdown_pct'],1,signed=False)}</span>) — but also the
-          LOWEST CAGR (<span class="font-semibold">{pct(filtered['june_dec']['cagr_pct'])}</span>) of the five. The best CAGR
-          belongs to {esc(MONTH_LABEL[best_cagr_lbl])} ({pct(filtered[best_cagr_lbl]['cagr_pct'])}), at the cost of a
-          deeper drawdown ({pct(filtered[best_cagr_lbl]['max_drawdown_pct'],1,signed=False)}).
+          Among all {n} gold-hedged variants, June/December still has the SHALLOWEST drawdown
+          (<span class="font-semibold">{pct(filtered['june_dec']['max_drawdown_pct'],1,signed=False)}</span>) — but it's no
+          longer the lowest CAGR once November/May is added to the comparison: {esc(MONTH_LABEL[worst_cagr_lbl])} now has the
+          lowest CAGR ({pct(filtered[worst_cagr_lbl]['cagr_pct'])}) of the six, and its drawdown isn't particularly good
+          either ({pct(filtered[worst_cagr_lbl]['max_drawdown_pct'],1,signed=False)}) — it doesn't win on either axis. The
+          best CAGR still belongs to {esc(MONTH_LABEL[best_cagr_lbl])} ({pct(filtered[best_cagr_lbl]['cagr_pct'])}), at the
+          cost of the deepest drawdown of the six ({pct(filtered[best_cagr_lbl]['max_drawdown_pct'],1,signed=False)}).
         </p>
         <p class="text-[14px] text-[#E6EDF0] leading-relaxed">
-          The spread here is real but not huge — CAGR ranges about 2 percentage points across all five calendars, and
+          The spread here is real but not huge — CAGR ranges about 3 percentage points across all {n} calendars, and
           drawdown ranges about 2.6 points. This is a genuinely different, smaller-magnitude question than report 25's
-          finding on the plain strategy, since the 200-EMA regime filter (identical daily signal in all five variants) is
+          finding on the plain strategy, since the 200-EMA regime filter (identical daily signal in all {n} variants) is
           doing most of the risk-reduction work regardless of which two months the stock picks happen to refresh in.
         </p>
       </div>
@@ -133,7 +137,7 @@ def build():
     dd_cols = [(MONTH_LABEL[lbl], pct(filtered[lbl]["max_drawdown_pct"], 1, signed=False),
                 "positive" if lbl == best_dd_lbl else "neutral") for lbl in labels]
     kpis = [
-        kpi_card("CAGR by rebalance calendar — 200-EMA + gold", "Same continuous daily regime signal in all five; only the stock-refresh calendar differs.", kpi_cols),
+        kpi_card("CAGR by rebalance calendar — 200-EMA + gold", f"Same continuous daily regime signal in all {n}; only the stock-refresh calendar differs.", kpi_cols),
         kpi_card("Max drawdown by rebalance calendar — 200-EMA + gold", "Largest peak-to-trough decline, identical window for every series.", dd_cols),
     ]
     kpi_grid = f'<div class="grid grid-cols-1 gap-4 mt-6">{"".join(kpis)}</div>'
@@ -162,7 +166,7 @@ def build():
     </div>
     """
 
-    palette = [COL["positive"], COL["negative"], "#8B5CF6", COL["assumption"], "#6AE4FF"]
+    palette = [COL["positive"], COL["negative"], "#8B5CF6", COL["assumption"], "#6AE4FF", "#FF8A5C"]
     eq_series = [{"name": MONTH_LABEL[lbl], "color": palette[i % len(palette)], "points": filtered[lbl]["equity_curve"]}
                  for i, lbl in enumerate(labels)]
     eq_svg, eq_legend = line_chart(eq_series, height=420, value_fmt=lambda v: f"{v:,.0f}", chart_id="eq_85")
@@ -188,7 +192,7 @@ def build():
     dd_panel = f"""
     <div class="{PANEL} mt-6">
       <h3 class="text-base font-bold text-[#E6EDF0] mb-1">Drawdown comparison</h3>
-      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — all five track each other fairly closely — the 200-EMA regime signal (identical across all five) is doing most of the work; the calendar offset only nudges the result.</p>
+      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — all six track each other fairly closely — the 200-EMA regime signal (identical across all six) is doing most of the work; the calendar offset only nudges the result.</p>
       <div class="flex items-center mb-2">{dd_legend}</div>
       {dd_svg}
     </div>
@@ -223,11 +227,12 @@ def build():
       </div>
       <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — every simplification behind this backtest.</p>
       <ul class="text-[13px] text-[#C9D6DA] list-disc pl-5 leading-relaxed">
-        <li class="mb-1.5">Only five of the six possible semi-annual offsets were tested (November/May was left out) —
-        this doesn't claim June/December is provably the best OR worst of all six, just where it sits among these five.</li>
+        <li class="mb-1.5">All six possible semi-annual offsets are now covered — this is the complete set, not a sample
+        of it — but each is still only ONE specific two-month pairing, not a sweep of every possible single-month
+        rebalance date.</li>
         <li class="mb-1.5">The common comparison window starts a little later than report 48's own ({esc(R['start_date'])}
-        vs. report 48's 2009-01-02) because five different calendars each take a slightly different number of days to
-        first reach a valid 252-day-lookback rebalance — the intersection of all five pushes the shared start date out.</li>
+        vs. report 48's 2009-01-02) because six different calendars each take a slightly different number of days to
+        first reach a valid 252-day-lookback rebalance — the intersection of all six pushes the shared start date out.</li>
         <li class="mb-1.5">Zero transaction costs on any regime switch or scheduled rebalance — same disclosed omission
         as every other reconstruction here.</li>
         <li class="mb-1.5">Today's fixed Midcap150 constituent list is applied retroactively across the whole window

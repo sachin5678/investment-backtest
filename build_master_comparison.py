@@ -206,7 +206,8 @@ def process_universe(universe_name, closes, nifty_close, select_fn, select_fn_fr
                 (7, "filter_gold_july_jan", "gold, rebalance July/January"),
                 (8, "filter_gold_aug_feb", "gold, rebalance August/February"),
                 (9, "filter_gold_sept_mar", "gold, rebalance September/March"),
-                (10, "filter_gold_oct_apr", "gold, rebalance October/April")):
+                (10, "filter_gold_oct_apr", "gold, rebalance October/April"),
+                (11, "filter_gold_nov_may", "gold, rebalance November/May")):
             month_num = report_numbers.get(month_key)
             if not month_num:
                 continue
@@ -320,6 +321,7 @@ def main():
          "filter_gold_ema400": 76, "filter_gold_4monthly": 77,
          "filter_gold_top5": 78, "filter_gold_top15": 78, "filter_gold_top20": 79,
          "filter_gold_july_jan": 85, "filter_gold_aug_feb": 85, "filter_gold_sept_mar": 85, "filter_gold_oct_apr": 85,
+         "filter_gold_nov_may": 85,
          "filter_gold_midmonth": 86},
         gold_close=gold_close_full,
     )

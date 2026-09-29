@@ -286,7 +286,7 @@ GROUPS = [
             {"id": "83", "file": "83_midcap150_momentum10_pyramiding_up.html", "icon": ICON_SCALE_10,
              "title": "Midcap150 Momentum 10 — Pyramiding Up Instead of Averaging Down", "subtitle": "Buying more of a winner beats buying more of a loser, on both CAGR and drawdown"},
             {"id": "85", "file": "85_midcap150_report48_rebalance_month_offset.html", "icon": ICON_COMPASS,
-             "title": "Midcap150 Momentum 10 — Report 48, Rebalance Month Offset", "subtitle": "June/December is the safest of five calendars tested, not the highest-CAGR one"},
+             "title": "Midcap150 Momentum 10 — Report 48, Rebalance Month Offset", "subtitle": "June/December is the safest of all six calendars tested, not the highest-CAGR one"},
             {"id": "86", "file": "86_midcap150_report48_midmonth_rebalance.html", "icon": ICON_COMPASS,
              "title": "Midcap150 Momentum 10 — Report 48, Month-End vs. Mid-Month", "subtitle": "The same day-of-month shift helps the plain strategy but hurts the gold-hedged one"},
         ],

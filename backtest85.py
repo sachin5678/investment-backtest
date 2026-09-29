@@ -1,15 +1,15 @@
 """
 Midcap150 Momentum 10 — report 48's exact design (200-day EMA regime
-filter, gold instead of cash), tested across five different semi-annual
+filter, gold instead of cash), tested across ALL SIX semi-annual
 rebalance calendars: June/December (report 48's own convention), July/
-January, August/February, September/March, October/April. Report 25
-already tested this exact idea (all six offsets) on the PLAIN momentum
-strategy with no filter — this asks whether the calendar offset matters
-for the gold-hedged hero design too, or whether the regime filter
-dominates the picture regardless of which two months the stock picks
-get refreshed in.
+January, August/February, September/March, October/April, November/May.
+Report 25 already tested this exact idea (all six offsets) on the PLAIN
+momentum strategy with no filter — this asks whether the calendar
+offset matters for the gold-hedged hero design too, or whether the
+regime filter dominates the picture regardless of which two months the
+stock picks get refreshed in.
 
-Same continuous/daily 200-EMA regime check throughout all five variants
+Same continuous/daily 200-EMA regime check throughout all six variants
 — only the top-10 stock-selection calendar changes. Same full-window/
 gold-reindex convention as reports 48/68/71/76-79.
 """
@@ -27,7 +27,7 @@ from backtest32 import metrics_only
 from backtest33 import select_top_original, build_index_generic
 from backtest42 import build_index_regime_filtered_with_hedge, EMA_SPAN
 
-START_MONTHS = [6, 7, 8, 9, 10]
+START_MONTHS = [6, 7, 8, 9, 10, 11]
 
 
 def offset_months(start_month):
@@ -69,7 +69,7 @@ def main():
     nifty_metrics = metrics_only(nifty_close, common_idx)
     gold_bench_metrics = metrics_only(gold["Close"], common_idx.intersection(real_gold_idx))
 
-    month_names = {6: "june_dec", 7: "july_jan", 8: "aug_feb", 9: "sept_mar", 10: "oct_apr"}
+    month_names = {6: "june_dec", 7: "july_jan", 8: "aug_feb", 9: "sept_mar", 10: "oct_apr", 11: "nov_may"}
     results = {
         "generated": pd.Timestamp.now().strftime("%Y-%m-%d %H:%M"),
         "currency_symbol": CURRENCY_SYMBOL,
