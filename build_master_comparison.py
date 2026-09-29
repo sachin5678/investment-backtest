@@ -187,6 +187,21 @@ def process_universe(universe_name, closes, nifty_close, select_fn, select_fn_fr
             add_row(universe_name, "Filter + Hedge", f"200-EMA regime filter + gold, top-{basket_n}", basket_num,
                     goldn_series, nifty_close, idx_gn)
 
+        midmonth_num = report_numbers.get("filter_gold_midmonth")
+        if midmonth_num:
+            df_rb = pd.Series(closes.index, index=closes.index)
+            rb_midmonth = []
+            for (y, m), grp in df_rb.groupby([closes.index.year, closes.index.month]):
+                if m in (6, 12):
+                    day_diffs = abs(grp.index.day - 15)
+                    rb_midmonth.append(grp.index[day_diffs.values.argmin()])
+            rb_midmonth = sorted(rb_midmonth)
+            midmonth_series, _, _ = build_index_regime_filtered_with_hedge(
+                closes, nifty_close, ema200, rb_midmonth, select_fn, gold_aligned)
+            idx_mm = midmonth_series.index.intersection(nifty_close.index).intersection(gold_close.index)
+            add_row(universe_name, "Filter + Hedge", "200-EMA regime filter + gold, mid-month rebalance", midmonth_num,
+                    midmonth_series, nifty_close, idx_mm)
+
         for start_month, month_key, month_label in (
                 (7, "filter_gold_july_jan", "gold, rebalance July/January"),
                 (8, "filter_gold_aug_feb", "gold, rebalance August/February"),
@@ -304,7 +319,8 @@ def main():
          "trailing_stop": 58, "core_satellite_70_30": 71, "core_satellite_50_50": 72, "basket_50": 73,
          "filter_gold_ema400": 76, "filter_gold_4monthly": 77,
          "filter_gold_top5": 78, "filter_gold_top15": 78, "filter_gold_top20": 79,
-         "filter_gold_july_jan": 85, "filter_gold_aug_feb": 85, "filter_gold_sept_mar": 85, "filter_gold_oct_apr": 85},
+         "filter_gold_july_jan": 85, "filter_gold_aug_feb": 85, "filter_gold_sept_mar": 85, "filter_gold_oct_apr": 85,
+         "filter_gold_midmonth": 86},
         gold_close=gold_close_full,
     )
 

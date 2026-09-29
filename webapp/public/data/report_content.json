@@ -5763,5 +5763,64 @@
     ]
    }
   ]
+ },
+ "86": {
+  "title": "Midcap150 Momentum 10 — Report 48, Month-End vs. Mid-Month Rebalance",
+  "subtitle": "Report 48's exact design — the 200-day EMA regime filter, gold instead of cash — rebalanced on the trading day closest to the 15th of June/December instead of the LAST trading day of June/December. Same two months, same continuous daily 200-EMA regime signal — only WHICH DAY within each month the top-10 picks get refreshed on changes. A different axis from report 85 (which months) and reports 76/77 (how often).",
+  "source_line": "2009-01-02–2026-08-24 Report generated 2026-09-29 23:32",
+  "pages": [
+   {
+    "file": "86_midcap150_report48_midmonth_rebalance.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "mid-month rebalancing helps the PLAIN strategy but hurts the gold-hedged hero design"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Without the regime filter, moving to the 15th improves BOTH numbers: CAGR +40.5% → +41.6%, drawdown -35.1% → -33.5%. With the 200-EMA + gold filter layered on, the SAME change goes the other way: CAGR +43.3% → +41.3%, drawdown -23.4% → -25.2% — worse on both counts.",
+       "Reported honestly rather than explained away: this project doesn't have a confirmed mechanism for why the SAME day-of-month shift helps one version and hurts the other. A plausible but UNVERIFIED hypothesis — Indian markets have real month-end flows (F&O expiry is the last Thursday of the month, mutual fund NAV-related activity clusters around month-end) that could interact differently with a portfolio that's sometimes 100% in gold than one that's always 100% in stocks — but this report doesn't test that hypothesis directly, so it should be read as a real, disclosed pattern in this data, not a mechanism this project has actually confirmed."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "A genuine open question, not a settled mechanism",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — what this report can and can't tell you.",
+      "paragraphs": [
+       "Every other rebalance-timing report in this project (76, 77, 85) found a consistent DIRECTION of effect — wider EMA spans hurt, faster stock-refresh sometimes helps and sometimes hurts depending on the underlying signal's own speed, different month-pairs shift the result by a couple of points either way. This report is different: the SAME change (month-end → mid-month) helps the unfiltered strategy and hurts the filtered one. That's not a contradiction in the data — it's a real signal that whatever is driving the day-of-month effect interacts with the regime filter itself, not just with the stock-picking formula alone.",
+       "This report does not identify that interaction — it only documents that it exists. Isolating the actual cause would need a dedicated test (e.g. comparing day-of-month effects specifically DURING gold-hedge periods vs. DURING invested periods), which is a real follow-up, not something to guess at here."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Only ONE mid-month target (the 15th) was tested against month-end — this doesn't map\n        the full curve of possible days within the month, or confirm the 15th specifically is unusual rather\n        than any non-month-end day behaving similarly.",
+       "The proposed month-end-flow hypothesis (F&O expiry, NAV-related activity) is explicitly\n        UNVERIFIED — offered as a plausible direction for a follow-up, not a confirmed explanation.",
+       "Zero transaction costs on any regime switch or scheduled rebalance — same disclosed omission\n        as every other reconstruction here.",
+       "Today's fixed Midcap150 constituent list is applied retroactively across the whole window\n        (survivorship bias). Equal weighting, no F&O-eligibility screen, unadjusted prices, no dividends modeled — same\n        as every other reconstruction here."
+      ]
+     }
+    ]
+   }
+  ]
  }
 }
