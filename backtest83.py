@@ -19,6 +19,18 @@ instead of buying more of a loser hoping it recovers, buy more of a
 winner while it's still winning. Compared against the same no-averaging
 baseline and against reports 81/82's down-side triggers, all sharing
 the identical picks/prices/window.
+
+Also includes report 81's own secondary framing as an appendix: the same
++20%/+40% trigger, but funded with NEW EXTERNAL capital (periodic
+capital call, XIRR-measured) instead of trimming the other 9 holdings.
+This flips the finding — funded with new capital, pyramiding up is
+barely a wash on XIRR and makes BOTH the worst and best single cycle
+worse, unlike the compounding version's clean improvement. See the
+report text for why: a late-arriving tranche (bought after the price
+has already risen 20-40%) has strictly less room left to run before the
+same cycle-end sale, which drags its own money-weighted return down —
+an effect the compounding version never has to pay, since it's not
+tracking separate tranches' own cost basis at all.
 """
 import json
 import sys
@@ -29,10 +41,12 @@ import pandas as pd
 if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
     sys.stdout.reconfigure(encoding="utf-8")
 
+from backtest4 import xirr, series_to_points as sip_series_to_points
 from backtest10 import rebalance_dates, fetch, CURRENCY_SYMBOL
 from backtest13 import load_midcap150_closes
 from backtest32 import metrics_only
 from backtest33 import select_top_original, build_index_generic
+from backtest81 import simulate as simulate_periodic_averaging, BASE_ALLOC
 
 UP_1 = 0.20
 UP_2 = 0.40
@@ -118,6 +132,111 @@ def simulate_compounding_with_pyramiding(closes, rbdates, select_fn, up1=UP_1, u
     return index_level.dropna(), selections, trigger_counts
 
 
+def simulate_periodic_pyramiding(closes, rbdates, select_fn, up1=UP_1, up2=UP_2):
+    """Same periodic-capital-call skeleton as backtest81.simulate() — a
+    fixed BASE_ALLOC per stock called fresh every rebalance, proceeds
+    realized (not carried forward) at the next one — but triggered by a
+    RISE above the fixed entry price, funded with fresh capital called on
+    the spot. This is the ONLY way to test "new capital" pyramiding at
+    all, since new capital breaks the single-portfolio compounding this
+    report's main comparison relies on."""
+    dates = closes.index
+    cashflows = []
+    value_curve = pd.Series(np.nan, index=dates)
+    invested_curve = pd.Series(np.nan, index=dates)
+    cumulative_invested = 0.0
+    total_realized = 0.0
+    positions = {}
+    trigger_once, trigger_twice, total_positions = 0, 0, 0
+    cycle_capital_called = 0.0
+    cycle_returns = []
+
+    for i, rb in enumerate(rbdates):
+        price_at_rb = closes.loc[rb]
+
+        if positions:
+            proceeds = sum(pos["shares"] * price_at_rb.get(tk, np.nan) for tk, pos in positions.items()
+                            if pd.notna(price_at_rb.get(tk, np.nan)))
+            cashflows.append((rb, float(proceeds)))
+            total_realized += float(proceeds)
+            if cycle_capital_called > 0:
+                cycle_returns.append((proceeds / cycle_capital_called - 1.0) * 100.0)
+            positions = {}
+            cycle_capital_called = 0.0
+
+        t_idx = dates.get_loc(rb)
+        selected = select_fn(closes, t_idx)
+        if selected is not None:
+            for tk in selected:
+                entry_price = price_at_rb.get(tk)
+                if pd.isna(entry_price) or entry_price <= 0:
+                    continue
+                cashflows.append((rb, -BASE_ALLOC))
+                cumulative_invested += BASE_ALLOC
+                cycle_capital_called += BASE_ALLOC
+                total_positions += 1
+                positions[tk] = {"shares": BASE_ALLOC / entry_price, "buy_price": entry_price,
+                                  "pyramided1": False, "pyramided2": False}
+
+        value_curve.loc[rb] = sum(pos["shares"] * price_at_rb.get(tk, np.nan) for tk, pos in positions.items())
+        invested_curve.loc[rb] = cumulative_invested
+
+        next_rb = rbdates[i + 1] if i + 1 < len(rbdates) else None
+        day_range = dates[(dates > rb) & (dates < next_rb)] if next_rb is not None else dates[dates > rb]
+
+        for d in day_range:
+            price_today = closes.loc[d]
+            day_value = 0.0
+            for tk, pos in positions.items():
+                price = price_today.get(tk)
+                if pd.isna(price):
+                    day_value += pos["shares"] * pos["buy_price"]
+                    continue
+                if not pos["pyramided1"] and price >= pos["buy_price"] * (1 + up1):
+                    pos["shares"] += BASE_ALLOC / price
+                    cashflows.append((d, -BASE_ALLOC))
+                    cumulative_invested += BASE_ALLOC
+                    cycle_capital_called += BASE_ALLOC
+                    pos["pyramided1"] = True
+                    trigger_once += 1
+                elif pos["pyramided1"] and not pos["pyramided2"] and price >= pos["buy_price"] * (1 + up2):
+                    pos["shares"] += BASE_ALLOC / price
+                    cashflows.append((d, -BASE_ALLOC))
+                    cumulative_invested += BASE_ALLOC
+                    cycle_capital_called += BASE_ALLOC
+                    pos["pyramided2"] = True
+                    trigger_twice += 1
+                day_value += pos["shares"] * price
+            value_curve.loc[d] = day_value
+            invested_curve.loc[d] = cumulative_invested
+
+    final_open_value = 0.0
+    if positions:
+        last_date = dates[-1]
+        price_last = closes.loc[last_date]
+        final_open_value = sum(pos["shares"] * price_last.get(tk, np.nan) for tk, pos in positions.items()
+                                if pd.notna(price_last.get(tk, np.nan)))
+        cashflows.append((last_date, float(final_open_value)))
+
+    cashflows = sorted(cashflows, key=lambda cf: cf[0])
+    rate = xirr(cashflows)
+    total_invested = float(invested_curve.dropna().iloc[-1])
+    total_returned = total_realized + final_open_value
+    money_multiple = total_returned / total_invested if total_invested else None
+
+    return {
+        "value_curve": sip_series_to_points(value_curve.dropna()),
+        "invested_curve": sip_series_to_points(invested_curve.dropna()),
+        "total_invested": total_invested, "total_realized": total_realized, "final_open_value": final_open_value,
+        "total_returned": total_returned, "money_multiple": money_multiple,
+        "xirr_pct": rate,
+        "worst_cycle_return_pct": min(cycle_returns) if cycle_returns else None,
+        "best_cycle_return_pct": max(cycle_returns) if cycle_returns else None,
+        "num_cycles_completed": len(cycle_returns),
+        "total_positions": total_positions, "trigger_once": trigger_once, "trigger_twice": trigger_twice,
+    }
+
+
 def main():
     closes = load_midcap150_closes()
     nifty = fetch("^NSEI")
@@ -140,26 +259,42 @@ def main():
     pyramid_metrics["selections_sample"] = pyramid_sel[:3] + pyramid_sel[-3:] if len(pyramid_sel) > 6 else pyramid_sel
     nifty_metrics = metrics_only(nifty_close.loc[common_idx.intersection(nifty_close.index)], common_idx)
 
+    # Appendix: the same +20%/+40% trigger, funded with NEW capital
+    # instead of trimming — see this file's own docstring for why the
+    # finding flips (a late-arriving tranche has less room left to run
+    # before the same cycle-end sale, which drags ITS OWN money-weighted
+    # return down, unlike the compounding version).
+    periodic_baseline = simulate_periodic_averaging(closes, rbdates, select_top_original, use_averaging=False)
+    periodic_pyramiding = simulate_periodic_pyramiding(closes, rbdates, select_top_original)
+
     results = {
         "generated": pd.Timestamp.now().strftime("%Y-%m-%d %H:%M"),
         "currency_symbol": CURRENCY_SYMBOL,
         "start_date": common_idx[0].strftime("%Y-%m-%d"), "end_date": common_idx[-1].strftime("%Y-%m-%d"),
-        "up_1_pct": UP_1 * 100, "up_2_pct": UP_2 * 100,
+        "up_1_pct": UP_1 * 100, "up_2_pct": UP_2 * 100, "base_alloc": BASE_ALLOC,
         "num_rebalances": len(rbdates),
         "plain": plain_metrics,
         "pyramiding": pyramid_metrics,
         "nifty": nifty_metrics,
+        "periodic_baseline": periodic_baseline,
+        "periodic_pyramiding": periodic_pyramiding,
     }
 
     with open("results82.json", "w") as f:
         json.dump(results, f, indent=2)
 
     print(f"window {results['start_date']} -> {results['end_date']}, {len(rbdates)} rebalances")
-    print(f"no pyramiding          CAGR {plain_metrics['cagr_pct']:.2f}% / DD {plain_metrics['max_drawdown_pct']:.1f}%")
-    print(f"pyramiding +{UP_1*100:.0f}%/+{UP_2*100:.0f}%  CAGR {pyramid_metrics['cagr_pct']:.2f}% / DD {pyramid_metrics['max_drawdown_pct']:.1f}% | "
+    print(f"MAIN COMPARISON (one compounding portfolio, no external capital):")
+    print(f"  no pyramiding          CAGR {plain_metrics['cagr_pct']:.2f}% / DD {plain_metrics['max_drawdown_pct']:.1f}%")
+    print(f"  pyramiding +{UP_1*100:.0f}%/+{UP_2*100:.0f}%  CAGR {pyramid_metrics['cagr_pct']:.2f}% / DD {pyramid_metrics['max_drawdown_pct']:.1f}% | "
           f"trigger1 {counts['trigger_once']}/{counts['total_positions']} ({counts['trigger_once']/counts['total_positions']*100:.1f}%), "
           f"trigger2 {counts['trigger_twice']} ({counts['trigger_twice']/counts['total_positions']*100:.1f}%)")
-    print(f"nifty 50               CAGR {nifty_metrics['cagr_pct']:.2f}% / DD {nifty_metrics['max_drawdown_pct']:.1f}%")
+    print(f"  nifty 50               CAGR {nifty_metrics['cagr_pct']:.2f}% / DD {nifty_metrics['max_drawdown_pct']:.1f}%")
+    print(f"\n(secondary, periodic-capital-call framing, XIRR-based):")
+    for label, r in (("baseline (no overlay)", periodic_baseline), ("pyramiding up", periodic_pyramiding)):
+        print(f"  {label:<22} XIRR {r['xirr_pct']:.2f}% | called {CURRENCY_SYMBOL}{r['total_invested']:,.0f} "
+              f"-> returned {CURRENCY_SYMBOL}{r['total_returned']:,.0f} ({r['money_multiple']:.2f}x) | "
+              f"worst cycle {r['worst_cycle_return_pct']:.1f}% / best cycle {r['best_cycle_return_pct']:.1f}%")
 
 
 if __name__ == "__main__":

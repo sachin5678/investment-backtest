@@ -37,6 +37,10 @@ def pct(v, decimals=1, signed=True):
     return f"{s}{v:,.{decimals}f}%"
 
 
+def money(v, sym):
+    return f"{sym}{v:,.0f}"
+
+
 def win_loss_kind(v):
     if v is None:
         return "neutral"
@@ -80,6 +84,7 @@ def kpi_card(label, definition, cols):
 def build():
     plain, pyr, nif = R["plain"], R["pyramiding"], R["nifty"]
     up1, up2 = R["up_1_pct"], R["up_2_pct"]
+    pbase, ppyr = R["periodic_baseline"], R["periodic_pyramiding"]
 
     header = f"""
     <header class="border-b border-[#1E3A45] bg-[#0F2630]/60 px-10 py-6">
@@ -228,6 +233,35 @@ def build():
     </div>
     """
 
+    appendix_note = f"""
+    <div class="{PANEL} mt-6 border-[#8B5CF6]/40">
+      <div class="flex items-center gap-2 mb-2"><h3 class="text-base font-bold text-[#E6EDF0]">Appendix — the same idea, funded with new capital instead</h3>{pill('secondary framing, XIRR-based', 'neutral')}</div>
+      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — the same +{up1:.0f}%/+{up2:.0f}% pyramiding trigger, but funded with fresh EXTERNAL capital each time instead of trimming the other 9 holdings. New capital breaks compounding (money keeps entering, so there's no single CAGR), so this is measured the way report 81's own appendix measures it: a fixed {R['currency_symbol']}{R['base_alloc']:.0f}-per-stock allocation called fresh every cycle, XIRR (money-weighted return) as the headline number.</p>
+      <table class="data-table">
+        <thead><tr><th>Variant (new capital, periodic {R['currency_symbol']}{R['base_alloc']:.0f}/stock calls)</th><th>Called</th><th>Returned</th><th>Multiple</th><th>XIRR</th><th>Worst cycle</th><th>Best cycle</th></tr></thead>
+        <tbody>
+          <tr><td>No overlay</td><td>{money(pbase['total_invested'],R['currency_symbol'])}</td><td>{money(pbase['total_returned'],R['currency_symbol'])}</td>
+              <td>{pbase['money_multiple']:.2f}x</td><td>{pct(pbase['xirr_pct'])}</td>
+              <td>{pct(pbase['worst_cycle_return_pct'])}</td><td>{pct(pbase['best_cycle_return_pct'])}</td></tr>
+          <tr><td>Pyramiding up (+{up1:.0f}%/+{up2:.0f}%)</td><td>{money(ppyr['total_invested'],R['currency_symbol'])}</td><td>{money(ppyr['total_returned'],R['currency_symbol'])}</td>
+              <td>{ppyr['money_multiple']:.2f}x</td><td>{pct(ppyr['xirr_pct'])}</td>
+              <td>{pct(ppyr['worst_cycle_return_pct'])}</td><td>{pct(ppyr['best_cycle_return_pct'])}</td></tr>
+        </tbody>
+      </table>
+      <p class="text-[13.5px] text-[#C9D6DA] leading-relaxed mt-3">
+        This flips the main finding above. Funded with new capital, pyramiding up is barely a wash on XIRR
+        ({pct(pbase['xirr_pct'])} → {pct(ppyr['xirr_pct'])}) and makes BOTH the worst cycle ({pct(pbase['worst_cycle_return_pct'])}
+        → {pct(ppyr['worst_cycle_return_pct'])}) and the best cycle ({pct(pbase['best_cycle_return_pct'])} →
+        {pct(ppyr['best_cycle_return_pct'])}) worse — the opposite of the clean improvement the compounding version showed.
+        The reason: a top-up bought AFTER a stock has already risen {up1:.0f}-{up2:.0f}% has strictly less room left to run
+        before the same cycle-end sale, which drags down THAT tranche's own money-weighted return — a cost the compounding
+        version never pays, since it isn't tracking each tranche's own cost basis separately at all, just the portfolio's
+        total value. New capital arriving late to a winner is a genuinely different, WORSE bet than reallocating existing
+        capital into it.
+      </p>
+    </div>
+    """
+
     limitations = f"""
     <div class="{PANEL} mt-6 border-[#F2B03C]/40">
       <div class="flex items-center gap-2 mb-2">
@@ -262,6 +296,7 @@ def build():
       {dd_panel}
       {mechanism_note}
       {honesty_note}
+      {appendix_note}
       {limitations}
     </div>
     """
