@@ -74,6 +74,23 @@ def days_until_next_rebalance(today):
     return (target - today).days, target
 
 
+def days_since_last_rebalance(today):
+    """Days since the most recent estimated rebalance date across all
+    twelve month-ends (i.e. across all six calendars), and which date that
+    was. 1 means today is the morning after that rebalance day — used for
+    the next-morning "in case you missed both alerts yesterday" safety
+    net, since a rebalance day that falls on a Friday makes "the day
+    after" a Saturday, not necessarily the next weekday."""
+    candidates = []
+    for month in range(1, 13):
+        for year in (today.year, today.year - 1):
+            d = estimated_rebalance_date(year, month)
+            if d <= today:
+                candidates.append(d)
+    target = max(candidates)
+    return (today - target).days, target
+
+
 def fetch_midcap150_closes_live():
     tickers = [s + ".NS" for s in NIFTY_MIDCAP150_SYMBOLS]
     cols = {}

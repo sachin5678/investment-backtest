@@ -4,17 +4,20 @@ on:
     # GitHub's own scheduled-workflow queue has been observed firing this
     # workflow HOURS late on this repo (e.g. a 17:30 IST target actually
     # running at 23:29 IST / 1:03 AM) -- that's GitHub's scheduler, not
-    # our cron string. Mitigation: run every 15 minutes across a window
+    # our cron string. Mitigation: run every 15 minutes across windows
     # generous enough to absorb that kind of delay, and let the job itself
     # decide (from the real wall clock, not from when GitHub happened to
-    # start it) whether either alert is actually due -- deduped via cache
-    # so a late retry never re-sends the same day's alert twice.
+    # start it) whether any alert is actually due -- deduped via cache so
+    # a late retry never re-sends the same day's alert twice.
     #
     # 9:00-14:59 UTC = 14:30-20:29 IST, covering both the ~3 PM pre-close
-    # window and the ~5:30 PM after-close window with margin. A delay
-    # that crosses midnight IST is NOT recoverable this way -- that would
-    # need an external caller instead of GitHub's own scheduler.
+    # window and the ~5:30 PM after-close window with margin.
     - cron: "*/15 9-14 * * 1-5"
+    # 3:00-4:59 UTC = 8:30-10:29 IST, the morning-after safety net (runs
+    # every day, not just weekdays, since a Friday rebalance's "day
+    # after" is a Saturday). A delay that crosses midnight IST is what
+    # this window exists to recover from -- see notify_rebalance.py.
+    - cron: "*/15 3-4 * * *"
   workflow_dispatch:
     inputs:
       force:
@@ -23,6 +26,10 @@ on:
         default: true
       pre_close:
         description: "Run as the ~3 PM pre-close FINAL CALL instead of the after-close reminder"
+        type: boolean
+        default: false
+      morning_after:
+        description: "Run as the morning-after safety net instead of the after-close reminder"
         type: boolean
         default: false
 jobs:
@@ -36,9 +43,13 @@ jobs:
             echo "mode=manual" >> "$GITHUB_OUTPUT"
           else
             HHMM=$(( 10#$(TZ=Asia/Kolkata date +%H) * 60 + 10#$(TZ=Asia/Kolkata date +%M) ))
+            # morning-after: 8:30-9:45 IST (before the 9:15 open -- later
+            # than that and "yesterday's close" stops being the latest bar)
+            if [ $HHMM -ge 510 ] && [ $HHMM -lt 585 ]; then
+              echo "mode=morning_after" >> "$GITHUB_OUTPUT"
             # pre-close: 14:00-15:25 IST (before the 15:30 close -- later
             # than that and a "3 PM final call" would be stale/misleading)
-            if [ $HHMM -ge 840 ] && [ $HHMM -lt 925 ]; then
+            elif [ $HHMM -ge 840 ] && [ $HHMM -lt 925 ]; then
               echo "mode=pre_close" >> "$GITHUB_OUTPUT"
             # after-close: 17:00-23:45 IST (same-day data stays valid any
             # time later in the evening, so the window can be wide)
@@ -58,14 +69,14 @@ jobs:
       - run: pip install pandas numpy yfinance requests
         if: steps.decide.outputs.mode != 'none'
       - name: Restore send-lock (skip if this alert already went out today)
-        if: steps.decide.outputs.mode == 'pre_close' || steps.decide.outputs.mode == 'after_close'
+        if: steps.decide.outputs.mode == 'pre_close' || steps.decide.outputs.mode == 'after_close' || steps.decide.outputs.mode == 'morning_after'
         id: cache
         uses: actions/cache/restore@v4
         with:
           path: .notify-lock
           key: telegram-${{ steps.decide.outputs.mode }}-${{ steps.decide.outputs.today }}
       - name: Send
-        if: steps.decide.outputs.mode == 'manual' || ((steps.decide.outputs.mode == 'pre_close' || steps.decide.outputs.mode == 'after_close') && steps.cache.outputs.cache-hit != 'true')
+        if: steps.decide.outputs.mode == 'manual' || ((steps.decide.outputs.mode == 'pre_close' || steps.decide.outputs.mode == 'after_close' || steps.decide.outputs.mode == 'morning_after') && steps.cache.outputs.cache-hit != 'true')
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
@@ -74,8 +85,11 @@ jobs:
           if [ "${{ steps.decide.outputs.mode }}" = "manual" ]; then
             if [ "${{ inputs.force }}" = "true" ]; then ARGS="$ARGS --force"; fi
             if [ "${{ inputs.pre_close }}" = "true" ]; then ARGS="$ARGS --pre-close"; fi
+            if [ "${{ inputs.morning_after }}" = "true" ]; then ARGS="$ARGS --morning-after"; fi
           elif [ "${{ steps.decide.outputs.mode }}" = "pre_close" ]; then
             ARGS="--pre-close"
+          elif [ "${{ steps.decide.outputs.mode }}" = "morning_after" ]; then
+            ARGS="--morning-after"
           fi
           OUTPUT=$(python notify_rebalance.py $ARGS)
           echo "$OUTPUT"
@@ -87,7 +101,7 @@ jobs:
             mkdir -p .notify-lock && date > .notify-lock/sent
           fi
       - name: Save send-lock
-        if: (steps.decide.outputs.mode == 'pre_close' || steps.decide.outputs.mode == 'after_close') && steps.cache.outputs.cache-hit != 'true' && hashFiles('.notify-lock/sent') != ''
+        if: (steps.decide.outputs.mode == 'pre_close' || steps.decide.outputs.mode == 'after_close' || steps.decide.outputs.mode == 'morning_after') && steps.cache.outputs.cache-hit != 'true' && hashFiles('.notify-lock/sent') != ''
         uses: actions/cache/save@v4
         with:
           path: .notify-lock
