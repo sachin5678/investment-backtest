@@ -1,29 +1,25 @@
 name: Rebalance email reminder (report 48 proof of concept)
 on:
   schedule:
-    # GitHub's own scheduled-workflow queue has been observed firing this
-    # workflow HOURS late on this repo (e.g. a 17:30 IST target actually
-    # running at 23:29 IST) -- that's GitHub's scheduler, not our cron
-    # string. Mitigation: run every 15 minutes across windows generous
-    # enough to absorb that kind of delay, and let the job itself decide
-    # (from the real wall clock, not from when GitHub happened to start
-    # it) whether any alert is actually due -- deduped via cache so a
-    # late retry never re-sends the same day's alert twice.
-    #
-    # 9:00-14:59 UTC = 14:30-20:29 IST, covering both the ~3 PM pre-close
-    # window and the ~5:30 PM after-close window with margin.
+    # GitHub's own `schedule` trigger has been observed collapsing this
+    # every-15-minutes cron down to roughly ONE actual run a day on this
+    # repo, landing hours late (e.g. a 17:30 IST target firing at 23:29
+    # IST, or even after midnight) -- that's GitHub throttling low-traffic
+    # scheduled workflows, not something our cron string controls. Kept
+    # here only as a redundant backup: the real, on-time triggering now
+    # comes from an EXTERNAL cron service calling workflow_dispatch below
+    # at the exact intended minute (see README/setup notes for the exact
+    # calls to configure). Both paths share the same cache-lock dedup, so
+    # this backup firing on the same day as the external caller can't
+    # cause a duplicate send.
     - cron: "*/15 9-14 * * *"
-    # 3:00-4:59 UTC = 8:30-10:29 IST, the morning-after safety net (runs
-    # every day, not just weekdays, since a Friday rebalance's "day
-    # after" is a Saturday). A delay that crosses midnight IST is what
-    # this window exists to recover from -- see notify_email.py.
     - cron: "*/15 3-4 * * *"
   workflow_dispatch:
     inputs:
       force:
-        description: "Send even if today isn't 5/3/1/0 days before the estimated rebalance"
+        description: "TESTING ONLY: send unconditionally, bypassing both the day/time gate and the once-per-day lock"
         type: boolean
-        default: true
+        default: false
       pre_close:
         description: "Run as the ~3 PM pre-close FINAL CALL instead of the after-close reminder"
         type: boolean
@@ -39,8 +35,23 @@ jobs:
       - name: Decide which alert (if any) is due right now
         id: decide
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "mode=manual" >> "$GITHUB_OUTPUT"
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.force }}" = "true" ]; then
+            # Manual test click with force=true: bypass day/time gating
+            # AND the lock, exactly like before -- always sends.
+            echo "mode=manual_test" >> "$GITHUB_OUTPUT"
+          elif [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            # An external caller (or a manual test with force=false)
+            # declares which alert it wants directly via inputs, instead
+            # of us inferring it from the wall clock -- but it still goes
+            # through the exact same once-per-day lock as the schedule
+            # path below, so it's safe for both to be configured at once.
+            if [ "${{ inputs.pre_close }}" = "true" ]; then
+              echo "mode=pre_close" >> "$GITHUB_OUTPUT"
+            elif [ "${{ inputs.morning_after }}" = "true" ]; then
+              echo "mode=morning_after" >> "$GITHUB_OUTPUT"
+            else
+              echo "mode=after_close" >> "$GITHUB_OUTPUT"
+            fi
           else
             HHMM=$(( 10#$(TZ=Asia/Kolkata date +%H) * 60 + 10#$(TZ=Asia/Kolkata date +%M) ))
             # morning-after: 8:30-9:45 IST (before the 9:15 open -- later
@@ -76,7 +87,7 @@ jobs:
           path: .notify-lock
           key: email-${{ steps.decide.outputs.mode }}-${{ steps.decide.outputs.today }}
       - name: Send
-        if: steps.decide.outputs.mode == 'manual' || ((steps.decide.outputs.mode == 'pre_close' || steps.decide.outputs.mode == 'after_close' || steps.decide.outputs.mode == 'morning_after') && steps.cache.outputs.cache-hit != 'true')
+        if: steps.decide.outputs.mode == 'manual_test' || ((steps.decide.outputs.mode == 'pre_close' || steps.decide.outputs.mode == 'after_close' || steps.decide.outputs.mode == 'morning_after') && steps.cache.outputs.cache-hit != 'true')
         env:
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
           SMTP_PORT: ${{ secrets.SMTP_PORT }}
@@ -86,8 +97,8 @@ jobs:
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
         run: |
           ARGS=""
-          if [ "${{ steps.decide.outputs.mode }}" = "manual" ]; then
-            if [ "${{ inputs.force }}" = "true" ]; then ARGS="$ARGS --force"; fi
+          if [ "${{ steps.decide.outputs.mode }}" = "manual_test" ]; then
+            ARGS="--force"
             if [ "${{ inputs.pre_close }}" = "true" ]; then ARGS="$ARGS --pre-close"; fi
             if [ "${{ inputs.morning_after }}" = "true" ]; then ARGS="$ARGS --morning-after"; fi
           elif [ "${{ steps.decide.outputs.mode }}" = "pre_close" ]; then
@@ -99,8 +110,8 @@ jobs:
           echo "$OUTPUT"
           # Only lock today's slot if a send actually happened (not just a
           # clean "nothing to do" exit) -- so a misconfigured secret or a
-          # transient failure gets retried on the next 15-minute tick
-          # instead of being silently locked out for the rest of the day.
+          # transient failure gets retried on the next tick instead of
+          # being silently locked out for the rest of the day.
           if echo "$OUTPUT" | grep -q "^Sent to "; then
             mkdir -p .notify-lock && date > .notify-lock/sent
           fi
