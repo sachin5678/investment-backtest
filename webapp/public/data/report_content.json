@@ -5940,5 +5940,63 @@
     ]
    }
   ]
+ },
+ "89": {
+  "title": "Midcap150 Momentum 10 — Report 48 With 0.1% Slippage",
+  "subtitle": "Report 48's exact design — the 200-day EMA regime filter, gold instead of cash — with a real trading cost applied for the first time: every buy fills 0.1% ABOVE the modeled price, every sell fills 0.1% BELOW it. Every transition in this design (a regime exit, a regime re-entry, or the scheduled semi-annual refresh) is really a two-leg trade — sell whatever's currently held, buy whatever it's moving into — so slippage is charged on BOTH legs, every time. Zero transaction costs has been a disclosed simplification in every report here so far, including report 48 itself; this tests how much of the reported edge survives once a real cost is actually charged.",
+  "source_line": "2009-01-02–2026-08-24 Report generated 2026-09-30 10:06",
+  "pages": [
+   {
+    "file": "89_midcap150_report48_slippage.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "negative",
+        "text": "0.1% slippage costs 2.64 points of CAGR and makes the drawdown worse too"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "CAGR drops from +43.3% to +40.6% — a real, meaningful cost, not a rounding error. Max drawdown gets WORSE too, not just CAGR: -23.4% frictionless vs. -25.5% with slippage — every regime switch INTO gold during a crash now sells stocks at a worse price and buys gold at a worse price too, right when the strategy can least afford it.",
+       "The design still comfortably beats NIFTY 50 (+12.5%) even after this cost — but 0.1% slippage, a small-sounding number, adds up over 95 separate buy/sell events across 18 years into a genuinely large compounding drag. This is the single biggest gap between a \"backtest number\" and a \"number you could actually expect to live with\" that this project has shown for report 48 so far."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "How much trading this design actually does",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "mechanism"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every buy/sell event over the full window, each one now paying slippage on both legs.",
+      "paragraphs": [
+       "95 total selection/switch events across 18 years — every scheduled semi-annual refresh AND every regime switch into or out of gold, each one a full sell-the-old / buy-the-new round trip. That's roughly 950 individual stock buy/sell legs alone (10 stocks × every stock-side event), before counting the gold-side legs on top. At 0.1% per side, that adds up to a real, compounding drag — not a rounding error, and not something a \"just ignore costs\" backtest can responsibly claim doesn't matter."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Every scheduled rebalance sells the ENTIRE old top-10 basket and buys the ENTIRE new one, even\n        for a stock that happens to stay in the top-10 across consecutive rebalances — a real broker/fund would usually\n        net out an unchanged position rather than sell-and-rebuy it, so this modestly OVERSTATES the true slippage cost\n        for names that persist across rebalances.",
+       "Only slippage is modeled here — no separate brokerage commission, STT, stamp duty, or GST on\n        brokerage, all of which are real additional costs on top of this in India. This report is not the full\n        real-world cost picture, just the slippage piece of it in isolation.",
+       "0.1% is a flat assumption applied uniformly to every trade, regardless of order size or\n        how liquid a specific midcap stock was on that specific day — real slippage varies name to name and can be\n        considerably worse for less liquid names during a stressed market, exactly when this strategy is most likely to\n        be trading (a regime switch).",
+       "Today's fixed Midcap150 constituent list is applied retroactively across the whole window\n        (survivorship bias). Equal weighting, no F&O-eligibility screen, unadjusted prices, no dividends modeled — same\n        as every other reconstruction here."
+      ]
+     }
+    ]
+   }
+  ]
  }
 }

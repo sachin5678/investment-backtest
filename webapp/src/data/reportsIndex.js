@@ -197,6 +197,7 @@ export const GROUPS = [
       { id: "86", file: "results85.json", icon: ICON_COMPASS, title: "Midcap150 Momentum 10 — Report 48, Month-End vs. Mid-Month", subtitle: "The same day-of-month shift helps the plain strategy but hurts the gold-hedged one" },
       { id: "87", file: "results86.json", icon: ICON_COMPASS, title: "Midcap150 Momentum 10 — Report 48, Blending All Six Rebalance Calendars", subtitle: "Beats June/December on CAGR while staying close to its drawdown, no guessing required" },
       { id: "88", file: "results87.json", icon: ICON_HOURGLASS, title: "Midcap150 Momentum 10 — Report 48, Execution Timing", subtitle: "3 PM isn't testable with daily bars; next-day-open costs a little CAGR, drawdown unchanged" },
+      { id: "89", file: "results88.json", icon: ICON_COINS, title: "Midcap150 Momentum 10 — Report 48 With 0.1% Slippage", subtitle: "Costs 2.6 points of CAGR and makes the drawdown worse too, not just the return" },
     ],
   },
 ];
