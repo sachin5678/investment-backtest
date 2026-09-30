@@ -1,14 +1,20 @@
 name: Rebalance email reminder (report 48 proof of concept)
 on:
   schedule:
-    # 12:00 UTC = 17:30 IST, after NSE's 15:30 IST close. Runs every day
-    # so it can catch the 5/3/1/0-day-before marks whenever they land.
-    - cron: "0 12 * * *"
-    # 9:30 UTC = 3:00 PM IST, before the 15:30 IST close, weekdays only —
-    # the "--pre-close" FINAL CALL run: only actually sends when today is
-    # the exact estimated rebalance day (see notify_email.py's docstring
-    # for why 3 PM specifically needs a separate, earlier run).
-    - cron: "30 9 * * 1-5"
+    # GitHub's own scheduled-workflow queue has been observed firing this
+    # workflow HOURS late on this repo (e.g. a 17:30 IST target actually
+    # running at 23:29 IST) -- that's GitHub's scheduler, not our cron
+    # string. Mitigation: run every 15 minutes across a window generous
+    # enough to absorb that kind of delay, and let the job itself decide
+    # (from the real wall clock, not from when GitHub happened to start
+    # it) whether either alert is actually due -- deduped via cache so a
+    # late retry never re-sends the same day's alert twice.
+    #
+    # 9:00-14:59 UTC = 14:30-20:29 IST, covering both the ~3 PM pre-close
+    # window and the ~5:30 PM after-close window with margin. A delay
+    # that crosses midnight IST is NOT recoverable this way -- that would
+    # need an external caller instead of GitHub's own scheduler.
+    - cron: "*/15 9-14 * * *"
   workflow_dispatch:
     inputs:
       force:
@@ -23,12 +29,44 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
+      - name: Decide which alert (if any) is due right now
+        id: decide
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "mode=manual" >> "$GITHUB_OUTPUT"
+          else
+            HHMM=$(( 10#$(TZ=Asia/Kolkata date +%H) * 60 + 10#$(TZ=Asia/Kolkata date +%M) ))
+            # pre-close: 14:00-15:25 IST (before the 15:30 close -- later
+            # than that and a "3 PM final call" would be stale/misleading)
+            if [ $HHMM -ge 840 ] && [ $HHMM -lt 925 ]; then
+              echo "mode=pre_close" >> "$GITHUB_OUTPUT"
+            # after-close: 17:00-23:45 IST (same-day data stays valid any
+            # time later in the evening, so the window can be wide)
+            elif [ $HHMM -ge 1020 ] && [ $HHMM -lt 1425 ]; then
+              echo "mode=after_close" >> "$GITHUB_OUTPUT"
+            else
+              echo "mode=none" >> "$GITHUB_OUTPUT"
+            fi
+          fi
+          echo "today=$(TZ=Asia/Kolkata date +%F)" >> "$GITHUB_OUTPUT"
       - uses: actions/checkout@v4
+        if: steps.decide.outputs.mode != 'none'
       - uses: actions/setup-python@v5
+        if: steps.decide.outputs.mode != 'none'
         with:
           python-version: "3.12"
       - run: pip install pandas numpy yfinance
-      - env:
+        if: steps.decide.outputs.mode != 'none'
+      - name: Restore send-lock (skip if this alert already went out today)
+        if: steps.decide.outputs.mode == 'pre_close' || steps.decide.outputs.mode == 'after_close'
+        id: cache
+        uses: actions/cache/restore@v4
+        with:
+          path: .notify-lock
+          key: email-${{ steps.decide.outputs.mode }}-${{ steps.decide.outputs.today }}
+      - name: Send
+        if: steps.decide.outputs.mode == 'manual' || ((steps.decide.outputs.mode == 'pre_close' || steps.decide.outputs.mode == 'after_close') && steps.cache.outputs.cache-hit != 'true')
+        env:
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
           SMTP_PORT: ${{ secrets.SMTP_PORT }}
           SMTP_USER: ${{ secrets.SMTP_USER }}
@@ -37,10 +75,24 @@ jobs:
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
         run: |
           ARGS=""
-          if [ "${{ inputs.force }}" = "true" ]; then
-            ARGS="$ARGS --force"
+          if [ "${{ steps.decide.outputs.mode }}" = "manual" ]; then
+            if [ "${{ inputs.force }}" = "true" ]; then ARGS="$ARGS --force"; fi
+            if [ "${{ inputs.pre_close }}" = "true" ]; then ARGS="$ARGS --pre-close"; fi
+          elif [ "${{ steps.decide.outputs.mode }}" = "pre_close" ]; then
+            ARGS="--pre-close"
           fi
-          if [ "${{ github.event.schedule }}" = "30 9 * * 1-5" ] || [ "${{ inputs.pre_close }}" = "true" ]; then
-            ARGS="$ARGS --pre-close"
+          OUTPUT=$(python notify_email.py $ARGS)
+          echo "$OUTPUT"
+          # Only lock today's slot if a send actually happened (not just a
+          # clean "nothing to do" exit) -- so a misconfigured secret or a
+          # transient failure gets retried on the next 15-minute tick
+          # instead of being silently locked out for the rest of the day.
+          if echo "$OUTPUT" | grep -q "^Sent to "; then
+            mkdir -p .notify-lock && date > .notify-lock/sent
           fi
-          python notify_email.py $ARGS
+      - name: Save send-lock
+        if: (steps.decide.outputs.mode == 'pre_close' || steps.decide.outputs.mode == 'after_close') && steps.cache.outputs.cache-hit != 'true' && hashFiles('.notify-lock/sent') != ''
+        uses: actions/cache/save@v4
+        with:
+          path: .notify-lock
+          key: email-${{ steps.decide.outputs.mode }}-${{ steps.decide.outputs.today }}
