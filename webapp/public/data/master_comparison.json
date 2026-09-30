@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-29 23:47",
+  "generated": "2026-09-30 08:43",
   "rows": [
     {
       "universe": "Midcap150",
@@ -255,6 +255,23 @@
       "bench_max_drawdown_pct": -38.43985245274211,
       "bench_sharpe": 0.7613713350199811,
       "bench_sortino": 1.034701812712901
+    },
+    {
+      "universe": "Midcap150",
+      "category": "Filter + Hedge",
+      "label": "200-EMA regime filter + gold, blended across all 6 calendars",
+      "report": 87,
+      "start_date": "2009-02-27",
+      "end_date": "2026-08-24",
+      "cagr_pct": 43.24357539206983,
+      "max_drawdown_pct": -24.003493443354994,
+      "net_return_pct": 53508.29950227917,
+      "sharpe": 1.975254995877758,
+      "sortino": 2.5974156848600978,
+      "bench_cagr_pct": 13.216104055612135,
+      "bench_max_drawdown_pct": -38.43985245274211,
+      "bench_sharpe": 0.8074018170954482,
+      "bench_sortino": 1.1071304872622088
     },
     {
       "universe": "Midcap150",

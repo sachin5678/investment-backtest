@@ -219,6 +219,24 @@ def process_universe(universe_name, closes, nifty_close, select_fn, select_fn_fr
             add_row(universe_name, "Filter + Hedge", f"200-EMA regime filter + {month_label}", month_num,
                     offset_series, nifty_close, idx_off)
 
+        blend_num = report_numbers.get("filter_gold_blended_calendars")
+        if blend_num:
+            sleeve_series = {}
+            for start_month in (6, 7, 8, 9, 10, 11):
+                other_month = start_month + 6 if start_month + 6 <= 12 else start_month - 6
+                rb_sleeve = rebalance_dates(closes.index, months=(start_month, other_month))
+                s, _, _ = build_index_regime_filtered_with_hedge(
+                    closes, nifty_close, ema200, rb_sleeve, select_fn, gold_aligned)
+                sleeve_series[start_month] = s
+            blend_common = None
+            for s in sleeve_series.values():
+                blend_common = s.index if blend_common is None else blend_common.intersection(s.index)
+            blend_common = blend_common.intersection(nifty_close.index).intersection(gold_close.index)
+            rebased = [s.loc[blend_common] / s.loc[blend_common].iloc[0] * 100.0 for s in sleeve_series.values()]
+            blended_series = sum(rebased) / len(rebased)
+            add_row(universe_name, "Filter + Hedge", "200-EMA regime filter + gold, blended across all 6 calendars", blend_num,
+                    blended_series, nifty_close, blend_common)
+
         # Core-satellite: a PERMANENT momentum/gold split held at all times
         # (not just a cash/invested switch), with a full 100%-to-gold
         # liquidation on the same 200-EMA signal. Each split ratio tested
@@ -321,7 +339,7 @@ def main():
          "filter_gold_ema400": 76, "filter_gold_4monthly": 77,
          "filter_gold_top5": 78, "filter_gold_top15": 78, "filter_gold_top20": 79,
          "filter_gold_july_jan": 85, "filter_gold_aug_feb": 85, "filter_gold_sept_mar": 85, "filter_gold_oct_apr": 85,
-         "filter_gold_nov_may": 85,
+         "filter_gold_nov_may": 85, "filter_gold_blended_calendars": 87,
          "filter_gold_midmonth": 86},
         gold_close=gold_close_full,
     )

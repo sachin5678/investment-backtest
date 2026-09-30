@@ -289,6 +289,8 @@ GROUPS = [
              "title": "Midcap150 Momentum 10 — Report 48, Rebalance Month Offset", "subtitle": "June/December is the safest of all six calendars tested, not the highest-CAGR one"},
             {"id": "86", "file": "86_midcap150_report48_midmonth_rebalance.html", "icon": ICON_COMPASS,
              "title": "Midcap150 Momentum 10 — Report 48, Month-End vs. Mid-Month", "subtitle": "The same day-of-month shift helps the plain strategy but hurts the gold-hedged one"},
+            {"id": "87", "file": "87_midcap150_report48_blended_calendars.html", "icon": ICON_COMPASS,
+             "title": "Midcap150 Momentum 10 — Report 48, Blending All Six Rebalance Calendars", "subtitle": "Beats June/December on CAGR while staying close to its drawdown, no guessing required"},
         ],
     },
 ]
