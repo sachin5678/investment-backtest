@@ -237,6 +237,18 @@ def process_universe(universe_name, closes, nifty_close, select_fn, select_fn_fr
             add_row(universe_name, "Filter + Hedge", "200-EMA regime filter + gold, blended across all 6 calendars", blend_num,
                     blended_series, nifty_close, blend_common)
 
+        exec_timing_num = report_numbers.get("filter_gold_next_day_open")
+        if exec_timing_num and universe_name == "Midcap150":
+            from backtest88 import build_index_regime_filtered_with_hedge_delayed_rebalance, load_midcap150_opens
+            opens = load_midcap150_opens()
+            opens_common = closes.index.intersection(opens.index)
+            ndo_series, _ = build_index_regime_filtered_with_hedge_delayed_rebalance(
+                closes.loc[opens_common], opens.loc[opens_common], nifty_close.loc[opens_common],
+                ema200.loc[opens_common], rbdates, select_fn, gold_aligned.loc[opens_common])
+            idx_ndo = ndo_series.index.intersection(nifty_close.index).intersection(gold_close.index)
+            add_row(universe_name, "Filter + Hedge", "200-EMA regime filter + gold, scheduled refresh at next-day open",
+                    exec_timing_num, ndo_series, nifty_close, idx_ndo)
+
         # Core-satellite: a PERMANENT momentum/gold split held at all times
         # (not just a cash/invested switch), with a full 100%-to-gold
         # liquidation on the same 200-EMA signal. Each split ratio tested
@@ -339,7 +351,7 @@ def main():
          "filter_gold_ema400": 76, "filter_gold_4monthly": 77,
          "filter_gold_top5": 78, "filter_gold_top15": 78, "filter_gold_top20": 79,
          "filter_gold_july_jan": 85, "filter_gold_aug_feb": 85, "filter_gold_sept_mar": 85, "filter_gold_oct_apr": 85,
-         "filter_gold_nov_may": 85, "filter_gold_blended_calendars": 87,
+         "filter_gold_nov_may": 85, "filter_gold_blended_calendars": 87, "filter_gold_next_day_open": 88,
          "filter_gold_midmonth": 86},
         gold_close=gold_close_full,
     )

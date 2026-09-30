@@ -291,6 +291,8 @@ GROUPS = [
              "title": "Midcap150 Momentum 10 — Report 48, Month-End vs. Mid-Month", "subtitle": "The same day-of-month shift helps the plain strategy but hurts the gold-hedged one"},
             {"id": "87", "file": "87_midcap150_report48_blended_calendars.html", "icon": ICON_COMPASS,
              "title": "Midcap150 Momentum 10 — Report 48, Blending All Six Rebalance Calendars", "subtitle": "Beats June/December on CAGR while staying close to its drawdown, no guessing required"},
+            {"id": "88", "file": "88_midcap150_report48_execution_timing.html", "icon": ICON_HOURGLASS,
+             "title": "Midcap150 Momentum 10 — Report 48, Execution Timing", "subtitle": "3 PM isn't testable with daily bars; next-day-open costs a little CAGR, drawdown unchanged"},
         ],
     },
 ]

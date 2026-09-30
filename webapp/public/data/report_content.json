@@ -5881,5 +5881,64 @@
     ]
    }
   ]
+ },
+ "88": {
+  "title": "Midcap150 Momentum 10 — Report 48, Execution Timing",
+  "subtitle": "Two timing questions were asked; only one is actually testable with this project's data. Rebalancing at 3:00 PM instead of NSE's 3:30 PM close is NOT testable — every price in this project comes from yfinance's daily OHLC bars, and no intraday tick data exists anywhere here for an 18-year window; there's no honest way to conjure \"the 3:00 PM price\" from a daily Close, so that variant is skipped rather than faked. Filling the SCHEDULED semi-annual reselection at the next trading day's OPEN instead of the same day's close IS testable — real per-ticker Open prices are cached for the whole Midcap150 universe, confirmed directly before building this. Only the scheduled stock-pick refresh is delayed this way; the 200-EMA regime filter's own entries/exits into and out of gold are completely unchanged.",
+  "source_line": "2009-01-02–2026-08-24 Report generated 2026-09-30 09:50",
+  "pages": [
+   {
+    "file": "88_midcap150_report48_execution_timing.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "next-day-open execution costs a little CAGR, drawdown is unchanged"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Delaying the scheduled reselection to the next day's open drops CAGR from +43.3% to +42.9% — a real but small cost. Max drawdown is UNCHANGED: -23.4% either way.",
+       "The identical drawdown makes sense given what actually moved: only the SCHEDULED stock-pick refresh timing changed here — the 200-EMA regime filter's own switches into and out of gold, which every other report in this project has found to be the dominant driver of this design's drawdown protection, are completely unchanged. What's left to differ is purely which specific prices the twice-yearly stock refresh trades at, a smaller, CAGR-only lever — consistent with report 77's finding that this hero design's drawdown is mostly set by the regime signal, not by stock-selection timing details."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why the data can't answer the 3:00 PM question",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the honest limits of what a daily-bar backtest can and can't tell you.",
+      "paragraphs": [
+       "Every single report in this project — 87 of them before this one — is built from yfinance's daily OHLC bars. A daily Close is exactly one number: NSE's actual closing print, decided by the exchange's closing auction around 3:30 PM. There is no field anywhere in this project's cached data that represents \"the price at 3:00 PM\" or any other specific intraday moment — computing that would need real minute-level or tick-level historical data for ~150 stocks across 18 years, which isn't available from yfinance (its intraday endpoints only cover roughly the last 60 days) or any other source this project uses.",
+       "Rather than approximate \"3:00 PM\" with some invented rule (e.g. \"average of high and close,\" which has no real basis), this report simply says so and moves on to the question that COULD be answered honestly with real data: next-day-open execution. If genuine intraday data becomes available for this project later, the 3:00 PM question would be straightforward to answer properly then."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Only the SCHEDULED semi-annual reselection's fill timing was delayed — regime entries/exits\n        into and out of gold are completely unchanged (still same-day close), so this isolates one specific timing\n        question rather than changing the whole strategy's execution model at once.",
+       "If a regime exit/entry happens to fall on the exact day a scheduled rebalance was pending\n        execution, the pending scheduled trade is simply cancelled (the regime switch takes priority) — a disclosed,\n        reasonable but not the only possible tie-breaking rule.",
+       "Zero transaction costs, no slippage beyond the close-vs-open price difference itself — same\n        disclosed omission as every other reconstruction here.",
+       "Today's fixed Midcap150 constituent list is applied retroactively across the whole window\n        (survivorship bias). Equal weighting, no F&O-eligibility screen, unadjusted prices, no dividends modeled — same\n        as every other reconstruction here."
+      ]
+     }
+    ]
+   }
+  ]
  }
 }

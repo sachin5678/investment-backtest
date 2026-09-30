@@ -196,6 +196,7 @@ export const GROUPS = [
       { id: "85", file: "results84.json", icon: ICON_COMPASS, title: "Midcap150 Momentum 10 — Report 48, Rebalance Month Offset", subtitle: "June/December is the safest of all six calendars tested, not the highest-CAGR one" },
       { id: "86", file: "results85.json", icon: ICON_COMPASS, title: "Midcap150 Momentum 10 — Report 48, Month-End vs. Mid-Month", subtitle: "The same day-of-month shift helps the plain strategy but hurts the gold-hedged one" },
       { id: "87", file: "results86.json", icon: ICON_COMPASS, title: "Midcap150 Momentum 10 — Report 48, Blending All Six Rebalance Calendars", subtitle: "Beats June/December on CAGR while staying close to its drawdown, no guessing required" },
+      { id: "88", file: "results87.json", icon: ICON_HOURGLASS, title: "Midcap150 Momentum 10 — Report 48, Execution Timing", subtitle: "3 PM isn't testable with daily bars; next-day-open costs a little CAGR, drawdown unchanged" },
     ],
   },
 ];
