@@ -20,7 +20,12 @@ channels now track all six, not only Jun/Dec. Because the six pairs
 between them cover every calendar month exactly once, this is equivalent
 to "remind me at every month-end," each one tagged with which of the six
 sleeves it belongs to.
+
+estimated_rebalance_date()/days_until_next_rebalance() live here (not
+duplicated per channel) so "is today THE rebalance day" means exactly
+the same thing in the email and Telegram scripts.
 """
+import calendar
 import io
 import sys
 
@@ -39,6 +44,34 @@ CALENDAR_LABELS = {pair: f"{pd.Timestamp(2000, pair[0], 1).strftime('%b')}/{pd.T
                     for pair in CALENDAR_PAIRS}
 MONTH_TO_CALENDAR = {m: pair for pair in CALENDAR_PAIRS for m in pair}
 REBALANCE_MONTHS = tuple(range(1, 13))
+
+
+def estimated_rebalance_date(year, month):
+    """Best guess at a calendar's real rebalance date — "the last NSE
+    trading day of the month" (rebalance_dates() in backtest10.py) —
+    without a forward-looking holiday calendar: the last calendar day of
+    the month, walked back to the nearest weekday (Mon-Fri). Real NSE
+    holidays in the final week can make the true last trading day 1-2
+    days earlier than this estimate."""
+    last_day = calendar.monthrange(year, month)[1]
+    d = pd.Timestamp(year, month, last_day)
+    while d.weekday() >= 5:  # Saturday=5, Sunday=6
+        d -= pd.Timedelta(days=1)
+    return d
+
+
+def days_until_next_rebalance(today):
+    """Days until the nearest upcoming estimated rebalance date across all
+    twelve month-ends (i.e. across all six calendars), and which date that
+    is. 0 means today IS the estimated rebalance day."""
+    candidates = []
+    for month in range(1, 13):
+        for year in (today.year, today.year + 1):
+            d = estimated_rebalance_date(year, month)
+            if d >= today:
+                candidates.append(d)
+    target = min(candidates)
+    return (target - today).days, target
 
 
 def fetch_midcap150_closes_live():

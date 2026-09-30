@@ -1,10 +1,10 @@
 """
 Email rebalance reminder for report 48 (Midcap150 Momentum 10, 200-day
-EMA regime filter, gold instead of cash) — sends at 5, 3, and 1 CALENDAR
-days before the estimated rebalance date of ANY of the six semi-annual
-calendars report 85/87 tested (Jan/Jul, Feb/Aug, Mar/Sep, Apr/Oct,
-May/Nov, Jun/Dec), each with the current live picks/regime state and a
-CSV attachment, tagged with which calendar it's for.
+EMA regime filter, gold instead of cash) — sends at 5, 3, 1, and 0
+CALENDAR days before the estimated rebalance date of ANY of the six
+semi-annual calendars report 85/87 tested (Jan/Jul, Feb/Aug, Mar/Sep,
+Apr/Oct, May/Nov, Jun/Dec), each with the current live picks/regime state
+and a CSV attachment, tagged with which calendar it's for.
 
 "ESTIMATED" REBALANCE DATE: each calendar's real rebalance date is "the
 LAST TRADING DAY of its two months" (rebalance_dates() in backtest10.py),
@@ -12,15 +12,28 @@ which depends on NSE's own holiday calendar — this project has no
 forward-looking holiday list, so the estimate here is simply the last
 CALENDAR day of the month, walked back to the nearest weekday (Mon-Fri).
 In a year where NSE has a holiday in the final week, the real last
-trading day could be 1-2 days earlier than this estimate — the 5/3/1
+trading day could be 1-2 days earlier than this estimate — the 5/3/1/0
 reminders are a spread specifically so a small estimation error doesn't
 turn into a missed reminder.
+
+TWO DIFFERENT ALERTS ON THE REBALANCE DAY ITSELF (days_until == 0):
+  - `--pre-close` (meant to run ~3 PM IST, before the 3:30 PM close):
+    fetches yfinance's CURRENT snapshot for today (delayed ~15 min, not
+    the confirmed close) and sends it as a provisional "final call" list
+    — this is the only way to get a same-day heads-up before you'd
+    actually need to place the trade, since waiting for the confirmed
+    close (below) means the market has already shut for the day.
+  - The normal run (no flag), same as any other reminder day, still
+    fires at day 0 too — scheduled after the 15:30 IST close, so it
+    reports the CONFIRMED close-based picks: the authoritative version,
+    per report 48's own methodology. A borderline stock could in
+    principle rank differently between the two if its price moves in the
+    last ~30 minutes of trading.
 
 The momentum/regime math itself lives in rebalance_signal.py, shared
 with notify_rebalance.py (Telegram), so both channels can never drift
 apart.
 """
-import calendar
 import os
 import smtplib
 import sys
@@ -35,10 +48,10 @@ if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
     sys.stderr.reconfigure(encoding="utf-8")
 
 from backtest42 import EMA_SPAN
-from rebalance_signal import compute_current_picks, build_csv, REBALANCE_MONTHS, TOP_N, GOLD_TICKER, \
-    MONTH_TO_CALENDAR, CALENDAR_LABELS
+from rebalance_signal import compute_current_picks, build_csv, TOP_N, GOLD_TICKER, \
+    MONTH_TO_CALENDAR, CALENDAR_LABELS, days_until_next_rebalance
 
-REMINDER_DAYS = (5, 3, 1)
+REMINDER_DAYS = (5, 3, 1, 0)
 
 
 def env_or(name, default=None):
@@ -59,31 +72,18 @@ EMAIL_FROM = env_or("EMAIL_FROM", SMTP_USER)
 EMAIL_TO = env_or("EMAIL_TO")
 
 
-def estimated_rebalance_date(year, month):
-    last_day = calendar.monthrange(year, month)[1]
-    d = pd.Timestamp(year, month, last_day)
-    while d.weekday() >= 5:  # Saturday=5, Sunday=6
-        d -= pd.Timedelta(days=1)
-    return d
+def build_email_body(result, days_until, target_date, calendar_label, pre_close):
+    if pre_close:
+        headline = (f"Report 48 FINAL CALL — {calendar_label} calendar — TODAY is the estimated rebalance day "
+                    f"({target_date.strftime('%Y-%m-%d')})")
+    elif days_until == 0:
+        headline = f"Report 48 rebalance reminder — {calendar_label} calendar — TODAY is the estimated rebalance day ({target_date.strftime('%Y-%m-%d')})"
+    else:
+        headline = (f"Report 48 rebalance reminder — {calendar_label} calendar — {days_until} "
+                    f"day{'s' if days_until != 1 else ''} until the estimated rebalance date "
+                    f"({target_date.strftime('%Y-%m-%d')})")
 
-
-def days_until_next_rebalance(today):
-    candidates = []
-    for month in REBALANCE_MONTHS:
-        for year in (today.year, today.year + 1):
-            d = estimated_rebalance_date(year, month)
-            if d >= today:
-                candidates.append(d)
-    target = min(candidates)
-    return (target - today).days, target
-
-
-def build_email_body(result, today, days_until, target_date, calendar_label):
-    lines = [
-        f"Report 48 rebalance reminder — {calendar_label} calendar — {days_until} day{'s' if days_until != 1 else ''} until the estimated rebalance date ({target_date.strftime('%Y-%m-%d')})",
-        f"(live prices as of {result['as_of'].strftime('%Y-%m-%d')} close)",
-        "",
-    ]
+    lines = [headline, f"(live prices as of {result['as_of'].strftime('%Y-%m-%d')} close)", ""]
     if result["regime_on"]:
         lines.append(f"Regime: ON — NIFTY 50 ({result['nifty_close']:.0f}) is above its {EMA_SPAN}-day EMA ({result['nifty_ema']:.0f})")
         lines.append(f"Current top-{TOP_N} Midcap150 momentum picks (equal-weighted {100/TOP_N:.1f}% each):")
@@ -94,8 +94,14 @@ def build_email_body(result, today, days_until, target_date, calendar_label):
         lines.append(f"Regime: OFF — NIFTY 50 ({result['nifty_close']:.0f}) is below its {EMA_SPAN}-day EMA ({result['nifty_ema']:.0f})")
         lines.append(f"Current signal: 100% {GOLD_TICKER} (₹{result['gold_price']:.2f})")
     lines.append("")
-    lines.append("These are TODAY's picks, recomputed live — they may still change again before the real rebalance date,")
-    lines.append("since the estimated date above is an approximation (see this script's own docstring for why).")
+    if pre_close:
+        lines.append("This is a ~3 PM PROVISIONAL list, built from yfinance's current (delayed ~15 min) snapshot,")
+        lines.append("NOT the confirmed 3:30 PM close — meant to give you time to place trades before the market shuts.")
+        lines.append("A borderline stock's rank could still change in the last ~30 minutes of trading. The confirmed,")
+        lines.append("after-close version of this same list arrives in a separate email once the market closes.")
+    else:
+        lines.append("These are TODAY's picks, recomputed live — they may still change again before the real rebalance date,")
+        lines.append("since the estimated date above is an approximation (see this script's own docstring for why).")
     lines.append("")
     lines.append("Proof-of-concept alert — verify independently before acting. Not investment advice.")
     return "\n".join(lines)
@@ -123,15 +129,23 @@ def main():
     days_until, target_date = days_until_next_rebalance(today)
 
     force = "--force" in sys.argv
-    if not force and days_until not in REMINDER_DAYS:
+    pre_close = "--pre-close" in sys.argv
+
+    if pre_close:
+        if not force and days_until != 0:
+            print(f"{today.date()}: {days_until} days until estimated rebalance ({target_date.date()}) — "
+                  f"--pre-close only fires on the rebalance day itself, nothing to do.")
+            return
+    elif not force and days_until not in REMINDER_DAYS:
         print(f"{today.date()}: {days_until} days until estimated rebalance ({target_date.date()}) — "
               f"not one of {REMINDER_DAYS}, nothing to do.")
         return
 
     calendar_label = CALENDAR_LABELS[MONTH_TO_CALENDAR[target_date.month]]
     result = compute_current_picks()
-    subject = f"Report 48 rebalance reminder — {calendar_label} — {days_until}d to go ({target_date.strftime('%Y-%m-%d')})"
-    body = build_email_body(result, today, days_until, target_date, calendar_label)
+    tag = "FINAL CALL (~3 PM)" if pre_close else ("TODAY" if days_until == 0 else f"{days_until}d to go")
+    subject = f"Report 48 rebalance reminder — {calendar_label} — {tag} ({target_date.strftime('%Y-%m-%d')})"
+    body = build_email_body(result, days_until, target_date, calendar_label, pre_close)
     print(subject)
     print(body)
 

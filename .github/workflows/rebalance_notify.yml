@@ -3,12 +3,21 @@ on:
   schedule:
     # 12:00 UTC = 17:30 IST, after NSE's 15:30 IST close.
     - cron: "0 12 * * 1-5"
+    # 9:30 UTC = 3:00 PM IST, before the 15:30 IST close — the
+    # "--pre-close" FINAL CALL run: only actually sends when today is the
+    # exact estimated rebalance day (see notify_rebalance.py's docstring
+    # for why 3 PM specifically needs a separate, earlier run).
+    - cron: "30 9 * * 1-5"
   workflow_dispatch:
     inputs:
       force:
         description: "Send even if today isn't in the rebalance alert window"
         type: boolean
         default: true
+      pre_close:
+        description: "Run as the ~3 PM pre-close FINAL CALL instead of the after-close reminder"
+        type: boolean
+        default: false
 jobs:
   notify:
     runs-on: ubuntu-latest
@@ -22,8 +31,11 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
+          ARGS=""
           if [ "${{ inputs.force }}" = "true" ]; then
-            python notify_rebalance.py --force
-          else
-            python notify_rebalance.py
+            ARGS="$ARGS --force"
           fi
+          if [ "${{ github.event.schedule }}" = "30 9 * * 1-5" ] || [ "${{ inputs.pre_close }}" = "true" ]; then
+            ARGS="$ARGS --pre-close"
+          fi
+          python notify_rebalance.py $ARGS

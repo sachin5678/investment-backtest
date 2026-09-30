@@ -2,14 +2,23 @@ name: Rebalance email reminder (report 48 proof of concept)
 on:
   schedule:
     # 12:00 UTC = 17:30 IST, after NSE's 15:30 IST close. Runs every day
-    # so it can catch the 5/3/1-day-before marks whenever they land.
+    # so it can catch the 5/3/1/0-day-before marks whenever they land.
     - cron: "0 12 * * *"
+    # 9:30 UTC = 3:00 PM IST, before the 15:30 IST close, weekdays only —
+    # the "--pre-close" FINAL CALL run: only actually sends when today is
+    # the exact estimated rebalance day (see notify_email.py's docstring
+    # for why 3 PM specifically needs a separate, earlier run).
+    - cron: "30 9 * * 1-5"
   workflow_dispatch:
     inputs:
       force:
-        description: "Send even if today isn't 5/3/1 days before the estimated rebalance"
+        description: "Send even if today isn't 5/3/1/0 days before the estimated rebalance"
         type: boolean
         default: true
+      pre_close:
+        description: "Run as the ~3 PM pre-close FINAL CALL instead of the after-close reminder"
+        type: boolean
+        default: false
 jobs:
   notify:
     runs-on: ubuntu-latest
@@ -27,8 +36,11 @@ jobs:
           EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
         run: |
+          ARGS=""
           if [ "${{ inputs.force }}" = "true" ]; then
-            python notify_email.py --force
-          else
-            python notify_email.py
+            ARGS="$ARGS --force"
           fi
+          if [ "${{ github.event.schedule }}" = "30 9 * * 1-5" ] || [ "${{ inputs.pre_close }}" = "true" ]; then
+            ARGS="$ARGS --pre-close"
+          fi
+          python notify_email.py $ARGS
