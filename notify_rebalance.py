@@ -1,17 +1,21 @@
 """
 Proof-of-concept rebalance notifier for report 48 (Midcap150 Momentum 10,
-200-day EMA regime filter, gold instead of cash, semi-annual June/
-December rebalance) — sends a Telegram message + a CSV of the current
-picks whenever today falls inside a small "rebalance is imminent" window.
+200-day EMA regime filter, gold instead of cash) — sends a Telegram
+message + a CSV of the current picks whenever today falls inside a small
+"rebalance is imminent" window for ANY of the six semi-annual calendars
+report 85/87 tested (Jan/Jul, Feb/Aug, Mar/Sep, Apr/Oct, May/Nov,
+Jun/Dec). Since those six pairs between them cover every calendar month
+exactly once, this now fires once per month, each time tagged with which
+calendar's rebalance it is.
 
-WHY A WINDOW, NOT ONE EXACT DAY: report 48's rebalance date is defined as
-"the LAST TRADING DAY of June/December" (rebalance_dates() in
-backtest10.py) — which trading day that turns out to be depends on NSE's
-own holiday calendar, and this project has no forward-looking holiday
-calendar to know that in advance. Rather than guess wrong and miss the
-real day, this alerts every day during the last ALERT_WINDOW_DAYS
-calendar days of a rebalance month — a few extra reminders is a much
-safer failure mode than a missed one.
+WHY A WINDOW, NOT ONE EXACT DAY: each calendar's rebalance date is
+defined as "the LAST TRADING DAY of its two months" (rebalance_dates()
+in backtest10.py) — which trading day that turns out to be depends on
+NSE's own holiday calendar, and this project has no forward-looking
+holiday calendar to know that in advance. Rather than guess wrong and
+miss the real day, this alerts every day during the last
+ALERT_WINDOW_DAYS calendar days of a rebalance month — a few extra
+reminders is a much safer failure mode than a missed one.
 
 The momentum/regime math itself lives in rebalance_signal.py, shared
 with notify_email.py, so both channels can never drift apart.
@@ -28,7 +32,8 @@ if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
     sys.stderr.reconfigure(encoding="utf-8")
 
 from backtest42 import EMA_SPAN
-from rebalance_signal import compute_current_picks, build_csv, REBALANCE_MONTHS, TOP_N, GOLD_TICKER
+from rebalance_signal import compute_current_picks, build_csv, REBALANCE_MONTHS, TOP_N, GOLD_TICKER, \
+    MONTH_TO_CALENDAR, CALENDAR_LABELS
 
 ALERT_WINDOW_DAYS = 3
 
@@ -45,8 +50,9 @@ def in_alert_window(today: pd.Timestamp) -> bool:
 
 def build_message(result, today):
     as_of = result["as_of"].strftime("%Y-%m-%d")
+    calendar_label = CALENDAR_LABELS[MONTH_TO_CALENDAR[today.month]]
     lines = [
-        f"📅 Report 48 rebalance reminder — {today.strftime('%Y-%m-%d')}",
+        f"📅 Report 48 rebalance reminder — {calendar_label} calendar — {today.strftime('%Y-%m-%d')}",
         f"(prices as of {as_of} close)",
         "",
     ]
@@ -82,7 +88,7 @@ def main():
 
     force = "--force" in sys.argv
     if not force and not in_alert_window(today):
-        print(f"{today.date()} is not in the rebalance alert window ({REBALANCE_MONTHS}, last {ALERT_WINDOW_DAYS} days) — nothing to do.")
+        print(f"{today.date()} is not in the rebalance alert window (last {ALERT_WINDOW_DAYS} days of a month) — nothing to do.")
         return
 
     result = compute_current_picks()

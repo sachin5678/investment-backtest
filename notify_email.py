@@ -1,12 +1,13 @@
 """
 Email rebalance reminder for report 48 (Midcap150 Momentum 10, 200-day
-EMA regime filter, gold instead of cash, semi-annual June/December
-rebalance) — sends at 5, 3, and 1 CALENDAR days before the estimated
-rebalance date, each with the current live picks/regime state and a CSV
-attachment.
+EMA regime filter, gold instead of cash) — sends at 5, 3, and 1 CALENDAR
+days before the estimated rebalance date of ANY of the six semi-annual
+calendars report 85/87 tested (Jan/Jul, Feb/Aug, Mar/Sep, Apr/Oct,
+May/Nov, Jun/Dec), each with the current live picks/regime state and a
+CSV attachment, tagged with which calendar it's for.
 
-"ESTIMATED" REBALANCE DATE: report 48's real rebalance date is "the LAST
-TRADING DAY of June/December" (rebalance_dates() in backtest10.py),
+"ESTIMATED" REBALANCE DATE: each calendar's real rebalance date is "the
+LAST TRADING DAY of its two months" (rebalance_dates() in backtest10.py),
 which depends on NSE's own holiday calendar — this project has no
 forward-looking holiday list, so the estimate here is simply the last
 CALENDAR day of the month, walked back to the nearest weekday (Mon-Fri).
@@ -34,7 +35,8 @@ if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
     sys.stderr.reconfigure(encoding="utf-8")
 
 from backtest42 import EMA_SPAN
-from rebalance_signal import compute_current_picks, build_csv, REBALANCE_MONTHS, TOP_N, GOLD_TICKER
+from rebalance_signal import compute_current_picks, build_csv, REBALANCE_MONTHS, TOP_N, GOLD_TICKER, \
+    MONTH_TO_CALENDAR, CALENDAR_LABELS
 
 REMINDER_DAYS = (5, 3, 1)
 
@@ -76,9 +78,9 @@ def days_until_next_rebalance(today):
     return (target - today).days, target
 
 
-def build_email_body(result, today, days_until, target_date):
+def build_email_body(result, today, days_until, target_date, calendar_label):
     lines = [
-        f"Report 48 rebalance reminder — {days_until} day{'s' if days_until != 1 else ''} until the estimated rebalance date ({target_date.strftime('%Y-%m-%d')})",
+        f"Report 48 rebalance reminder — {calendar_label} calendar — {days_until} day{'s' if days_until != 1 else ''} until the estimated rebalance date ({target_date.strftime('%Y-%m-%d')})",
         f"(live prices as of {result['as_of'].strftime('%Y-%m-%d')} close)",
         "",
     ]
@@ -126,9 +128,10 @@ def main():
               f"not one of {REMINDER_DAYS}, nothing to do.")
         return
 
+    calendar_label = CALENDAR_LABELS[MONTH_TO_CALENDAR[target_date.month]]
     result = compute_current_picks()
-    subject = f"Report 48 rebalance reminder — {days_until}d to go ({target_date.strftime('%Y-%m-%d')})"
-    body = build_email_body(result, today, days_until, target_date)
+    subject = f"Report 48 rebalance reminder — {calendar_label} — {days_until}d to go ({target_date.strftime('%Y-%m-%d')})"
+    body = build_email_body(result, today, days_until, target_date, calendar_label)
     print(subject)
     print(body)
 

@@ -12,6 +12,14 @@ of this writing). A same-day alert needs today's actual close.
 Reuses this project's own already-tested formula (select_top_original,
 the EMA_SPAN convention) rather than re-deriving the momentum math — see
 backtest33.py / backtest42.py for the canonical versions this mirrors.
+
+CALENDARS: report 85 tested all six semi-annual rebalance-month offsets
+(Jan/Jul through Jun/Dec) and report 87 found that BLENDING all six as
+equal sleeves beats picking just one calendar — so both notification
+channels now track all six, not only Jun/Dec. Because the six pairs
+between them cover every calendar month exactly once, this is equivalent
+to "remind me at every month-end," each one tagged with which of the six
+sleeves it belongs to.
 """
 import io
 import sys
@@ -25,7 +33,12 @@ from niftymidcap150_symbols import NIFTY_MIDCAP150_SYMBOLS
 
 TOP_N = 10
 GOLD_TICKER = "GOLDBEES.NS"
-REBALANCE_MONTHS = (6, 12)
+
+CALENDAR_PAIRS = [(1, 7), (2, 8), (3, 9), (4, 10), (5, 11), (6, 12)]
+CALENDAR_LABELS = {pair: f"{pd.Timestamp(2000, pair[0], 1).strftime('%b')}/{pd.Timestamp(2000, pair[1], 1).strftime('%b')}"
+                    for pair in CALENDAR_PAIRS}
+MONTH_TO_CALENDAR = {m: pair for pair in CALENDAR_PAIRS for m in pair}
+REBALANCE_MONTHS = tuple(range(1, 13))
 
 
 def fetch_midcap150_closes_live():
