@@ -92,14 +92,23 @@ export default function Overview() {
     // the visitor is logged in.
     if (!cards) return null;
     const withHeadline = cards.filter((c) => c.headline);
-    const bestCagr = Math.max(...withHeadline.map((c) => c.headline.growthPct ?? -Infinity));
+    // No spreads into Math.max/min here: ALL_ITEMS × thousands of curve
+    // points overflows the engine's argument limit ("Maximum call stack
+    // size exceeded"). Use loops instead.
+    let bestCagr = -Infinity;
+    for (const c of withHeadline) {
+      const g = c.headline.growthPct ?? -Infinity;
+      if (g > bestCagr) bestCagr = g;
+    }
     const currencies = new Set(cards.map((c) => c.currency).filter(Boolean));
     const allDates = withHeadline.flatMap((c) => c.headline.curve.map((p) => p[0]));
-    const years =
-      allDates.length > 0
-        ? (new Date(Math.max(...allDates.map((d) => new Date(d)))) - new Date(Math.min(...allDates.map((d) => new Date(d))))) /
-          (365.25 * 24 * 3600 * 1000)
-        : 0;
+    let minMs = Infinity, maxMs = -Infinity;
+    for (const d of allDates) {
+      const t = new Date(d).getTime();
+      if (t < minMs) minMs = t;
+      if (t > maxMs) maxMs = t;
+    }
+    const years = allDates.length > 0 ? (maxMs - minMs) / (365.25 * 24 * 3600 * 1000) : 0;
     return { count: ALL_ITEMS.length, bestCagr, markets: currencies.size, years: Math.round(years) };
   }, [cards]);
 
