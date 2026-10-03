@@ -207,6 +207,8 @@ export const GROUPS = [
       { id: "f1", file: "results_find_dipbuy.json", icon: ICON_PULSE, title: "Dip-Buy Override on Report 48", subtitle: "Switch gold→stocks when NIFTY is ≥15% below its 200-EMA — tried, fails" },
       { id: "f2", file: "results_find_overextended.json", icon: ICON_SHIELD_OFF, title: "Overextended-Exit Override on Report 48", subtitle: "Gold when NIFTY ≥15% above its 200-EMA — tried, much worse" },
       { id: "f3", file: "results_find_wild.json", icon: ICON_FLASK, title: "Wild Combinations on Report 48", subtitle: "Gold filtered by its own 200-EMA doubles CAGR; vol/drawdown triggers fail" },
+      { id: "f4", file: "results_find_etf.json", icon: ICON_GRID, title: "ETF Round: Next 50 / Midcap 100 / NASDAQ100 / Gold / Silver", subtitle: "Top-1 rotation with gold on own-EMA underperformance doubles CAGR; equal-weight beats rotations" },
+      { id: "f5", file: "results_find_wild2.json", icon: ICON_FLASK, title: "Wild Combinations Round 2", subtitle: "Basket-breadth trigger and EMA-alignment beat report 48; equity-curve trigger and TAA fail" },
     ],
   },
 ];
