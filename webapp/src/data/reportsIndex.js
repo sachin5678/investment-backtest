@@ -213,6 +213,7 @@ export const GROUPS = [
       { id: "f7", file: "results_find_sweep.json", icon: ICON_LAYERS, title: "Full Sweep: EMA Span × Confirmation × Hedge Asset", subtitle: "Span, confirm-days, asset (gold/silver/liquid fund/midcap), full-vs-half allocation — 160 variants, top-16 plotted" },
       { id: "f8", file: "results_find_weekly.json", icon: ICON_COMPASS, title: "Weekly-Bar EMA Regime Signal", subtitle: "Below weekly 50/100/200 EMA flips to gold/half-blend; weekly-any signal is close to daily-200 but with fewer whipsaws" },
       { id: "f9", file: "results_find_universe.json", icon: ICON_GRID, title: "Round-1 Logic on Smallcap/Nifty100 × Basket 5/10/15", subtitle: "Dip-buy and overextended-exit hooks keep failing on every universe and basket size" },
+      { id: "f10", file: "results_find_goldguard.json", icon: ICON_SHIELD, title: "Gold-Strength Guard Before Switching to Gold", subtitle: "Risk-off switches to gold only when gold 6m > NIFTY 6m or gold 6m > 0 — improves CAGR across all universes/baskets" },
     ],
   },
 ];
