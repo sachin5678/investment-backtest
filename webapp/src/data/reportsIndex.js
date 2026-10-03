@@ -209,6 +209,7 @@ export const GROUPS = [
       { id: "f3", file: "results_find_wild.json", icon: ICON_FLASK, title: "Wild Combinations on Report 48", subtitle: "Gold filtered by its own 200-EMA doubles CAGR; vol/drawdown triggers fail" },
       { id: "f4", file: "results_find_etf.json", icon: ICON_GRID, title: "ETF Round: Next 50 / Midcap 100 / NASDAQ100 / Gold / Silver", subtitle: "Top-1 rotation with gold on own-EMA underperformance doubles CAGR; equal-weight beats rotations" },
       { id: "f5", file: "results_find_wild2.json", icon: ICON_FLASK, title: "Wild Combinations Round 2", subtitle: "Basket-breadth trigger and EMA-alignment beat report 48; equity-curve trigger and TAA fail" },
+      { id: "f6", file: "results_find_cadence.json", icon: ICON_REFRESH, title: "Rebalance Cadence: Monthly / Quarterly / Semi-Annual", subtitle: "EMA-alignment holds ~40% CAGR / -21% DD across all cadences; ETF top-1 + own-EMA guard jumps to 37.5% on semi-annual" },
     ],
   },
 ];
