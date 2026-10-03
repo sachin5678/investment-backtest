@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"/><title>Opencode Finding — Overextended-Exit Override on Report 48</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+      html,body{background:#08171E;color:#E6EDF0;font-family:'Inter',ui-sans-serif,system-ui,-apple-system,sans-serif;}
+      table.data-table{width:100%;border-collapse:collapse;font-size:13px;}
+      table.data-table th{text-align:right;color:#7E97A0;font-weight:600;padding:8px 12px;border-bottom:1px solid #1E3A45;background:#132B36;font-size:11px;letter-spacing:0.03em;text-transform:uppercase;}
+      table.data-table th:first-child, table.data-table td:first-child{text-align:left;}
+      table.data-table td{text-align:right;padding:7px 12px;border-bottom:1px solid #16303a;white-space:nowrap;}
+      table.data-table tbody tr:hover td{background:rgba(55,240,131,0.06);}
+      tr.hl td{color:#37F083;font-weight:600;}
+      tr.bad td{color:#F2643C;}
+    </style>
+
+</head>
+<body class="bg-[#08171E]">
+<header class="border-b border-[#1E3A45] bg-[#0F2630]/60 px-10 py-6">
+  <h1 class="text-2xl font-bold text-[#E6EDF0]">Opencode Finding — Overextended-Exit Override on Report 48</h1>
+  <p class="text-[#9FB4BB] text-sm mt-1">Opposite idea: while NIFTY 50 is above its 200-EMA but trading ≥15% above it, treat that as extended and move everything to gold until the gap compresses under 5%.</p>
+</header>
+<div class="px-10 py-6"><div class="bg-[#0F2630] border border-[#1E3A45] rounded-2xl p-6 mb-6"><h2 class="text-base font-bold mb-3">Result</h2><table class="data-table"><thead><tr><th>Variant</th><th>CAGR</th><th>Max DD</th></tr></thead><tbody><tr class=""><td>Report 48 (no override)</td><td>42.23%</td><td>-23.4%</td></tr><tr class="bad"><td>over>10% / re-enter <3%</td><td>23.82%</td><td>-21.6%</td></tr><tr class="bad"><td>over>10% / re-enter <5%</td><td>27.53%</td><td>-21.6%</td></tr><tr class="bad"><td>over>10% / re-enter <7%</td><td>27.78%</td><td>-22.4%</td></tr><tr class="bad"><td>over>15% / re-enter <3%</td><td>25.19%</td><td>-23.4%</td></tr><tr class="bad"><td>over>15% / re-enter <5%</td><td>25.56%</td><td>-23.4%</td></tr><tr class="bad"><td>over>15% / re-enter <7%</td><td>29.37%</td><td>-23.4%</td></tr><tr class="bad"><td>over>20% / re-enter <3%</td><td>31.23%</td><td>-23.4%</td></tr><tr class="bad"><td>over>20% / re-enter <5%</td><td>31.14%</td><td>-23.4%</td></tr><tr class="bad"><td>over>20% / re-enter <7%</td><td>33.22%</td><td>-23.4%</td></tr><tr class=""><td>No filter</td><td>40.07%</td><td>-35.1%</td></tr></tbody></table><p class="text-[#7E97A0] text-[12.5px] leading-snug mt-3">Verdict: much worse than the dip-buy idea. The trigger fires during the market's strongest stretches, so the strategy swaps equities for gold right before the best legs and sits out the rally waiting for the gap to compress. Buys ~2 drawdown points at the cost of 9–18 CAGR points — not a good trade.</p></div></div>
+</body></html>

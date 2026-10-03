@@ -42,6 +42,13 @@ export default function ReportPage() {
     // hide them.
     if (!item || locked) return;
 
+    // Findings are static HTML write-ups, not a results JSON — skip the
+    // fetch and let the early return below render the iframe instead.
+    if (item.file.endsWith(".html")) {
+      setSeries([]);
+      return;
+    }
+
     Promise.all([
       fetch(DATA_BASE + item.file).then((r) => {
         if (!r.ok) throw new Error(`Could not load ${item.file}`);
@@ -77,6 +84,16 @@ export default function ReportPage() {
 
   if (locked) {
     return <LockedReportGate title={item.title} />;
+  }
+
+  if (item.file.endsWith(".html")) {
+    return (
+      <iframe
+        src={`./data/${item.file}`}
+        title={item.title}
+        className="w-full min-h-[80vh] rounded-xl border border-border bg-ground"
+      />
+    );
   }
 
   if (error) {

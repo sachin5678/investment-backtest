@@ -201,6 +201,14 @@ export const GROUPS = [
       { id: "90", file: "results89.json", icon: ICON_RULER, title: "Midcap150 Momentum 10 — Report 48 With a 400-EMA Filter", subtitle: "Gold still beats cash on CAGR under the wider EMA, with the same drawdown protection" },
     ],
   },
+  {
+    label: "Opencode Ideas & Findings",
+    items: [
+      { id: "f1", file: "findings/opencode_ideas_dipbuy.html", icon: ICON_PULSE, title: "Dip-Buy Override on Report 48", subtitle: "Switch gold→stocks when NIFTY is ≥15% below its 200-EMA — tried, fails" },
+      { id: "f2", file: "findings/opencode_ideas_overextended.html", icon: ICON_SHIELD_OFF, title: "Overextended-Exit Override on Report 48", subtitle: "Gold when NIFTY ≥15% above its 200-EMA — tried, much worse" },
+      { id: "f3", file: "findings/opencode_ideas_wild.html", icon: ICON_FLASK, title: "Wild Combinations on Report 48", subtitle: "Gold filtered by its own 200-EMA doubles CAGR; vol/drawdown triggers fail" },
+    ],
+  },
 ];
 
 export const ALL_ITEMS = GROUPS.flatMap((g) => g.items);
