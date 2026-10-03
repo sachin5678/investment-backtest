@@ -295,6 +295,19 @@ GROUPS = [
              "title": "Midcap150 Momentum 10 — Report 48, Execution Timing", "subtitle": "3 PM isn't testable with daily bars; next-day-open costs a little CAGR, drawdown unchanged"},
             {"id": "89", "file": "89_midcap150_report48_slippage.html", "icon": ICON_COINS,
              "title": "Midcap150 Momentum 10 — Report 48 With 0.1% Slippage", "subtitle": "Costs 2.6 points of CAGR and makes the drawdown worse too, not just the return"},
+            {"id": "90", "file": "90_midcap_momentum10_gold_vs_cash_ema400.html", "icon": ICON_RULER,
+             "title": "Midcap150 Momentum 10 — Report 48 With a 400-EMA Filter", "subtitle": "Gold still beats cash on CAGR under the wider EMA, with the same drawdown protection"},
+        ],
+    },
+    {
+        "label": "Opencode Ideas & Findings",
+        "items": [
+            {"id": "f1", "file": "opencode_ideas_dipbuy.html", "icon": ICON_PULSE,
+             "title": "Dip-Buy Override on Report 48", "subtitle": "Switch gold→stocks when NIFTY is ≥15% below its 200-EMA — tried, fails"},
+            {"id": "f2", "file": "opencode_ideas_overextended.html", "icon": ICON_SHIELD_OFF,
+             "title": "Overextended-Exit Override on Report 48", "subtitle": "Gold when NIFTY ≥15% above its 200-EMA — tried, much worse"},
+            {"id": "f3", "file": "opencode_ideas_wild.html", "icon": ICON_FLASK,
+             "title": "Wild Combinations on Report 48", "subtitle": "Gold filtered by its own 200-EMA doubles CAGR; vol/drawdown triggers fail"},
         ],
     },
 ]

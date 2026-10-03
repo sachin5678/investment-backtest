@@ -5998,5 +5998,79 @@
     ]
    }
   ]
+ },
+ "90": {
+  "title": "Midcap150 Momentum 10 — Gold Instead of Cash During the 400-EMA Filter",
+  "subtitle": "This is report 48 re-run with a 400-day EMA instead of 200 on the regime filter — reports 42-47 held plain 0%-return cash whenever NIFTY 50 closed below its own 400-day EMA, report 48 then swapped cash for GOLDBEES.NS. Same NIFTY-50 signal, same Midcap150 Momentum 10 formula, same semi-annual (June/December) rebalances; the ONLY change is the EMA span. All series here are recomputed fresh over the same full window as reports 42-48.",
+  "source_line": "2008-12-31–2026-10-01 Report generated 2026-10-03 12:05",
+  "pages": [
+   {
+    "file": "90_midcap_momentum10_gold_vs_cash_ema400.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "relationship to earlier reports"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Report 48 answered \"gold instead of cash?\" under a 200-day EMA filter. Report 46 showed the cash-filtered strategy got WORSE as the EMA span widened (up to 250 days tested). This report asks the same question again under a much wider 400-day EMA: does the gold-vs-cash verdict from report 48 still hold when the filter's signal is based on a 400-day average? Report 76 tested a 400-day EMA with gold alongside rebalance-cadence variants; this report isolates the span change on report 48's exact design."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "positive",
+        "text": "gold beats cash on CAGR without giving up any drawdown protection"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Swapping cash for gold during risk-off periods lifts CAGR from +36.3% to +39.8% — a real improvement — while max drawdown is essentially UNCHANGED: -31.5% (cash) vs. -31.6% (gold). Gold doesn't need to fall in lockstep with equities to make this work; it just needs to not be as bad as the crashing stocks the filter is protecting against, which is exactly gold's usual role.",
+       "For reference, gold alone over this window returned +13.2% CAGR with a -27.4% drawdown of its own — nowhere near as good as the strategy, but calm enough that holding it during the strategy's own risk-off periods adds return without meaningfully adding risk."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why gold works here without adding risk",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "framing"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism, not just the scoreboard.",
+      "paragraphs": [
+       "The 400-EMA filter's job is to avoid the strategy's own worst stretches, which correlate with broad equity-market selloffs. Gold has historically had LOW or even negative correlation to Indian equities during exactly those stretches — it doesn't need to go UP during a crash to help here, it just needs to not crash alongside equities, which is why swapping it in for cash adds return (+39.8% vs. +36.3%) without meaningfully adding drawdown risk.",
+       "This is NOT guaranteed to hold in every future crisis — gold and equities can occasionally fall together during a genuine liquidity crunch (some investors sell everything, including gold, to raise cash) — but across THIS 2010-2026 window, holding gold during the strategy's own risk-off periods was a clean improvement over doing nothing with the cash."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "GOLDBEES.NS's real history starts 2009-01-02 — the first two calendar days of this window (2008-12-31 to 2009-01-01) use a forward/backward-filled gold price rather than a real traded one, a negligible approximation over an 18-year span.",
+       "Zero transaction costs on ANY regime switch (into or out of gold) — same disclosed omission as reports 42-47, and switching into/out of an ETF position isn't free in reality.",
+       "GOLDBEES.NS tracks domestic gold prices in INR, which also move with the rupee's own exchange rate — a INR depreciation can lift GOLDBEES.NS even if USD gold is flat, a real but separate driver from \"gold as a crisis hedge.\"",
+       "Only ONE EMA span (400 days) and immediate-switch (no confirmation delay) were tested here.",
+       "Today's fixed Midcap150 constituent list is applied retroactively across the whole window (survivorship bias). Equal weighting, no F&O-eligibility screen, unadjusted prices, no dividends modeled — same as every other reconstruction here."
+      ]
+     }
+    ]
+   }
+  ]
  }
 }
