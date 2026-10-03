@@ -212,6 +212,7 @@ export const GROUPS = [
       { id: "f6", file: "results_find_cadence.json", icon: ICON_REFRESH, title: "Rebalance Cadence: Monthly / Quarterly / Semi-Annual", subtitle: "EMA-alignment holds ~40% CAGR / -21% DD across all cadences; ETF top-1 + own-EMA guard jumps to 37.5% on semi-annual" },
       { id: "f7", file: "results_find_sweep.json", icon: ICON_LAYERS, title: "Full Sweep: EMA Span × Confirmation × Hedge Asset", subtitle: "Span, confirm-days, asset (gold/silver/liquid fund/midcap), full-vs-half allocation — 160 variants, top-16 plotted" },
       { id: "f8", file: "results_find_weekly.json", icon: ICON_COMPASS, title: "Weekly-Bar EMA Regime Signal", subtitle: "Below weekly 50/100/200 EMA flips to gold/half-blend; weekly-any signal is close to daily-200 but with fewer whipsaws" },
+      { id: "f9", file: "results_find_universe.json", icon: ICON_GRID, title: "Round-1 Logic on Smallcap/Nifty100 × Basket 5/10/15", subtitle: "Dip-buy and overextended-exit hooks keep failing on every universe and basket size" },
     ],
   },
 ];
