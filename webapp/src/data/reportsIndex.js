@@ -211,6 +211,7 @@ export const GROUPS = [
       { id: "f5", file: "results_find_wild2.json", icon: ICON_FLASK, title: "Wild Combinations Round 2", subtitle: "Basket-breadth trigger and EMA-alignment beat report 48; equity-curve trigger and TAA fail" },
       { id: "f6", file: "results_find_cadence.json", icon: ICON_REFRESH, title: "Rebalance Cadence: Monthly / Quarterly / Semi-Annual", subtitle: "EMA-alignment holds ~40% CAGR / -21% DD across all cadences; ETF top-1 + own-EMA guard jumps to 37.5% on semi-annual" },
       { id: "f7", file: "results_find_sweep.json", icon: ICON_LAYERS, title: "Full Sweep: EMA Span × Confirmation × Hedge Asset", subtitle: "Span, confirm-days, asset (gold/silver/liquid fund/midcap), full-vs-half allocation — 160 variants, top-16 plotted" },
+      { id: "f8", file: "results_find_weekly.json", icon: ICON_COMPASS, title: "Weekly-Bar EMA Regime Signal", subtitle: "Below weekly 50/100/200 EMA flips to gold/half-blend; weekly-any signal is close to daily-200 but with fewer whipsaws" },
     ],
   },
 ];
