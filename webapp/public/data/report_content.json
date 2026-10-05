@@ -6072,5 +6072,49 @@
     ]
    }
   ]
+ },
+ "91": {
+  "title": "Midcap150 Momentum 10 — Gold-Strength Guard on Report 48",
+  "subtitle": "Report 48's exact design, with one change: during a risk-off period (NIFTY below its 200-day EMA), the hedge sleeve holds gold ONLY while gold itself passes two checks — its own 126-day (~6-month) return beats NIFTY's 126-day return, AND that return is positive. Whenever either check fails, the hedge sleeve sits in flat 0%-return cash instead of gold for that day. This guard never adds leverage or a third asset — it only ever replaces gold with cash — so any improvement has to come from avoiding gold's own bad stretches, not from gold earning something better.",
+  "source_line": "2009-01-02–2026-08-24 Report generated 2026-10-05 12:56",
+  "pages": [
+   {
+    "file": "91_midcap150_gold_strength_guard.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "positive",
+        "text": "11.5 points of extra CAGR, AND a shallower drawdown"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "CAGR rises from +43.3% (report 48, unconditional gold) to +54.8% with the guard — and max drawdown improves too, from -23.4% to -20.0%. This is a genuine two-sided improvement, not a return bought with extra risk.",
+       "The mechanism moved 222 of 1026 regime-off days from gold into flat cash. The cash-block breakdown below shows exactly which historical periods those days came from — and it is NOT the periods an earlier, less careful pass through this idea assumed."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Zero transaction costs on the extra gold↔cash switches this guard introduces beyond report 48's\n        own switching. Report 89 found even 0.1% slippage costs report 48 itself ~2.6 points of CAGR — this guard adds\n        MORE switch events than report 48 alone, and has not been cost-tested. The real improvement, after costs, is\n        almost certainly smaller than the headline number above.",
+       "The guard's \"beats NIFTY\" and \"is positive\" checks both use the same 126-day lookback —\n        this specific window wasn't tuned or compared against other lookback lengths here; a different window could\n        move the result in either direction.",
+       "Flat cash earns literally 0% here, same convention as report 48's own cash-based variants —\n        a liquid fund or short-term debt instrument (reports 68/69/70 assumed ~6%) would likely improve this further,\n        untested in this report.",
+       "Today's fixed Midcap150 constituent list is applied retroactively across the whole window\n        (survivorship bias). Equal weighting, no F&O-eligibility screen, unadjusted prices, no dividends modeled — same\n        as every other reconstruction here."
+      ]
+     }
+    ]
+   }
+  ]
  }
 }

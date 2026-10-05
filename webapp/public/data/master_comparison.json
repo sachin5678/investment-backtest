@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-05 12:38",
+  "generated": "2026-10-05 13:00",
   "rows": [
     {
       "universe": "Midcap150",
@@ -319,6 +319,23 @@
       "net_return_pct": 40901.9084316162,
       "sharpe": 1.8288434917234753,
       "sortino": 2.4643366160052804,
+      "bench_cagr_pct": 12.470504923770065,
+      "bench_max_drawdown_pct": -38.43985245274211,
+      "bench_sharpe": 0.7613713350199811,
+      "bench_sortino": 1.034701812712901
+    },
+    {
+      "universe": "Midcap150",
+      "category": "Filter + Hedge",
+      "label": "200-EMA regime filter + gold-strength guard",
+      "report": 91,
+      "start_date": "2009-01-02",
+      "end_date": "2026-08-24",
+      "cagr_pct": 54.82510872657386,
+      "max_drawdown_pct": -19.953733836076136,
+      "net_return_pct": 223152.837147735,
+      "sharpe": 2.380612525715887,
+      "sortino": 3.190846765733247,
       "bench_cagr_pct": 12.470504923770065,
       "bench_max_drawdown_pct": -38.43985245274211,
       "bench_sharpe": 0.7613713350199811,

@@ -297,6 +297,8 @@ GROUPS = [
              "title": "Midcap150 Momentum 10 — Report 48 With 0.1% Slippage", "subtitle": "Costs 2.6 points of CAGR and makes the drawdown worse too, not just the return"},
             {"id": "90", "file": "90_midcap_momentum10_gold_vs_cash_ema400.html", "icon": ICON_RULER,
              "title": "Midcap150 Momentum 10 — Report 48 With a 400-EMA Filter", "subtitle": "Gold still beats cash on CAGR under the wider EMA, with the same drawdown protection"},
+            {"id": "91", "file": "91_midcap150_gold_strength_guard.html", "icon": ICON_SHIELD,
+             "title": "Midcap150 Momentum 10 — Gold-Strength Guard on Report 48", "subtitle": "+11.5pp CAGR and a shallower drawdown; the benefit is spread thin, not from 2013/2021-22 as first assumed"},
         ],
     },
     {
