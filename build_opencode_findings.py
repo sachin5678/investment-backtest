@@ -108,7 +108,7 @@ wild_html = page(
     "Opencode Finding — Wild Combinations on Report 48",
     "A batch of untested-in-this-project regime rules on report 48's skeleton. The big finding: filtering the gold sleeve by gold's own trend (G/H) roughly doubles CAGR vs. report 48 within this framework. The rest are neutral-to-worse.",
     [panel("Result", table(["Variant", "CAGR", "Max DD"], wild_rows)),
-     panel("Why G/H work", "<p class='text-[13.5px] text-[#C9D6DA] leading-relaxed'>They stack a second trend filter on the gold sleeve itself: hold gold during equity risk-off only while gold is in its own uptrend, else sit flat. This dodges gold's own crashes (2013, 2021–22) which often coincide with equity risk-off windows. Standalone check: gold filtered by its own 200-EMA returns 18.7% CAGR vs 13.2% buy-and-hold over the same window.</p>",
+     panel("Why G/H work", "<p class='text-[13.5px] text-[#C9D6DA] leading-relaxed'>They stack a second trend filter on the gold sleeve itself: hold gold during equity risk-off only while gold is in its own uptrend, else sit flat. This dodges gold's own crashes (2013, 2021–22) which often coincide with equity risk-off windows. (A standalone gold-filtered-by-its-own-200-EMA-vs-buy-and-hold number was claimed here in an earlier draft but didn't trace to any computed result — removed rather than left unverified. Report f10's gold-strength guard, built on the real report-48 event loop, is the properly audited version of this idea.)</p>",
            "Caveats: same-day-close signal convention as every other report here, no transaction costs on gold↔cash switches, ~1240 usable gold days. Worth a full audited numbered report before trusting the 53% headline.")],
 )
 

@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-30 10:13",
+  "generated": "2026-10-05 12:38",
   "rows": [
     {
       "universe": "Midcap150",
@@ -47,6 +47,23 @@
       "net_return_pct": 31426.165913498477,
       "sharpe": 1.9859715060471472,
       "sortino": 2.35767486314181,
+      "bench_cagr_pct": 12.65249908563031,
+      "bench_max_drawdown_pct": -38.43985245274211,
+      "bench_sharpe": 0.7699912429190561,
+      "bench_sortino": 1.0470507807268283
+    },
+    {
+      "universe": "Midcap150",
+      "category": "Regime Filter",
+      "label": "400-EMA regime filter + cash",
+      "report": 90,
+      "start_date": "2008-12-31",
+      "end_date": "2026-08-24",
+      "cagr_pct": 36.51374351667016,
+      "max_drawdown_pct": -31.453127656045844,
+      "net_return_pct": 24179.94843376951,
+      "sharpe": 1.7817800646355886,
+      "sortino": 2.233970425297013,
       "bench_cagr_pct": 12.65249908563031,
       "bench_max_drawdown_pct": -38.43985245274211,
       "bench_sharpe": 0.7699912429190561,

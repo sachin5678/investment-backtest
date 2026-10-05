@@ -139,6 +139,14 @@ def process_universe(universe_name, closes, nifty_close, select_fn, select_fn_fr
     add_row(universe_name, "Regime Filter", "200-EMA regime filter + cash", report_numbers["filter_cash"],
             filt_series, nifty_close, idx)
 
+    filter_cash_ema400_num = report_numbers.get("filter_cash_ema400")
+    if filter_cash_ema400_num:
+        ema400_cash = nifty_close.ewm(span=400, adjust=False).mean()
+        filt400_series, _, _ = build_index_regime_filtered(closes, nifty_close, ema400_cash, rbdates, select_fn)
+        idx_400c = common_idx.intersection(filt400_series.index)
+        add_row(universe_name, "Regime Filter", "400-EMA regime filter + cash", filter_cash_ema400_num,
+                filt400_series, nifty_close, idx_400c)
+
     if gold_close is not None:
         # NOTE: earlier reports (48-50) pre-truncated `closes` to gold's own
         # index BEFORE running the lookback-dependent selection formula,
@@ -361,7 +369,7 @@ def main():
          "filter_gold_top5": 78, "filter_gold_top15": 78, "filter_gold_top20": 79,
          "filter_gold_july_jan": 85, "filter_gold_aug_feb": 85, "filter_gold_sept_mar": 85, "filter_gold_oct_apr": 85,
          "filter_gold_nov_may": 85, "filter_gold_blended_calendars": 87, "filter_gold_next_day_open": 88,
-         "filter_gold_midmonth": 86, "filter_gold_slippage": 89},
+         "filter_gold_midmonth": 86, "filter_gold_slippage": 89, "filter_cash_ema400": 90},
         gold_close=gold_close_full,
     )
 
