@@ -275,6 +275,21 @@ def process_universe(universe_name, closes, nifty_close, select_fn, select_fn_fr
             add_row(universe_name, "Filter + Hedge", "200-EMA regime filter + gold-strength guard",
                     guard_num, guard_series, nifty_close, idx_guard)
 
+            for start_month, month_key, month_label in (
+                    (7, "guard_july_jan", "July/January"), (8, "guard_aug_feb", "August/February"),
+                    (9, "guard_sept_mar", "September/March"), (10, "guard_oct_apr", "October/April"),
+                    (11, "guard_nov_may", "November/May")):
+                month_num = report_numbers.get(month_key)
+                if not month_num:
+                    continue
+                other_month = start_month + 6 if start_month + 6 <= 12 else start_month - 6
+                rb_offset = rebalance_dates(closes.index, months=(start_month, other_month))
+                offset_guard_series, _, _, _, _ = build_gold_strength_guard(
+                    closes, nifty_close, ema200, rb_offset, select_fn, gold_aligned)
+                idx_offg = offset_guard_series.index.intersection(nifty_close.index).intersection(gold_close.index)
+                add_row(universe_name, "Filter + Hedge", f"200-EMA regime filter + gold-strength guard, rebalance {month_label}",
+                        month_num, offset_guard_series, nifty_close, idx_offg)
+
         # Core-satellite: a PERMANENT momentum/gold split held at all times
         # (not just a cash/invested switch), with a full 100%-to-gold
         # liquidation on the same 200-EMA signal. Each split ratio tested
@@ -379,7 +394,8 @@ def main():
          "filter_gold_july_jan": 85, "filter_gold_aug_feb": 85, "filter_gold_sept_mar": 85, "filter_gold_oct_apr": 85,
          "filter_gold_nov_may": 85, "filter_gold_blended_calendars": 87, "filter_gold_next_day_open": 88,
          "filter_gold_midmonth": 86, "filter_gold_slippage": 89, "filter_cash_ema400": 90,
-         "gold_strength_guard": 91},
+         "gold_strength_guard": 91, "guard_july_jan": 92, "guard_aug_feb": 92, "guard_sept_mar": 92,
+         "guard_oct_apr": 92, "guard_nov_may": 92},
         gold_close=gold_close_full,
     )
 

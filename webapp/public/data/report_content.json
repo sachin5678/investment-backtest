@@ -6116,5 +6116,47 @@
     ]
    }
   ]
+ },
+ "92": {
+  "title": "Gold-Strength Guard — Does It Hold Up on Every Rebalance Calendar?",
+  "subtitle": "Report 91 tested the gold-strength guard only on June/December, report 48's own calendar. Report 85 already asked whether the rebalance-month offset matters for report 48 itself; this asks the same question for report 91's guard — all six semi-annual calendars (Jun/Dec, Jul/Jan, Aug/Feb, Sep/Mar, Oct/Apr, Nov/May), same 200-day EMA regime filter, same guard mechanism (gold's own 126-day return must beat NIFTY's AND be positive, else flat cash) reused exactly as backtest91.py built it — nothing reimplemented.",
+  "source_line": "2009-02-27–2026-08-24 Report generated 2026-10-05 13:16",
+  "pages": [
+   {
+    "file": "92_midcap150_gold_strength_guard_calendars.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "positive",
+        "text": "Every calendar gains 11.3 to 11.9pp of CAGR, every one ends at -20.0% max drawdown"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Report 91's result was not a June/December artifact. The guard improves CAGR on all six calendars by a tight, consistent band — +11.35pp to +11.91pp — and drawdown lands at exactly -20.0% regardless of which months the stock picks refresh in, suggesting the same single structural episode (not the calendar choice) sets the floor on how deep this design can draw down with the guard active."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Same limitations as report 91 apply to every calendar here: zero transaction costs on the\n        guard's extra gold↔cash switches, the 126-day lookback wasn't tuned or compared against alternatives, and flat\n        cash earns literally 0% rather than a liquid-fund yield.",
+       "This report's window (2009-02-27 onward) is narrower than report 91's own single-calendar\n        window (2009-01-02 onward) because it's restricted to the overlap across all six calendars' own first-valid-\n        rebalance dates at once — same convention report 85 used for report 48 itself.",
+       "Today's fixed Midcap150 constituent list is applied retroactively across the whole window\n        (survivorship bias). Equal weighting, no F&O-eligibility screen, unadjusted prices, no dividends modeled — same\n        as every other reconstruction here."
+      ]
+     }
+    ]
+   }
+  ]
  }
 }
