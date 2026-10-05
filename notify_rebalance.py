@@ -84,6 +84,19 @@ def build_message(result, today, target_date, days_until, mode):
         lines.append(f"Regime: OFF — NIFTY 50 ({result['nifty_close']:.0f}) is below its {EMA_SPAN}-day EMA ({result['nifty_ema']:.0f})")
         lines.append(f"Action: 100% {GOLD_TICKER} (₹{result['gold_price']:.2f})")
     lines.append("")
+    lines.append("🛡️ Report 91 (gold-strength guard on the same regime filter):")
+    if result["regime_on"]:
+        lines.append("  Regime is ON, so report 91 holds the exact same top-10 picks as report 48 above.")
+    elif result["guard_passes"] is None:
+        lines.append("  Not enough live history yet to compute the 6-month gold/NIFTY guard check.")
+    elif result["guard_passes"]:
+        lines.append(f"  PASSES — gold's 6m return ({result['guard_gold_6m_pct']:+.1f}%) beats NIFTY's "
+                      f"({result['guard_nifty_6m_pct']:+.1f}%) and is positive, so report 91 ALSO holds "
+                      f"100% {GOLD_TICKER} right now — same as report 48.")
+    else:
+        lines.append(f"  FAILS — gold's 6m return ({result['guard_gold_6m_pct']:+.1f}%) vs. NIFTY's "
+                      f"({result['guard_nifty_6m_pct']:+.1f}%): report 91 says hold 100% FLAT CASH instead of gold.")
+    lines.append("")
     if mode == "pre_close":
         lines.append("⚠️ This is a ~3 PM PROVISIONAL list (yfinance's current, delayed ~15 min snapshot), NOT the")
         lines.append("confirmed 3:30 PM close — meant to give you time to trade before the market shuts. A borderline")

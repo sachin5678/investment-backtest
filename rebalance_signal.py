@@ -1,8 +1,16 @@
 """
-Shared logic for report 48's live rebalance signal — used by BOTH
-notify_rebalance.py (Telegram) and notify_email.py (email), so the
-momentum/regime math lives in exactly one place rather than being copied
-into each notification channel's script.
+Shared logic for report 48's (and now report 91's) live rebalance
+signal — used by BOTH notify_rebalance.py (Telegram) and notify_email.py
+(email), so the momentum/regime math lives in exactly one place rather
+than being copied into each notification channel's script.
+
+REPORT 91: its gold-strength guard only ever changes anything on a
+regime-OFF day (both reports hold identical top-N picks whenever the
+regime is on) — compute_current_picks() computes the live guard check
+(gold's own 6-month return vs. NIFTY's, same GOLD_LOOKBACK_DAYS constant
+as backtest91.py's build_gold_strength_guard()) only in that case, and
+each channel's build function renders it as a second section alongside
+report 48's own picks.
 
 DATA FRESHNESS: fetches ALL prices LIVE via yfinance on every call — not
 the locally cached Midcap150 price history report 48 itself uses for
@@ -34,6 +42,7 @@ import pandas as pd
 from backtest10 import fetch
 from backtest33 import select_top_original, MIN_ELIGIBLE, LOOKBACK_12M
 from backtest42 import EMA_SPAN
+from backtest91 import GOLD_LOOKBACK_DAYS
 from niftymidcap150_symbols import NIFTY_MIDCAP150_SYMBOLS
 
 TOP_N = 10
@@ -130,11 +139,22 @@ def compute_current_picks():
     regime_on = bool(nifty_close.iloc[-1] > ema.iloc[-1])
     picks = select_top_original(closes, t_idx, top_n=TOP_N, min_eligible=MIN_ELIGIBLE) if regime_on else None
 
+    # Report 91's gold-strength guard only ever changes anything on a
+    # regime-OFF day (report 48 and report 91 hold identical top-N picks
+    # whenever regime_on) -- so this is only computed/returned then.
+    guard_passes = guard_gold6 = guard_nifty6 = None
+    if not regime_on and len(gold) > GOLD_LOOKBACK_DAYS and len(common) > GOLD_LOOKBACK_DAYS:
+        guard_gold6 = float(gold["Close"].iloc[-1] / gold["Close"].iloc[-1 - GOLD_LOOKBACK_DAYS] - 1.0)
+        guard_nifty6 = float(nifty_close.iloc[-1] / nifty_close.iloc[-1 - GOLD_LOOKBACK_DAYS] - 1.0)
+        guard_passes = bool(guard_gold6 > guard_nifty6 and guard_gold6 > 0)
+
     return {
         "as_of": as_of, "regime_on": regime_on,
         "nifty_close": float(nifty_close.iloc[-1]), "nifty_ema": float(ema.iloc[-1]),
         "picks": [p.replace(".NS", "") for p in picks] if picks else None,
         "gold_price": float(gold["Close"].iloc[-1]) if not gold.empty else None,
+        "guard_passes": guard_passes, "guard_gold_6m_pct": guard_gold6 * 100 if guard_gold6 is not None else None,
+        "guard_nifty_6m_pct": guard_nifty6 * 100 if guard_nifty6 is not None else None,
     }
 
 
