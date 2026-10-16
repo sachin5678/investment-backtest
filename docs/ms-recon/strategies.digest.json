@@ -1,0 +1,89 @@
+{
+ "title": "My Strategies · MomentumScore",
+ "url": "https://momentumscore.in/strategies",
+ "heads": [
+  "h2: My strategies"
+ ],
+ "buttons": [
+  "Research",
+  "Build & Test",
+  "Learn",
+  "S Sachin Patil",
+  "More",
+  "New folder…",
+  "Not now",
+  "Ask doubt",
+  "New",
+  "Ask a live agent"
+ ],
+ "links": [
+  "home :: MomentumScore",
+  "ranks :: Stock Scoring",
+  "ranks?asset=etf :: ETF Scoring",
+  "strategies :: My Strategies",
+  "backtest :: Backtest",
+  "compare :: Compare",
+  "multi :: Multi-System",
+  "portfolio :: My Portfolio",
+  "broker :: My Broker",
+  "learn :: Video guides & articles",
+  "guide :: Ranking Guide",
+  "support :: Help & Requests",
+  "https://t.me/+AMmQzuRvGJQ1NzQ9 :: Telegram Group",
+  "account :: 22 / 25 backtests today",
+  "account :: Account",
+  "account#invite :: Invite friends",
+  "connect :: Download Broker Connect v2.5.2",
+  "logout :: Log out",
+  "ranks :: Research",
+  "strategies :: Build & Test",
+  "learn :: Learn",
+  "portfolio :: My Portfolios",
+  "guide :: ranking guide",
+  "strategies?new=etf :: New ETF strategy",
+  "strategies?new=1 :: New stock strategy",
+  "strategies :: All 1",
+  "pricing :: Pricing",
+  "terms :: Terms",
+  "privacy :: Privacy",
+  "refund :: Refund & cancellation",
+  "delivery :: Service delivery",
+  "contact :: Contact us",
+  "disclaimer :: Disclaimer",
+  "support?prefill=limit :: Request a higher limit"
+ ],
+ "selects": [],
+ "forms": [
+  "POST  fields=[csrf_token,action,id,folder]",
+  "POST  fields=[csrf_token,action,id]",
+  "GET  fields=[csrf_token,aiQ]"
+ ],
+ "inputs": [
+  "csrf_token",
+  "action",
+  "id",
+  "folder",
+  "aiQ"
+ ],
+ "tables": 1,
+ "text": "Momentum Score Research Build & Test My Portfolio My Broker Learn 22 / 25 backtests today S Sachin Patil Beta Access Enabled YOUR WORKSPACE My strategies Your own rules, private to you. Build one from scratch: pick a style, a Factor Mix or a Funnel. The ranking guide shows how each works. New ETF strategy New stock strategy All 1 NAME SCORING UNIVERSE HOLD / EXIT DAY hawda Style: All-rounder (speed medium · smooth · staying power medium) NIFTY MIDCAP 150 10 / 52 20 MomentumScore ranks securities only against rules you define and never recommends a stock or ETF. Backtested results are hypothetical and do not guarantee future returns. Not investment advice. MomentumScore (operated by Technobot Technolgies Pvt Ltd) is not registered with SEBI as an Investment Adviser or Research Analyst. Strategies in the Research section are prepared by RISHABH KUMAR SHARMA, SEBI Registered Research Analyst (Reg. No. INH000018081), who is also a partner in MomentumScore. Pricing Terms Privacy Refund & cancellation Service delivery Contact us Disclaimer Ask doubt",
+ "xhr": [
+  {
+   "url": "chrome-extension://fheoggkfdfchfphceeifdbepaooicaho/wasm_feature.wasm",
+   "status": 200,
+   "type": "Fetch"
+  },
+  {
+   "url": "https://momentumscore.in/favicon.ico",
+   "status": 200,
+   "type": "Fetch"
+  },
+  {
+   "url": "https://momentumscore.in/cdn-cgi/rum?",
+   "status": 204,
+   "type": "XHR"
+  }
+ ],
+ "loaded": true,
+ "nav_error": null
+}

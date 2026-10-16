@@ -1,0 +1,709 @@
+<html lang="en" data-theme="dark" data-bs-theme="dark"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ranking guide · MomentumScore</title>
+<!-- real files, not a data: icon: search engines only show favicons they can fetch -->
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="icon" href="assets/brand/icon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/brand/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#1d4ed8">
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem('as-theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', t);
+    document.documentElement.setAttribute('data-bs-theme', t);
+  } catch (e) {}
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin="">
+<!-- fonts and icons don't hold up the first paint (the system font shows until Inter arrives) -->
+<link rel="stylesheet" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="stylesheet" as="style" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"></noscript>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="assets/app.css?v=1791969918" rel="stylesheet">
+<meta name="robots" content="noindex">
+</head>
+<body>
+<div class="studio">
+  <header class="appbar">
+    <div class="wrap appbar-in">
+      <a class="logo" href="home"><svg width="34" height="34" viewBox="0 -8 112 112" aria-hidden="true"><defs><linearGradient id="msg1b" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#2563eb"></stop><stop offset="1" stop-color="#34d399"></stop></linearGradient><linearGradient id="msg1m" x1="48" y1="92" x2="108" y2="8" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#2563eb"></stop><stop offset=".55" stop-color="#3b82f6"></stop><stop offset="1" stop-color="#22d3ee"></stop></linearGradient></defs><rect x="2" y="64" width="11" height="28" rx="3.5" fill="url(#msg1b)"></rect><rect x="18" y="52" width="11" height="40" rx="3.5" fill="url(#msg1b)"></rect><rect x="34" y="40" width="11" height="52" rx="3.5" fill="url(#msg1b)"></rect><path d="M58 92V36L80 62L103 14V92" fill="none" stroke="url(#msg1m)" stroke-width="13" stroke-linejoin="round" stroke-linecap="round"></path></svg><span class="wm" aria-label="MomentumScore"><span class="wm-1">Momentum</span><span class="wm-2">Score</span></span></a>
+      <nav class="topnav d-none d-lg-flex" aria-label="Main">
+                              <div class="dropdown">
+              <button class="tn " type="button" data-bs-toggle="dropdown" aria-expanded="false" fdprocessedid="k7epdk">Research <i class="bi bi-chevron-down"></i></button>
+              <div class="dropdown-menu"><a class="dropdown-item d-flex align-items-center gap-2" href="ranks"><i class="bi bi-bar-chart-line"></i>Stock Scoring</a><a class="dropdown-item d-flex align-items-center gap-2" href="ranks?asset=etf"><i class="bi bi-collection"></i>ETF Scoring</a></div>
+            </div>
+                                        <div class="dropdown">
+              <button class="tn " type="button" data-bs-toggle="dropdown" aria-expanded="false" fdprocessedid="gce3hm">Build &amp; Test <i class="bi bi-chevron-down"></i></button>
+              <div class="dropdown-menu"><a class="dropdown-item d-flex align-items-center gap-2" href="strategies"><i class="bi bi-sliders"></i>My Strategies</a><a class="dropdown-item d-flex align-items-center gap-2" href="backtest"><i class="bi bi-graph-up-arrow"></i>Backtest</a><a class="dropdown-item d-flex align-items-center gap-2" href="compare"><i class="bi bi-layout-three-columns"></i>Compare</a><a class="dropdown-item d-flex align-items-center gap-2" href="multi"><i class="bi bi-diagram-3"></i>Multi-System</a></div>
+            </div>
+                                        <a class="tn " href="portfolio">My Portfolio</a>
+                                        <a class="tn " href="broker">My Broker</a>
+                                        <div class="dropdown">
+              <button class="tn on" type="button" data-bs-toggle="dropdown" aria-expanded="false" fdprocessedid="yzt1r">Learn <i class="bi bi-chevron-down"></i></button>
+              <div class="dropdown-menu"><a class="dropdown-item d-flex align-items-center gap-2" href="learn"><i class="bi bi-play-btn"></i>Video guides &amp; articles</a><a class="dropdown-item d-flex align-items-center gap-2 active" href="guide"><i class="bi bi-book"></i>Ranking Guide</a><a class="dropdown-item d-flex align-items-center gap-2" href="support"><i class="bi bi-life-preserver"></i>Help &amp; Requests</a><a class="dropdown-item d-flex align-items-center gap-2" href="https://t.me/+AMmQzuRvGJQ1NzQ9" target="_blank" rel="noopener"><i class="bi bi-telegram"></i>Telegram Group</a></div>
+            </div>
+                        </nav>
+      <div class="ms-auto d-flex align-items-center gap-2">
+                <a class="tb-btn text-decoration-none" href="account" id="btCredits" data-left="22" data-limit="25" title="Fresh backtests left today. Opening a result you already ran is free. Resets at midnight." style="font-size:12.5px;font-weight:600;">
+          <i class="bi bi-lightning-charge-fill" style="color:var(--brand)"></i>
+          <span>22<span class="muted fw-normal"> / 25</span></span><span class="d-none d-xl-inline muted fw-normal">&nbsp;backtests today</span>
+        </a>
+                <button class="tb-btn" id="themeBtn" title="Light / dark" fdprocessedid="6nixpr"><i class="bi bi-circle-half"></i></button>
+        <div class="dropdown">
+          <button class="tb-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Account" fdprocessedid="5w6fb">
+            <span class="avatar">S</span>
+            <span class="d-none d-md-inline" style="font-weight:600;font-size:13px">Sachin Patil</span>
+          </button>
+          <div class="dropdown-menu dropdown-menu-end">
+            <div class="px-3 py-2" style="font-size:12.5px"><b>Launch offer plan</b><div class="muted">90 days left</div></div>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item " href="account"><i class="bi bi-person-circle me-2"></i>Account</a>
+            <a class="dropdown-item" href="account#invite"><i class="bi bi-gift me-2"></i>Invite friends</a>                        <a class="dropdown-item" href="connect"><i class="bi bi-download me-2"></i>Download Broker Connect <span class="muted" style="font-size:11px">v2.5.2</span></a>                        <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="logout"><i class="bi bi-box-arrow-right me-2"></i>Log out</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+    <nav class="tabbar d-lg-none" aria-label="Main">
+          <a class="" href="ranks"><i class="bi bi-search"></i><span>Research</span></a>
+          <a class="" href="strategies"><i class="bi bi-sliders"></i><span>Build &amp; Test</span></a>
+          <a class="" href="portfolio"><i class="bi bi-briefcase"></i><span>My Portfolio</span></a>
+          <a class="on" href="learn"><i class="bi bi-book"></i><span>Learn</span></a>
+        <button type="button" onclick="document.getElementById('moreSheet').classList.toggle('open')"><i class="bi bi-grid"></i><span>More</span></button>
+  </nav>
+  <div class="more-sheet d-lg-none" id="moreSheet" onclick="if (event.target === this) this.classList.remove('open')">
+    <div class="sheet-in">
+      <div class="sheet-grp">Research</div><a class="dropdown-item d-flex align-items-center gap-2" href="ranks"><i class="bi bi-bar-chart-line"></i>Stock Scoring</a><a class="dropdown-item d-flex align-items-center gap-2" href="ranks?asset=etf"><i class="bi bi-collection"></i>ETF Scoring</a><div class="sheet-grp">Build &amp; Test</div><a class="dropdown-item d-flex align-items-center gap-2" href="strategies"><i class="bi bi-sliders"></i>My Strategies</a><a class="dropdown-item d-flex align-items-center gap-2" href="backtest"><i class="bi bi-graph-up-arrow"></i>Backtest</a><a class="dropdown-item d-flex align-items-center gap-2" href="compare"><i class="bi bi-layout-three-columns"></i>Compare</a><a class="dropdown-item d-flex align-items-center gap-2" href="multi"><i class="bi bi-diagram-3"></i>Multi-System</a><div class="sheet-grp">My Portfolio</div><a class="dropdown-item d-flex align-items-center gap-2" href="portfolio"><i class="bi bi-briefcase"></i>My Portfolios</a><div class="sheet-grp">My Broker</div><a class="dropdown-item d-flex align-items-center gap-2" href="broker"><i class="bi bi-bank"></i>My Broker</a><div class="sheet-grp">Learn</div><a class="dropdown-item d-flex align-items-center gap-2" href="learn"><i class="bi bi-play-btn"></i>Video guides &amp; articles</a><a class="dropdown-item d-flex align-items-center gap-2 active" href="guide"><i class="bi bi-book"></i>Ranking Guide</a><a class="dropdown-item d-flex align-items-center gap-2" href="support"><i class="bi bi-life-preserver"></i>Help &amp; Requests</a><a class="dropdown-item d-flex align-items-center gap-2" href="https://t.me/+AMmQzuRvGJQ1NzQ9" target="_blank" rel="noopener"><i class="bi bi-telegram"></i>Telegram Group</a>      <div class="sheet-grp">You</div><a class="dropdown-item d-flex align-items-center gap-2" href="account"><i class="bi bi-person-circle"></i>Account</a><a class="dropdown-item d-flex align-items-center gap-2" href="logout"><i class="bi bi-box-arrow-right"></i>Log out</a>    </div>
+  </div>
+  <div class="studio-body">
+    <main class="content wrap">
+                  <div class="alert alert-success py-2"><i class="bi bi-megaphone"></i> Beta Access Enabled</div>
+        <style>
+  .g-wrap { max-width: 1020px; margin: 0 auto; }
+  .g-wrap section { margin-bottom: 56px; }
+  .g-wrap p, .g-wrap li { color: var(--text-2); font-size: 15px; line-height: 1.65; }
+  .g-h { text-align: center; max-width: 720px; margin: 0 auto 22px; }
+  .g-h .eb { display: inline-flex; gap: 6px; align-items: center; font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--brand); }
+  .g-h h2 { font-size: clamp(24px, 3vw, 32px); font-weight: 800; letter-spacing: -.03em; margin: 6px 0; }
+  .g-toc a { display: inline-block; margin: 0 6px 6px 0; }
+  .g-card { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 20px; }
+  .g-note { font-size: 13px; color: var(--text-2); }
+  .g-spark { width: 100%; height: 40px; }
+
+  /* the journey */
+  .g-journey { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+  .g-step { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 16px 12px; text-align: center; }
+  .g-step:not(:last-child)::after { content: "\F285"; font-family: bootstrap-icons; position: absolute; right: -12px; top: 42%; z-index: 1; color: var(--brand); background: var(--bg); border-radius: 50%; font-size: 15px; }
+  .g-step .ic { width: 52px; height: 52px; margin: 0 auto 8px; border-radius: 16px; display: grid; place-items: center; font-size: 24px; background: var(--brand-soft); color: var(--brand); }
+  .g-step b { display: block; font-size: 24px; font-weight: 800; letter-spacing: -.02em; }
+  .g-step span { display: block; font-size: 12.5px; color: var(--text-2); }
+  .g-step.hot { border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-soft); }
+
+  /* the gate */
+  .g-gate svg { width: 100%; height: auto; }
+
+  /* style lab */
+  .g-lab { display: grid; grid-template-columns: 330px 1fr; gap: 20px; }
+  .g-shp { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .g-shp button { border: 1px solid var(--line); background: var(--surface-2); border-radius: 12px; padding: 8px 10px; text-align: left; color: var(--text-2); font-size: 11.5px; }
+  .g-shp button svg { width: 100%; height: 28px; }
+  .g-shp button b { display: block; color: var(--text); font-size: 13px; }
+  .g-shp button.on { border-color: var(--brand); background: var(--brand-soft); color: var(--brand); box-shadow: 0 0 0 3px var(--brand-soft); }
+  .g-dial { margin-top: 12px; }
+  .g-dial label { display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; }
+  .g-dial label span { font-weight: 500; color: var(--brand); }
+  .g-dial input { width: 100%; accent-color: var(--brand); }
+  .g-dial .ends { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-2); margin-top: -4px; }
+  .g-uses { margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--line); font-size: 12.5px; color: var(--text-2); }
+  .g-uses b { color: var(--text); }
+  .g-race { display: flex; flex-direction: column; gap: 10px; }
+  .g-runner { display: grid; grid-template-columns: 44px 150px 1fr 56px; gap: 12px; align-items: center; border: 1px solid var(--line); border-radius: 14px; padding: 10px 14px; background: var(--surface); transition: transform .35s ease; }
+  .g-runner .pos { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; background: var(--surface-2); color: var(--text-2); }
+  .g-runner.first { border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-soft); }
+  .g-runner.first .pos { background: var(--brand); color: #fff; }
+  .g-runner .nm b { display: block; font-size: 14px; }
+  .g-runner .nm small { color: var(--text-2); font-size: 11.5px; }
+  .g-runner .fit { height: 10px; border-radius: 10px; background: var(--line); overflow: hidden; }
+  .g-runner .fit i { display: block; height: 100%; border-radius: 10px; background: linear-gradient(90deg, var(--brand), var(--brand-2)); transition: width .35s ease; }
+  .g-runner .pc { font-weight: 800; text-align: right; }
+
+  /* factors */
+  .g-factors { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+  .g-factor { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 14px; }
+  .g-factor b { display: block; font-size: 14px; margin-top: 6px; }
+  .g-factor small { display: block; font-size: 12px; color: var(--text-2); line-height: 1.4; }
+  .g-factor .better { display: inline-block; margin-top: 8px; font-size: 11px; font-weight: 700; border-radius: 99px; padding: 2px 8px; background: var(--up-soft); color: var(--up); }
+
+  /* factor mix */
+  .g-stack { display: flex; flex-direction: column; gap: 10px; }
+  .g-srow { display: grid; grid-template-columns: 110px 1fr 54px; gap: 12px; align-items: center; font-size: 13.5px; }
+  .g-srow .bar { display: flex; height: 22px; border-radius: 8px; overflow: hidden; background: var(--surface-2); }
+  .g-srow .bar i { display: block; height: 100%; transition: width .35s ease; }
+  .g-legend { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 12.5px; color: var(--text-2); margin-top: 10px; }
+  .g-legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+  .g-weights { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 14px; font-size: 13.5px; }
+
+  /* funnel */
+  .g-funnel svg { width: 100%; max-width: 640px; display: block; margin: 0 auto; }
+
+  /* review */
+  .g-review { display: grid; grid-template-columns: 260px 1fr; gap: 24px; align-items: center; }
+  .g-ranks { display: flex; flex-direction: column; gap: 3px; font-size: 12px; }
+  .g-ranks div { display: grid; grid-template-columns: 34px 1fr; gap: 8px; align-items: center; border-radius: 6px; padding: 3px 8px; }
+  .g-ranks .z-buy { background: var(--up-soft); } .g-ranks .z-hold { background: var(--brand-soft); } .g-ranks .z-sell { background: var(--down-soft); }
+  .g-ranks .gap { text-align: center; color: var(--text-2); background: none; display: block; padding: 0; }
+  .g-ranks .ev { font-weight: 700; }
+  .g-zone { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 12px; }
+  .g-zone i { font-size: 20px; }
+
+  /* robustness */
+  .g-luck { display: flex; align-items: flex-end; gap: 6px; height: 110px; border-bottom: 1px solid var(--line); }
+  .g-luck i { flex: 1; border-radius: 6px 6px 0 0; background: color-mix(in srgb, var(--brand) 30%, transparent); }
+  .g-luck i.me { background: var(--brand); }
+
+  @media (max-width: 991px) {
+    .g-journey { grid-template-columns: 1fr 1fr; } .g-step::after { display: none; }
+    .g-lab, .g-review { grid-template-columns: 1fr; }
+    .g-factors { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 575px) {
+    .g-journey, .g-factors { grid-template-columns: 1fr; }
+    .g-runner { grid-template-columns: 36px 1fr 48px; } .g-runner .fit { grid-column: 1 / -1; grid-row: 2; }
+    .g-srow { grid-template-columns: 80px 1fr 44px; }
+  }
+</style>
+
+
+<div class="g-wrap">
+  <section class="text-center pt-3" style="margin-bottom:36px">
+    <span class="chip chip-brand mb-3"><i class="bi bi-book"></i> Ranking guide</span>
+    <h1 class="fw-bold" style="letter-spacing:-.035em;font-size:clamp(30px,4.4vw,46px)">How MomentumScore picks what to hold</h1>
+    <p class="mx-auto" style="max-width:640px;font-size:16.5px">Five simple steps, the same on every review day. You choose the rules; MomentumScore applies them to every stock, every time, without emotion.</p>
+    <div class="g-toc mt-3">
+      <a class="btn btn-sm btn-soft" href="#journey">The journey</a>
+      <a class="btn btn-sm btn-soft" href="#gate">The gate</a>
+      <a class="btn btn-sm btn-soft" href="#lab">Style lab</a>
+      <a class="btn btn-sm btn-soft" href="#factors">Factors</a>
+      <a class="btn btn-sm btn-soft" href="#mix">Factor Mix</a>
+      <a class="btn btn-sm btn-soft" href="#funnel">Funnel</a>
+      <a class="btn btn-sm btn-soft" href="#review">Each review</a>
+      <a class="btn btn-sm btn-soft" href="#luck">Rules or luck</a>
+      <a class="btn btn-sm btn-soft" href="#faq">FAQ</a>
+    </div>
+  </section>
+
+  <!-- 1. the journey -->
+  <section id="journey">
+    <div class="g-h"><span class="eb"><i class="bi bi-signpost-split"></i> Step by step</span><h2>From 500 stocks to your 20</h2>
+      <p>An example with the NIFTY 500. The numbers change with your rules; the path is always the same.</p></div>
+    <div class="g-journey">
+      <div class="g-step"><div class="ic"><i class="bi bi-globe2"></i></div><b>500</b><span><strong>Universe</strong><br>every stock in the index you pick</span></div>
+      <div class="g-step"><div class="ic"><i class="bi bi-door-open"></i></div><b>320</b><span><strong>The gate</strong><br>only those passing your conditions</span></div>
+      <div class="g-step hot"><div class="ic"><i class="bi bi-trophy"></i></div><b>1 → 320</b><span><strong>The race</strong><br>ranked by how well they fit your style</span></div>
+      <div class="g-step"><div class="ic"><i class="bi bi-basket"></i></div><b>20</b><span><strong>Your basket</strong><br>the top 20 are bought</span></div>
+      <div class="g-step"><div class="ic"><i class="bi bi-arrow-repeat"></i></div><b>Monthly</b><span><strong>Each review</strong><br>the race runs again; weak ones leave</span></div>
+    </div>
+  </section>
+
+  <!-- 2. the gate -->
+  <section id="gate">
+    <div class="g-h"><span class="eb"><i class="bi bi-door-open"></i> Step 2 · Conditions</span><h2>The gate: yes or no</h2>
+      <p>A condition is a simple test. Stocks that fail are never ranked, and one you hold that stops passing is sold at the next review. Conditions are optional.</p></div>
+    <div class="g-card g-gate">
+      <svg viewBox="0 0 900 250" aria-label="Stocks passing through a gate">
+        <defs><linearGradient id="gGate" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="var(--brand)"></stop><stop offset="1" stop-color="var(--brand-2)"></stop></linearGradient></defs>
+        <text x="110" y="28" text-anchor="middle" font-size="14" font-weight="700" fill="var(--text)">Every stock</text>
+                  <circle cx="60" cy="70" r="13" fill="var(--brand)" opacity=".85"></circle>
+                  <circle cx="110" cy="60" r="13" fill="var(--brand)" opacity=".85"></circle>
+                  <circle cx="160" cy="75" r="13" fill="var(--down)" opacity=".85"></circle>
+                  <circle cx="80" cy="115" r="13" fill="var(--brand)" opacity=".85"></circle>
+                  <circle cx="135" cy="110" r="13" fill="var(--brand)" opacity=".85"></circle>
+                  <circle cx="60" cy="160" r="13" fill="var(--down)" opacity=".85"></circle>
+                  <circle cx="115" cy="158" r="13" fill="var(--brand)" opacity=".85"></circle>
+                  <circle cx="165" cy="150" r="13" fill="var(--brand)" opacity=".85"></circle>
+                  <circle cx="90" cy="200" r="13" fill="var(--brand)" opacity=".85"></circle>
+                  <circle cx="145" cy="200" r="13" fill="var(--down)" opacity=".85"></circle>
+                <path d="M200 130 L285 130" stroke="var(--text-2)" stroke-width="2" stroke-dasharray="5 5"></path>
+        <rect x="300" y="40" width="16" height="180" rx="6" fill="url(#gGate)"></rect>
+        <rect x="484" y="40" width="16" height="180" rx="6" fill="url(#gGate)"></rect>
+        <rect x="300" y="40" width="200" height="16" rx="6" fill="url(#gGate)"></rect>
+        <text x="400" y="92" text-anchor="middle" font-size="14" font-weight="800" fill="var(--text)">THE GATE</text>
+        <text x="400" y="118" text-anchor="middle" font-size="12.5" fill="var(--text-2)">Rising over 6 months?</text>
+        <text x="400" y="140" text-anchor="middle" font-size="12.5" fill="var(--text-2)">Not too wild?</text>
+        <text x="400" y="162" text-anchor="middle" font-size="12.5" fill="var(--text-2)">Enough trading?</text>
+        <path d="M512 105 L580 80" stroke="var(--up)" stroke-width="3" fill="none"></path>
+        <path d="M512 165 L580 205" stroke="var(--down)" stroke-width="3" fill="none"></path>
+        <circle cx="600" cy="60" r="13" fill="var(--up)" opacity=".9"></circle><circle cx="640" cy="75" r="13" fill="var(--up)" opacity=".9"></circle><circle cx="680" cy="60" r="13" fill="var(--up)" opacity=".9"></circle><circle cx="620" cy="105" r="13" fill="var(--up)" opacity=".9"></circle><circle cx="665" cy="110" r="13" fill="var(--up)" opacity=".9"></circle><circle cx="710" cy="95" r="13" fill="var(--up)" opacity=".9"></circle><circle cx="740" cy="70" r="13" fill="var(--up)" opacity=".9"></circle>        <text x="770" y="80" font-size="14" font-weight="800" fill="var(--up)">Pass</text>
+        <text x="770" y="98" font-size="12" fill="var(--text-2)">go on to the race</text>
+        <circle cx="600" cy="205" r="13" fill="var(--down)" opacity=".9"></circle><circle cx="640" cy="215" r="13" fill="var(--down)" opacity=".9"></circle><circle cx="680" cy="200" r="13" fill="var(--down)" opacity=".9"></circle>        <text x="720" y="206" font-size="14" font-weight="800" fill="var(--down)">Fail</text>
+        <text x="720" y="224" font-size="12" fill="var(--text-2)">not ranked at all</text>
+      </svg>
+      <div class="row g-2 mt-2 g-note">
+        <div class="col-md-3"><b>Only rising:</b> 6-month return above 0%</div>
+        <div class="col-md-3"><b>Skip wild swings:</b> volatility under 45%</div>
+        <div class="col-md-3"><b>Enough liquidity:</b> ₹5 crore traded a day</div>
+        <div class="col-md-3"><b>Price range:</b> e.g. at least ₹50</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. the style lab -->
+  <section id="lab">
+    <div class="g-h"><span class="eb"><i class="bi bi-trophy"></i> Step 3 · Rank by</span><h2>The race: try it yourself</h2>
+      <p>Four made-up stocks, each with a different kind of rise. Pick a style or move the dials and watch the order change. This is exactly how your real universe is ranked.</p></div>
+    <div class="g-card g-lab" id="gLab">
+      <div>
+        <div class="g-shp">
+                      <button type="button" data-shape="rocket" fdprocessedid="zv0twa"><svg viewBox="0 0 72 38" aria-hidden="true"><path d="M4 34 L30 32 L44 29 L54 20 L62 8 L68 3" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg><b>Rocket</b>Shot up fast, lately</button>
+                      <button type="button" data-shape="stairs" class="on" fdprocessedid="nr5all"><svg viewBox="0 0 72 38" aria-hidden="true"><path d="M4 34 L14 30 L18 31 L28 25 L32 26 L42 19 L46 20 L56 13 L60 14 L68 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg><b>Steady climber</b>Up a little, month after month</button>
+                      <button type="button" data-shape="marathon" fdprocessedid="4sobw7"><svg viewBox="0 0 72 38" aria-hidden="true"><path d="M4 35 L12 31 L20 29 L28 25 L36 23 L44 18 L52 16 L60 11 L68 8" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg><b>Marathon</b>Rising for a year or more</button>
+                      <button type="button" data-shape="balanced" fdprocessedid="qmaivi"><svg viewBox="0 0 72 38" aria-hidden="true"><path d="M4 33 L14 28 L22 30 L32 22 L40 24 L50 15 L58 16 L68 6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg><b>All-rounder</b>A bit of everything</button>
+                  </div>
+                  <div class="g-dial"><label>Speed <span data-word="speed">medium</span></label>
+            <input type="range" min="0" max="4" step="1" data-dial="speed" aria-label="Speed">
+            <div class="ends"><span>Slow · 1 year</span><span>Fast · 1 month</span></div></div>
+                  <div class="g-dial"><label>Smoothness <span data-word="smooth">smoothest</span></label>
+            <input type="range" min="0" max="4" step="1" data-dial="smooth" aria-label="Smoothness">
+            <div class="ends"><span>Any path</span><span>Smooth</span></div></div>
+                  <div class="g-dial"><label>Staying power <span data-word="stay">medium</span></label>
+            <input type="range" min="0" max="4" step="1" data-dial="stay" aria-label="Staying power">
+            <div class="ends"><span>Short burst</span><span>Long lasting</span></div></div>
+                <div class="g-uses">Scored on: <b id="gUses">6M risk-adjusted ●●● · 3M risk-adjusted ●● · 6M low volatility ●● · steadiness ●●</b></div>
+      </div>
+      <div>
+        <div class="g-race" id="gRace"><div class="g-runner" data-i="0" style="transform: translateY(156px);"><span class="pos">#3</span><span class="nm"><b>Rocket Ltd</b><small>flat, then a sharp jump</small></span><span><svg viewBox="0 0 150 36" style="width:100%;height:36px" aria-hidden="true"><path d="M3.0 32.4 L15.0 32.4 L27.0 33.0 L39.0 31.9 L51.0 32.4 L63.0 31.3 L75.0 31.9 L87.0 30.7 L99.0 30.2 L111.0 29.0 L123.0 23.9 L135.0 15.5 L147.0 3.0" fill="none" stroke="var(--brand)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg><div class="fit"><i style="width: 41%;"></i></div></span><span class="pc">41%</span></div><div class="g-runner first" data-i="1" style="transform: translateY(-78px);"><span class="pos">#1</span><span class="nm"><b>Steady Co</b><small>up a little every month</small></span><span><svg viewBox="0 0 150 36" style="width:100%;height:36px" aria-hidden="true"><path d="M3.0 33.0 L15.0 30.5 L27.0 28.0 L39.0 25.5 L51.0 23.0 L63.0 20.5 L75.0 18.0 L87.0 15.5 L99.0 13.0 L111.0 10.5 L123.0 8.0 L135.0 5.5 L147.0 3.0" fill="none" stroke="var(--brand)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg><div class="fit"><i style="width: 78%;"></i></div></span><span class="pc">78%</span></div><div class="g-runner" data-i="2" style="transform: translateY(-78px);"><span class="pos">#2</span><span class="nm"><b>Marathon Inc</b><small>a long, strong climb</small></span><span><svg viewBox="0 0 150 36" style="width:100%;height:36px" aria-hidden="true"><path d="M3.0 33.0 L15.0 30.5 L27.0 28.0 L39.0 25.5 L51.0 23.0 L63.0 20.5 L75.0 18.0 L87.0 15.5 L99.0 13.0 L111.0 10.5 L123.0 8.0 L135.0 5.5 L147.0 3.0" fill="none" stroke="var(--brand)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg><div class="fit"><i style="width: 74%;"></i></div></span><span class="pc">74%</span></div><div class="g-runner" data-i="3" style="transform: translateY(0px);"><span class="pos">#4</span><span class="nm"><b>Wild Tech</b><small>big swings, up overall</small></span><span><svg viewBox="0 0 150 36" style="width:100%;height:36px" aria-hidden="true"><path d="M3.0 30.7 L15.0 21.5 L27.0 33.0 L39.0 19.2 L51.0 28.4 L63.0 12.2 L75.0 26.1 L87.0 7.6 L99.0 21.5 L111.0 5.3 L123.0 16.8 L135.0 3.0 L147.0 7.6" fill="none" stroke="var(--brand)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg><div class="fit"><i style="width: 7%;"></i></div></span><span class="pc">7%</span></div></div>
+        <div class="g-note mt-2">Fit = how well each stock matches the style, from 0 to 100%, against the others. Made-up prices; in the app it is your whole universe with real prices.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. factors -->
+  <section id="factors">
+    <div class="g-h"><span class="eb"><i class="bi bi-grid-3x3-gap"></i> Under the hood</span><h2>The five things a style looks at</h2>
+      <p>Every style is a mix of these plain measures, each over a period from 1 week to 1 year.</p></div>
+    <div class="g-factors">
+      <div class="g-factor"><svg viewBox="0 0 120 40" class="g-spark" aria-hidden="true"><path d="M4 36 L20 32.8 L36 31.2 L52 26.4 L68 23.2 L84 16.8 L100 12 L116 4" fill="none" stroke="var(--brand)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><b>Momentum</b><small>How much the price rose over the period</small><span class="better">Higher is better</span></div>
+      <div class="g-factor"><svg viewBox="0 0 120 40" class="g-spark" aria-hidden="true"><path d="M4 36 L20 31.4 L36 26.9 L52 22.3 L68 17.7 L84 13.1 L100 8.6 L116 4" fill="none" stroke="var(--up)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><b>Risk-adjusted</b><small>The rise divided by how bumpy it was</small><span class="better">Smooth rises win</span></div>
+      <div class="g-factor"><svg viewBox="0 0 120 40" class="g-spark" aria-hidden="true"><path d="M4 36 L20 25.3 L36 36 L52 14.7 L68 25.3 L84 14.7 L100 4 L116 14.7" fill="none" stroke="var(--brand-2)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><b>Low volatility</b><small>How calmly the price moves day to day</small><span class="better">Calmer is better</span></div>
+      <div class="g-factor"><svg viewBox="0 0 120 40" class="g-spark" aria-hidden="true"><path d="M4 36 L14.2 32.6 L24.4 30.3 L34.5 28 L44.7 24.6 L54.9 22.3 L65.1 18.9 L75.3 15.4 L85.5 13.1 L95.6 9.7 L105.8 7.4 L116 4" fill="none" stroke="var(--brand)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg><b>Steadiness</b><small>Still rising over both 6 and 12 months</small><span class="better">Lasting rises win</span></div>
+      <div class="g-factor"><svg viewBox="0 0 120 40" class="g-spark" aria-hidden="true"><rect x="6" y="26" width="9" height="14" rx="2" fill="var(--brand)" opacity=".75"></rect><rect x="20" y="18" width="9" height="22" rx="2" fill="var(--brand)" opacity=".75"></rect><rect x="34" y="22" width="9" height="18" rx="2" fill="var(--brand)" opacity=".75"></rect><rect x="48" y="10" width="9" height="30" rx="2" fill="var(--brand)" opacity=".75"></rect><rect x="62" y="14" width="9" height="26" rx="2" fill="var(--brand)" opacity=".75"></rect><rect x="76" y="6" width="9" height="34" rx="2" fill="var(--brand)" opacity=".75"></rect><rect x="90" y="12" width="9" height="28" rx="2" fill="var(--brand)" opacity=".75"></rect><rect x="104" y="4" width="9" height="36" rx="2" fill="var(--brand)" opacity=".75"></rect></svg><b>Liquidity</b><small>Rupees traded a day, on average (stocks)</small><span class="better">Easier to trade</span></div>
+    </div>
+    <div class="row g-3 mt-2">
+      <div class="col-md-6"><div class="g-card"><b class="up">Stock A: steady</b><svg viewBox="0 0 300 70" class="g-spark" aria-hidden="true"><path d="M4 66 L30.5 60.1 L57.1 54.2 L83.6 51.2 L110.2 45.3 L136.7 39.4 L163.3 33.5 L189.8 27.6 L216.4 21.7 L242.9 15.8 L269.5 9.9 L296 4" fill="none" stroke="var(--up)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>        <div class="g-note">Up 30% in 6 months, calmly. <b>Wins</b> on risk-adjusted and low volatility.</div></div></div>
+      <div class="col-md-6"><div class="g-card"><b class="down">Stock B: wild</b><svg viewBox="0 0 300 70" class="g-spark" aria-hidden="true"><path d="M4 61 L30.5 31.3 L57.1 66 L83.6 21.4 L110.2 56.1 L136.7 11.4 L163.3 51.1 L189.8 6.5 L216.4 46.2 L242.9 16.4 L269.5 36.2 L296 4" fill="none" stroke="#f97316" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>        <div class="g-note">Up 35% in 6 months, but jumping around. Wins on plain momentum only.</div></div></div>
+    </div>
+  </section>
+
+  <!-- 5. factor mix -->
+  <section id="mix">
+    <div class="g-h"><span class="eb"><i class="bi bi-sliders"></i> For more control</span><h2>Factor Mix: marks, then a total</h2>
+      <p>Like a class rank. Each factor gives every stock a mark out of 100 against the others, and your weights decide how much each mark counts.</p></div>
+    <div class="g-card">
+      <div class="g-weights">
+                  <label><i style="display:inline-block;width:12px;height:12px;border-radius:3px;background:#2563eb;margin-right:6px"></i>6M momentum            <select class="form-select form-select-sm d-inline-block w-auto gW" data-f="0" fdprocessedid="dddv2g"><option value="0">Off</option><option value="1">● Low</option><option value="2">●● Medium</option><option value="3" selected="">●●● High</option></select></label>
+                  <label><i style="display:inline-block;width:12px;height:12px;border-radius:3px;background:#06b6d4;margin-right:6px"></i>Low volatility            <select class="form-select form-select-sm d-inline-block w-auto gW" data-f="1" fdprocessedid="e0wyh"><option value="0">Off</option><option value="1" selected="">● Low</option><option value="2">●● Medium</option><option value="3">●●● High</option></select></label>
+                  <label><i style="display:inline-block;width:12px;height:12px;border-radius:3px;background:#8b5cf6;margin-right:6px"></i>1Y momentum            <select class="form-select form-select-sm d-inline-block w-auto gW" data-f="2" fdprocessedid="w80c7s"><option value="0">Off</option><option value="1">● Low</option><option value="2" selected="">●● Medium</option><option value="3">●●● High</option></select></label>
+              </div>
+      <div class="g-stack" id="gStack"><div class="g-srow"><b>🏆 Rocket Ltd</b><div class="bar"><i style="width:50.0%;background:#2563eb"></i><i style="width:5.6%;background:#06b6d4"></i><i style="width:22.2%;background:#8b5cf6"></i></div><b style="text-align:right">78%</b></div><div class="g-srow"><b>Marathon Inc</b><div class="bar"><i style="width:16.7%;background:#2563eb"></i><i style="width:11.1%;background:#06b6d4"></i><i style="width:33.3%;background:#8b5cf6"></i></div><b style="text-align:right">61%</b></div><div class="g-srow"><b>Wild Tech</b><div class="bar"><i style="width:33.3%;background:#2563eb"></i><i style="width:0.0%;background:#06b6d4"></i><i style="width:11.1%;background:#8b5cf6"></i></div><b style="text-align:right">44%</b></div><div class="g-srow"><b>Steady Co</b><div class="bar"><i style="width:0.0%;background:#2563eb"></i><i style="width:16.7%;background:#06b6d4"></i><i style="width:0.0%;background:#8b5cf6"></i></div><b style="text-align:right">17%</b></div></div>
+      <div class="g-note mt-2">Each bar is one stock's total fit, built from its marks. Turn low volatility up and the calm stock climbs; turn it off and the fastest one wins.</div>
+    </div>
+  </section>
+
+  <!-- 6. funnel -->
+  <section id="funnel">
+    <div class="g-h"><span class="eb"><i class="bi bi-funnel"></i> For strict rules</span><h2>Funnel: narrow it down in rounds</h2>
+      <p>Each round keeps only the best part of what is left. What survives every round is sorted, and the top is bought.</p></div>
+    <div class="g-card g-funnel">
+      <svg viewBox="0 0 640 300" aria-label="A funnel narrowing 500 stocks to 100">
+        <defs><linearGradient id="gF" x1="0" x2="1"><stop offset="0" stop-color="var(--brand)"></stop><stop offset="1" stop-color="var(--brand-2)"></stop></linearGradient></defs>
+        <path d="M40 20 H600 L520 100 H120 Z" fill="url(#gF)" opacity=".95"></path>
+        <path d="M128 108 H512 L452 188 H188 Z" fill="url(#gF)" opacity=".75"></path>
+        <path d="M196 196 H444 L404 276 H236 Z" fill="url(#gF)" opacity=".55"></path>
+        <text x="320" y="55" text-anchor="middle" font-size="22" font-weight="800" fill="#fff">500 stocks</text>
+        <text x="320" y="80" text-anchor="middle" font-size="13" fill="#fff">Round 1: keep the top 50% by 1-year momentum</text>
+        <text x="320" y="143" text-anchor="middle" font-size="20" font-weight="800" fill="#fff">250</text>
+        <text x="320" y="166" text-anchor="middle" font-size="12.5" fill="#fff">Round 2: top 40% by 3-month momentum</text>
+        <text x="320" y="232" text-anchor="middle" font-size="18" font-weight="800" fill="var(--text)">100</text>
+        <text x="320" y="254" text-anchor="middle" font-size="12" fill="var(--text)">sorted steadiest first</text>
+      </svg>
+      <div class="text-center g-note mt-2">→ the top 20 of the sorted list are bought. The builder shows these counts live as you set the rounds.</div>
+    </div>
+  </section>
+
+  <!-- 7. each review -->
+  <section id="review">
+    <div class="g-h"><span class="eb"><i class="bi bi-arrow-repeat"></i> Step 5 · Every review</span><h2>Buy the top, keep the good, let go of the weak</h2>
+      <p>On each review day the race runs again. Your holdings get room to breathe: one is only sold when it falls well down the list.</p></div>
+    <div class="g-card g-review">
+      <div class="g-ranks">
+        <div class="z-buy"><b>#1</b><span>New leader <span class="ev up">→ bought</span></span></div>
+        <div class="z-buy"><b>#2</b><span>Held</span></div>
+        <div class="gap">⋮</div>
+        <div class="z-buy"><b>#20</b><span>Held</span></div>
+        <div class="z-hold"><b>#21</b><span>Held · slipped a bit</span></div>
+        <div class="gap">⋮</div>
+        <div class="z-hold"><b>#48</b><span>Held · still inside</span></div>
+        <div class="z-sell"><b>#51</b><span>Fell past the line <span class="ev down">→ sold</span></span></div>
+        <div class="gap">⋮</div>
+      </div>
+      <div>
+        <div class="g-zone"><i class="bi bi-cart-plus up"></i><div><b>Top 20: the buy zone</b><div class="g-note">Empty slots are filled from the top of the list.</div></div></div>
+        <div class="g-zone"><i class="bi bi-pause-circle" style="color:var(--brand)"></i><div><b>Ranks 21 to 50: the hold zone</b><div class="g-note">A holding that slips here is kept. This saves costs and stops needless selling.</div></div></div>
+        <div class="g-zone"><i class="bi bi-box-arrow-right down"></i><div><b>Below the exit rank (50): sold</b><div class="g-note">Its place goes to the best stock not yet held.</div></div></div>
+        <div class="g-zone mb-0"><i class="bi bi-shield-check" style="color:var(--brand)"></i><div><b>Optional trend filter</b><div class="g-note">When the whole market turns down, step aside into cash (or halve the holdings) until it turns up again.</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. rules or luck -->
+  <section id="luck">
+    <div class="g-h"><span class="eb"><i class="bi bi-shield-check"></i> Before you trust a result</span><h2>Rules or luck?</h2>
+      <p>A great backtest can be a lucky one. The robustness check runs your rules again on every other review day and on each half of the history.</p></div>
+    <div class="row g-3">
+      <div class="col-md-7"><div class="g-card h-100"><b>Date luck</b><div class="g-note mb-2">Growth a year with the review on day 15, 16 … 25. Your day is the dark bar.</div>
+        <div class="g-luck"><i class="" style="height:72%"></i><i class="" style="height:80%"></i><i class="" style="height:76%"></i><i class="" style="height:86%"></i><i class="" style="height:78%"></i><i class="me" style="height:70%"></i><i class="" style="height:68%"></i><i class="" style="height:74%"></i><i class="" style="height:71%"></i><i class="" style="height:73%"></i><i class="" style="height:66%"></i></div>
+        <div class="g-note mt-2">All the bars are close: the result comes from the rules, not the day. <b class="up">Robust</b></div></div></div>
+      <div class="col-md-5"><div class="g-card h-100"><b>Both halves</b><div class="g-note mb-2">Did it beat the market in each half on its own?</div>
+        <div class="d-flex flex-column gap-2 mt-3">
+          <div class="d-flex justify-content-between"><span>First half</span><b class="up"><i class="bi bi-check-circle-fill"></i> beat the market</b></div>
+          <div class="d-flex justify-content-between"><span>Second half</span><b class="up"><i class="bi bi-check-circle-fill"></i> beat the market</b></div>
+        </div>
+        <div class="mt-4 p-3 text-center" style="border-radius:14px;background:var(--up-soft)"><div class="g-note">Verdict</div><b class="up" style="font-size:22px">Holds up</b></div></div></div>
+    </div>
+  </section>
+
+  
+  <section id="faq">
+    <div class="g-h"><span class="eb"><i class="bi bi-chat-dots"></i> FAQ</span><h2>Questions people ask</h2></div>
+    <div class="accordion" id="gFaq">
+              <div class="accordion-item"><h3 class="accordion-header"><button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#gq0" fdprocessedid="dqqpti">What does a fit of 86% mean?</button></h3>
+          <div id="gq0" class="accordion-collapse collapse show" data-bs-parent="#gFaq"><div class="accordion-body"><p class="mb-0">On the review day, the stock matched your ranking rules better than 86% of the other stocks in your universe. It is a comparison, not a forecast: the best fit ranks first, and your portfolio holds the top ranks.</p></div></div></div>
+              <div class="accordion-item"><h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#gq1" fdprocessedid="fa9wc">What is the difference between Conditions and Rank by?</button></h3>
+          <div id="gq1" class="accordion-collapse collapse " data-bs-parent="#gFaq"><div class="accordion-body"><p class="mb-0">Conditions are a yes/no test: a stock that fails is not ranked at all. Rank by orders the stocks that passed. Think of Conditions as the minimum qualification and Rank by as the interview marks.</p></div></div></div>
+              <div class="accordion-item"><h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#gq2" fdprocessedid="o8peb">What does "6-month momentum" mean exactly?</button></h3>
+          <div id="gq2" class="accordion-collapse collapse " data-bs-parent="#gFaq"><div class="accordion-body"><p class="mb-0">The percentage change from the close 126 trading days ago to the latest close, with prices adjusted for splits and bonus issues. A week is 5 trading days, a month 21 and a year 252.</p></div></div></div>
+              <div class="accordion-item"><h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#gq3" fdprocessedid="0wuyj4">Which should I use: Style, Factor Mix or Funnel?</button></h3>
+          <div id="gq3" class="accordion-collapse collapse " data-bs-parent="#gFaq"><div class="accordion-body"><p class="mb-0">Start with Style: pick a shape and turn the dials. Open Factor Mix to see or change the factors behind it. Use Funnel when you want strict step-by-step rules, such as "only the top half by 1-year momentum".</p></div></div></div>
+              <div class="accordion-item"><h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#gq4" fdprocessedid="bb68m">Why is a stock I like missing from the ranks?</button></h3>
+          <div id="gq4" class="accordion-collapse collapse " data-bs-parent="#gFaq"><div class="accordion-body"><p class="mb-0">It isn't in the universe you picked, it fails one of your conditions or the price range, or it doesn't have enough history yet for the longest period your rules use.</p></div></div></div>
+              <div class="accordion-item"><h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#gq5" fdprocessedid="dvsa9p">Should I use short or long periods?</button></h3>
+          <div id="gq5" class="accordion-collapse collapse " data-bs-parent="#gFaq"><div class="accordion-body"><p class="mb-0">Short periods (1 week to 1 month) follow fast moves but trade more often and pay more costs. Long periods (6 months to 1 year) trade less and are steadier. That is the Speed dial; the Quick check shows the effect in seconds.</p></div></div></div>
+              <div class="accordion-item"><h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#gq6" fdprocessedid="zmu5up">Can a falling stock still be ranked?</button></h3>
+          <div id="gq6" class="accordion-collapse collapse " data-bs-parent="#gFaq"><div class="accordion-body"><p class="mb-0">Yes, if nothing stops it: in a weak market even the best fits can be falling. Add the condition "only rising (6M)", or the trend filter that moves to cash when the index turns down.</p></div></div></div>
+              <div class="accordion-item"><h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#gq7" fdprocessedid="z2uy1w">Is a good backtest a promise of future returns?</button></h3>
+          <div id="gq7" class="accordion-collapse collapse " data-bs-parent="#gFaq"><div class="accordion-body"><p class="mb-0">No. A backtest shows how fixed rules would have behaved on past prices, including costs. Markets change. Use it to compare rules and understand drawdowns, not as a forecast.</p></div></div></div>
+          </div>
+  </section>
+
+  <section class="card p-4 p-md-5 text-center" style="background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;border:0;border-radius:24px">
+    <h2 class="fw-bold" style="color:#fff">Put your rules to the test</h2>
+    <p style="color:rgba(255,255,255,.85)">Pick a style, check it on 10+ years of NSE data in seconds, then see whether it holds up.</p>
+    <div class="d-flex gap-2 justify-content-center flex-wrap"><a class="btn btn-light btn-lg px-4 fw-semibold" href="strategies?new=1">Open the strategy builder</a>      <a class="btn btn-outline-light btn-lg px-4" href="https://t.me/+AMmQzuRvGJQ1NzQ9" target="_blank" rel="noopener"><i class="bi bi-telegram"></i> Questions? Join our Telegram group</a></div>
+  </section>
+  <p class="foot-note text-center py-4">MomentumScore is a research and backtesting tool, not investment advice. Not registered with SEBI as an investment adviser or research analyst. Backtested results are hypothetical and past performance does not guarantee future returns. <a href="disclaimer">Disclaimer</a></p>
+</div>
+
+<script>
+(function () {
+  // ---- the style lab: four made-up stocks, month-end prices over a year (13 points) ----
+  var STOCKS = [
+    { n: 'Rocket Ltd', d: 'flat, then a sharp jump', p: [100, 100, 99, 101, 100, 102, 101, 103, 104, 106, 115, 130, 152] },
+    { n: 'Steady Co', d: 'up a little every month', p: [100, 103, 106, 109, 112, 115, 118, 121, 124, 127, 130, 133, 136] },
+    { n: 'Marathon Inc', d: 'a long, strong climb', p: [100, 107, 114, 121, 128, 135, 142, 149, 156, 163, 170, 177, 184] },
+    { n: 'Wild Tech', d: 'big swings, up overall', p: [100, 120, 95, 125, 105, 140, 110, 150, 120, 155, 130, 160, 150] }
+  ];
+  var SHAPES = { rocket: [4, 0, 0], stairs: [2, 4, 2], marathon: [0, 1, 4], balanced: [2, 2, 2] };
+  var WORDS = { speed: ['very slow', 'slow', 'medium', 'fast', 'very fast'], smooth: ['any path', 'a little', 'smooth', 'very smooth', 'smoothest'], stay: ['short burst', 'a little', 'medium', 'long', 'very long'] };
+  var MONTHS = { '1m': 1, '3m': 3, '6m': 6, '1y': 12 };
+  function ret(p, per) { var k = MONTHS[per]; return p[12] / p[12 - k] - 1; }
+  function vol(p, per) {
+    var k = Math.max(2, MONTHS[per]), r = [];
+    for (var i = 13 - k; i <= 12; i++) r.push(Math.log(p[i] / p[i - 1]));
+    var m = r.reduce(function (a, b) { return a + b; }, 0) / r.length;
+    return Math.sqrt(r.reduce(function (a, b) { return a + (b - m) * (b - m); }, 0) / Math.max(1, r.length - 1)) + 1e-6;
+  }
+  function value(p, f) {   // higher is better, as in the app
+    var a = f.split('_');
+    if (a[0] === 'mom') return ret(p, a[1]);
+    if (a[0] === 'radj') return ret(p, a[1]) / vol(p, a[1]);
+    if (a[0] === 'lowvol') return -vol(p, a[1]);
+    if (f === 'steady') return Math.min(ret(p, '6m'), ret(p, '1y') / 2);
+    return 0;
+  }
+  // the same dials -> factors mapping as the strategy builder
+  function styleMix(sp, sm, st) {
+    var P = [['1y', '6m'], ['6m', '1y'], ['6m', '3m'], ['3m', '6m'], ['1m', '3m']][sp];
+    var out = [[(sm >= 2 ? 'radj_' : 'mom_') + P[0], 3], [(sm >= 3 ? 'radj_' : 'mom_') + P[1], 2]];
+    if (sm === 1) out.push(['lowvol_6m', 1]);
+    if (sm === 4) out.push(['lowvol_6m', 2]);
+    if (st > 0) out.push(['steady', Math.min(3, st)]);
+    if (st === 4 && P.indexOf('1y') < 0) out.push(['mom_1y', 1]);
+    return out;
+  }
+  function label(f) {
+    var a = f.split('_'), P = (a[1] || '').toUpperCase();
+    return { mom: P + ' momentum', radj: P + ' risk-adjusted', lowvol: P + ' low volatility' }[a[0]] || 'steadiness';
+  }
+  // 0-100 rank of each stock on one factor against the other three
+  function pct(vals, v) {
+    var below = 0, same = 0;
+    vals.forEach(function (x) { if (x < v - 1e-12) below++; else if (Math.abs(x - v) <= 1e-12) same++; });
+    return 100 * (below + (same - 1) / 2) / (vals.length - 1);
+  }
+  function spark(p) {
+    var lo = Math.min.apply(null, p), hi = Math.max.apply(null, p);
+    return '<svg viewBox="0 0 150 36" style="width:100%;height:36px" aria-hidden="true"><path d="' + p.map(function (v, i) {
+      return (i ? 'L' : 'M') + (3 + 144 * i / 12).toFixed(1) + ' ' + (33 - 30 * (v - lo) / (hi - lo)).toFixed(1); }).join(' ')
+      + '" fill="none" stroke="var(--brand)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  }
+  var lab = document.getElementById('gLab'), race = document.getElementById('gRace');
+  var st = { speed: 2, smooth: 4, stay: 2 };
+  race.innerHTML = STOCKS.map(function (s, i) {
+    return '<div class="g-runner" data-i="' + i + '"><span class="pos"></span><span class="nm"><b>' + s.n + '</b><small>' + s.d + '</small></span>'
+      + '<span>' + spark(s.p) + '<div class="fit"><i></i></div></span><span class="pc"></span></div>';
+  }).join('');
+  function run() {
+    var mix = styleMix(st.speed, st.smooth, st.stay), tot = mix.reduce(function (a, m) { return a + m[1]; }, 0);
+    var fits = STOCKS.map(function (s) {
+      return mix.reduce(function (a, m) {
+        var vals = STOCKS.map(function (x) { return value(x.p, m[0]); });
+        return a + m[1] * pct(vals, value(s.p, m[0]));
+      }, 0) / tot;
+    });
+    var order = fits.map(function (f, i) { return i; }).sort(function (a, b) { return fits[b] - fits[a]; });
+    var rowH = race.querySelector('.g-runner').offsetHeight + 10;
+    order.forEach(function (idx, rank) {
+      var el = race.querySelector('[data-i="' + idx + '"]');
+      el.style.transform = 'translateY(' + ((rank - idx) * rowH) + 'px)';
+      el.classList.toggle('first', rank === 0);
+      el.querySelector('.pos').textContent = '#' + (rank + 1);
+      el.querySelector('.fit i').style.width = Math.max(3, Math.round(fits[idx])) + '%';
+      el.querySelector('.pc').textContent = Math.round(fits[idx]) + '%';
+    });
+    document.getElementById('gUses').textContent = mix.map(function (m) { return label(m[0]) + ' ' + '●●●'.slice(0, m[1]); }).join(' · ');
+    Object.keys(st).forEach(function (k) {
+      lab.querySelector('[data-dial="' + k + '"]').value = st[k];
+      lab.querySelector('[data-word="' + k + '"]').textContent = WORDS[k][st[k]];
+    });
+    var shape = '';
+    Object.keys(SHAPES).forEach(function (k) { var v = SHAPES[k]; if (v[0] === st.speed && v[1] === st.smooth && v[2] === st.stay) shape = k; });
+    lab.querySelectorAll('[data-shape]').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-shape') === shape); });
+  }
+  lab.querySelectorAll('[data-shape]').forEach(function (b) {
+    b.addEventListener('click', function () { var v = SHAPES[b.getAttribute('data-shape')]; st = { speed: v[0], smooth: v[1], stay: v[2] }; run(); });
+  });
+  lab.querySelectorAll('[data-dial]').forEach(function (d) {
+    d.addEventListener('input', function () { st[d.getAttribute('data-dial')] = +d.value; run(); });
+  });
+  run();
+  addEventListener('resize', run);
+
+  // ---- factor mix: stacked marks per stock ----
+  var MIXF = ['mom_6m', 'lowvol_6m', 'mom_1y'], COLORS = ['#2563eb', '#06b6d4', '#8b5cf6'];
+  var stack = document.getElementById('gStack');
+  function mixRun() {
+    var w = [].map.call(document.querySelectorAll('.gW'), function (s) { return +s.value; }), tot = w.reduce(function (a, b) { return a + b; }, 0) || 1;
+    var rows = STOCKS.map(function (s) {
+      var parts = MIXF.map(function (f, j) {
+        var vals = STOCKS.map(function (x) { return value(x.p, f); });
+        return w[j] * pct(vals, value(s.p, f)) / tot;
+      });
+      return [s.n, parts, parts.reduce(function (a, b) { return a + b; }, 0)];
+    }).sort(function (a, b) { return b[2] - a[2]; });
+    stack.innerHTML = rows.map(function (r, i) {
+      return '<div class="g-srow"><b>' + (i === 0 ? '🏆 ' : '') + r[0] + '</b><div class="bar">'
+        + r[1].map(function (v, j) { return '<i style="width:' + v.toFixed(1) + '%;background:' + COLORS[j] + '"></i>'; }).join('')
+        + '</div><b style="text-align:right">' + Math.round(r[2]) + '%</b></div>';
+    }).join('');
+  }
+  document.querySelectorAll('.gW').forEach(function (s) { s.addEventListener('change', mixRun); });
+  mixRun();
+})();
+</script>
+      <div class="foot-note">
+        MomentumScore ranks securities only against rules you define and never recommends a stock or ETF.
+        Backtested results are hypothetical and do not guarantee future returns. Not investment advice. MomentumScore (operated by Technobot Technolgies Pvt Ltd) is not registered with SEBI as an Investment Adviser or Research Analyst. Strategies in the Research section are prepared by <b>RISHABH KUMAR SHARMA</b>, SEBI Registered Research Analyst (Reg. No. INH000018081), who is also a partner in MomentumScore.        <div class="d-flex flex-wrap gap-3 mt-2"><a href="pricing">Pricing</a><a href="terms">Terms</a><a href="privacy">Privacy</a><a href="refund">Refund &amp; cancellation</a><a href="delivery">Service delivery</a><a href="contact">Contact us</a><a href="disclaimer">Disclaimer</a></div>
+      </div>
+    </main>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.getElementById('themeBtn')?.addEventListener('click', function () {
+  var t = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', t);
+  document.documentElement.setAttribute('data-bs-theme', t);
+  try { localStorage.setItem('as-theme', t); } catch (e) {}
+  document.dispatchEvent(new Event('themechange'));
+});
+</script>
+<div class="modal fade" id="limitModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content">
+  <div class="modal-body p-4 text-center">
+    <div class="verify-ic mx-auto mb-3" style="width:52px;height:52px;border-radius:14px;display:grid;place-items:center;background:var(--brand-soft);color:var(--brand);font-size:24px"><i class="bi bi-lightning-charge"></i></div>
+    <h5 class="fw-bold mb-1">Today's 25 backtests are used up</h5>
+    <p class="muted mb-3" style="font-size:14px">Results you already ran stay open, and the count resets at midnight. Need more? Ask us for a higher daily limit: the request is written for you, just press Send.</p>
+    <div class="d-flex gap-2 justify-content-center flex-wrap">
+      <a class="btn btn-primary" href="support?prefill=limit"><i class="bi bi-send"></i> Request a higher limit</a>
+      <button class="btn btn-soft" type="button" data-bs-dismiss="modal">Not now</button>
+    </div>
+  </div>
+</div></div></div>
+<script>
+// any page can call this when a run is refused for the daily limit
+window.msLimitHit = function () {
+  var m = document.getElementById('limitModal');
+  if (m && window.bootstrap) bootstrap.Modal.getOrCreateInstance(m).show();
+};
+window.msIsLimitError = function (msg) { return /backtests on the .* plan/i.test(String(msg || '')); };
+(function () {
+  // the credits chip in the top bar: at 0 left it opens this instead of the account page
+  var c = document.getElementById('btCredits');
+  if (c && c.getAttribute('data-left') === '0') {
+    c.addEventListener('click', function (e) { e.preventDefault(); window.msLimitHit(); });
+  }
+})();
+</script>
+<style>
+  #aiBtn { position: fixed; right: 20px; bottom: 20px; z-index: 2147483600; border-radius: 999px; box-shadow: 0 6px 20px rgba(0,0,0,.22);
+    padding: 12px 22px; font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+  #aiBtn i { font-size: 20px; }
+  /* above the Tawk.to overlay, which otherwise swallows clicks near its bubble */
+  #aiBox { position: fixed; right: 20px; bottom: 74px; z-index: 2147483600; width: min(380px, calc(100vw - 32px)); height: min(520px, calc(100vh - 120px));
+    display: none; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 12px 40px rgba(0,0,0,.22); overflow: hidden; }
+  /* phones and tablets: the app's bottom tab bar (64 px, .tabbar, below 992 px) and the Tawk
+     bubble just above it (yOffset 76 in livechat.php) take the bottom-right corner, so the button
+     sits above them and the chat opens as a panel above the tab bar */
+  @media (max-width: 991.98px) {
+    #aiBtn { bottom: calc(76px + env(safe-area-inset-bottom, 0px)); right: 12px; padding: 9px 15px; font-size: 14px; }
+    #aiBtn i { font-size: 17px; }
+    #aiBox { left: 8px; right: 8px; width: auto; bottom: calc(72px + env(safe-area-inset-bottom, 0px)); height: calc(100dvh - 150px); max-height: 600px; border-radius: 14px; }
+  }
+  #aiBox.open { display: flex; }
+  #aiBox .hd { padding: 10px 14px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 8px; font-weight: 700; }
+  #aiLog { flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; }
+  #aiLog .m { max-width: 88%; padding: 8px 11px; border-radius: 12px; line-height: 1.5; overflow-wrap: anywhere; }
+  #aiLog .u { align-self: flex-end; background: var(--brand); color: #fff; }
+  #aiLog .a { align-self: flex-start; background: var(--brand-soft); color: var(--text); }
+  #aiLog .a code { background: rgba(0,0,0,.06); padding: 0 4px; border-radius: 4px; }
+  #aiLog .err { align-self: center; color: var(--text-2); font-size: 12.5px; text-align: center; }
+  #aiBox form { border-top: 1px solid var(--line); padding: 8px; display: flex; gap: 6px; }
+  #aiBox .ft { font-size: 11px; color: var(--text-2); padding: 0 12px 8px; }
+  #aiBox .agent { display: flex; align-items: center; gap: 8px; padding: 7px 12px; border-top: 1px solid var(--line); background: var(--brand-soft); font-size: 13px; }
+  #aiBox .agent button { margin-left: auto; white-space: nowrap; }
+  #aiLog .qk { display: flex; align-items: center; gap: 8px; margin-top: 6px; padding-top: 6px; border-top: 1px dashed var(--line); font-size: 11.5px; color: var(--text-2); }
+  #aiLog .qk button { font-size: 11.5px; padding: 0; }
+</style>
+<button class="btn btn-primary" id="aiBtn" type="button" title="Ask a doubt" fdprocessedid="cg4d3k"><i class="bi bi-chat-square-text"></i> Ask doubt</button>
+<div id="aiBox" role="dialog" aria-label="Ask doubt">
+  <div class="hd"><i class="bi bi-chat-square-text" style="color:var(--brand)"></i> Ask doubt
+    <button class="btn btn-sm btn-link ms-auto p-0" type="button" id="aiNew" title="New chat">New</button>
+    <button class="btn-close" type="button" id="aiClose" aria-label="Close"></button></div>
+  <div id="aiLog"></div>
+    <div class="agent"><i class="bi bi-headset"></i> Not understood?
+    <button type="button" class="btn btn-sm btn-primary" id="aiAgent"><i class="bi bi-person-raised-hand"></i> Ask a live agent</button></div>
+    <form id="aiForm"><input type="hidden" name="csrf_token" value="c5690cf92d6d5acfe2759b5796f553f50e3f8d1301f9d092930644586b36423e">    <input class="form-control form-control-sm" id="aiQ" maxlength="2000" placeholder="How do exit ranks work?" autocomplete="off">
+    <button class="btn btn-sm btn-primary" id="aiSend"><i class="bi bi-send"></i></button></form>
+  <div class="ft">AI help for using the app, not investment advice<span id="aiLeft"> · 9 AI questions left today</span></div>
+</div>
+<script>
+(function () {
+  var box = document.getElementById('aiBox'), log = document.getElementById('aiLog'), q = document.getElementById('aiQ'), msgs = [];
+  var hello = 'Hi! Ask me how MomentumScore works: ranking rules, settings, backtests, alerts. (I can\'t give stock tips or investment advice.)';
+  try { msgs = JSON.parse(sessionStorage.getItem('ai-chat') || '[]') || []; } catch (e) { msgs = []; }
+  function save() { try { sessionStorage.setItem('ai-chat', JSON.stringify(msgs.slice(-20))); } catch (e) {} }
+  function esc(t) { return t.replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function md(t) {
+    return esc(t).replace(/`([^`]+)`/g, '<code>$1</code>').replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>')
+      .replace(/^#+\s*(.*)$/gm, '<b>$1</b>').replace(/^\s*[-*]\s+/gm, '• ').replace(/\n/g, '<br>');
+  }
+  function add(cls, html) { var d = document.createElement('div'); d.className = 'm ' + cls; d.innerHTML = html; log.appendChild(d); log.scrollTop = log.scrollHeight; return d; }
+  function draw() { log.innerHTML = ''; add('a', esc(hello)); msgs.forEach(function (m) { add(m.role === 'user' ? 'u' : 'a', m.role === 'user' ? esc(m.content) : md(m.content)); }); }
+  document.getElementById('aiBtn').addEventListener('click', function () { box.classList.toggle('open'); if (box.classList.contains('open')) { draw(); q.focus(); } });
+  document.getElementById('aiClose').addEventListener('click', function () { box.classList.remove('open'); });
+  document.getElementById('aiNew').addEventListener('click', function () { msgs = []; save(); draw(); q.focus(); });
+  var agent = document.getElementById('aiAgent');
+  if (agent) agent.addEventListener('click', function () { box.classList.remove('open'); if (window.msLiveChat) window.msLiveChat(); });
+  var form = document.getElementById('aiForm');
+  // send the chat; forceAi skips the free quick answers (the "Ask AI instead" button), and
+  // keep = the quick answer being replaced: it stays on screen unless the AI really answers
+  function send(forceAi, keep) {
+    var btn = document.getElementById('aiSend');
+    btn.disabled = true;
+    var wait = add('a', '<span class="spinner-border spinner-border-sm"></span>');
+    var fd = new FormData(form);
+    fd.append('messages', JSON.stringify(msgs.slice(-8)));
+    if (forceAi) fd.append('ai', '1');
+    fetch('assistant.php', { method: 'POST', body: fd, credentials: 'same-origin' }).then(function (r) { return r.json(); }).then(function (j) {
+      wait.remove();
+      if (keep && !j.ok) {   // no AI answer: the quick answer stays
+        msgs.push({ role: 'assistant', content: keep.content }); save();
+        var n = add('err', esc(j.reply)); n.classList.remove('m');
+        btn.disabled = false;
+        return;
+      }
+      if (keep) keep.el.remove();
+      if (j.ok) {
+        msgs.push({ role: 'assistant', content: j.reply }); save();
+        var d = add('a', md(j.reply));
+        if (j.quick) {
+          var f = document.createElement('div');
+          f.className = 'qk';
+          f.innerHTML = '<span><i class="bi bi-lightning-charge"></i> Quick answer from the guide (free)</span><button type="button" class="btn btn-link ms-auto">Ask AI instead</button>';
+          f.querySelector('button').addEventListener('click', function () {
+            f.remove();
+            var mine = msgs.pop(); save();   // the AI answers the same question; the quick answer waits on screen
+            send(true, { el: d, content: mine.content });
+          });
+          d.appendChild(f);
+        }
+      } else { msgs.pop(); save(); var e = add('err', esc(j.reply)); e.classList.remove('m'); }
+      if (j.left !== null && j.left !== undefined) document.getElementById('aiLeft').textContent = ' · ' + j.left + ' AI questions left today';
+    }).catch(function () {
+      wait.remove();
+      if (keep) msgs.push({ role: 'assistant', content: keep.content }); else msgs.pop();
+      save(); add('err', 'Could not reach the server. Try again.');
+    }).then(function () { btn.disabled = false; q.focus(); });
+  }
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var text = q.value.trim();
+    if (!text || document.getElementById('aiSend').disabled) return;
+    // "Ask AI instead" belongs to the latest answer only: once a new question is asked, it goes
+    document.querySelectorAll('#aiLog .qk button').forEach(function (b) { b.remove(); });
+    msgs.push({ role: 'user', content: text }); save();
+    add('u', esc(text)); q.value = '';
+    send(false);
+  });
+})();
+</script>
+<script>
+window.msLiveChat = function () {
+  var T = window.Tawk_API;
+  if (T && T.maximize) { if (T.showWidget) T.showWidget(); T.maximize(); return; }
+  if (T) {   // the page's own Tawk (or an earlier click) is still loading: open it once it has
+    var was = T.onLoad;
+    T.onLoad = function () { if (was) was(); T.maximize(); };
+    return;
+  }
+  T = window.Tawk_API = {}; window.Tawk_LoadStart = new Date();
+  T.onLoad = function () { T.maximize(); };
+  T.onChatMinimized = function () { T.hideWidget(); };   // no bubble on pages that had none
+  var s = document.createElement('script');
+  s.async = true; s.src = "https://embed.tawk.to/6ab796eaededd83442cff18a/default"; s.charset = 'UTF-8';
+  s.setAttribute('crossorigin', '*');
+  document.body.appendChild(s);
+};
+</script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4bc70e2c01a94c73b74392e4234840661791215815920" integrity="sha512-L0ha0OXavK/8okipN9F8BtP84dg9DUhPERbBXzwI6dgTA55d2+yweo3pn5CSFYs45/r8md2+xvUPtTdvTNRfjA==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;266760461e5248eda129ab5f18ef68c7&quot;,&quot;r&quot;:1,&quot;spa&quot;:2}" crossorigin="anonymous"></script>
+
+
+<span id="PING_CONTENT_PUSH_NOTIFICATION" style="display: none;"></span><span id="PING_IFRAME_FORM_DETECTION" style="display: none;"></span></body></html>

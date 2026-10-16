@@ -1,0 +1,335 @@
+<html lang="en" data-theme="dark" data-bs-theme="dark"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home · MomentumScore</title>
+<!-- real files, not a data: icon: search engines only show favicons they can fetch -->
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="icon" href="assets/brand/icon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/brand/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#1d4ed8">
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem('as-theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', t);
+    document.documentElement.setAttribute('data-bs-theme', t);
+  } catch (e) {}
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin="">
+<!-- fonts and icons don't hold up the first paint (the system font shows until Inter arrives) -->
+<link rel="stylesheet" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="stylesheet" as="style" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"></noscript>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="assets/app.css?v=1791969918" rel="stylesheet">
+<meta name="robots" content="noindex">
+</head>
+<body>
+<div class="studio">
+  <header class="appbar">
+    <div class="wrap appbar-in">
+      <a class="logo" href="home"><svg width="34" height="34" viewBox="0 -8 112 112" aria-hidden="true"><defs><linearGradient id="msg1b" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#2563eb"></stop><stop offset="1" stop-color="#34d399"></stop></linearGradient><linearGradient id="msg1m" x1="48" y1="92" x2="108" y2="8" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#2563eb"></stop><stop offset=".55" stop-color="#3b82f6"></stop><stop offset="1" stop-color="#22d3ee"></stop></linearGradient></defs><rect x="2" y="64" width="11" height="28" rx="3.5" fill="url(#msg1b)"></rect><rect x="18" y="52" width="11" height="40" rx="3.5" fill="url(#msg1b)"></rect><rect x="34" y="40" width="11" height="52" rx="3.5" fill="url(#msg1b)"></rect><path d="M58 92V36L80 62L103 14V92" fill="none" stroke="url(#msg1m)" stroke-width="13" stroke-linejoin="round" stroke-linecap="round"></path></svg><span class="wm" aria-label="MomentumScore"><span class="wm-1">Momentum</span><span class="wm-2">Score</span></span></a>
+      <nav class="topnav d-none d-lg-flex" aria-label="Main">
+                              <div class="dropdown">
+              <button class="tn " type="button" data-bs-toggle="dropdown" aria-expanded="false" fdprocessedid="yly2hp">Research <i class="bi bi-chevron-down"></i></button>
+              <div class="dropdown-menu"><a class="dropdown-item d-flex align-items-center gap-2" href="ranks"><i class="bi bi-bar-chart-line"></i>Stock Scoring</a><a class="dropdown-item d-flex align-items-center gap-2" href="ranks?asset=etf"><i class="bi bi-collection"></i>ETF Scoring</a></div>
+            </div>
+                                        <div class="dropdown">
+              <button class="tn " type="button" data-bs-toggle="dropdown" aria-expanded="false" fdprocessedid="bx8guo">Build &amp; Test <i class="bi bi-chevron-down"></i></button>
+              <div class="dropdown-menu"><a class="dropdown-item d-flex align-items-center gap-2" href="strategies"><i class="bi bi-sliders"></i>My Strategies</a><a class="dropdown-item d-flex align-items-center gap-2" href="backtest"><i class="bi bi-graph-up-arrow"></i>Backtest</a><a class="dropdown-item d-flex align-items-center gap-2" href="compare"><i class="bi bi-layout-three-columns"></i>Compare</a><a class="dropdown-item d-flex align-items-center gap-2" href="multi"><i class="bi bi-diagram-3"></i>Multi-System</a></div>
+            </div>
+                                        <a class="tn " href="portfolio">My Portfolio</a>
+                                        <a class="tn " href="broker">My Broker</a>
+                                        <div class="dropdown">
+              <button class="tn " type="button" data-bs-toggle="dropdown" aria-expanded="false" fdprocessedid="6ypqh">Learn <i class="bi bi-chevron-down"></i></button>
+              <div class="dropdown-menu"><a class="dropdown-item d-flex align-items-center gap-2" href="learn"><i class="bi bi-play-btn"></i>Video guides &amp; articles</a><a class="dropdown-item d-flex align-items-center gap-2" href="guide"><i class="bi bi-book"></i>Ranking Guide</a><a class="dropdown-item d-flex align-items-center gap-2" href="support"><i class="bi bi-life-preserver"></i>Help &amp; Requests</a><a class="dropdown-item d-flex align-items-center gap-2" href="https://t.me/+AMmQzuRvGJQ1NzQ9" target="_blank" rel="noopener"><i class="bi bi-telegram"></i>Telegram Group</a></div>
+            </div>
+                        </nav>
+      <div class="ms-auto d-flex align-items-center gap-2">
+                <a class="tb-btn text-decoration-none" href="account" id="btCredits" data-left="22" data-limit="25" title="Fresh backtests left today. Opening a result you already ran is free. Resets at midnight." style="font-size:12.5px;font-weight:600;">
+          <i class="bi bi-lightning-charge-fill" style="color:var(--brand)"></i>
+          <span>22<span class="muted fw-normal"> / 25</span></span><span class="d-none d-xl-inline muted fw-normal">&nbsp;backtests today</span>
+        </a>
+                <button class="tb-btn" id="themeBtn" title="Light / dark" fdprocessedid="njyhs"><i class="bi bi-circle-half"></i></button>
+        <div class="dropdown">
+          <button class="tb-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Account" fdprocessedid="8csaqf">
+            <span class="avatar">S</span>
+            <span class="d-none d-md-inline" style="font-weight:600;font-size:13px">Sachin Patil</span>
+          </button>
+          <div class="dropdown-menu dropdown-menu-end">
+            <div class="px-3 py-2" style="font-size:12.5px"><b>Launch offer plan</b><div class="muted">90 days left</div></div>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item " href="account"><i class="bi bi-person-circle me-2"></i>Account</a>
+            <a class="dropdown-item" href="account#invite"><i class="bi bi-gift me-2"></i>Invite friends</a>                        <a class="dropdown-item" href="connect"><i class="bi bi-download me-2"></i>Download Broker Connect <span class="muted" style="font-size:11px">v2.5.2</span></a>                        <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="logout"><i class="bi bi-box-arrow-right me-2"></i>Log out</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+    <nav class="tabbar d-lg-none" aria-label="Main">
+          <a class="" href="ranks"><i class="bi bi-search"></i><span>Research</span></a>
+          <a class="" href="strategies"><i class="bi bi-sliders"></i><span>Build &amp; Test</span></a>
+          <a class="" href="portfolio"><i class="bi bi-briefcase"></i><span>My Portfolio</span></a>
+          <a class="" href="learn"><i class="bi bi-book"></i><span>Learn</span></a>
+        <button type="button" onclick="document.getElementById('moreSheet').classList.toggle('open')"><i class="bi bi-grid"></i><span>More</span></button>
+  </nav>
+  <div class="more-sheet d-lg-none" id="moreSheet" onclick="if (event.target === this) this.classList.remove('open')">
+    <div class="sheet-in">
+      <div class="sheet-grp">Research</div><a class="dropdown-item d-flex align-items-center gap-2" href="ranks"><i class="bi bi-bar-chart-line"></i>Stock Scoring</a><a class="dropdown-item d-flex align-items-center gap-2" href="ranks?asset=etf"><i class="bi bi-collection"></i>ETF Scoring</a><div class="sheet-grp">Build &amp; Test</div><a class="dropdown-item d-flex align-items-center gap-2" href="strategies"><i class="bi bi-sliders"></i>My Strategies</a><a class="dropdown-item d-flex align-items-center gap-2" href="backtest"><i class="bi bi-graph-up-arrow"></i>Backtest</a><a class="dropdown-item d-flex align-items-center gap-2" href="compare"><i class="bi bi-layout-three-columns"></i>Compare</a><a class="dropdown-item d-flex align-items-center gap-2" href="multi"><i class="bi bi-diagram-3"></i>Multi-System</a><div class="sheet-grp">My Portfolio</div><a class="dropdown-item d-flex align-items-center gap-2" href="portfolio"><i class="bi bi-briefcase"></i>My Portfolios</a><div class="sheet-grp">My Broker</div><a class="dropdown-item d-flex align-items-center gap-2" href="broker"><i class="bi bi-bank"></i>My Broker</a><div class="sheet-grp">Learn</div><a class="dropdown-item d-flex align-items-center gap-2" href="learn"><i class="bi bi-play-btn"></i>Video guides &amp; articles</a><a class="dropdown-item d-flex align-items-center gap-2" href="guide"><i class="bi bi-book"></i>Ranking Guide</a><a class="dropdown-item d-flex align-items-center gap-2" href="support"><i class="bi bi-life-preserver"></i>Help &amp; Requests</a><a class="dropdown-item d-flex align-items-center gap-2" href="https://t.me/+AMmQzuRvGJQ1NzQ9" target="_blank" rel="noopener"><i class="bi bi-telegram"></i>Telegram Group</a>      <div class="sheet-grp">You</div><a class="dropdown-item d-flex align-items-center gap-2" href="account"><i class="bi bi-person-circle"></i>Account</a><a class="dropdown-item d-flex align-items-center gap-2" href="logout"><i class="bi bi-box-arrow-right"></i>Log out</a>    </div>
+  </div>
+  <div class="studio-body">
+    <main class="content wrap">
+                  <div class="alert alert-success py-2"><i class="bi bi-megaphone"></i> Beta Access Enabled</div>
+        <section class="h2-hero mb-3">
+  <div class="h2-left">
+    <div class="h2-eyebrow">Today · data to 16 Oct 2026</div>
+    <h2>Good evening, Sachin</h2>
+    <p>Describe a new strategy by the rise you want, or pick up where you left off.</p>
+    <div class="h2-shapes">
+              <a class="h2-shp" href="strategies?new=1&amp;shape=rocket#score" title="New strategy: Rocket">
+          <svg viewBox="0 0 72 38" aria-hidden="true"><path d="M4 34 L30 32 L44 29 L54 20 L62 8 L68 3" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <b>Rocket</b><small>Shot up fast, lately</small></a>
+              <a class="h2-shp" href="strategies?new=1&amp;shape=stairs#score" title="New strategy: Steady climber">
+          <svg viewBox="0 0 72 38" aria-hidden="true"><path d="M4 34 L14 30 L18 31 L28 25 L32 26 L42 19 L46 20 L56 13 L60 14 L68 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <b>Steady climber</b><small>Up a little, month after month</small></a>
+              <a class="h2-shp" href="strategies?new=1&amp;shape=marathon#score" title="New strategy: Marathon">
+          <svg viewBox="0 0 72 38" aria-hidden="true"><path d="M4 35 L12 31 L20 29 L28 25 L36 23 L44 18 L52 16 L60 11 L68 8" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <b>Marathon</b><small>Rising for a year or more</small></a>
+              <a class="h2-shp" href="strategies?new=1&amp;shape=balanced#score" title="New strategy: All-rounder">
+          <svg viewBox="0 0 72 38" aria-hidden="true"><path d="M4 33 L14 28 L22 30 L32 22 L40 24 L50 15 L58 16 L68 6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <b>All-rounder</b><small>A bit of everything</small></a>
+          </div>
+    <div class="h2-links"><a href="strategies?new=1"><i class="bi bi-plus-lg"></i> New strategy</a><a href="strategies?new=etf"><i class="bi bi-collection"></i> New ETF strategy</a><a href="guide"><i class="bi bi-book"></i> Ranking guide</a></div>
+  </div>
+  <div class="h2-right">
+          <div class="h2-k">Your first portfolio in three steps</div>
+      <ol class="h2-steps">
+        <li><b>Describe your rules</b><span>a shape, a universe, how many to hold</span></li>
+        <li><b>Backtest and check</b><span>growth, falls, and whether it is luck</span></li>
+        <li><b>Add to My Portfolio</b><span>follow it live, with reminders</span></li>
+      </ol>
+      <div class="h2-sub">You have 1 strategy: open one and press <b>Add to My Portfolio</b>.</div>      </div>
+</section>
+
+
+<div class="row g-3">
+  <div class="col-lg-8">
+    <div class="card mb-3"><div class="card-header d-flex align-items-center">Your strategies
+      <a class="ms-auto" style="text-transform:none;letter-spacing:0" href="strategies">All 1</a></div>
+            <div class="h2-strats">
+                  <div class="h2-strat">
+            <div class="h2-sm"><span class="h2-mi"><i class="bi bi-graph-up-arrow"></i></span>
+              <div style="min-width:0"><a class="h2-sn" href="backtest?id=215">hawda</a>
+                <div class="h2-sd">Style · All-rounder · NIFTY MIDCAP 150 · top 10</div></div></div>
+            <div class="h2-sr"><span><small>Growth</small><b class="up"><span class="up">11.7%</span></b></span><span><small>Worst fall</small><b class="down"><span class="down">-21.2%</span></b></span>
+              </div>
+            <div class="h2-sa">
+              <a href="backtest?id=215" title="Backtest report"><i class="bi bi-graph-up"></i></a>
+              <a href="ranks?id=215" title="Today's ranking, with Why?"><i class="bi bi-bar-chart-line"></i></a>
+              <a href="backtest?id=215#tRobust" title="Rules or luck? (Robustness)"><i class="bi bi-shield-check"></i></a>
+              <a href="strategies?edit=215" title="Edit rules"><i class="bi bi-pencil"></i></a>
+            </div>
+          </div>
+              </div>
+          </div>
+
+      </div>
+
+  <div class="col-lg-4">
+    <div class="card mb-3"><div class="card-header">Tools</div><div class="h2-tools">
+      <a href="ranks"><i class="bi bi-bar-chart-line"></i><span><b>Stock scoring</b><small>Today's ranks, with Why? on every row</small></span></a>
+      <a href="ranks?asset=etf"><i class="bi bi-collection"></i><span><b>ETF scoring</b><small>Rank your ETF universe</small></span></a>
+      <a href="compare"><i class="bi bi-layout-three-columns"></i><span><b>Compare</b><small>Strategies side by side</small></span></a>
+      <a href="multi"><i class="bi bi-diagram-3"></i><span><b>Multi-System</b><small>Did mixing strategies help?</small></span></a>
+    </div></div>
+    <div class="card h2-tip"><div class="card-body">
+      <div class="k"><i class="bi bi-lightbulb"></i> Tip</div>
+      <p class="mb-0">A great backtest can be a lucky one. Open any backtest and press <b>Robustness</b>: it re-runs your rules on every other rebalance day and on each half of the period.</p>
+    </div></div>
+  </div>
+</div>
+      <div class="foot-note">
+        MomentumScore ranks securities only against rules you define and never recommends a stock or ETF.
+        Backtested results are hypothetical and do not guarantee future returns. Not investment advice. MomentumScore (operated by Technobot Technolgies Pvt Ltd) is not registered with SEBI as an Investment Adviser or Research Analyst. Strategies in the Research section are prepared by <b>RISHABH KUMAR SHARMA</b>, SEBI Registered Research Analyst (Reg. No. INH000018081), who is also a partner in MomentumScore.        <div class="d-flex flex-wrap gap-3 mt-2"><a href="pricing">Pricing</a><a href="terms">Terms</a><a href="privacy">Privacy</a><a href="refund">Refund &amp; cancellation</a><a href="delivery">Service delivery</a><a href="contact">Contact us</a><a href="disclaimer">Disclaimer</a></div>
+      </div>
+    </main>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.getElementById('themeBtn')?.addEventListener('click', function () {
+  var t = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', t);
+  document.documentElement.setAttribute('data-bs-theme', t);
+  try { localStorage.setItem('as-theme', t); } catch (e) {}
+  document.dispatchEvent(new Event('themechange'));
+});
+</script>
+<div class="modal fade" id="limitModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content">
+  <div class="modal-body p-4 text-center">
+    <div class="verify-ic mx-auto mb-3" style="width:52px;height:52px;border-radius:14px;display:grid;place-items:center;background:var(--brand-soft);color:var(--brand);font-size:24px"><i class="bi bi-lightning-charge"></i></div>
+    <h5 class="fw-bold mb-1">Today's 25 backtests are used up</h5>
+    <p class="muted mb-3" style="font-size:14px">Results you already ran stay open, and the count resets at midnight. Need more? Ask us for a higher daily limit: the request is written for you, just press Send.</p>
+    <div class="d-flex gap-2 justify-content-center flex-wrap">
+      <a class="btn btn-primary" href="support?prefill=limit"><i class="bi bi-send"></i> Request a higher limit</a>
+      <button class="btn btn-soft" type="button" data-bs-dismiss="modal">Not now</button>
+    </div>
+  </div>
+</div></div></div>
+<script>
+// any page can call this when a run is refused for the daily limit
+window.msLimitHit = function () {
+  var m = document.getElementById('limitModal');
+  if (m && window.bootstrap) bootstrap.Modal.getOrCreateInstance(m).show();
+};
+window.msIsLimitError = function (msg) { return /backtests on the .* plan/i.test(String(msg || '')); };
+(function () {
+  // the credits chip in the top bar: at 0 left it opens this instead of the account page
+  var c = document.getElementById('btCredits');
+  if (c && c.getAttribute('data-left') === '0') {
+    c.addEventListener('click', function (e) { e.preventDefault(); window.msLimitHit(); });
+  }
+})();
+</script>
+<style>
+  #aiBtn { position: fixed; right: 20px; bottom: 20px; z-index: 2147483600; border-radius: 999px; box-shadow: 0 6px 20px rgba(0,0,0,.22);
+    padding: 12px 22px; font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+  #aiBtn i { font-size: 20px; }
+  /* above the Tawk.to overlay, which otherwise swallows clicks near its bubble */
+  #aiBox { position: fixed; right: 20px; bottom: 74px; z-index: 2147483600; width: min(380px, calc(100vw - 32px)); height: min(520px, calc(100vh - 120px));
+    display: none; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 12px 40px rgba(0,0,0,.22); overflow: hidden; }
+  /* phones and tablets: the app's bottom tab bar (64 px, .tabbar, below 992 px) and the Tawk
+     bubble just above it (yOffset 76 in livechat.php) take the bottom-right corner, so the button
+     sits above them and the chat opens as a panel above the tab bar */
+  @media (max-width: 991.98px) {
+    #aiBtn { bottom: calc(76px + env(safe-area-inset-bottom, 0px)); right: 12px; padding: 9px 15px; font-size: 14px; }
+    #aiBtn i { font-size: 17px; }
+    #aiBox { left: 8px; right: 8px; width: auto; bottom: calc(72px + env(safe-area-inset-bottom, 0px)); height: calc(100dvh - 150px); max-height: 600px; border-radius: 14px; }
+  }
+  #aiBox.open { display: flex; }
+  #aiBox .hd { padding: 10px 14px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 8px; font-weight: 700; }
+  #aiLog { flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; }
+  #aiLog .m { max-width: 88%; padding: 8px 11px; border-radius: 12px; line-height: 1.5; overflow-wrap: anywhere; }
+  #aiLog .u { align-self: flex-end; background: var(--brand); color: #fff; }
+  #aiLog .a { align-self: flex-start; background: var(--brand-soft); color: var(--text); }
+  #aiLog .a code { background: rgba(0,0,0,.06); padding: 0 4px; border-radius: 4px; }
+  #aiLog .err { align-self: center; color: var(--text-2); font-size: 12.5px; text-align: center; }
+  #aiBox form { border-top: 1px solid var(--line); padding: 8px; display: flex; gap: 6px; }
+  #aiBox .ft { font-size: 11px; color: var(--text-2); padding: 0 12px 8px; }
+  #aiBox .agent { display: flex; align-items: center; gap: 8px; padding: 7px 12px; border-top: 1px solid var(--line); background: var(--brand-soft); font-size: 13px; }
+  #aiBox .agent button { margin-left: auto; white-space: nowrap; }
+  #aiLog .qk { display: flex; align-items: center; gap: 8px; margin-top: 6px; padding-top: 6px; border-top: 1px dashed var(--line); font-size: 11.5px; color: var(--text-2); }
+  #aiLog .qk button { font-size: 11.5px; padding: 0; }
+</style>
+<button class="btn btn-primary" id="aiBtn" type="button" title="Ask a doubt" fdprocessedid="55cq4c"><i class="bi bi-chat-square-text"></i> Ask doubt</button>
+<div id="aiBox" role="dialog" aria-label="Ask doubt">
+  <div class="hd"><i class="bi bi-chat-square-text" style="color:var(--brand)"></i> Ask doubt
+    <button class="btn btn-sm btn-link ms-auto p-0" type="button" id="aiNew" title="New chat">New</button>
+    <button class="btn-close" type="button" id="aiClose" aria-label="Close"></button></div>
+  <div id="aiLog"></div>
+    <div class="agent"><i class="bi bi-headset"></i> Not understood?
+    <button type="button" class="btn btn-sm btn-primary" id="aiAgent"><i class="bi bi-person-raised-hand"></i> Ask a live agent</button></div>
+    <form id="aiForm"><input type="hidden" name="csrf_token" value="c5690cf92d6d5acfe2759b5796f553f50e3f8d1301f9d092930644586b36423e">    <input class="form-control form-control-sm" id="aiQ" maxlength="2000" placeholder="How do exit ranks work?" autocomplete="off">
+    <button class="btn btn-sm btn-primary" id="aiSend"><i class="bi bi-send"></i></button></form>
+  <div class="ft">AI help for using the app, not investment advice<span id="aiLeft"> · 9 AI questions left today</span></div>
+</div>
+<script>
+(function () {
+  var box = document.getElementById('aiBox'), log = document.getElementById('aiLog'), q = document.getElementById('aiQ'), msgs = [];
+  var hello = 'Hi! Ask me how MomentumScore works: ranking rules, settings, backtests, alerts. (I can\'t give stock tips or investment advice.)';
+  try { msgs = JSON.parse(sessionStorage.getItem('ai-chat') || '[]') || []; } catch (e) { msgs = []; }
+  function save() { try { sessionStorage.setItem('ai-chat', JSON.stringify(msgs.slice(-20))); } catch (e) {} }
+  function esc(t) { return t.replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function md(t) {
+    return esc(t).replace(/`([^`]+)`/g, '<code>$1</code>').replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>')
+      .replace(/^#+\s*(.*)$/gm, '<b>$1</b>').replace(/^\s*[-*]\s+/gm, '• ').replace(/\n/g, '<br>');
+  }
+  function add(cls, html) { var d = document.createElement('div'); d.className = 'm ' + cls; d.innerHTML = html; log.appendChild(d); log.scrollTop = log.scrollHeight; return d; }
+  function draw() { log.innerHTML = ''; add('a', esc(hello)); msgs.forEach(function (m) { add(m.role === 'user' ? 'u' : 'a', m.role === 'user' ? esc(m.content) : md(m.content)); }); }
+  document.getElementById('aiBtn').addEventListener('click', function () { box.classList.toggle('open'); if (box.classList.contains('open')) { draw(); q.focus(); } });
+  document.getElementById('aiClose').addEventListener('click', function () { box.classList.remove('open'); });
+  document.getElementById('aiNew').addEventListener('click', function () { msgs = []; save(); draw(); q.focus(); });
+  var agent = document.getElementById('aiAgent');
+  if (agent) agent.addEventListener('click', function () { box.classList.remove('open'); if (window.msLiveChat) window.msLiveChat(); });
+  var form = document.getElementById('aiForm');
+  // send the chat; forceAi skips the free quick answers (the "Ask AI instead" button), and
+  // keep = the quick answer being replaced: it stays on screen unless the AI really answers
+  function send(forceAi, keep) {
+    var btn = document.getElementById('aiSend');
+    btn.disabled = true;
+    var wait = add('a', '<span class="spinner-border spinner-border-sm"></span>');
+    var fd = new FormData(form);
+    fd.append('messages', JSON.stringify(msgs.slice(-8)));
+    if (forceAi) fd.append('ai', '1');
+    fetch('assistant.php', { method: 'POST', body: fd, credentials: 'same-origin' }).then(function (r) { return r.json(); }).then(function (j) {
+      wait.remove();
+      if (keep && !j.ok) {   // no AI answer: the quick answer stays
+        msgs.push({ role: 'assistant', content: keep.content }); save();
+        var n = add('err', esc(j.reply)); n.classList.remove('m');
+        btn.disabled = false;
+        return;
+      }
+      if (keep) keep.el.remove();
+      if (j.ok) {
+        msgs.push({ role: 'assistant', content: j.reply }); save();
+        var d = add('a', md(j.reply));
+        if (j.quick) {
+          var f = document.createElement('div');
+          f.className = 'qk';
+          f.innerHTML = '<span><i class="bi bi-lightning-charge"></i> Quick answer from the guide (free)</span><button type="button" class="btn btn-link ms-auto">Ask AI instead</button>';
+          f.querySelector('button').addEventListener('click', function () {
+            f.remove();
+            var mine = msgs.pop(); save();   // the AI answers the same question; the quick answer waits on screen
+            send(true, { el: d, content: mine.content });
+          });
+          d.appendChild(f);
+        }
+      } else { msgs.pop(); save(); var e = add('err', esc(j.reply)); e.classList.remove('m'); }
+      if (j.left !== null && j.left !== undefined) document.getElementById('aiLeft').textContent = ' · ' + j.left + ' AI questions left today';
+    }).catch(function () {
+      wait.remove();
+      if (keep) msgs.push({ role: 'assistant', content: keep.content }); else msgs.pop();
+      save(); add('err', 'Could not reach the server. Try again.');
+    }).then(function () { btn.disabled = false; q.focus(); });
+  }
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var text = q.value.trim();
+    if (!text || document.getElementById('aiSend').disabled) return;
+    // "Ask AI instead" belongs to the latest answer only: once a new question is asked, it goes
+    document.querySelectorAll('#aiLog .qk button').forEach(function (b) { b.remove(); });
+    msgs.push({ role: 'user', content: text }); save();
+    add('u', esc(text)); q.value = '';
+    send(false);
+  });
+})();
+</script>
+<script>
+window.msLiveChat = function () {
+  var T = window.Tawk_API;
+  if (T && T.maximize) { if (T.showWidget) T.showWidget(); T.maximize(); return; }
+  if (T) {   // the page's own Tawk (or an earlier click) is still loading: open it once it has
+    var was = T.onLoad;
+    T.onLoad = function () { if (was) was(); T.maximize(); };
+    return;
+  }
+  T = window.Tawk_API = {}; window.Tawk_LoadStart = new Date();
+  T.onLoad = function () { T.maximize(); };
+  T.onChatMinimized = function () { T.hideWidget(); };   // no bubble on pages that had none
+  var s = document.createElement('script');
+  s.async = true; s.src = "https://embed.tawk.to/6ab796eaededd83442cff18a/default"; s.charset = 'UTF-8';
+  s.setAttribute('crossorigin', '*');
+  document.body.appendChild(s);
+};
+</script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4bc70e2c01a94c73b74392e4234840661791215815920" integrity="sha512-L0ha0OXavK/8okipN9F8BtP84dg9DUhPERbBXzwI6dgTA55d2+yweo3pn5CSFYs45/r8md2+xvUPtTdvTNRfjA==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;266760461e5248eda129ab5f18ef68c7&quot;,&quot;r&quot;:1,&quot;spa&quot;:2}" crossorigin="anonymous"></script>
+
+
+<span id="PING_CONTENT_PUSH_NOTIFICATION" style="display: none;"></span><span id="PING_IFRAME_FORM_DETECTION" style="display: none;"></span></body></html>

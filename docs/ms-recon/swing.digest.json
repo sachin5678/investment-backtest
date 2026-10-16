@@ -1,0 +1,92 @@
+{
+ "title": "Home · MomentumScore",
+ "url": "https://momentumscore.in/home",
+ "heads": [
+  "h2: Good evening, Sachin"
+ ],
+ "buttons": [
+  "Research",
+  "Build & Test",
+  "Learn",
+  "S Sachin Patil",
+  "More",
+  "Not now",
+  "Ask doubt",
+  "New",
+  "Ask a live agent"
+ ],
+ "links": [
+  "home :: MomentumScore",
+  "ranks :: Stock Scoring",
+  "ranks?asset=etf :: ETF Scoring",
+  "strategies :: My Strategies",
+  "backtest :: Backtest",
+  "compare :: Compare",
+  "multi :: Multi-System",
+  "portfolio :: My Portfolio",
+  "broker :: My Broker",
+  "learn :: Video guides & articles",
+  "guide :: Ranking Guide",
+  "support :: Help & Requests",
+  "https://t.me/+AMmQzuRvGJQ1NzQ9 :: Telegram Group",
+  "account :: 22 / 25 backtests today",
+  "account :: Account",
+  "account#invite :: Invite friends",
+  "connect :: Download Broker Connect v2.5.2",
+  "logout :: Log out",
+  "ranks :: Research",
+  "strategies :: Build & Test",
+  "learn :: Learn",
+  "portfolio :: My Portfolios",
+  "strategies?new=1&shape=rocket#score :: RocketShot up fast, lately",
+  "strategies?new=1&shape=stairs#score :: Steady climberUp a little, month after month",
+  "strategies?new=1&shape=marathon#score :: MarathonRising for a year or more",
+  "strategies?new=1&shape=balanced#score :: All-rounderA bit of everything",
+  "strategies?new=1 :: New strategy",
+  "strategies?new=etf :: New ETF strategy",
+  "guide :: Ranking guide",
+  "strategies :: All 1",
+  "backtest?id=215 :: hawda",
+  "ranks :: Stock scoringToday's ranks, with Why? on every row",
+  "ranks?asset=etf :: ETF scoringRank your ETF universe",
+  "compare :: CompareStrategies side by side",
+  "multi :: Multi-SystemDid mixing strategies help?",
+  "pricing :: Pricing",
+  "terms :: Terms",
+  "privacy :: Privacy",
+  "refund :: Refund & cancellation",
+  "delivery :: Service delivery",
+  "contact :: Contact us",
+  "disclaimer :: Disclaimer",
+  "support?prefill=limit :: Request a higher limit"
+ ],
+ "selects": [],
+ "forms": [
+  "GET  fields=[csrf_token,aiQ]"
+ ],
+ "inputs": [
+  "csrf_token",
+  "aiQ"
+ ],
+ "tables": 0,
+ "text": "Momentum Score Research Build & Test My Portfolio My Broker Learn 22 / 25 backtests today S Sachin Patil Beta Access Enabled TODAY · DATA TO 16 OCT 2026 Good evening, Sachin Describe a new strategy by the rise you want, or pick up where you left off. Rocket Shot up fast, lately Steady climber Up a little, month after month Marathon Rising for a year or more All-rounder A bit of everything New strategy New ETF strategy Ranking guide YOUR FIRST PORTFOLIO IN THREE STEPS Describe your rules a shape, a universe, how many to hold Backtest and check growth, falls, and whether it is luck Add to My Portfolio follow it live, with reminders You have 1 strategy: open one and press Add to My Portfolio. YOUR STRATEGIES All 1 hawda Style · All-rounder · NIFTY MIDCAP 150 · top 10 GROWTH 11.7% WORST FALL -21.2% TOOLS Stock scoring Today's ranks, with Why? on every row ETF scoring Rank your ETF universe Compare Strategies side by side Multi-System Did mixing strategies help? Tip A great backtest can be a lucky one. Open any backtest and press Robustness: it re-runs your rules on every other rebalance day and on each half of the period. MomentumScore ranks securities only against rules you define and never recommends a stock or ETF. Backtested results are hypothetical and do not guarantee future returns. Not investment advice. MomentumScore (operated by Technobot Technolgies Pvt Ltd) is not registered with SEBI as an Investment Adviser or Research Analyst. Strategies in the Research section are prepared by RISHABH KUMAR SHARMA, SEBI Registered Research Analyst (Reg. No. INH000018081), who is also a partner in MomentumScore. Pricing Terms Privacy Refund & cancellation Service delivery Contact us Disclaimer Ask doubt",
+ "xhr": [
+  {
+   "url": "https://momentumscore.in/cdn-cgi/rum?",
+   "status": 204,
+   "type": "XHR"
+  },
+  {
+   "url": "chrome-extension://fheoggkfdfchfphceeifdbepaooicaho/wasm_feature.wasm",
+   "status": 200,
+   "type": "Fetch"
+  },
+  {
+   "url": "https://momentumscore.in/favicon.ico",
+   "status": 200,
+   "type": "Fetch"
+  }
+ ],
+ "loaded": true,
+ "nav_error": null
+}

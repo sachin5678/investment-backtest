@@ -1,0 +1,614 @@
+My Strategies · MomentumScore
+SVG Momentum Score
+Research
+Stock Scoring ETF Scoring
+Build & Test
+My Strategies Backtest Compare Multi-System
+My Portfolio
+My Broker
+Learn
+Video guides & articles Ranking Guide Help & Requests Telegram Group
+22 / 25 backtests today
+S
+Sachin Patil
+Launch offer plan 90 days left
+Account
+Invite friends Download Broker Connect v2.5.2
+Log out
+Research
+Build & Test
+My Portfolio
+Learn
+More
+Research
+Stock Scoring ETF Scoring Build & Test
+My Strategies Backtest Compare Multi-System My Portfolio
+My Portfolios My Broker
+My Broker Learn
+Video guides & articles Ranking Guide Help & Requests Telegram Group You
+Account Log out
+Beta Access Enabled
+Strategy builder
+Edit strategy
+Choose how to rank, pick a universe and portfolio rules, then backtest it on 10+ years of data.
+Name
+Backtest from
+to (blank = latest)
+Invest in
+Stocks
+ETFs
+1. Universe NIFTY MIDCAP 150 · historical members
+2. Conditions Only if 6-month return above 0% and 6-month swings below 45% · Buy only if Supertrend (10, 3, daily) is green
+3. Rank by Style: All-rounder (speed medium · smooth · staying power medium)
+4. Pick Top 10 · exit 52 · monthly, day 20 · 0.10% cost
+5. Money ₹1,00,000
+6. Protect 200-day average on NIFTY 500 → GOLDBEES 100% · vs NIFTY 500
+7. Run Save & backtest
+Save & backtest
+Save
+Stock universe
+Index members
+Liquidity rank
+NIFTY 500
+%
+NIFTY MIDCAP 150
+%
+NIFTY SMALLCAP 250
+%
+NIFTY MIDSMALLCAP 400
+%
+NIFTY MICROCAP 250
+%
+NIFTY TOTAL MARKET
+%
+Set a weight for each index (e.g. Midcap 25% + Microcap 75%)
+Historical members (as they were on each past date)
+On: each past date uses the index as it was then. These are NSE's real lists, rebuilt from the changes NSE announced (Nifty 500 from 2012 · Midcap 150 from 2016 · Smallcap 250 from 2016 · Microcap 250 from 2021); years before an index existed are estimated from market cap and turnover. Off: today's official members for every past date, which flatters backtests (survivorship bias).
+Rank from
+Rank to
+On every rebalance day all NSE stocks are ranked by 6-month average traded value, using only data up to that day. 251–750 is roughly the small/microcap band.
+Sectors
+All sectors
+Only these
+Leave these out
+Weights
+Automobile and Auto Components
+Automobile and Auto Components
+%
+Capital Goods
+Capital Goods
+%
+Chemicals
+Chemicals
+%
+Construction
+Construction
+%
+Construction Materials
+Construction Materials
+%
+Consumer Durables
+Consumer Durables
+%
+Consumer Services
+Consumer Services
+%
+Diversified
+Diversified
+%
+Fast Moving Consumer Goods
+Fast Moving Consumer Goods
+%
+Financial Services
+Financial Services
+%
+Forest Materials
+Forest Materials
+%
+Healthcare
+Healthcare
+%
+Information Technology
+Information Technology
+%
+Media Entertainment & Publication
+Media Entertainment & Publication
+%
+Metals & Mining
+Metals & Mining
+%
+Oil Gas & Consumable Fuels
+Oil Gas & Consumable Fuels
+%
+Power
+Power
+%
+Realty
+Realty
+%
+Services
+Services
+%
+Telecommunication
+Telecommunication
+%
+Textiles
+Textiles
+%
+Utilities
+Utilities
+%
+NSE's sector ("Industry") of each stock. Stocks left out are not ranked at all. Today's sectors are used for past dates too; stocks no longer in any NSE list have no sector, so "Only these" leaves them out. Weights : give sectors a %; only those sectors are bought.
+Give at least two sectors a weight above 0%. The weight sets how many of the 10 stocks come from each.
+ETF universe
+ETF universe
+Broad Market +4 more
+Select all categories
+Broad Market
+Sectoral
+Factor / Strategy
+Thematic
+Funds (gold, silver, global, liquid)
+Eligible ETFs
+NIFTY 100 +41 more
+Broad Market
+NIFTY 100 NIF100BEES
+NIFTY 50 NIFTYIETF
+NIFTY 500 MONIFTY500
+NIFTY MIDCAP 150 MID150BEES
+NIFTY NEXT 50 JUNIORBEES
+NIFTY SMALLCAP 250 HDFCSML250
+NIFTY TOP 10 EQUAL WEIGHT TOP10ADD
+NIFTY500 MULTICAP 50:25:25 MULTICAP
+SENSEX SENSEXIETF
+Sectoral
+BSE CAPITAL MKTS & INSURANCE ECAPINSURE
+BSE POWER & ENERGY GROWWPOWER
+NIFTY AUTO AUTOBEES
+NIFTY BANK BANKBEES
+NIFTY CAPITAL MARKETS MOCAPITAL
+NIFTY FINANCIAL SERVICES FINIETF
+NIFTY FMCG FMCGIETF
+NIFTY HEALTHCARE INDEX HEALTHIETF
+NIFTY IT ITBEES
+NIFTY METAL METALIETF
+NIFTY OIL & GAS OILIETF
+NIFTY PHARMA PHARMABEES
+NIFTY PRIVATE BANK PVTBANIETF
+NIFTY PSU BANK PSUBNKBEES
+NIFTY REALTY MOREALTY
+Factor / Strategy
+NIFTY ALPHA 50 ALPHA
+NIFTY DIVIDEND OPPORTUNITIES 50 DIVOPPBEES
+NIFTY MIDCAP150 MOMENTUM 50 MOMIDMTM
+NIFTY MIDCAP150 QUALITY 50 MIDQ50ADD
+NIFTY QUALITY LOW-VOLATILITY 30 ranked on itself
+NIFTY100 LOW VOLATILITY 30 LOWVOLIETF
+NIFTY200 ALPHA 30 ALPHAETF
+NIFTY200 MOMENTUM 30 MOM30IETF
+NIFTY200 QUALITY 30 QUAL30IETF
+NIFTY200 VALUE 30 VAL30IETF
+NIFTY50 VALUE 20 NV20IETF
+NIFTY500 MOMENTUM 50 MOMENTUM50
+Thematic
+NIFTY COMMODITIES COMMOIETF
+NIFTY CPSE CPSEETF
+NIFTY INDIA CONSUMPTION CONSUMER
+NIFTY INDIA DEFENCE MODEFENCE
+NIFTY INDIA INTERNET GROWWNET
+NIFTY INFRASTRUCTURE INFRAIETF
+Funds (gold, silver, global, liquid)
+GOLDBEES TATAGOLD
+MON100 ranked on itself
+NIFTY 1D RATE INDEX LIQUIDCASE
+SILVERBEES TATSILV
+42 selected of 46
+Advanced: edit the lines (change which ETF is bought for an index)
+# RANK ON = BUY. Your picks from the sheet are kept; the rest are the most
+# liquid NSE ETF that tracks the index (checked by name and a year of daily returns).
+GOLDBEES = TATAGOLD
+SILVERBEES = TATSILV
+NIFTY 1D RATE INDEX = LIQUIDCASE
+MON100 = MON100
+NIFTY INDIA INTERNET = GROWWNET
+NIFTY COMMODITIES = COMMOIETF
+NIFTY INDIA CONSUMPTION = CONSUMER
+NIFTY DIVIDEND OPPORTUNITIES 50 = DIVOPPBEES
+NIFTY TOP 10 EQUAL WEIGHT = TOP10ADD
+NIFTY200 MOMENTUM 30 = MOM30IETF
+NIFTY500 MOMENTUM 50 = MOMENTUM50
+NIFTY500 MULTICAP 50:25:25 = MULTICAP
+NIFTY100 LOW VOLATILITY 30 = LOWVOLIETF
+NIFTY200 VALUE 30 = VAL30IETF
+NIFTY50 VALUE 20 = NV20IETF
+NIFTY200 QUALITY 30 = QUAL30IETF
+NIFTY200 ALPHA 30 = ALPHAETF
+NIFTY ALPHA 50 = ALPHA
+NIFTY MIDCAP150 MOMENTUM 50 = MOMIDMTM
+NIFTY MIDCAP150 QUALITY 50 = MIDQ50ADD
+NIFTY INDIA DEFENCE = MODEFENCE
+NIFTY INFRASTRUCTURE = INFRAIETF
+NIFTY FINANCIAL SERVICES = FINIETF
+NIFTY CAPITAL MARKETS = MOCAPITAL
+NIFTY HEALTHCARE INDEX = HEALTHIETF
+NIFTY OIL & GAS = OILIETF
+NIFTY METAL = METALIETF
+NIFTY REALTY = MOREALTY
+NIFTY PRIVATE BANK = PVTBANIETF
+NIFTY PSU BANK = PSUBNKBEES
+NIFTY PHARMA = PHARMABEES
+NIFTY FMCG = FMCGIETF
+NIFTY IT = ITBEES
+NIFTY AUTO = AUTOBEES
+NIFTY BANK = BANKBEES
+NIFTY CPSE = CPSEETF
+NIFTY SMALLCAP 250 = HDFCSML250
+NIFTY MIDCAP 150 = MID150BEES
+NIFTY NEXT 50 = JUNIORBEES
+NIFTY 500 = MONIFTY500
+NIFTY 100 = NIF100BEES
+NIFTY 50 = NIFTYIETF
+# no ETF on NSE for these yet - they could top the ranking and still not be buyable
+# NIFTY MEDIA
+# NIFTY QUALITY LOW-VOLATILITY 30
+One line per underlying: RANK ON = BUY . Rank on is an NSE index name (ranked on the index, less the tracking error) or an ETF symbol (ranked on its own price, e.g. Gold, Silver, NASDAQ). Buy is the ETF you would actually hold. The pickers above rewrite this list; edits here are kept for the lines you leave ticked.
+Tracking error % / yr
+Only ETFs that were listed on the day
+On: a line whose ETF wasn't trading on NSE yet on a rebalance day is skipped and the next-ranked one is bought, so every trade could really have been made. Off: the index is treated as if it were tradable, which flatters older results.
+Interval
+Day (trading days)
+Week (weekly candles)
+Month (monthly candles)
+Calendar (same date N months back)
+Interval: "3 Week Performance" on the Week interval is today's price against the close of the weekly candle 3 weeks back. Day = 15 trading days.
+A line can list fallbacks for days its own series has no data: LIQGRWBEES | NIFTY 1D RATE INDEX = LIQUIDCASE .
+Conditions
+2 · Conditions = the gate Who is allowed in? Yes or no. 3 · Rank by = the race Among those let in, who is best? 4 · Pick Hold the top stocks ETFs .
+Only stocks ETFs that pass every condition go on to be ranked; the rest are left out. One you hold that stops passing is sold at the next rebalance. No conditions = everything is ranked. Change a row to Buy only if to check it only before buying (what you hold stays), or to Sell when for an exit rule: it is checked every day , the holding is sold that day and its slot waits in cash for the next rebalance.
+Keep if
+Buy only if
+Sell when
+1-week return
+2-week return
+3-week return
+4-week return
+5-week return
+1-month return
+2-month return
+3-month return
+4-month return
+5-month return
+6-month return
+9-month return
+1-year return
+1-week swings
+2-week swings
+3-week swings
+4-week swings
+5-week swings
+1-month swings
+2-month swings
+3-month swings
+4-month swings
+5-month swings
+6-month swings
+9-month swings
+1-year swings
+Price
+Daily turnover
+Price vs 20-day EMA
+Price vs 50-day EMA
+Price vs 100-day EMA
+Price vs 200-day EMA
+Price vs 50-day SMA
+Price vs 200-day SMA
+50-day EMA vs 200-day EMA
+Supertrend (10, 3, daily)
+RSI (14)
+From 52-week high
+From all-time high
+India VIX
+is above
+is at least
+is below
+is at most
+%
+Keep if
+Buy only if
+Sell when
+1-week return
+2-week return
+3-week return
+4-week return
+5-week return
+1-month return
+2-month return
+3-month return
+4-month return
+5-month return
+6-month return
+9-month return
+1-year return
+1-week swings
+2-week swings
+3-week swings
+4-week swings
+5-week swings
+1-month swings
+2-month swings
+3-month swings
+4-month swings
+5-month swings
+6-month swings
+9-month swings
+1-year swings
+Price
+Daily turnover
+Price vs 20-day EMA
+Price vs 50-day EMA
+Price vs 100-day EMA
+Price vs 200-day EMA
+Price vs 50-day SMA
+Price vs 200-day SMA
+50-day EMA vs 200-day EMA
+Supertrend (10, 3, daily)
+RSI (14)
+From 52-week high
+From all-time high
+India VIX
+is above
+is at least
+is below
+is at most
+%
+Keep if
+Buy only if
+Sell when
+1-week return
+2-week return
+3-week return
+4-week return
+5-week return
+1-month return
+2-month return
+3-month return
+4-month return
+5-month return
+6-month return
+9-month return
+1-year return
+1-week swings
+2-week swings
+3-week swings
+4-week swings
+5-week swings
+1-month swings
+2-month swings
+3-month swings
+4-month swings
+5-month swings
+6-month swings
+9-month swings
+1-year swings
+Price
+Daily turnover
+Price vs 20-day EMA
+Price vs 50-day EMA
+Price vs 100-day EMA
+Price vs 200-day EMA
+Price vs 50-day SMA
+Price vs 200-day SMA
+50-day EMA vs 200-day EMA
+Supertrend (10, 3, daily)
+RSI (14)
+From 52-week high
+From all-time high
+India VIX
+is green (price above)
+is red (price below)
+Add condition
+Add indicator
+Quick add:
+Only what is rising 6-month return above 0%
+Skip the wildest 6-month swings below 45%
+Easy to trade daily turnover at least ₹5 Cr
+No penny stocks price at least ₹50
+Above the 200-day EMA buy only if price is above it
+Supertrend green buy only on a daily uptrend
+Exit on Supertrend red sell the day it turns
+RSI above 50 buy only with strength
+Golden cross 50-day EMA above the 200-day
+Near all-time high buy only within 10% of it Calm market buy only while India VIX is below 20
+Not expensive index P/E below 25
+Swings = how much the price jumps around (volatility, a year's worth). Daily turnover = average value traded a day over 6 months. Price vs EMA/SMA = how far the close is above (+) or below (−) that average, in %. Supertrend = (10, 3) on daily candles. From 52-week high = 0% at the high, −20% means 20% below it. From all-time high = the same against the highest price since 2012 (or since listing). India VIX = the market's expected volatility (from mid-2014; earlier dates pass), used only before a buy. Index P/E = the P/E NSE publishes for the index a line tracks; lines without one (gold, silver, liquid, foreign) are not held back by it.
+Minimum price ₹
+Maximum price ₹
+Only stocks priced in this range on the rebalance day are bought. 0 = no limit. A stock you already hold that rises above the maximum is kept until its rank falls below the exit rank.
+How to rank
+the stocks that passed the conditions, best first, at each review
+2 · Conditions = the gate Who is allowed in? Yes or no. 3 · Rank by = the race Among those let in, who is best? 4 · Pick Hold the top stocks ETFs .
+Style Pick a shape, turn 3 dials
+Factor Mix Blend factors by weight
+Funnel Narrow down in rounds, then sort
+Pick the kind of rise you want to own, then fine-tune it with the three dials. Each review, every stock is scored on how well it fits.
+SVG
+Rocket Shot up fast, lately
+SVG
+Steady climber Up a little, month after month
+SVG
+Marathon Rising for a year or more
+SVG
+All-rounder A bit of everything
+Speed
+Slow · 1 year
+Fast · 1 month
+Smoothness
+Any path
+Smooth
+Staying power
+Short burst
+Long lasting
+Under the hood this is a Factor Mix: 6M risk-adjusted ●●● · 3M momentum ●● · Steadiness ●● . Open the Factor Mix tab to change it by hand.
+Each factor is turned into a 0–100 rank against every other stock on the review day, then blended by weight. The best blend ranks first.
+Add factor
+6M risk-adjusted 43% · 3M momentum 29% · Steadiness 29%
+Each round keeps only the best part of what is left. What survives every round is sorted, and the top of that list is bought.
+Every eligible stock
+Add round
+SORT Finally, sort by
+Counts are for the latest ranking day.
+Scoring formula
+every eligible stock is scored with this at each review, then ranked highest first
+Formula guide
+Step 1 · Measures
+click one to add it to the formula
+Load example
+Risk-adjusted 6M ret(6m) / vol(6m)
+Blend ÷ 6M volatility (5% * ret(1m) + 5% * ret(3m) + 60% * ret(6m) + 20% * ret(9m) + 10% * ret(1y)) / vol(6m)
+Each period ÷ own volatility 0.2 * ret(1m) / vol(1m) + 0.2 * ret(3m) / vol(3m) + 0.2 * ret(6m) / vol(6m) + 0.2 * ret(9m) / vol(9m) + 0.2 * ret(1y) / vol(1y)
+Short-term (ETF) ret(1w) + ret(2w) + ret(3w) + ret(4w)
+Plain 12-month momentum ret(1y)
+Clear
+Return
+1W
+2W
+3W
+4W
+5W
+1M
+2M
+3M
+4M
+5M
+6M
+9M
+1Y
+Volatility
+1W
+2W
+3W
+4W
+5W
+1M
+2M
+3M
+4M
+5M
+6M
+9M
+1Y
+Step 2 · Write your formula
+fx
+(20% * (ret(1m) / vol(1m))) + (20% * (ret(3m) / vol(3m))) + (20% * (ret(6m) / vol(6m))) + (20% * (ret(9m) / vol(9m))) + (20% * (ret(1y) / vol(1y)))
+INSERT
++
+−
+×
+÷
+(
+)
+%
+Formula is valid. 147 chars
+ret(3m) = 3-month price return, vol(6m) = 6-month volatility (annualised). Periods: 1w – 5w , 1m – 6m , 9m , 1y . Use numbers or percentages ( 60% ), + − × ÷ and brackets. Higher score = higher rank.
+Quick check
+your backtest period with these rules, updated as you change them
+Growth / yr –
+Worst fall –
+Benchmark / yr –
+SVG
+The same run as Save & backtest, with your dates, money settings and costs, so the full report then opens at once.
+Pick & rebalance
+No. of stocks No. of ETFs
+Buy only from the top (optional)
+Entry rank. Must be lower than the number held: e.g. hold 10, buy only from the top 5. An open slot waits in cash until something new reaches it.
+Max per sector (optional)
+At most this many stocks from one sector. When a sector is full, the next-ranked stock from another sector is bought instead.
+Exit rank
+Sell when it reaches this rank
+Rebalance
+Monthly
+Weekly
+Day of month
+Weekday
+Monday
+Tuesday
+Wednesday
+Thursday
+Friday
+If holiday
+Next day
+Previous day
+Cost % per side
+Slippage % per side
+Execution
+Decide on the previous day's close, trade at the rebalance day's open (as you would live)
+Buy & sell at the rebalance day's close
+Buy at the close, sell at the next day's open
+Buy & sell at the next day's close
+Whole units only (buys whole units at the index level, the rest stays in cash)
+A common starting point: exit rank ≈ 2.5 × the number of stocks. Shares are bought in whole numbers; what is left over stays in cash. End blank = up to the latest data. Cost = brokerage, STT, charges. Slippage = how far a real fill lands from the close/open the backtest uses (default 0.1%).
+Money
+Capital ₹
+Compounding
+Yes: reinvest profits
+No: fixed amount per position
+SIP ₹ / month
+SIP step-up % / year
+Only buy what is going up
+Of the top stocks ETFs , one whose momentum (the returns your ranking uses) is negative is not bought: its slot waits in cash. 3 slots and only 1 going up = 1/3 invested, 2/3 in cash.
+Also sell a holding once it turns negative
+Buy the dip · extra money when the market is oversold
+Extra ₹
+When the RSI of
+RSI period
+is below
+Candles
+Daily
+Weekly
+Checked at every day's close (weekly candles: each week's close), at most once a month: when the index's RSI is below the level, the extra amount goes into your holdings that day, like a SIP. E.g. ₹25,000 when NIFTY 50 RSI(14) is below 30. The report shows each top-up, the money put in and the XIRR. On a live portfolio you get a Telegram / WhatsApp alert the same evening.
+Trend filter & benchmark
+Trend filter: cut exposure when the broad market turns down
+Signal
+SUPERTREND
+Below moving average
+Trend index
+ATR period
+Multiplier
+DMA days
+Action in a bear market
+Go cash: sell every holding
+Half portfolio: keep the best-ranked half, run on half the slots
+Check the trend
+On each rebalance day
+Every day: sell everything the day it turns down (with Go cash)
+Every day: sell the day it turns down, buy back the day it turns up (with Go cash)
+Park cash in an uncorrelated asset (gold) instead of holding cash
+Park in % of the freed cash
+%
+Add another
+Total 100% parked
+Each one gets its own % of the freed cash, e.g. GOLDBEES 50% + SILVERBEES 25%: the other 25% stays cash. Up to 4. Any NSE symbol we have prices for: an ETF (any BeES, LIQUIDCASE...) or a stock. One listed later than a date in the backtest (e.g. SILVERBEES from Feb 2022) leaves its share in cash until then. Liquid ETFs that pay their return as extra units (LIQUIDBEES and similar, price stays near ₹1,000) show 0% in a backtest; growth-type liquid ETFs show the return in the price.
+The trend is read from a broad index, with SUPERTREND or a moving average (for example the 200-day average of NIFTY 500). Optionally, park part of the freed cash in gold (GOLDBEES) until the trend turns up again.
+Volatility filter: treat a jumpy market (India VIX high) as a down market too
+India VIX above
+Above it the rules do what the action above says (go cash or half, and park in gold if set), the same as a down-trend; below it they invest again. Works with or without the trend filter. India VIX data starts mid-2014; before that this filter stays out of the way.
+Benchmark · for comparison only
+The index your results are compared with: the dashed line on the chart, benchmark CAGR and the year-by-year table. It never changes the trades. It can differ from the trend index, e.g. trend on NIFTY 500 and benchmark NIFTY SMALLCAP 250 for a smallcap strategy.
+Review
+1 Universe NIFTY MIDCAP 150 · historical members 2 Conditions Only if 6-month return above 0% and 6-month swings below 45% · Buy only if Supertrend (10, 3, daily) is green 3 Rank by Style: All-rounder (speed medium · smooth · staying power medium) 4 Pick Top 10 · exit 52 · monthly, day 20 · 0.10% cost 5 Money ₹1,00,000 6 Protect 200-day average on NIFTY 500 → GOLDBEES 100% · vs NIFTY 500
+Save & backtest
+Save
+A backtest replays every rebalance on point-in-time data with your costs. Results are hypothetical.
+Back Next
+MomentumScore ranks securities only against rules you define and never recommends a stock or ETF.
+Backtested results are hypothetical and do not guarantee future returns. Not investment advice. MomentumScore (operated by Technobot Technolgies Pvt Ltd) is not registered with SEBI as an Investment Adviser or Research Analyst. Strategies in the Research section are prepared by RISHABH KUMAR SHARMA , SEBI Registered Research Analyst (Reg. No. INH000018081), who is also a partner in MomentumScore. Pricing Terms Privacy Refund & cancellation Service delivery Contact us Disclaimer
+Today's 25 backtests are used up
+Results you already ran stay open, and the count resets at midnight. Need more? Ask us for a higher daily limit: the request is written for you, just press Send.
+Request a higher limit
+Not now
+Ask doubt
+Ask doubt
+New
+Not understood?
+Ask a live agent
+AI help for using the app, not investment advice · 9 AI questions left today

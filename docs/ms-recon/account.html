@@ -1,0 +1,395 @@
+<html lang="en" data-theme="dark" data-bs-theme="dark"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Account · MomentumScore</title>
+<!-- real files, not a data: icon: search engines only show favicons they can fetch -->
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="icon" href="assets/brand/icon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/brand/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#1d4ed8">
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem('as-theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', t);
+    document.documentElement.setAttribute('data-bs-theme', t);
+  } catch (e) {}
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin="">
+<!-- fonts and icons don't hold up the first paint (the system font shows until Inter arrives) -->
+<link rel="stylesheet" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="stylesheet" as="style" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"></noscript>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="assets/app.css?v=1791969918" rel="stylesheet">
+<meta name="robots" content="noindex">
+</head>
+<body>
+<div class="studio">
+  <header class="appbar">
+    <div class="wrap appbar-in">
+      <a class="logo" href="home"><svg width="34" height="34" viewBox="0 -8 112 112" aria-hidden="true"><defs><linearGradient id="msg1b" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#2563eb"></stop><stop offset="1" stop-color="#34d399"></stop></linearGradient><linearGradient id="msg1m" x1="48" y1="92" x2="108" y2="8" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#2563eb"></stop><stop offset=".55" stop-color="#3b82f6"></stop><stop offset="1" stop-color="#22d3ee"></stop></linearGradient></defs><rect x="2" y="64" width="11" height="28" rx="3.5" fill="url(#msg1b)"></rect><rect x="18" y="52" width="11" height="40" rx="3.5" fill="url(#msg1b)"></rect><rect x="34" y="40" width="11" height="52" rx="3.5" fill="url(#msg1b)"></rect><path d="M58 92V36L80 62L103 14V92" fill="none" stroke="url(#msg1m)" stroke-width="13" stroke-linejoin="round" stroke-linecap="round"></path></svg><span class="wm" aria-label="MomentumScore"><span class="wm-1">Momentum</span><span class="wm-2">Score</span></span></a>
+      <nav class="topnav d-none d-lg-flex" aria-label="Main">
+                              <div class="dropdown">
+              <button class="tn " type="button" data-bs-toggle="dropdown" aria-expanded="false" fdprocessedid="m9556n">Research <i class="bi bi-chevron-down"></i></button>
+              <div class="dropdown-menu"><a class="dropdown-item d-flex align-items-center gap-2" href="ranks"><i class="bi bi-bar-chart-line"></i>Stock Scoring</a><a class="dropdown-item d-flex align-items-center gap-2" href="ranks?asset=etf"><i class="bi bi-collection"></i>ETF Scoring</a></div>
+            </div>
+                                        <div class="dropdown">
+              <button class="tn " type="button" data-bs-toggle="dropdown" aria-expanded="false" fdprocessedid="a6w4mx">Build &amp; Test <i class="bi bi-chevron-down"></i></button>
+              <div class="dropdown-menu"><a class="dropdown-item d-flex align-items-center gap-2" href="strategies"><i class="bi bi-sliders"></i>My Strategies</a><a class="dropdown-item d-flex align-items-center gap-2" href="backtest"><i class="bi bi-graph-up-arrow"></i>Backtest</a><a class="dropdown-item d-flex align-items-center gap-2" href="compare"><i class="bi bi-layout-three-columns"></i>Compare</a><a class="dropdown-item d-flex align-items-center gap-2" href="multi"><i class="bi bi-diagram-3"></i>Multi-System</a></div>
+            </div>
+                                        <a class="tn " href="portfolio">My Portfolio</a>
+                                        <a class="tn " href="broker">My Broker</a>
+                                        <div class="dropdown">
+              <button class="tn " type="button" data-bs-toggle="dropdown" aria-expanded="false" fdprocessedid="dkjqe">Learn <i class="bi bi-chevron-down"></i></button>
+              <div class="dropdown-menu"><a class="dropdown-item d-flex align-items-center gap-2" href="learn"><i class="bi bi-play-btn"></i>Video guides &amp; articles</a><a class="dropdown-item d-flex align-items-center gap-2" href="guide"><i class="bi bi-book"></i>Ranking Guide</a><a class="dropdown-item d-flex align-items-center gap-2" href="support"><i class="bi bi-life-preserver"></i>Help &amp; Requests</a><a class="dropdown-item d-flex align-items-center gap-2" href="https://t.me/+AMmQzuRvGJQ1NzQ9" target="_blank" rel="noopener"><i class="bi bi-telegram"></i>Telegram Group</a></div>
+            </div>
+                        </nav>
+      <div class="ms-auto d-flex align-items-center gap-2">
+                <a class="tb-btn text-decoration-none" href="account" id="btCredits" data-left="22" data-limit="25" title="Fresh backtests left today. Opening a result you already ran is free. Resets at midnight." style="font-size:12.5px;font-weight:600;">
+          <i class="bi bi-lightning-charge-fill" style="color:var(--brand)"></i>
+          <span>22<span class="muted fw-normal"> / 25</span></span><span class="d-none d-xl-inline muted fw-normal">&nbsp;backtests today</span>
+        </a>
+                <button class="tb-btn" id="themeBtn" title="Light / dark" fdprocessedid="392jro"><i class="bi bi-circle-half"></i></button>
+        <div class="dropdown">
+          <button class="tb-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Account" fdprocessedid="mr9cot">
+            <span class="avatar">S</span>
+            <span class="d-none d-md-inline" style="font-weight:600;font-size:13px">Sachin Patil</span>
+          </button>
+          <div class="dropdown-menu dropdown-menu-end">
+            <div class="px-3 py-2" style="font-size:12.5px"><b>Launch offer plan</b><div class="muted">90 days left</div></div>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item active" href="account"><i class="bi bi-person-circle me-2"></i>Account</a>
+            <a class="dropdown-item" href="account#invite"><i class="bi bi-gift me-2"></i>Invite friends</a>                        <a class="dropdown-item" href="connect"><i class="bi bi-download me-2"></i>Download Broker Connect <span class="muted" style="font-size:11px">v2.5.2</span></a>                        <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="logout"><i class="bi bi-box-arrow-right me-2"></i>Log out</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+    <nav class="tabbar d-lg-none" aria-label="Main">
+          <a class="" href="ranks"><i class="bi bi-search"></i><span>Research</span></a>
+          <a class="" href="strategies"><i class="bi bi-sliders"></i><span>Build &amp; Test</span></a>
+          <a class="" href="portfolio"><i class="bi bi-briefcase"></i><span>My Portfolio</span></a>
+          <a class="" href="learn"><i class="bi bi-book"></i><span>Learn</span></a>
+        <button type="button" onclick="document.getElementById('moreSheet').classList.toggle('open')"><i class="bi bi-grid"></i><span>More</span></button>
+  </nav>
+  <div class="more-sheet d-lg-none" id="moreSheet" onclick="if (event.target === this) this.classList.remove('open')">
+    <div class="sheet-in">
+      <div class="sheet-grp">Research</div><a class="dropdown-item d-flex align-items-center gap-2" href="ranks"><i class="bi bi-bar-chart-line"></i>Stock Scoring</a><a class="dropdown-item d-flex align-items-center gap-2" href="ranks?asset=etf"><i class="bi bi-collection"></i>ETF Scoring</a><div class="sheet-grp">Build &amp; Test</div><a class="dropdown-item d-flex align-items-center gap-2" href="strategies"><i class="bi bi-sliders"></i>My Strategies</a><a class="dropdown-item d-flex align-items-center gap-2" href="backtest"><i class="bi bi-graph-up-arrow"></i>Backtest</a><a class="dropdown-item d-flex align-items-center gap-2" href="compare"><i class="bi bi-layout-three-columns"></i>Compare</a><a class="dropdown-item d-flex align-items-center gap-2" href="multi"><i class="bi bi-diagram-3"></i>Multi-System</a><div class="sheet-grp">My Portfolio</div><a class="dropdown-item d-flex align-items-center gap-2" href="portfolio"><i class="bi bi-briefcase"></i>My Portfolios</a><div class="sheet-grp">My Broker</div><a class="dropdown-item d-flex align-items-center gap-2" href="broker"><i class="bi bi-bank"></i>My Broker</a><div class="sheet-grp">Learn</div><a class="dropdown-item d-flex align-items-center gap-2" href="learn"><i class="bi bi-play-btn"></i>Video guides &amp; articles</a><a class="dropdown-item d-flex align-items-center gap-2" href="guide"><i class="bi bi-book"></i>Ranking Guide</a><a class="dropdown-item d-flex align-items-center gap-2" href="support"><i class="bi bi-life-preserver"></i>Help &amp; Requests</a><a class="dropdown-item d-flex align-items-center gap-2" href="https://t.me/+AMmQzuRvGJQ1NzQ9" target="_blank" rel="noopener"><i class="bi bi-telegram"></i>Telegram Group</a>      <div class="sheet-grp">You</div><a class="dropdown-item d-flex align-items-center gap-2 active" href="account"><i class="bi bi-person-circle"></i>Account</a><a class="dropdown-item d-flex align-items-center gap-2" href="logout"><i class="bi bi-box-arrow-right"></i>Log out</a>    </div>
+  </div>
+  <div class="studio-body">
+    <main class="content wrap">
+                  <div class="alert alert-success py-2"><i class="bi bi-megaphone"></i> Beta Access Enabled</div>
+        <div class="page-head"><div><div class="eyebrow">Settings</div><h2 class="t">Your account</h2><p class="s">sachinapatil2003@gmail.com</p></div></div>
+
+
+<div class="row g-3 mb-3">
+  <div class="col-md-4"><div class="card stat h-100" style="border-color:var(--brand)"><div class="k">Plan</div>
+    <div class="v">Launch offer</div>
+    <div class="s">90 days left · until 2027-01-14</div></div></div>
+  <div class="col-md-4"><div class="card stat h-100"><div class="k">Backtests today</div>
+    <div class="v">3 <span class="muted fs-6">/ 25</span></div>
+    <div class="progress mt-2" style="height:6px"><div class="progress-bar" style="width:12%;background:var(--brand)"></div></div>    <div class="s mt-1">Opening a result that's already been run is free. Resets at midnight.</div></div></div>
+  <div class="col-md-4"><div class="card stat h-100"><div class="k">My strategies</div>
+    <div class="v">1</div><div class="s"><a href="strategies">Manage</a></div></div></div>
+</div>
+
+<div class="row g-3">
+  <div class="col-lg-6"><form class="card h-100" method="post"><div class="card-header">Profile</div><div class="card-body">
+    <input type="hidden" name="csrf_token" value="c5690cf92d6d5acfe2759b5796f553f50e3f8d1301f9d092930644586b36423e"><input type="hidden" name="action" value="profile">
+    <label class="form-label">Name</label><input class="form-control mb-3" name="name" value="Sachin Patil" required="" fdprocessedid="7b2hs">
+    <label class="form-label">Email</label><input class="form-control mb-3" value="sachinapatil2003@gmail.com" disabled="" fdprocessedid="nzoza">
+    <label class="form-label">Mobile (WhatsApp) <span class="text-danger">*</span></label><div class="input-group mb-2"><span class="input-group-text">+91</span><input class="form-control" type="tel" name="phone" inputmode="numeric" value="9324812561" required="" fdprocessedid="j3xmwb"></div>
+    <div class="mb-2" style="font-size:12.5px"><span style="color:var(--up)"><i class="bi bi-patch-check-fill"></i> Verified on WhatsApp</span> <span class="muted">· a new number is verified again with a code</span></div>    <div class="form-check form-switch mb-3"><input class="form-check-input" type="checkbox" role="switch" name="wa" value="1" id="waMe" checked=""><label class="form-check-label" for="waMe" style="font-size:13.5px">Plan and renewal reminders on WhatsApp</label></div>
+    <div class="form-check form-switch mb-3"><input class="form-check-input" type="checkbox" role="switch" name="em" value="1" id="emMe" checked=""><label class="form-check-label" for="emMe" style="font-size:13.5px">Plan and rebalance reminders by email</label></div>
+    <button class="btn btn-primary" fdprocessedid="tr2jq5">Save</button>
+  </div></form></div>
+  <div class="col-lg-6"><form class="card h-100" method="post"><div class="card-header">Change password</div><div class="card-body">
+    <input type="hidden" name="csrf_token" value="c5690cf92d6d5acfe2759b5796f553f50e3f8d1301f9d092930644586b36423e"><input type="hidden" name="action" value="password">
+    <label class="form-label">Current password</label><input class="form-control mb-3" type="password" name="current" autocomplete="current-password" required="" fdprocessedid="b02ebp">
+    <label class="form-label">New password</label><input class="form-control mb-3" type="password" name="new" minlength="8" autocomplete="new-password" required="" fdprocessedid="p9wynt">
+    <button class="btn btn-primary" fdprocessedid="4eby4p">Change password</button>
+  </div></form></div>
+</div>
+
+<div class="card mt-3" id="invite" style="border-color:var(--brand)"><div class="card-header d-flex align-items-center"><i class="bi bi-gift me-1" style="color:var(--brand)"></i> Invite friends
+  <span class="ms-auto muted" style="font-size:12.5px">0 joined · 0 free days earned</span></div>
+  <div class="card-body">
+    <p class="mb-2" style="font-size:14px">Share your link. When a friend signs up with it and confirms their email, <b>you get 7 free days</b> and <b>they get 7 extra days</b>, added once we check it (usually within a day).</p>
+    <div class="input-group mb-2" style="max-width:560px"><input class="form-control" id="refUrl" value="https://momentumscore.in/signup.php?ref=L6WJY4B" readonly="" onclick="this.select()" fdprocessedid="29pgtp">
+      <button class="btn btn-primary" type="button" id="refCopy" fdprocessedid="l4fo6"><i class="bi bi-clipboard"></i> Copy</button></div>
+    <div class="d-flex flex-wrap gap-2">
+      <a class="btn btn-sm btn-outline-success" target="_blank" rel="noopener" href="https://wa.me/?text=I%20use%20MomentumScore%20to%20build%20and%20backtest%20rule-based%20momentum%20strategies.%20Try%20it%20free%3A%20https%3A%2F%2Fmomentumscore.in%2Fsignup.php%3Fref%3DL6WJY4B"><i class="bi bi-whatsapp"></i> WhatsApp</a>
+      <a class="btn btn-sm btn-outline-primary" target="_blank" rel="noopener" href="https://t.me/share/url?url=https%3A%2F%2Fmomentumscore.in%2Fsignup.php%3Fref%3DL6WJY4B&amp;text=Build%20and%20backtest%20rule-based%20momentum%20strategies%2C%20free%20to%20try"><i class="bi bi-telegram"></i> Telegram</a>
+    </div>
+    <div class="form-text mt-2">Only new accounts count, one per person. Please share it with people you know; no spam.</div>
+      </div></div>
+<script>
+document.getElementById('refCopy').addEventListener('click', function () {
+  var i = document.getElementById('refUrl'), b = this;
+  (navigator.clipboard ? navigator.clipboard.writeText(i.value) : Promise.reject()).catch(function () { i.select(); document.execCommand('copy'); })
+    .then(function () { b.innerHTML = '<i class="bi bi-check2"></i> Copied'; setTimeout(function () { b.innerHTML = '<i class="bi bi-clipboard"></i> Copy'; }, 1800); });
+});
+</script>
+
+<div class="card mt-3" id="telegram" style="border-color:#229ed9"><div class="card-header d-flex align-items-center"><i class="bi bi-telegram me-1" style="color:#229ed9"></i> Telegram alerts
+  <span class="ms-auto chip chip-ghost" style="text-transform:none;letter-spacing:0">Not connected</span></div>
+  <div class="card-body">
+      <p class="mb-2" style="font-size:14px">Get your <b>rebalance reminders</b>, <b>buy-the-dip alerts</b>, plan reminders and important updates on Telegram, through your own private bot. It's free and takes about 2 minutes, once.</p>
+    <ol class="mb-3" style="font-size:13.5px">
+      <li>Open <a href="https://t.me/BotFather" target="_blank" rel="noopener"><b>@BotFather</b></a> in Telegram (the official bot with the blue tick) and send <code>/newbot</code>.</li>
+      <li>Give it any name (e.g. <i>My MomentumScore Alerts</i>) and a username ending in <code>bot</code> (e.g. <i>ravi_ms_alerts_bot</i>).</li>
+      <li>BotFather replies with a <b>token</b> like <code>123456789:AAH…</code>. Copy it and paste it below.</li>
+    </ol>
+    <form method="post" class="d-flex flex-wrap gap-2" autocomplete="off"><input type="hidden" name="csrf_token" value="c5690cf92d6d5acfe2759b5796f553f50e3f8d1301f9d092930644586b36423e"><input type="hidden" name="action" value="tg_bot">
+      <input class="form-control font-monospace" style="max-width:460px" name="tg_bot_token" type="password" autocomplete="new-password" placeholder="Paste your bot token" required="" fdprocessedid="08a3nt">
+      <button class="btn btn-primary" fdprocessedid="jkttv8"><i class="bi bi-check2"></i> Save bot</button></form>
+    <div class="form-text">The token only lets us send messages through your bot. Keep it private; you can revoke it any time in @BotFather.</div>
+    <div class="form-text mt-2">Service messages only: reminders and updates, never stock tips or buy/sell calls.</div>
+</div></div>
+
+<div class="card mt-3"><div class="card-header">Plans</div><div class="card-body row g-3">
+    <div class="col-md-6"><div class="p-3 h-100" style="border:1px solid var(--line);border-radius:12px">
+    <div class="d-flex align-items-center"><b style="font-size:16px">Trial</b>      <span class="ms-auto fw-bold" style="font-size:18px">Free</span></div>
+    <div class="muted mt-1">25 backtests a day · 10 own strategies</div>
+    <div class="mt-2" style="font-size:13px">      <span class="me-2 text-nowrap " style=""><i class="bi bi-check-lg up"></i> Stock Scoring</span>
+          <span class="me-2 text-nowrap " style=""><i class="bi bi-check-lg up"></i> ETF Scoring</span>
+          <span class="me-2 text-nowrap " style=""><i class="bi bi-check-lg up"></i> Compare</span>
+          <span class="me-2 text-nowrap " style=""><i class="bi bi-check-lg up"></i> Multi-System</span>
+          <span class="me-2 text-nowrap muted" style="opacity:.55"><i class="bi bi-lock"></i> Broker Connect</span>
+    </div>
+    <ul class="mb-0 mt-2 ps-3" style="font-size:13px"><li>All ready strategies</li><li>Your own ranking rules</li><li>Live portfolio</li></ul>  </div></div>
+    <div class="col-md-6"><div class="p-3 h-100" style="border:1px solid var(--line);border-radius:12px">
+    <div class="d-flex align-items-center"><b style="font-size:16px">Pro Monthly</b>      <span class="ms-auto fw-bold" style="font-size:18px">₹599 + GST<span class="muted fw-normal" style="font-size:12px"> / 30 days</span></span></div>
+    <div class="muted mt-1">100 backtests a day · unlimited own strategies · 4 broker accounts</div>
+    <div class="mt-2" style="font-size:13px">      <span class="me-2 text-nowrap " style=""><i class="bi bi-check-lg up"></i> Stock Scoring</span>
+          <span class="me-2 text-nowrap " style=""><i class="bi bi-check-lg up"></i> ETF Scoring</span>
+          <span class="me-2 text-nowrap " style=""><i class="bi bi-check-lg up"></i> Compare</span>
+          <span class="me-2 text-nowrap " style=""><i class="bi bi-check-lg up"></i> Multi-System</span>
+          <span class="me-2 text-nowrap " style=""><i class="bi bi-check-lg up"></i> Broker Connect</span>
+    </div>
+    <ul class="mb-0 mt-2 ps-3" style="font-size:13px"><li>Everything in Trial</li><li>Unlimited own strategies</li><li>Robustness check: rules or luck</li><li>Priority support</li></ul>  </div></div>
+    <div class="col-md-6"><div class="p-3 h-100" style="border:1px solid var(--line);border-radius:12px">
+    <div class="d-flex align-items-center"><b style="font-size:16px">Pro Quarterly</b>      <span class="ms-auto fw-bold" style="font-size:18px">₹1,599 + GST<span class="muted fw-normal" style="font-size:12px"> / 90 days</span></span></div>
+    <div class="muted mt-1">100 backtests a day · unlimited own strategies · 4 broker accounts</div>
+    <div class="mt-2" style="font-size:13px">      <span class="me-2 text-nowrap " style=""><i class="bi bi-check-lg up"></i> Stock Scoring</span>
+          <span class="me-2 text-nowrap " style=""><i class="bi bi-check-lg up"></i> ETF Scoring</span>
+          <span class="me-2 text-nowrap " style=""><i class="bi bi-check-lg up"></i> Compare</span>
+          <span class="me-2 text-nowrap " style=""><i class="bi bi-check-lg up"></i> Multi-System</span>
+          <span class="me-2 text-nowrap " style=""><i class="bi bi-check-lg up"></i> Broker Connect</span>
+    </div>
+    <ul class="mb-0 mt-2 ps-3" style="font-size:13px"><li>Everything in Trial</li><li>Unlimited own strategies</li><li>Robustness check: rules or luck</li><li>Priority support</li></ul>  </div></div>
+    <div class="col-md-6"><div class="p-3 h-100" style="border:1px solid var(--line);border-radius:12px">
+    <div class="d-flex align-items-center"><b style="font-size:16px">Pro Yearly</b>      <span class="ms-auto fw-bold" style="font-size:18px">₹5,399 + GST<span class="muted fw-normal" style="font-size:12px"> / 365 days</span></span></div>
+    <div class="muted mt-1">100 backtests a day · unlimited own strategies · 4 broker accounts</div>
+    <div class="mt-2" style="font-size:13px">      <span class="me-2 text-nowrap " style=""><i class="bi bi-check-lg up"></i> Stock Scoring</span>
+          <span class="me-2 text-nowrap " style=""><i class="bi bi-check-lg up"></i> ETF Scoring</span>
+          <span class="me-2 text-nowrap " style=""><i class="bi bi-check-lg up"></i> Compare</span>
+          <span class="me-2 text-nowrap " style=""><i class="bi bi-check-lg up"></i> Multi-System</span>
+          <span class="me-2 text-nowrap " style=""><i class="bi bi-check-lg up"></i> Broker Connect</span>
+    </div>
+    <ul class="mb-0 mt-2 ps-3" style="font-size:13px"><li>Everything in Trial</li><li>Unlimited own strategies</li><li>Robustness check: rules or luck</li><li>Priority support</li></ul>  </div></div>
+    <div class="col-12 muted d-flex flex-wrap align-items-center gap-2" style="font-size:12.5px">Online payment is coming soon. Until then we upgrade your plan by hand: write to support@momentumscore.in.
+    <span class="ms-auto d-flex gap-2"><a class="btn btn-sm btn-soft" href="https://t.me/+AMmQzuRvGJQ1NzQ9" target="_blank" rel="noopener"><i class="bi bi-telegram"></i> Telegram group</a>    </span></div>
+</div></div>
+
+<div class="card mt-3" id="addons"><div class="card-header">Add-ons</div><div class="card-body row g-3">
+  <div class="col-md-6"><div class="p-3 h-100" style="border:1px solid var(--line);border-radius:12px">
+    <div class="d-flex align-items-center"><b style="font-size:16px"><i class="bi bi-lightning-charge" style="color:var(--brand)"></i> Backtest pack</b>
+      <span class="ms-auto fw-bold" style="font-size:18px">₹100<span class="muted fw-normal" style="font-size:12px"> + GST</span></span></div>
+    <div class="muted mt-1" style="font-size:13.5px">500 extra backtests, used only after the day's 25 run out. They don't expire.</div>
+    <div class="mt-2" style="font-size:13.5px">You have <b>0</b> pack backtests left.</div>
+  </div></div>
+  <div class="col-md-6"><div class="p-3 h-100" style="border:1px solid var(--line);border-radius:12px">
+    <div class="d-flex align-items-center"><b style="font-size:16px"><i class="bi bi-bank" style="color:var(--brand)"></i> Extra broker account</b>
+      <span class="ms-auto fw-bold" style="font-size:18px">₹200<span class="muted fw-normal" style="font-size:12px"> + GST / month each</span></span></div>
+    <div class="muted mt-1" style="font-size:13.5px">One more of your own broker accounts in My Broker, on top of your plan's 1.</div>
+    <div class="mt-2" style="font-size:13.5px">None yet.</div>
+  </div></div>
+  <div class="col-12 muted" style="font-size:12.5px">Add-ons are added by hand for now, like plans: write to support@momentumscore.in.</div>
+</div></div>
+      <div class="foot-note">
+        MomentumScore ranks securities only against rules you define and never recommends a stock or ETF.
+        Backtested results are hypothetical and do not guarantee future returns. Not investment advice. MomentumScore (operated by Technobot Technolgies Pvt Ltd) is not registered with SEBI as an Investment Adviser or Research Analyst. Strategies in the Research section are prepared by <b>RISHABH KUMAR SHARMA</b>, SEBI Registered Research Analyst (Reg. No. INH000018081), who is also a partner in MomentumScore.        <div class="d-flex flex-wrap gap-3 mt-2"><a href="pricing">Pricing</a><a href="terms">Terms</a><a href="privacy">Privacy</a><a href="refund">Refund &amp; cancellation</a><a href="delivery">Service delivery</a><a href="contact">Contact us</a><a href="disclaimer">Disclaimer</a></div>
+      </div>
+    </main>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.getElementById('themeBtn')?.addEventListener('click', function () {
+  var t = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', t);
+  document.documentElement.setAttribute('data-bs-theme', t);
+  try { localStorage.setItem('as-theme', t); } catch (e) {}
+  document.dispatchEvent(new Event('themechange'));
+});
+</script>
+<div class="modal fade" id="limitModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content">
+  <div class="modal-body p-4 text-center">
+    <div class="verify-ic mx-auto mb-3" style="width:52px;height:52px;border-radius:14px;display:grid;place-items:center;background:var(--brand-soft);color:var(--brand);font-size:24px"><i class="bi bi-lightning-charge"></i></div>
+    <h5 class="fw-bold mb-1">Today's 25 backtests are used up</h5>
+    <p class="muted mb-3" style="font-size:14px">Results you already ran stay open, and the count resets at midnight. Need more? Ask us for a higher daily limit: the request is written for you, just press Send.</p>
+    <div class="d-flex gap-2 justify-content-center flex-wrap">
+      <a class="btn btn-primary" href="support?prefill=limit"><i class="bi bi-send"></i> Request a higher limit</a>
+      <button class="btn btn-soft" type="button" data-bs-dismiss="modal">Not now</button>
+    </div>
+  </div>
+</div></div></div>
+<script>
+// any page can call this when a run is refused for the daily limit
+window.msLimitHit = function () {
+  var m = document.getElementById('limitModal');
+  if (m && window.bootstrap) bootstrap.Modal.getOrCreateInstance(m).show();
+};
+window.msIsLimitError = function (msg) { return /backtests on the .* plan/i.test(String(msg || '')); };
+(function () {
+  // the credits chip in the top bar: at 0 left it opens this instead of the account page
+  var c = document.getElementById('btCredits');
+  if (c && c.getAttribute('data-left') === '0') {
+    c.addEventListener('click', function (e) { e.preventDefault(); window.msLimitHit(); });
+  }
+})();
+</script>
+<style>
+  #aiBtn { position: fixed; right: 20px; bottom: 20px; z-index: 2147483600; border-radius: 999px; box-shadow: 0 6px 20px rgba(0,0,0,.22);
+    padding: 12px 22px; font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+  #aiBtn i { font-size: 20px; }
+  /* above the Tawk.to overlay, which otherwise swallows clicks near its bubble */
+  #aiBox { position: fixed; right: 20px; bottom: 74px; z-index: 2147483600; width: min(380px, calc(100vw - 32px)); height: min(520px, calc(100vh - 120px));
+    display: none; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 12px 40px rgba(0,0,0,.22); overflow: hidden; }
+  /* phones and tablets: the app's bottom tab bar (64 px, .tabbar, below 992 px) and the Tawk
+     bubble just above it (yOffset 76 in livechat.php) take the bottom-right corner, so the button
+     sits above them and the chat opens as a panel above the tab bar */
+  @media (max-width: 991.98px) {
+    #aiBtn { bottom: calc(76px + env(safe-area-inset-bottom, 0px)); right: 12px; padding: 9px 15px; font-size: 14px; }
+    #aiBtn i { font-size: 17px; }
+    #aiBox { left: 8px; right: 8px; width: auto; bottom: calc(72px + env(safe-area-inset-bottom, 0px)); height: calc(100dvh - 150px); max-height: 600px; border-radius: 14px; }
+  }
+  #aiBox.open { display: flex; }
+  #aiBox .hd { padding: 10px 14px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 8px; font-weight: 700; }
+  #aiLog { flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; }
+  #aiLog .m { max-width: 88%; padding: 8px 11px; border-radius: 12px; line-height: 1.5; overflow-wrap: anywhere; }
+  #aiLog .u { align-self: flex-end; background: var(--brand); color: #fff; }
+  #aiLog .a { align-self: flex-start; background: var(--brand-soft); color: var(--text); }
+  #aiLog .a code { background: rgba(0,0,0,.06); padding: 0 4px; border-radius: 4px; }
+  #aiLog .err { align-self: center; color: var(--text-2); font-size: 12.5px; text-align: center; }
+  #aiBox form { border-top: 1px solid var(--line); padding: 8px; display: flex; gap: 6px; }
+  #aiBox .ft { font-size: 11px; color: var(--text-2); padding: 0 12px 8px; }
+  #aiBox .agent { display: flex; align-items: center; gap: 8px; padding: 7px 12px; border-top: 1px solid var(--line); background: var(--brand-soft); font-size: 13px; }
+  #aiBox .agent button { margin-left: auto; white-space: nowrap; }
+  #aiLog .qk { display: flex; align-items: center; gap: 8px; margin-top: 6px; padding-top: 6px; border-top: 1px dashed var(--line); font-size: 11.5px; color: var(--text-2); }
+  #aiLog .qk button { font-size: 11.5px; padding: 0; }
+</style>
+<button class="btn btn-primary" id="aiBtn" type="button" title="Ask a doubt" fdprocessedid="vppsgf"><i class="bi bi-chat-square-text"></i> Ask doubt</button>
+<div id="aiBox" role="dialog" aria-label="Ask doubt">
+  <div class="hd"><i class="bi bi-chat-square-text" style="color:var(--brand)"></i> Ask doubt
+    <button class="btn btn-sm btn-link ms-auto p-0" type="button" id="aiNew" title="New chat">New</button>
+    <button class="btn-close" type="button" id="aiClose" aria-label="Close"></button></div>
+  <div id="aiLog"></div>
+    <div class="agent"><i class="bi bi-headset"></i> Not understood?
+    <button type="button" class="btn btn-sm btn-primary" id="aiAgent"><i class="bi bi-person-raised-hand"></i> Ask a live agent</button></div>
+    <form id="aiForm"><input type="hidden" name="csrf_token" value="c5690cf92d6d5acfe2759b5796f553f50e3f8d1301f9d092930644586b36423e">    <input class="form-control form-control-sm" id="aiQ" maxlength="2000" placeholder="How do exit ranks work?" autocomplete="off">
+    <button class="btn btn-sm btn-primary" id="aiSend"><i class="bi bi-send"></i></button></form>
+  <div class="ft">AI help for using the app, not investment advice<span id="aiLeft"> · 9 AI questions left today</span></div>
+</div>
+<script>
+(function () {
+  var box = document.getElementById('aiBox'), log = document.getElementById('aiLog'), q = document.getElementById('aiQ'), msgs = [];
+  var hello = 'Hi! Ask me how MomentumScore works: ranking rules, settings, backtests, alerts. (I can\'t give stock tips or investment advice.)';
+  try { msgs = JSON.parse(sessionStorage.getItem('ai-chat') || '[]') || []; } catch (e) { msgs = []; }
+  function save() { try { sessionStorage.setItem('ai-chat', JSON.stringify(msgs.slice(-20))); } catch (e) {} }
+  function esc(t) { return t.replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function md(t) {
+    return esc(t).replace(/`([^`]+)`/g, '<code>$1</code>').replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>')
+      .replace(/^#+\s*(.*)$/gm, '<b>$1</b>').replace(/^\s*[-*]\s+/gm, '• ').replace(/\n/g, '<br>');
+  }
+  function add(cls, html) { var d = document.createElement('div'); d.className = 'm ' + cls; d.innerHTML = html; log.appendChild(d); log.scrollTop = log.scrollHeight; return d; }
+  function draw() { log.innerHTML = ''; add('a', esc(hello)); msgs.forEach(function (m) { add(m.role === 'user' ? 'u' : 'a', m.role === 'user' ? esc(m.content) : md(m.content)); }); }
+  document.getElementById('aiBtn').addEventListener('click', function () { box.classList.toggle('open'); if (box.classList.contains('open')) { draw(); q.focus(); } });
+  document.getElementById('aiClose').addEventListener('click', function () { box.classList.remove('open'); });
+  document.getElementById('aiNew').addEventListener('click', function () { msgs = []; save(); draw(); q.focus(); });
+  var agent = document.getElementById('aiAgent');
+  if (agent) agent.addEventListener('click', function () { box.classList.remove('open'); if (window.msLiveChat) window.msLiveChat(); });
+  var form = document.getElementById('aiForm');
+  // send the chat; forceAi skips the free quick answers (the "Ask AI instead" button), and
+  // keep = the quick answer being replaced: it stays on screen unless the AI really answers
+  function send(forceAi, keep) {
+    var btn = document.getElementById('aiSend');
+    btn.disabled = true;
+    var wait = add('a', '<span class="spinner-border spinner-border-sm"></span>');
+    var fd = new FormData(form);
+    fd.append('messages', JSON.stringify(msgs.slice(-8)));
+    if (forceAi) fd.append('ai', '1');
+    fetch('assistant.php', { method: 'POST', body: fd, credentials: 'same-origin' }).then(function (r) { return r.json(); }).then(function (j) {
+      wait.remove();
+      if (keep && !j.ok) {   // no AI answer: the quick answer stays
+        msgs.push({ role: 'assistant', content: keep.content }); save();
+        var n = add('err', esc(j.reply)); n.classList.remove('m');
+        btn.disabled = false;
+        return;
+      }
+      if (keep) keep.el.remove();
+      if (j.ok) {
+        msgs.push({ role: 'assistant', content: j.reply }); save();
+        var d = add('a', md(j.reply));
+        if (j.quick) {
+          var f = document.createElement('div');
+          f.className = 'qk';
+          f.innerHTML = '<span><i class="bi bi-lightning-charge"></i> Quick answer from the guide (free)</span><button type="button" class="btn btn-link ms-auto">Ask AI instead</button>';
+          f.querySelector('button').addEventListener('click', function () {
+            f.remove();
+            var mine = msgs.pop(); save();   // the AI answers the same question; the quick answer waits on screen
+            send(true, { el: d, content: mine.content });
+          });
+          d.appendChild(f);
+        }
+      } else { msgs.pop(); save(); var e = add('err', esc(j.reply)); e.classList.remove('m'); }
+      if (j.left !== null && j.left !== undefined) document.getElementById('aiLeft').textContent = ' · ' + j.left + ' AI questions left today';
+    }).catch(function () {
+      wait.remove();
+      if (keep) msgs.push({ role: 'assistant', content: keep.content }); else msgs.pop();
+      save(); add('err', 'Could not reach the server. Try again.');
+    }).then(function () { btn.disabled = false; q.focus(); });
+  }
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var text = q.value.trim();
+    if (!text || document.getElementById('aiSend').disabled) return;
+    // "Ask AI instead" belongs to the latest answer only: once a new question is asked, it goes
+    document.querySelectorAll('#aiLog .qk button').forEach(function (b) { b.remove(); });
+    msgs.push({ role: 'user', content: text }); save();
+    add('u', esc(text)); q.value = '';
+    send(false);
+  });
+})();
+</script>
+<script>
+window.msLiveChat = function () {
+  var T = window.Tawk_API;
+  if (T && T.maximize) { if (T.showWidget) T.showWidget(); T.maximize(); return; }
+  if (T) {   // the page's own Tawk (or an earlier click) is still loading: open it once it has
+    var was = T.onLoad;
+    T.onLoad = function () { if (was) was(); T.maximize(); };
+    return;
+  }
+  T = window.Tawk_API = {}; window.Tawk_LoadStart = new Date();
+  T.onLoad = function () { T.maximize(); };
+  T.onChatMinimized = function () { T.hideWidget(); };   // no bubble on pages that had none
+  var s = document.createElement('script');
+  s.async = true; s.src = "https://embed.tawk.to/6ab796eaededd83442cff18a/default"; s.charset = 'UTF-8';
+  s.setAttribute('crossorigin', '*');
+  document.body.appendChild(s);
+};
+</script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4bc70e2c01a94c73b74392e4234840661791215815920" integrity="sha512-L0ha0OXavK/8okipN9F8BtP84dg9DUhPERbBXzwI6dgTA55d2+yweo3pn5CSFYs45/r8md2+xvUPtTdvTNRfjA==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;266760461e5248eda129ab5f18ef68c7&quot;,&quot;r&quot;:1,&quot;spa&quot;:2}" crossorigin="anonymous"></script>
+
+
+<span id="PING_CONTENT_PUSH_NOTIFICATION" style="display: none;"></span><span id="PING_IFRAME_FORM_DETECTION" style="display: none;"></span></body></html>

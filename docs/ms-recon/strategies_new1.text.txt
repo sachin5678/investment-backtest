@@ -1,0 +1,14 @@
+Momentum Score Research Build & Test My Portfolio My Broker Learn 22 / 25 backtests today S Sachin Patil Beta Access Enabled STRATEGY BUILDER New strategy Choose how to r
+ank, pick a universe and portfolio rules, then backtest it on 10+ years of data. Name Backtest from to (blank = latest) Invest in Stocks ETFs 1. Universe NIFTY MICROCAP 2
+50 · historical members 2. Conditions No conditions: everything is ranked 3. Rank by Style: All-rounder (speed medium · smooth · staying power medium) 4. Pick Top 20 · ex
+it 52 · monthly, day 20 · 0.10% cost 5. Money ₹1,00,000 6. Protect No trend filter · vs NIFTY 500 7. Run Save & backtest Save & backtest Save STOCK UNIVERSE Index members
+ Liquidity rank NIFTY 500 NIFTY MIDCAP 150 NIFTY SMALLCAP 250 NIFTY MIDSMALLCAP 400 NIFTY MICROCAP 250 NIFTY TOTAL MARKET Set a weight for each index (e.g. Midcap 25% + M
+icrocap 75%) Historical members (as they were on each past date) On: each past date uses the index as it was then. These are NSE's real lists, rebuilt from the changes NS
+E announced (Nifty 500 from 2012 · Midcap 150 from 2016 · Smallcap 250 from 2016 · Microcap 250 from 2021); years before an index existed are estimated from market cap an
+d turnover. Off: today's official members for every past date, which flatters backtests (survivorship bias). Sectors All sectors Only these Leave these out Weights NSE's 
+sector ("Industry") of each stock. Stocks left out are not ranked at all. Today's sectors are used for past dates too; stocks no longer in any NSE list have no sector, so
+ "Only these" leaves them out. Weights: give sectors a %; only those sectors are bought. Next MomentumScore ranks securities only against rules you define and never recom
+mends a stock or ETF. Backtested results are hypothetical and do not guarantee future returns. Not investment advice. MomentumScore (operated by Technobot Technolgies Pvt
+ Ltd) is not registered with SEBI as an Investment Adviser or Research Analyst. Strategies in the Research section are prepared by RISHABH KUMAR SHARMA, SEBI Registered R
+esearch Analyst (Reg. No. INH000018081), who is also a partner in MomentumScore. Pricing Terms Privacy Refund & cancellation Service delivery Contact us Disclaimer Ask do
+ubt

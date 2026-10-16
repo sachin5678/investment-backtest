@@ -1,0 +1,2235 @@
+<html lang="en" data-theme="dark" data-bs-theme="dark"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stock Scoring · MomentumScore</title>
+<!-- real files, not a data: icon: search engines only show favicons they can fetch -->
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="icon" href="assets/brand/icon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/brand/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#1d4ed8">
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem('as-theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', t);
+    document.documentElement.setAttribute('data-bs-theme', t);
+  } catch (e) {}
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin="">
+<!-- fonts and icons don't hold up the first paint (the system font shows until Inter arrives) -->
+<link rel="stylesheet" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="stylesheet" as="style" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"></noscript>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="assets/app.css?v=1791969918" rel="stylesheet">
+<meta name="robots" content="noindex">
+</head>
+<body>
+<div class="studio">
+  <header class="appbar">
+    <div class="wrap appbar-in">
+      <a class="logo" href="home"><svg width="34" height="34" viewBox="0 -8 112 112" aria-hidden="true"><defs><linearGradient id="msg1b" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#2563eb"></stop><stop offset="1" stop-color="#34d399"></stop></linearGradient><linearGradient id="msg1m" x1="48" y1="92" x2="108" y2="8" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#2563eb"></stop><stop offset=".55" stop-color="#3b82f6"></stop><stop offset="1" stop-color="#22d3ee"></stop></linearGradient></defs><rect x="2" y="64" width="11" height="28" rx="3.5" fill="url(#msg1b)"></rect><rect x="18" y="52" width="11" height="40" rx="3.5" fill="url(#msg1b)"></rect><rect x="34" y="40" width="11" height="52" rx="3.5" fill="url(#msg1b)"></rect><path d="M58 92V36L80 62L103 14V92" fill="none" stroke="url(#msg1m)" stroke-width="13" stroke-linejoin="round" stroke-linecap="round"></path></svg><span class="wm" aria-label="MomentumScore"><span class="wm-1">Momentum</span><span class="wm-2">Score</span></span></a>
+      <nav class="topnav d-none d-lg-flex" aria-label="Main">
+                              <div class="dropdown">
+              <button class="tn on" type="button" data-bs-toggle="dropdown" aria-expanded="false" fdprocessedid="lxnohb">Research <i class="bi bi-chevron-down"></i></button>
+              <div class="dropdown-menu"><a class="dropdown-item d-flex align-items-center gap-2 active" href="ranks"><i class="bi bi-bar-chart-line"></i>Stock Scoring</a><a class="dropdown-item d-flex align-items-center gap-2" href="ranks?asset=etf"><i class="bi bi-collection"></i>ETF Scoring</a></div>
+            </div>
+                                        <div class="dropdown">
+              <button class="tn " type="button" data-bs-toggle="dropdown" aria-expanded="false" fdprocessedid="5w7deh">Build &amp; Test <i class="bi bi-chevron-down"></i></button>
+              <div class="dropdown-menu"><a class="dropdown-item d-flex align-items-center gap-2" href="strategies"><i class="bi bi-sliders"></i>My Strategies</a><a class="dropdown-item d-flex align-items-center gap-2" href="backtest"><i class="bi bi-graph-up-arrow"></i>Backtest</a><a class="dropdown-item d-flex align-items-center gap-2" href="compare"><i class="bi bi-layout-three-columns"></i>Compare</a><a class="dropdown-item d-flex align-items-center gap-2" href="multi"><i class="bi bi-diagram-3"></i>Multi-System</a></div>
+            </div>
+                                        <a class="tn " href="portfolio">My Portfolio</a>
+                                        <a class="tn " href="broker">My Broker</a>
+                                        <div class="dropdown">
+              <button class="tn " type="button" data-bs-toggle="dropdown" aria-expanded="false" fdprocessedid="un34nl">Learn <i class="bi bi-chevron-down"></i></button>
+              <div class="dropdown-menu"><a class="dropdown-item d-flex align-items-center gap-2" href="learn"><i class="bi bi-play-btn"></i>Video guides &amp; articles</a><a class="dropdown-item d-flex align-items-center gap-2" href="guide"><i class="bi bi-book"></i>Ranking Guide</a><a class="dropdown-item d-flex align-items-center gap-2" href="support"><i class="bi bi-life-preserver"></i>Help &amp; Requests</a><a class="dropdown-item d-flex align-items-center gap-2" href="https://t.me/+AMmQzuRvGJQ1NzQ9" target="_blank" rel="noopener"><i class="bi bi-telegram"></i>Telegram Group</a></div>
+            </div>
+                        </nav>
+      <div class="ms-auto d-flex align-items-center gap-2">
+                <a class="tb-btn text-decoration-none" href="account" id="btCredits" data-left="22" data-limit="25" title="Fresh backtests left today. Opening a result you already ran is free. Resets at midnight." style="font-size:12.5px;font-weight:600;">
+          <i class="bi bi-lightning-charge-fill" style="color:var(--brand)"></i>
+          <span>22<span class="muted fw-normal"> / 25</span></span><span class="d-none d-xl-inline muted fw-normal">&nbsp;backtests today</span>
+        </a>
+                <button class="tb-btn" id="themeBtn" title="Light / dark" fdprocessedid="n34vk8"><i class="bi bi-circle-half"></i></button>
+        <div class="dropdown">
+          <button class="tb-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Account" fdprocessedid="j2f4eh">
+            <span class="avatar">S</span>
+            <span class="d-none d-md-inline" style="font-weight:600;font-size:13px">Sachin Patil</span>
+          </button>
+          <div class="dropdown-menu dropdown-menu-end">
+            <div class="px-3 py-2" style="font-size:12.5px"><b>Launch offer plan</b><div class="muted">90 days left</div></div>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item " href="account"><i class="bi bi-person-circle me-2"></i>Account</a>
+            <a class="dropdown-item" href="account#invite"><i class="bi bi-gift me-2"></i>Invite friends</a>                        <a class="dropdown-item" href="connect"><i class="bi bi-download me-2"></i>Download Broker Connect <span class="muted" style="font-size:11px">v2.5.2</span></a>                        <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="logout"><i class="bi bi-box-arrow-right me-2"></i>Log out</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+    <nav class="tabbar d-lg-none" aria-label="Main">
+          <a class="on" href="ranks"><i class="bi bi-search"></i><span>Research</span></a>
+          <a class="" href="strategies"><i class="bi bi-sliders"></i><span>Build &amp; Test</span></a>
+          <a class="" href="portfolio"><i class="bi bi-briefcase"></i><span>My Portfolio</span></a>
+          <a class="" href="learn"><i class="bi bi-book"></i><span>Learn</span></a>
+        <button type="button" onclick="document.getElementById('moreSheet').classList.toggle('open')"><i class="bi bi-grid"></i><span>More</span></button>
+  </nav>
+  <div class="more-sheet d-lg-none" id="moreSheet" onclick="if (event.target === this) this.classList.remove('open')">
+    <div class="sheet-in">
+      <div class="sheet-grp">Research</div><a class="dropdown-item d-flex align-items-center gap-2 active" href="ranks"><i class="bi bi-bar-chart-line"></i>Stock Scoring</a><a class="dropdown-item d-flex align-items-center gap-2" href="ranks?asset=etf"><i class="bi bi-collection"></i>ETF Scoring</a><div class="sheet-grp">Build &amp; Test</div><a class="dropdown-item d-flex align-items-center gap-2" href="strategies"><i class="bi bi-sliders"></i>My Strategies</a><a class="dropdown-item d-flex align-items-center gap-2" href="backtest"><i class="bi bi-graph-up-arrow"></i>Backtest</a><a class="dropdown-item d-flex align-items-center gap-2" href="compare"><i class="bi bi-layout-three-columns"></i>Compare</a><a class="dropdown-item d-flex align-items-center gap-2" href="multi"><i class="bi bi-diagram-3"></i>Multi-System</a><div class="sheet-grp">My Portfolio</div><a class="dropdown-item d-flex align-items-center gap-2" href="portfolio"><i class="bi bi-briefcase"></i>My Portfolios</a><div class="sheet-grp">My Broker</div><a class="dropdown-item d-flex align-items-center gap-2" href="broker"><i class="bi bi-bank"></i>My Broker</a><div class="sheet-grp">Learn</div><a class="dropdown-item d-flex align-items-center gap-2" href="learn"><i class="bi bi-play-btn"></i>Video guides &amp; articles</a><a class="dropdown-item d-flex align-items-center gap-2" href="guide"><i class="bi bi-book"></i>Ranking Guide</a><a class="dropdown-item d-flex align-items-center gap-2" href="support"><i class="bi bi-life-preserver"></i>Help &amp; Requests</a><a class="dropdown-item d-flex align-items-center gap-2" href="https://t.me/+AMmQzuRvGJQ1NzQ9" target="_blank" rel="noopener"><i class="bi bi-telegram"></i>Telegram Group</a>      <div class="sheet-grp">You</div><a class="dropdown-item d-flex align-items-center gap-2" href="account"><i class="bi bi-person-circle"></i>Account</a><a class="dropdown-item d-flex align-items-center gap-2" href="logout"><i class="bi bi-box-arrow-right"></i>Log out</a>    </div>
+  </div>
+  <div class="studio-body">
+    <main class="content wrap">
+                  <div class="alert alert-success py-2"><i class="bi bi-megaphone"></i> Beta Access Enabled</div>
+        <div class="page-head">
+  <div class="me-auto">
+    <div class="eyebrow">Stock momentum</div>
+    <h2 class="t">hawda</h2>
+    <p class="s">Ranked on 2026-10-16 · every stock in the universe ranked by the strategy's rules</p>
+  </div>
+    <form class="d-flex gap-2 flex-wrap" method="get">
+    <select class="form-select form-select-sm" name="id" style="min-width:240px" onchange="this.form.submit()" fdprocessedid="0lv59p">
+      <option value="215" selected="">hawda</option>    </select>
+    <input class="form-control form-control-sm" type="date" name="dt" value="2026-10-16" max="2026-10-16" onchange="this.form.submit()">
+  </form>
+  </div>
+
+<div class="card mb-3"><div class="card-body py-2 d-flex flex-wrap gap-3 align-items-center" style="font-size:.85rem">
+  <span class="formula">Style: All-rounder (speed medium · smooth · staying power medium)</span>
+  <span class="muted">·</span><span>NIFTY MIDCAP 150 (53 scored)</span>
+  <span class="muted">·</span><span>Top 10 buy · hold to rank 52</span>
+  <span class="muted">·</span><span>Δ vs 2026-09-21</span>  <a class="ms-auto" href="strategies?edit=215"><i class="bi bi-pencil"></i> Edit rules</a>
+  </div></div>
+
+<div class="row g-3 mb-3">
+  <div class="col-md-4"><div class="card stat h-100"><div class="k">Model portfolio</div>
+    <div class="v">1 stocks</div><div class="s">This strategy run from 2013-04-18 to today · CAGR 11.7%</div></div></div>
+  <div class="col-md-4"><div class="card stat h-100"><div class="k">If you rebalanced on 2026-10-16: sell</div>
+    <div class="s mt-1"><span class="chip chip-sell">GOLDBEES</span></div></div></div>
+  <div class="col-md-4"><div class="card stat h-100"><div class="k">Buy</div>
+    <div class="s mt-1"><span class="chip chip-buy">LAURUSLABS</span> <span class="chip chip-buy">PAYTM</span> <span class="chip chip-buy">COFORGE</span> <span class="chip chip-buy">NYKAA</span> <span class="chip chip-buy">BHEL</span> <span class="chip chip-buy">AUROPHARMA</span> <span class="chip chip-buy">FLUOROCHEM</span> <span class="chip chip-buy">MOTILALOFS</span> <span class="chip chip-buy">INDHOTEL</span> <span class="chip chip-buy">JSWINFRA</span></div></div></div>
+</div>
+
+<div class="d-flex flex-wrap gap-2 mb-2 align-items-center" id="secChips"><span class="muted" style="font-size:12px">Sectors within the exit rank:</span>
+  <button type="button" class="btn btn-sm pick active" data-sec="" fdprocessedid="8urk7">All</button>
+  <button type="button" class="btn btn-sm pick" data-sec="Financial Services" fdprocessedid="86inl">Financial Services · 13</button><button type="button" class="btn btn-sm pick" data-sec="Healthcare" fdprocessedid="igia3s">Healthcare · 9</button><button type="button" class="btn btn-sm pick" data-sec="Information Technology" fdprocessedid="9bna8b">Information Technology · 6</button><button type="button" class="btn btn-sm pick" data-sec="Consumer Services" fdprocessedid="1u189d">Consumer Services · 4</button><button type="button" class="btn btn-sm pick" data-sec="Fast Moving Consumer Goods" fdprocessedid="oyt2">Fast Moving Consumer Goods · 3</button><button type="button" class="btn btn-sm pick" data-sec="Automobile and Auto Components" fdprocessedid="3pmhzh">Automobile and Auto Components · 3</button><button type="button" class="btn btn-sm pick" data-sec="Realty" fdprocessedid="84it9wr">Realty · 3</button><button type="button" class="btn btn-sm pick" data-sec="Capital Goods" fdprocessedid="43lrgm">Capital Goods · 2</button><button type="button" class="btn btn-sm pick" data-sec="Telecommunication" fdprocessedid="hdret7">Telecommunication · 2</button><button type="button" class="btn btn-sm pick" data-sec="Consumer Durables" fdprocessedid="7k3jfj">Consumer Durables · 2</button></div>
+<div class="card"><div class="table-responsive"><table class="table table-sm table-hover rank-table">
+  <thead><tr>
+    <th class="num">#</th><th class="num">Δ</th>
+    <th>Stock</th><th>Industry</th><th class="num">Close ₹</th>    <th class="num">3M</th><th class="num">6M</th><th class="num">6M Vol</th><th class="num">1Y</th>    <th style="min-width:220px">Fit</th>
+  </tr></thead>
+  <tbody>
+              <tr class="z-buy" data-sec="Healthcare">
+      <td class="num fw-semibold">1</td>
+      <td class="num"><span class="muted">–</span></td>
+              <td><span class="fw-semibold">LAURUSLABS</span>
+                              <div class="muted" style="font-size:.72rem">Laurus Labs Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Healthcare</td>
+                <td class="num">2,060.10</td>
+                    <td class="num"><span class="up">34.7%</span></td>
+              <td class="num"><span class="up">82.6%</span></td>
+              <td class="num">27.9%</td>
+              <td class="num"><span class="up">138.1%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:100%"></div></div><b>100%</b><button type="button" class="why-btn" data-why="why-99e09535903202f3b50559be55917fa0" title="Why this rank?" fdprocessedid="pgoy88">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-99e09535903202f3b50559be55917fa0" data-sec="Healthcare" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 1:
+        <b>fit 100%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">2.96</span>
+            <span class="why-bar"><i style="width:100%"></i></span><b class="why-pct">100</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+34.7%</span>
+            <span class="why-bar"><i style="width:100%"></i></span><b class="why-pct">100</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+69.1%</span>
+            <span class="why-bar"><i style="width:100%"></i></span><b class="why-pct">100</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 82.6% ✓)</span> · 6-month swings below 45% <span class="muted">(is 27.9% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is green ✓)</span></div>    </div></td></tr>
+                  <tr class="z-buy" data-sec="Fast Moving Consumer Goods">
+      <td class="num fw-semibold">2</td>
+      <td class="num"><span class="muted">–</span></td>
+              <td><span class="fw-semibold">RADICO</span>
+                     <span class="chip chip-hold" title="Fails a buy-only condition: not bought, kept if already held">no buy</span>          <div class="muted" style="font-size:.72rem">Radico Khaitan Ltd</div></td>
+        <td class="muted" style="font-size:.8rem">Fast Moving Consumer Goods</td>
+                <td class="num">4,473.40</td>
+                    <td class="num"><span class="up">9.2%</span></td>
+              <td class="num"><span class="up">47.3%</span></td>
+              <td class="num">27.5%</td>
+              <td class="num"><span class="up">49.7%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:93.7%"></div></div><b>94%</b><button type="button" class="why-btn" data-why="why-4776a60cd340b5b85efc562e0febb715" title="Why this rank?" fdprocessedid="nu54bt">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-4776a60cd340b5b85efc562e0febb715" data-sec="Fast Moving Consumer Goods" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 2:
+        <b>fit 94%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">1.72</span>
+            <span class="why-bar"><i style="width:98%"></i></span><b class="why-pct">98</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+9.2%</span>
+            <span class="why-bar"><i style="width:85%"></i></span><b class="why-pct">85</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+24.9%</span>
+            <span class="why-bar"><i style="width:96%"></i></span><b class="why-pct">96</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 47.3% ✓)</span> · 6-month swings below 45% <span class="muted">(is 27.5% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is red ✗)</span></div>    </div></td></tr>
+                  <tr class="z-buy" data-sec="Financial Services">
+      <td class="num fw-semibold">3</td>
+      <td class="num"><span class="muted">–</span></td>
+              <td><span class="fw-semibold">PAYTM</span>
+                              <div class="muted" style="font-size:.72rem">One 97 Communications Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Financial Services</td>
+                <td class="num">1,693.50</td>
+                    <td class="num"><span class="up">25.6%</span></td>
+              <td class="num"><span class="up">47.4%</span></td>
+              <td class="num">40.3%</td>
+              <td class="num"><span class="up">35.9%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:93.4%"></div></div><b>93%</b><button type="button" class="why-btn" data-why="why-2d209ca6ee871ac58d4cc327e72c502a" title="Why this rank?" fdprocessedid="19ti6q">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-2d209ca6ee871ac58d4cc327e72c502a" data-sec="Financial Services" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 3:
+        <b>fit 93%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">1.18</span>
+            <span class="why-bar"><i style="width:96%"></i></span><b class="why-pct">96</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+25.6%</span>
+            <span class="why-bar"><i style="width:96%"></i></span><b class="why-pct">96</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+17.9%</span>
+            <span class="why-bar"><i style="width:87%"></i></span><b class="why-pct">87</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 47.4% ✓)</span> · 6-month swings below 45% <span class="muted">(is 40.3% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is green ✓)</span></div>    </div></td></tr>
+                  <tr class="z-buy" data-sec="Information Technology">
+      <td class="num fw-semibold">4</td>
+      <td class="num"><span class="up">▲8</span></td>
+              <td><span class="fw-semibold">COFORGE</span>
+                              <div class="muted" style="font-size:.72rem">Coforge Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Information Technology</td>
+                <td class="num">1,951.90</td>
+                    <td class="num"><span class="up">29.4%</span></td>
+              <td class="num"><span class="up">48.6%</span></td>
+              <td class="num">41.8%</td>
+              <td class="num"><span class="up">13.5%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:88.2%"></div></div><b>88%</b><button type="button" class="why-btn" data-why="why-56b5d45788642cd6e08f9bec6b8b9a14" title="Why this rank?" fdprocessedid="jiyhi">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-56b5d45788642cd6e08f9bec6b8b9a14" data-sec="Information Technology" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 4:
+        <b>fit 88%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">1.16</span>
+            <span class="why-bar"><i style="width:94%"></i></span><b class="why-pct">94</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+29.4%</span>
+            <span class="why-bar"><i style="width:98%"></i></span><b class="why-pct">98</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+6.7%</span>
+            <span class="why-bar"><i style="width:69%"></i></span><b class="why-pct">69</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 48.6% ✓)</span> · 6-month swings below 45% <span class="muted">(is 41.8% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is green ✓)</span></div>    </div></td></tr>
+                  <tr class="z-buy" data-sec="Consumer Services">
+      <td class="num fw-semibold">5</td>
+      <td class="num"><span class="up">▲4</span></td>
+              <td><span class="fw-semibold">NYKAA</span>
+                              <div class="muted" style="font-size:.72rem">FSN E-Commerce Ventures Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Consumer Services</td>
+                <td class="num">345.00</td>
+                    <td class="num"><span class="up">6.8%</span></td>
+              <td class="num"><span class="up">31.4%</span></td>
+              <td class="num">27.0%</td>
+              <td class="num"><span class="up">30.6%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:84.6%"></div></div><b>85%</b><button type="button" class="why-btn" data-why="why-fa9b1b6ff41182d4d9c20b8d238df376" title="Why this rank?" fdprocessedid="e0oel9">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-fa9b1b6ff41182d4d9c20b8d238df376" data-sec="Consumer Services" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 5:
+        <b>fit 85%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">1.16</span>
+            <span class="why-bar"><i style="width:92%"></i></span><b class="why-pct">92</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+6.8%</span>
+            <span class="why-bar"><i style="width:75%"></i></span><b class="why-pct">75</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+15.3%</span>
+            <span class="why-bar"><i style="width:83%"></i></span><b class="why-pct">83</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 31.4% ✓)</span> · 6-month swings below 45% <span class="muted">(is 27.0% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is green ✓)</span></div>    </div></td></tr>
+                  <tr class="z-buy" data-sec="Capital Goods">
+      <td class="num fw-semibold">6</td>
+      <td class="num"><span class="muted">–</span></td>
+              <td><span class="fw-semibold">BHEL</span>
+                              <div class="muted" style="font-size:.72rem">Bharat Heavy Electricals Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Capital Goods</td>
+                <td class="num">434.60</td>
+                    <td class="num"><span class="up">3.0%</span></td>
+              <td class="num"><span class="up">40.5%</span></td>
+              <td class="num">37.0%</td>
+              <td class="num"><span class="up">81.8%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:83.8%"></div></div><b>84%</b><button type="button" class="why-btn" data-why="why-4b6bde02e6c704d5b7c51961bbc2dcaa" title="Why this rank?" fdprocessedid="38klx">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-4b6bde02e6c704d5b7c51961bbc2dcaa" data-sec="Capital Goods" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 6:
+        <b>fit 84%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">1.09</span>
+            <span class="why-bar"><i style="width:90%"></i></span><b class="why-pct">90</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+3.0%</span>
+            <span class="why-bar"><i style="width:60%"></i></span><b class="why-pct">60</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+40.5%</span>
+            <span class="why-bar"><i style="width:98%"></i></span><b class="why-pct">98</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 40.5% ✓)</span> · 6-month swings below 45% <span class="muted">(is 37.0% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is green ✓)</span></div>    </div></td></tr>
+                  <tr class="z-buy" data-sec="Healthcare">
+      <td class="num fw-semibold">7</td>
+      <td class="num"><span class="down">▼3</span></td>
+              <td><span class="fw-semibold">AUROPHARMA</span>
+                              <div class="muted" style="font-size:.72rem">Aurobindo Pharma Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Healthcare</td>
+                <td class="num">1,666.90</td>
+                    <td class="num"><span class="up">8.7%</span></td>
+              <td class="num"><span class="up">20.2%</span></td>
+              <td class="num">25.5%</td>
+              <td class="num"><span class="up">48.8%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:83%"></div></div><b>83%</b><button type="button" class="why-btn" data-why="why-c722d3e2c8ab5669c74b88f132e660a0" title="Why this rank?" fdprocessedid="aq6ser">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-c722d3e2c8ab5669c74b88f132e660a0" data-sec="Healthcare" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 7:
+        <b>fit 83%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.79</span>
+            <span class="why-bar"><i style="width:77%"></i></span><b class="why-pct">77</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+8.7%</span>
+            <span class="why-bar"><i style="width:81%"></i></span><b class="why-pct">81</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+20.2%</span>
+            <span class="why-bar"><i style="width:94%"></i></span><b class="why-pct">94</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 20.2% ✓)</span> · 6-month swings below 45% <span class="muted">(is 25.5% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is green ✓)</span></div>    </div></td></tr>
+                  <tr class="z-buy" data-sec="Automobile and Auto Components">
+      <td class="num fw-semibold">8</td>
+      <td class="num"><span class="chip chip-hold">new</span></td>
+              <td><span class="fw-semibold">BOSCHLTD</span>
+                     <span class="chip chip-hold" title="Fails a buy-only condition: not bought, kept if already held">no buy</span>          <div class="muted" style="font-size:.72rem">Bosch Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Automobile and Auto Components</td>
+                <td class="num">45,560.00</td>
+                    <td class="num"><span class="up">11.5%</span></td>
+              <td class="num"><span class="up">21.7%</span></td>
+              <td class="num">25.7%</td>
+              <td class="num"><span class="up">18.4%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:81.3%"></div></div><b>81%</b><button type="button" class="why-btn" data-why="why-6755645f363171047a7944e24ac9fe27" title="Why this rank?" fdprocessedid="nfojam">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-6755645f363171047a7944e24ac9fe27" data-sec="Automobile and Auto Components" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 8:
+        <b>fit 81%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.84</span>
+            <span class="why-bar"><i style="width:81%"></i></span><b class="why-pct">81</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+11.5%</span>
+            <span class="why-bar"><i style="width:90%"></i></span><b class="why-pct">90</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+9.2%</span>
+            <span class="why-bar"><i style="width:73%"></i></span><b class="why-pct">73</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 21.7% ✓)</span> · 6-month swings below 45% <span class="muted">(is 25.7% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is red ✗)</span></div>    </div></td></tr>
+                  <tr class="z-buy" data-sec="Chemicals">
+      <td class="num fw-semibold">9</td>
+      <td class="num"><span class="down">▼2</span></td>
+              <td><span class="fw-semibold">FLUOROCHEM</span>
+                              <div class="muted" style="font-size:.72rem">Gujarat Fluorochemicals Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Chemicals</td>
+                <td class="num">4,402.90</td>
+                    <td class="num"><span class="up">6.2%</span></td>
+              <td class="num"><span class="up">30.4%</span></td>
+              <td class="num">29.9%</td>
+              <td class="num"><span class="up">16.2%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:78%"></div></div><b>78%</b><button type="button" class="why-btn" data-why="why-d33b751a19f176b6860a9ebdfcf98e59" title="Why this rank?" fdprocessedid="n1wx5q">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-d33b751a19f176b6860a9ebdfcf98e59" data-sec="Chemicals" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 9:
+        <b>fit 78%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">1.02</span>
+            <span class="why-bar"><i style="width:88%"></i></span><b class="why-pct">88</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+6.2%</span>
+            <span class="why-bar"><i style="width:69%"></i></span><b class="why-pct">69</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+8.1%</span>
+            <span class="why-bar"><i style="width:71%"></i></span><b class="why-pct">71</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 30.4% ✓)</span> · 6-month swings below 45% <span class="muted">(is 29.9% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is green ✓)</span></div>    </div></td></tr>
+                  <tr class="z-buy" data-sec="Financial Services">
+      <td class="num fw-semibold">10</td>
+      <td class="num"><span class="up">▲14</span></td>
+              <td><span class="fw-semibold">MOTILALOFS</span>
+                              <div class="muted" style="font-size:.72rem">Motilal Oswal Financial Services Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Financial Services</td>
+                <td class="num">1,057.60</td>
+                    <td class="num"><span class="up">9.4%</span></td>
+              <td class="num"><span class="up">35.1%</span></td>
+              <td class="num">35.7%</td>
+              <td class="num"><span class="up">7.9%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:77.2%"></div></div><b>77%</b><button type="button" class="why-btn" data-why="why-0a585878740c1fd870aa9dcfc1b24449" title="Why this rank?" fdprocessedid="su4h98">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-0a585878740c1fd870aa9dcfc1b24449" data-sec="Financial Services" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 10:
+        <b>fit 77%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.98</span>
+            <span class="why-bar"><i style="width:87%"></i></span><b class="why-pct">87</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+9.4%</span>
+            <span class="why-bar"><i style="width:87%"></i></span><b class="why-pct">87</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+3.9%</span>
+            <span class="why-bar"><i style="width:54%"></i></span><b class="why-pct">54</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 35.1% ✓)</span> · 6-month swings below 45% <span class="muted">(is 35.7% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is green ✓)</span></div>    </div></td></tr>
+          <tr class="zone-line"><td colspan="10"><span>Top 10 end here: the rules buy from ranks 1–10. Holdings below keep their place until rank 52.</span></td></tr>        <tr class="z-hold" data-sec="Financial Services">
+      <td class="num fw-semibold">11</td>
+      <td class="num"><span class="up">▲5</span></td>
+              <td><span class="fw-semibold">FEDERALBNK</span>
+                     <span class="chip chip-hold" title="Fails a buy-only condition: not bought, kept if already held">no buy</span>          <div class="muted" style="font-size:.72rem">Federal Bank Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Financial Services</td>
+                <td class="num">338.00</td>
+                    <td class="num"><span class="down">-3.2%</span></td>
+              <td class="num"><span class="up">18.8%</span></td>
+              <td class="num">22.7%</td>
+              <td class="num"><span class="up">63.0%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:71.7%"></div></div><b>72%</b><button type="button" class="why-btn" data-why="why-728c1eed33e6079fee75ba0da1f9d0a5" title="Why this rank?" fdprocessedid="t6tio">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-728c1eed33e6079fee75ba0da1f9d0a5" data-sec="Financial Services" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 11:
+        <b>fit 72%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.83</span>
+            <span class="why-bar"><i style="width:79%"></i></span><b class="why-pct">79</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-3.2%</span>
+            <span class="why-bar"><i style="width:40%"></i></span><b class="why-pct">40</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+18.8%</span>
+            <span class="why-bar"><i style="width:92%"></i></span><b class="why-pct">92</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 18.8% ✓)</span> · 6-month swings below 45% <span class="muted">(is 22.7% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is red ✗)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Healthcare">
+      <td class="num fw-semibold">12</td>
+      <td class="num"><span class="down">▼7</span></td>
+              <td><span class="fw-semibold">IPCALAB</span>
+                     <span class="chip chip-hold" title="Fails a buy-only condition: not bought, kept if already held">no buy</span>          <div class="muted" style="font-size:.72rem">Ipca Laboratories Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Healthcare</td>
+                <td class="num">1,832.60</td>
+                    <td class="num"><span class="down">-3.6%</span></td>
+              <td class="num"><span class="up">25.4%</span></td>
+              <td class="num">27.3%</td>
+              <td class="num"><span class="up">36.8%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:71.2%"></div></div><b>71%</b><button type="button" class="why-btn" data-why="why-f1fe25c2eeeff93dcf99f713e4606fde" title="Why this rank?" fdprocessedid="t9r0ur">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-f1fe25c2eeeff93dcf99f713e4606fde" data-sec="Healthcare" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 12:
+        <b>fit 71%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.93</span>
+            <span class="why-bar"><i style="width:83%"></i></span><b class="why-pct">83</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-3.6%</span>
+            <span class="why-bar"><i style="width:37%"></i></span><b class="why-pct">37</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+18.4%</span>
+            <span class="why-bar"><i style="width:88%"></i></span><b class="why-pct">88</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 25.4% ✓)</span> · 6-month swings below 45% <span class="muted">(is 27.3% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is red ✗)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Metals &amp; Mining">
+      <td class="num fw-semibold">13</td>
+      <td class="num"><span class="muted">–</span></td>
+              <td><span class="fw-semibold">LLOYDSME</span>
+                     <span class="chip chip-hold" title="Fails a buy-only condition: not bought, kept if already held">no buy</span>          <div class="muted" style="font-size:.72rem">Lloyds Metals And Energy Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Metals &amp; Mining</td>
+                <td class="num">1,851.70</td>
+                    <td class="num"><span class="down">-0.7%</span></td>
+              <td class="num"><span class="up">19.0%</span></td>
+              <td class="num">30.9%</td>
+              <td class="num"><span class="up">37.2%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:67.9%"></div></div><b>68%</b><button type="button" class="why-btn" data-why="why-7e17e71fa22ba98aa8838fa3bbaaaea4" title="Why this rank?" fdprocessedid="2ovttd">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-7e17e71fa22ba98aa8838fa3bbaaaea4" data-sec="Metals &amp; Mining" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 13:
+        <b>fit 68%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.61</span>
+            <span class="why-bar"><i style="width:67%"></i></span><b class="why-pct">67</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-0.7%</span>
+            <span class="why-bar"><i style="width:46%"></i></span><b class="why-pct">46</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+18.6%</span>
+            <span class="why-bar"><i style="width:90%"></i></span><b class="why-pct">90</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 19.0% ✓)</span> · 6-month swings below 45% <span class="muted">(is 30.9% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is red ✗)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Healthcare">
+      <td class="num fw-semibold">14</td>
+      <td class="num"><span class="up">▲5</span></td>
+              <td><span class="fw-semibold">AJANTPHARM</span>
+                     <span class="chip chip-hold" title="Fails a buy-only condition: not bought, kept if already held">no buy</span>          <div class="muted" style="font-size:.72rem">Ajanta Pharmaceuticals Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Healthcare</td>
+                <td class="num">3,329.00</td>
+                    <td class="num"><span class="down">-2.6%</span></td>
+              <td class="num"><span class="up">17.7%</span></td>
+              <td class="num">26.7%</td>
+              <td class="num"><span class="up">37.5%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:67.3%"></div></div><b>67%</b><button type="button" class="why-btn" data-why="why-b1c763a46169711eb179c1cbdc9699d6" title="Why this rank?" fdprocessedid="dmrc6h">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-b1c763a46169711eb179c1cbdc9699d6" data-sec="Healthcare" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 14:
+        <b>fit 67%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.67</span>
+            <span class="why-bar"><i style="width:71%"></i></span><b class="why-pct">71</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-2.6%</span>
+            <span class="why-bar"><i style="width:44%"></i></span><b class="why-pct">44</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+17.7%</span>
+            <span class="why-bar"><i style="width:85%"></i></span><b class="why-pct">85</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 17.7% ✓)</span> · 6-month swings below 45% <span class="muted">(is 26.7% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is red ✗)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Consumer Services">
+      <td class="num fw-semibold">15</td>
+      <td class="num"><span class="chip chip-hold">new</span></td>
+              <td><span class="fw-semibold">INDHOTEL</span>
+                              <div class="muted" style="font-size:.72rem">Indian Hotels Co. Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Consumer Services</td>
+                <td class="num">772.10</td>
+                    <td class="num"><span class="up">6.1%</span></td>
+              <td class="num"><span class="up">18.3%</span></td>
+              <td class="num">23.1%</td>
+              <td class="num"><span class="up">5.5%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:64%"></div></div><b>64%</b><button type="button" class="why-btn" data-why="why-0329f65170cb5b28bf12753452ea2a16" title="Why this rank?" fdprocessedid="m5gt56">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-0329f65170cb5b28bf12753452ea2a16" data-sec="Consumer Services" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 15:
+        <b>fit 64%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.79</span>
+            <span class="why-bar"><i style="width:75%"></i></span><b class="why-pct">75</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+6.1%</span>
+            <span class="why-bar"><i style="width:67%"></i></span><b class="why-pct">67</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+2.7%</span>
+            <span class="why-bar"><i style="width:44%"></i></span><b class="why-pct">44</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 18.3% ✓)</span> · 6-month swings below 45% <span class="muted">(is 23.1% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is green ✓)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Services">
+      <td class="num fw-semibold">16</td>
+      <td class="num"><span class="down">▼1</span></td>
+              <td><span class="fw-semibold">JSWINFRA</span>
+                              <div class="muted" style="font-size:.72rem">JSW Infrastructure Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Services</td>
+                <td class="num">340.10</td>
+                    <td class="num"><span class="down">-0.6%</span></td>
+              <td class="num"><span class="up">24.8%</span></td>
+              <td class="num">35.2%</td>
+              <td class="num"><span class="up">10.8%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:63.2%"></div></div><b>63%</b><button type="button" class="why-btn" data-why="why-075263723a493d69ff52eefd8d3cfc93" title="Why this rank?" fdprocessedid="ln48n">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-075263723a493d69ff52eefd8d3cfc93" data-sec="Services" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 16:
+        <b>fit 63%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.70</span>
+            <span class="why-bar"><i style="width:73%"></i></span><b class="why-pct">73</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-0.6%</span>
+            <span class="why-bar"><i style="width:48%"></i></span><b class="why-pct">48</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+5.4%</span>
+            <span class="why-bar"><i style="width:63%"></i></span><b class="why-pct">63</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 24.8% ✓)</span> · 6-month swings below 45% <span class="muted">(is 35.2% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is green ✓)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Financial Services">
+      <td class="num fw-semibold">17</td>
+      <td class="num"><span class="up">▲3</span></td>
+              <td><span class="fw-semibold">MCX</span>
+                              <div class="muted" style="font-size:.72rem">Multi Commodity Exchange of India Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Financial Services</td>
+                <td class="num">3,162.00</td>
+                    <td class="num"><span class="up">15.1%</span></td>
+              <td class="num"><span class="up">10.5%</span></td>
+              <td class="num">35.8%</td>
+              <td class="num"><span class="up">81.6%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:61.5%"></div></div><b>62%</b><button type="button" class="why-btn" data-why="why-7345ac9cc89bf4ba98b9be1a8162a37a" title="Why this rank?" fdprocessedid="fmws3l">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-7345ac9cc89bf4ba98b9be1a8162a37a" data-sec="Financial Services" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 17:
+        <b>fit 62%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.29</span>
+            <span class="why-bar"><i style="width:31%"></i></span><b class="why-pct">31</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+15.1%</span>
+            <span class="why-bar"><i style="width:92%"></i></span><b class="why-pct">92</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+10.5%</span>
+            <span class="why-bar"><i style="width:77%"></i></span><b class="why-pct">77</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 10.5% ✓)</span> · 6-month swings below 45% <span class="muted">(is 35.8% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is green ✓)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Information Technology">
+      <td class="num fw-semibold">18</td>
+      <td class="num"><span class="down">▼10</span></td>
+              <td><span class="fw-semibold">OFSS</span>
+                     <span class="chip chip-hold" title="Fails a buy-only condition: not bought, kept if already held">no buy</span>          <div class="muted" style="font-size:.72rem">Oracle Financial Services Software Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Information Technology</td>
+                <td class="num">10,386.00</td>
+                    <td class="num"><span class="down">-11.8%</span></td>
+              <td class="num"><span class="up">33.6%</span></td>
+              <td class="num">35.3%</td>
+              <td class="num"><span class="up">11.5%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:57.7%"></div></div><b>58%</b><button type="button" class="why-btn" data-why="why-ea656b10c7f6fdfa9af11ea73942b4ad" title="Why this rank?" fdprocessedid="vfiiwm">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-ea656b10c7f6fdfa9af11ea73942b4ad" data-sec="Information Technology" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 18:
+        <b>fit 58%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.95</span>
+            <span class="why-bar"><i style="width:85%"></i></span><b class="why-pct">85</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-11.8%</span>
+            <span class="why-bar"><i style="width:10%"></i></span><b class="why-pct">10</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+5.8%</span>
+            <span class="why-bar"><i style="width:65%"></i></span><b class="why-pct">65</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 33.6% ✓)</span> · 6-month swings below 45% <span class="muted">(is 35.3% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is red ✗)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Healthcare">
+      <td class="num fw-semibold">19</td>
+      <td class="num"><span class="down">▼8</span></td>
+              <td><span class="fw-semibold">ANTHEM</span>
+                     <span class="chip chip-hold" title="Fails a buy-only condition: not bought, kept if already held">no buy</span>          <div class="muted" style="font-size:.72rem">Anthem Biosciences Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Healthcare</td>
+                <td class="num">822.15</td>
+                    <td class="num"><span class="up">5.8%</span></td>
+              <td class="num"><span class="up">13.7%</span></td>
+              <td class="num">27.5%</td>
+              <td class="num"><span class="up">6.4%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:57.1%"></div></div><b>57%</b><button type="button" class="why-btn" data-why="why-80c75ea5f0383614e7f9a5a23410d5e2" title="Why this rank?" fdprocessedid="po7p7i">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-80c75ea5f0383614e7f9a5a23410d5e2" data-sec="Healthcare" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 19:
+        <b>fit 57%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.50</span>
+            <span class="why-bar"><i style="width:58%"></i></span><b class="why-pct">58</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+5.8%</span>
+            <span class="why-bar"><i style="width:65%"></i></span><b class="why-pct">65</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+3.2%</span>
+            <span class="why-bar"><i style="width:48%"></i></span><b class="why-pct">48</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 13.7% ✓)</span> · 6-month swings below 45% <span class="muted">(is 27.5% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is red ✗)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Consumer Services">
+      <td class="num fw-semibold">20</td>
+      <td class="num"><span class="up">▲1</span></td>
+              <td><span class="fw-semibold">NAUKRI</span>
+                     <span class="chip chip-hold" title="Fails a buy-only condition: not bought, kept if already held">no buy</span>          <div class="muted" style="font-size:.72rem">Info Edge (India) Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Consumer Services</td>
+                <td class="num">1,265.10</td>
+                    <td class="num"><span class="up">6.6%</span></td>
+              <td class="num"><span class="up">20.8%</span></td>
+              <td class="num">34.4%</td>
+              <td class="num"><span class="down">-6.0%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:56.3%"></div></div><b>56%</b><button type="button" class="why-btn" data-why="why-212ac7de9db3a984864991d98923c420" title="Why this rank?" fdprocessedid="af54rw">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-212ac7de9db3a984864991d98923c420" data-sec="Consumer Services" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 20:
+        <b>fit 56%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.60</span>
+            <span class="why-bar"><i style="width:63%"></i></span><b class="why-pct">63</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+6.6%</span>
+            <span class="why-bar"><i style="width:73%"></i></span><b class="why-pct">73</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-3.0%</span>
+            <span class="why-bar"><i style="width:29%"></i></span><b class="why-pct">29</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 20.8% ✓)</span> · 6-month swings below 45% <span class="muted">(is 34.4% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is red ✗)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Financial Services">
+      <td class="num fw-semibold">21</td>
+      <td class="num"><span class="up">▲7</span></td>
+              <td><span class="fw-semibold">MAHABANK</span>
+                     <span class="chip chip-hold" title="Fails a buy-only condition: not bought, kept if already held">no buy</span>          <div class="muted" style="font-size:.72rem">Bank of Maharashtra</div></td>
+        <td class="muted" style="font-size:.8rem">Financial Services</td>
+                <td class="num">79.79</td>
+                    <td class="num"><span class="down">-0.1%</span></td>
+              <td class="num"><span class="up">12.0%</span></td>
+              <td class="num">34.0%</td>
+              <td class="num"><span class="up">41.0%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:54.9%"></div></div><b>55%</b><button type="button" class="why-btn" data-why="why-736e425967ed5696230480744b15dda4" title="Why this rank?" fdprocessedid="yh23km">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-736e425967ed5696230480744b15dda4" data-sec="Financial Services" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 21:
+        <b>fit 55%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.35</span>
+            <span class="why-bar"><i style="width:42%"></i></span><b class="why-pct">42</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-0.1%</span>
+            <span class="why-bar"><i style="width:50%"></i></span><b class="why-pct">50</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+12.0%</span>
+            <span class="why-bar"><i style="width:79%"></i></span><b class="why-pct">79</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 12.0% ✓)</span> · 6-month swings below 45% <span class="muted">(is 34.0% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is red ✗)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Financial Services">
+      <td class="num fw-semibold">22</td>
+      <td class="num"><span class="up">▲20</span></td>
+              <td><span class="fw-semibold">CRISIL</span>
+                     <span class="chip chip-hold" title="Fails a buy-only condition: not bought, kept if already held">no buy</span>          <div class="muted" style="font-size:.72rem">CRISIL Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Financial Services</td>
+                <td class="num">4,547.90</td>
+                    <td class="num"><span class="up">7.1%</span></td>
+              <td class="num"><span class="up">10.2%</span></td>
+              <td class="num">25.8%</td>
+              <td class="num"><span class="down">-1.7%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:53.8%"></div></div><b>54%</b><button type="button" class="why-btn" data-why="why-8f4cc5d6ed785cb1d39db3cf64841b86" title="Why this rank?" fdprocessedid="uy85kg">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-8f4cc5d6ed785cb1d39db3cf64841b86" data-sec="Financial Services" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 22:
+        <b>fit 54%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.40</span>
+            <span class="why-bar"><i style="width:50%"></i></span><b class="why-pct">50</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+7.1%</span>
+            <span class="why-bar"><i style="width:79%"></i></span><b class="why-pct">79</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-0.8%</span>
+            <span class="why-bar"><i style="width:35%"></i></span><b class="why-pct">35</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 10.2% ✓)</span> · 6-month swings below 45% <span class="muted">(is 25.8% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is red ✗)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Financial Services">
+      <td class="num fw-semibold">23</td>
+      <td class="num"><span class="down">▼9</span></td>
+              <td><span class="fw-semibold">IDFCFIRSTB</span>
+                     <span class="chip chip-hold" title="Fails a buy-only condition: not bought, kept if already held">no buy</span>          <div class="muted" style="font-size:.72rem">IDFC First Bank Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Financial Services</td>
+                <td class="num">78.08</td>
+                    <td class="num"><span class="down">-2.8%</span></td>
+              <td class="num"><span class="up">15.1%</span></td>
+              <td class="num">24.7%</td>
+              <td class="num"><span class="up">6.3%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:53.3%"></div></div><b>53%</b><button type="button" class="why-btn" data-why="why-069d17c50452b9422cbaadb5e59b6250" title="Why this rank?" fdprocessedid="5g01a">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-069d17c50452b9422cbaadb5e59b6250" data-sec="Financial Services" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 23:
+        <b>fit 53%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.61</span>
+            <span class="why-bar"><i style="width:65%"></i></span><b class="why-pct">65</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-2.8%</span>
+            <span class="why-bar"><i style="width:42%"></i></span><b class="why-pct">42</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+3.2%</span>
+            <span class="why-bar"><i style="width:46%"></i></span><b class="why-pct">46</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 15.1% ✓)</span> · 6-month swings below 45% <span class="muted">(is 24.7% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is red ✗)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Textiles">
+      <td class="num fw-semibold">24</td>
+      <td class="num"><span class="up">▲10</span></td>
+              <td><span class="fw-semibold">KPRMILL</span>
+                     <span class="chip chip-hold" title="Fails a buy-only condition: not bought, kept if already held">no buy</span>          <div class="muted" style="font-size:.72rem">K.P.R. Mill Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Textiles</td>
+                <td class="num">1,100.30</td>
+                    <td class="num"><span class="down">-3.5%</span></td>
+              <td class="num"><span class="up">23.1%</span></td>
+              <td class="num">38.3%</td>
+              <td class="num"><span class="up">9.5%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:53.3%"></div></div><b>53%</b><button type="button" class="why-btn" data-why="why-6eac351dae83eb4a9ac44c8f9ed6b094" title="Why this rank?" fdprocessedid="nuy3e7h">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-6eac351dae83eb4a9ac44c8f9ed6b094" data-sec="Textiles" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 24:
+        <b>fit 53%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.60</span>
+            <span class="why-bar"><i style="width:62%"></i></span><b class="why-pct">62</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-3.5%</span>
+            <span class="why-bar"><i style="width:38%"></i></span><b class="why-pct">38</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+4.8%</span>
+            <span class="why-bar"><i style="width:56%"></i></span><b class="why-pct">56</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 23.1% ✓)</span> · 6-month swings below 45% <span class="muted">(is 38.3% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is red ✗)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Capital Goods">
+      <td class="num fw-semibold">25</td>
+      <td class="num"><span class="up">▲5</span></td>
+              <td><span class="fw-semibold">APLAPOLLO</span>
+                     <span class="chip chip-hold" title="Fails a buy-only condition: not bought, kept if already held">no buy</span>          <div class="muted" style="font-size:.72rem">APL Apollo Tubes Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Capital Goods</td>
+                <td class="num">2,152.70</td>
+                    <td class="num"><span class="up">19.9%</span></td>
+              <td class="num"><span class="up">5.3%</span></td>
+              <td class="num">28.4%</td>
+              <td class="num"><span class="up">24.1%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:52.8%"></div></div><b>53%</b><button type="button" class="why-btn" data-why="why-42b4bf60c06d90bb712f55900c34f1bf" title="Why this rank?" fdprocessedid="737ce">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-42b4bf60c06d90bb712f55900c34f1bf" data-sec="Capital Goods" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 25:
+        <b>fit 53%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.18</span>
+            <span class="why-bar"><i style="width:19%"></i></span><b class="why-pct">19</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+19.9%</span>
+            <span class="why-bar"><i style="width:94%"></i></span><b class="why-pct">94</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+5.3%</span>
+            <span class="why-bar"><i style="width:62%"></i></span><b class="why-pct">62</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 5.3% ✓)</span> · 6-month swings below 45% <span class="muted">(is 28.4% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is red ✗)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Oil Gas &amp; Consumable Fuels">
+      <td class="num fw-semibold">26</td>
+      <td class="num"><span class="chip chip-hold">new</span></td>
+              <td><span class="fw-semibold">PETRONET</span>
+                              <div class="muted" style="font-size:.72rem">Petronet LNG Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Oil Gas &amp; Consumable Fuels</td>
+                <td class="num">293.00</td>
+                    <td class="num"><span class="up">7.0%</span></td>
+              <td class="num"><span class="up">7.9%</span></td>
+              <td class="num">22.7%</td>
+              <td class="num"><span class="up">3.6%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:51.4%"></div></div><b>51%</b><button type="button" class="why-btn" data-why="why-caabfb7a9ec113a8e5293a08732f1bc7" title="Why this rank?" fdprocessedid="9sel6">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-caabfb7a9ec113a8e5293a08732f1bc7" data-sec="Oil Gas &amp; Consumable Fuels" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 26:
+        <b>fit 51%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.35</span>
+            <span class="why-bar"><i style="width:40%"></i></span><b class="why-pct">40</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+7.0%</span>
+            <span class="why-bar"><i style="width:77%"></i></span><b class="why-pct">77</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+1.8%</span>
+            <span class="why-bar"><i style="width:42%"></i></span><b class="why-pct">42</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 7.9% ✓)</span> · 6-month swings below 45% <span class="muted">(is 22.7% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is green ✓)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Financial Services">
+      <td class="num fw-semibold">27</td>
+      <td class="num"><span class="down">▼4</span></td>
+              <td><span class="fw-semibold">ABCAPITAL</span>
+                     <span class="chip chip-hold" title="Fails a buy-only condition: not bought, kept if already held">no buy</span>          <div class="muted" style="font-size:.72rem">Aditya Birla Capital Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Financial Services</td>
+                <td class="num">379.40</td>
+                    <td class="num"><span class="down">-5.5%</span></td>
+              <td class="num"><span class="up">12.3%</span></td>
+              <td class="num">31.2%</td>
+              <td class="num"><span class="up">27.3%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:51.4%"></div></div><b>51%</b><button type="button" class="why-btn" data-why="why-7a38cb7cd235becbd7476c1c55e41a32" title="Why this rank?" fdprocessedid="e65gl">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-7a38cb7cd235becbd7476c1c55e41a32" data-sec="Financial Services" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 27:
+        <b>fit 51%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.39</span>
+            <span class="why-bar"><i style="width:48%"></i></span><b class="why-pct">48</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-5.5%</span>
+            <span class="why-bar"><i style="width:27%"></i></span><b class="why-pct">27</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+12.3%</span>
+            <span class="why-bar"><i style="width:81%"></i></span><b class="why-pct">81</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 12.3% ✓)</span> · 6-month swings below 45% <span class="muted">(is 31.2% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is red ✗)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Fast Moving Consumer Goods">
+      <td class="num fw-semibold">28</td>
+      <td class="num"><span class="chip chip-hold">new</span></td>
+              <td><span class="fw-semibold">UNITDSPR</span>
+                     <span class="chip chip-hold" title="Fails a buy-only condition: not bought, kept if already held">no buy</span>          <div class="muted" style="font-size:.72rem">United Spirits Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Fast Moving Consumer Goods</td>
+                <td class="num">1,380.00</td>
+                    <td class="num"><span class="up">0.3%</span></td>
+              <td class="num"><span class="up">10.0%</span></td>
+              <td class="num">24.0%</td>
+              <td class="num"><span class="up">3.2%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:49.2%"></div></div><b>49%</b><button type="button" class="why-btn" data-why="why-8e43ff0d0a3a31d7b66b617e1ebb6c7d" title="Why this rank?" fdprocessedid="w7m9l">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-8e43ff0d0a3a31d7b66b617e1ebb6c7d" data-sec="Fast Moving Consumer Goods" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 28:
+        <b>fit 49%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.42</span>
+            <span class="why-bar"><i style="width:52%"></i></span><b class="why-pct">52</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+0.3%</span>
+            <span class="why-bar"><i style="width:54%"></i></span><b class="why-pct">54</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+1.6%</span>
+            <span class="why-bar"><i style="width:40%"></i></span><b class="why-pct">40</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 10.0% ✓)</span> · 6-month swings below 45% <span class="muted">(is 24.0% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is red ✗)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Financial Services">
+      <td class="num fw-semibold">29</td>
+      <td class="num"><span class="chip chip-hold">new</span></td>
+              <td><span class="fw-semibold">AIIL</span>
+                              <div class="muted" style="font-size:.72rem">Authum Investment &amp; Infrastructure Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Financial Services</td>
+                <td class="num">571.90</td>
+                    <td class="num"><span class="up">0.2%</span></td>
+              <td class="num"><span class="up">27.6%</span></td>
+              <td class="num">44.8%</td>
+              <td class="num"><span class="down">-13.1%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:47.3%"></div></div><b>47%</b><button type="button" class="why-btn" data-why="why-6afc9cfc2860c2584639d5f4d3fcd506" title="Why this rank?" fdprocessedid="wruztc">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-6afc9cfc2860c2584639d5f4d3fcd506" data-sec="Financial Services" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 29:
+        <b>fit 47%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.62</span>
+            <span class="why-bar"><i style="width:69%"></i></span><b class="why-pct">69</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+0.2%</span>
+            <span class="why-bar"><i style="width:52%"></i></span><b class="why-pct">52</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-6.5%</span>
+            <span class="why-bar"><i style="width:10%"></i></span><b class="why-pct">10</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 27.6% ✓)</span> · 6-month swings below 45% <span class="muted">(is 44.8% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is green ✓)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Information Technology">
+      <td class="num fw-semibold">30</td>
+      <td class="num"><span class="up">▲6</span></td>
+              <td><span class="fw-semibold">PERSISTENT</span>
+                              <div class="muted" style="font-size:.72rem">Persistent Systems Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Information Technology</td>
+                <td class="num">5,741.00</td>
+                    <td class="num"><span class="up">10.7%</span></td>
+              <td class="num"><span class="up">4.4%</span></td>
+              <td class="num">38.7%</td>
+              <td class="num"><span class="up">7.4%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:45.9%"></div></div><b>46%</b><button type="button" class="why-btn" data-why="why-f97c206f5bada4452483d6fcd244259c" title="Why this rank?" fdprocessedid="hptdi7">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-f97c206f5bada4452483d6fcd244259c" data-sec="Information Technology" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 30:
+        <b>fit 46%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.11</span>
+            <span class="why-bar"><i style="width:13%"></i></span><b class="why-pct">13</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+10.7%</span>
+            <span class="why-bar"><i style="width:88%"></i></span><b class="why-pct">88</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+3.7%</span>
+            <span class="why-bar"><i style="width:52%"></i></span><b class="why-pct">52</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 4.4% ✓)</span> · 6-month swings below 45% <span class="muted">(is 38.7% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is green ✓)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Information Technology">
+      <td class="num fw-semibold">31</td>
+      <td class="num"><span class="up">▲19</span></td>
+              <td><span class="fw-semibold">HEXT</span>
+                              <div class="muted" style="font-size:.72rem">Hexaware Technologies Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Information Technology</td>
+                <td class="num">582.75</td>
+                    <td class="num"><span class="up">2.2%</span></td>
+              <td class="num"><span class="up">17.4%</span></td>
+              <td class="num">36.2%</td>
+              <td class="num"><span class="down">-18.9%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:41.5%"></div></div><b>41%</b><button type="button" class="why-btn" data-why="why-21c4e4ed75a9dde2f19e48874ab8d25e" title="Why this rank?" fdprocessedid="fz3r9h">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-21c4e4ed75a9dde2f19e48874ab8d25e" data-sec="Information Technology" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 31:
+        <b>fit 41%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.48</span>
+            <span class="why-bar"><i style="width:56%"></i></span><b class="why-pct">56</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+2.2%</span>
+            <span class="why-bar"><i style="width:58%"></i></span><b class="why-pct">58</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-9.5%</span>
+            <span class="why-bar"><i style="width:4%"></i></span><b class="why-pct">4</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 17.4% ✓)</span> · 6-month swings below 45% <span class="muted">(is 36.2% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is green ✓)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Financial Services">
+      <td class="num fw-semibold">32</td>
+      <td class="num"><span class="down">▼6</span></td>
+              <td><span class="fw-semibold">NAM-INDIA</span>
+                     <span class="chip chip-hold" title="Fails a buy-only condition: not bought, kept if already held">no buy</span>          <div class="muted" style="font-size:.72rem">Nippon Life India Asset Management Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Financial Services</td>
+                <td class="num">1,065.30</td>
+                    <td class="num"><span class="down">-10.2%</span></td>
+              <td class="num"><span class="up">10.4%</span></td>
+              <td class="num">34.6%</td>
+              <td class="num"><span class="up">24.2%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:40.9%"></div></div><b>41%</b><button type="button" class="why-btn" data-why="why-b078b6a5b9df50522c0cc516b850b2f2" title="Why this rank?" fdprocessedid="frudxq">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-b078b6a5b9df50522c0cc516b850b2f2" data-sec="Financial Services" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 32:
+        <b>fit 41%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.30</span>
+            <span class="why-bar"><i style="width:37%"></i></span><b class="why-pct">37</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-10.2%</span>
+            <span class="why-bar"><i style="width:13%"></i></span><b class="why-pct">13</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+10.4%</span>
+            <span class="why-bar"><i style="width:75%"></i></span><b class="why-pct">75</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 10.4% ✓)</span> · 6-month swings below 45% <span class="muted">(is 34.6% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is red ✗)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Telecommunication">
+      <td class="num fw-semibold">33</td>
+      <td class="num"><span class="up">▲19</span></td>
+              <td><span class="fw-semibold">TATACOMM</span>
+                     <span class="chip chip-hold" title="Fails a buy-only condition: not bought, kept if already held">no buy</span>          <div class="muted" style="font-size:.72rem">Tata Communications Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Telecommunication</td>
+                <td class="num">1,742.80</td>
+                    <td class="num"><span class="down">-4.1%</span></td>
+              <td class="num"><span class="up">11.6%</span></td>
+              <td class="num">31.7%</td>
+              <td class="num"><span class="up">2.7%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:38.2%"></div></div><b>38%</b><button type="button" class="why-btn" data-why="why-99c26e95c854546cf7fc9b3599d04d75" title="Why this rank?" fdprocessedid="9ebky8">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-99c26e95c854546cf7fc9b3599d04d75" data-sec="Telecommunication" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 33:
+        <b>fit 38%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.37</span>
+            <span class="why-bar"><i style="width:44%"></i></span><b class="why-pct">44</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-4.1%</span>
+            <span class="why-bar"><i style="width:29%"></i></span><b class="why-pct">29</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+1.4%</span>
+            <span class="why-bar"><i style="width:38%"></i></span><b class="why-pct">38</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 11.6% ✓)</span> · 6-month swings below 45% <span class="muted">(is 31.7% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is red ✗)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Fast Moving Consumer Goods">
+      <td class="num fw-semibold">34</td>
+      <td class="num"><span class="up">▲7</span></td>
+              <td><span class="fw-semibold">MARICO</span>
+                     <span class="chip chip-hold" title="Fails a buy-only condition: not bought, kept if already held">no buy</span>          <div class="muted" style="font-size:.72rem">Marico Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Fast Moving Consumer Goods</td>
+                <td class="num">785.00</td>
+                    <td class="num"><span class="down">-7.0%</span></td>
+              <td class="num"><span class="up">5.5%</span></td>
+              <td class="num">18.2%</td>
+              <td class="num"><span class="up">9.7%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:37.4%"></div></div><b>37%</b><button type="button" class="why-btn" data-why="why-7eb10c05eb68d17ca3d4a99df9a2e65a" title="Why this rank?" fdprocessedid="33as3r">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-7eb10c05eb68d17ca3d4a99df9a2e65a" data-sec="Fast Moving Consumer Goods" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 34:
+        <b>fit 37%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.30</span>
+            <span class="why-bar"><i style="width:35%"></i></span><b class="why-pct">35</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-7.0%</span>
+            <span class="why-bar"><i style="width:19%"></i></span><b class="why-pct">19</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+4.8%</span>
+            <span class="why-bar"><i style="width:60%"></i></span><b class="why-pct">60</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 5.5% ✓)</span> · 6-month swings below 45% <span class="muted">(is 18.2% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is red ✗)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Realty">
+      <td class="num fw-semibold">35</td>
+      <td class="num"><span class="chip chip-hold">new</span></td>
+              <td><span class="fw-semibold">LODHA</span>
+                     <span class="chip chip-hold" title="Fails a buy-only condition: not bought, kept if already held">no buy</span>          <div class="muted" style="font-size:.72rem">Lodha Developers Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Realty</td>
+                <td class="num">1,058.70</td>
+                    <td class="num"><span class="down">-10.9%</span></td>
+              <td class="num"><span class="up">21.2%</span></td>
+              <td class="num">39.5%</td>
+              <td class="num"><span class="down">-6.2%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:36.5%"></div></div><b>37%</b><button type="button" class="why-btn" data-why="why-077276cc320d47ca29ba69f40e639b76" title="Why this rank?" fdprocessedid="4cpled">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-077276cc320d47ca29ba69f40e639b76" data-sec="Realty" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 35:
+        <b>fit 37%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.54</span>
+            <span class="why-bar"><i style="width:60%"></i></span><b class="why-pct">60</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-10.9%</span>
+            <span class="why-bar"><i style="width:12%"></i></span><b class="why-pct">12</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-3.1%</span>
+            <span class="why-bar"><i style="width:27%"></i></span><b class="why-pct">27</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 21.2% ✓)</span> · 6-month swings below 45% <span class="muted">(is 39.5% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is red ✗)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Information Technology">
+      <td class="num fw-semibold">36</td>
+      <td class="num"><span class="chip chip-hold">new</span></td>
+              <td><span class="fw-semibold">LTTS</span>
+                              <div class="muted" style="font-size:.72rem">L&amp;T Technology Services Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Information Technology</td>
+                <td class="num">3,714.60</td>
+                    <td class="num"><span class="up">8.8%</span></td>
+              <td class="num"><span class="up">7.7%</span></td>
+              <td class="num">35.2%</td>
+              <td class="num"><span class="down">-13.1%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:35.7%"></div></div><b>36%</b><button type="button" class="why-btn" data-why="why-6ed2f11cc236774223fd35086def7af1" title="Why this rank?" fdprocessedid="yq3xdl">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-6ed2f11cc236774223fd35086def7af1" data-sec="Information Technology" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 36:
+        <b>fit 36%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.22</span>
+            <span class="why-bar"><i style="width:23%"></i></span><b class="why-pct">23</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+8.8%</span>
+            <span class="why-bar"><i style="width:83%"></i></span><b class="why-pct">83</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-6.6%</span>
+            <span class="why-bar"><i style="width:8%"></i></span><b class="why-pct">8</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 7.7% ✓)</span> · 6-month swings below 45% <span class="muted">(is 35.2% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is green ✓)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Healthcare">
+      <td class="num fw-semibold">37</td>
+      <td class="num"><span class="down">▼12</span></td>
+              <td><span class="fw-semibold">GLAXO</span>
+                     <span class="chip chip-hold" title="Fails a buy-only condition: not bought, kept if already held">no buy</span>          <div class="muted" style="font-size:.72rem">Glaxosmithkline Pharmaceuticals Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Healthcare</td>
+                <td class="num">2,566.10</td>
+                    <td class="num"><span class="up">4.5%</span></td>
+              <td class="num"><span class="up">6.0%</span></td>
+              <td class="num">27.1%</td>
+              <td class="num"><span class="down">-7.1%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:35.4%"></div></div><b>35%</b><button type="button" class="why-btn" data-why="why-af6e8d32e35c9c8d71a61a1fcf69199c" title="Why this rank?" fdprocessedid="r1wogs">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-af6e8d32e35c9c8d71a61a1fcf69199c" data-sec="Healthcare" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 37:
+        <b>fit 35%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.22</span>
+            <span class="why-bar"><i style="width:25%"></i></span><b class="why-pct">25</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+4.5%</span>
+            <span class="why-bar"><i style="width:63%"></i></span><b class="why-pct">63</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-3.5%</span>
+            <span class="why-bar"><i style="width:23%"></i></span><b class="why-pct">23</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 6.0% ✓)</span> · 6-month swings below 45% <span class="muted">(is 27.1% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is red ✗)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Realty">
+      <td class="num fw-semibold">38</td>
+      <td class="num"><span class="down">▼11</span></td>
+              <td><span class="fw-semibold">PHOENIXLTD</span>
+                     <span class="chip chip-hold" title="Fails a buy-only condition: not bought, kept if already held">no buy</span>          <div class="muted" style="font-size:.72rem">Phoenix Mills Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Realty</td>
+                <td class="num">1,896.90</td>
+                    <td class="num"><span class="down">-8.6%</span></td>
+              <td class="num"><span class="up">6.4%</span></td>
+              <td class="num">26.6%</td>
+              <td class="num"><span class="up">19.0%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:35.2%"></div></div><b>35%</b><button type="button" class="why-btn" data-why="why-0f8ca815b6032781447a79f41c8aa083" title="Why this rank?" fdprocessedid="uju3x">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-0f8ca815b6032781447a79f41c8aa083" data-sec="Realty" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 38:
+        <b>fit 35%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.24</span>
+            <span class="why-bar"><i style="width:27%"></i></span><b class="why-pct">27</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-8.6%</span>
+            <span class="why-bar"><i style="width:15%"></i></span><b class="why-pct">15</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+6.4%</span>
+            <span class="why-bar"><i style="width:67%"></i></span><b class="why-pct">67</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 6.4% ✓)</span> · 6-month swings below 45% <span class="muted">(is 26.6% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is red ✗)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Healthcare">
+      <td class="num fw-semibold">39</td>
+      <td class="num"><span class="down">▼29</span></td>
+              <td><span class="fw-semibold">MEDANTA</span>
+                     <span class="chip chip-hold" title="Fails a buy-only condition: not bought, kept if already held">no buy</span>          <div class="muted" style="font-size:.72rem">Global Health Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Healthcare</td>
+                <td class="num">1,240.00</td>
+                    <td class="num"><span class="down">-5.8%</span></td>
+              <td class="num"><span class="up">13.5%</span></td>
+              <td class="num">29.6%</td>
+              <td class="num"><span class="down">-9.8%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:34.6%"></div></div><b>35%</b><button type="button" class="why-btn" data-why="why-3d5fc4edaaede7605473fed67a722877" title="Why this rank?" fdprocessedid="qvqawk">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-3d5fc4edaaede7605473fed67a722877" data-sec="Healthcare" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 39:
+        <b>fit 35%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.46</span>
+            <span class="why-bar"><i style="width:54%"></i></span><b class="why-pct">54</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-5.8%</span>
+            <span class="why-bar"><i style="width:23%"></i></span><b class="why-pct">23</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-4.9%</span>
+            <span class="why-bar"><i style="width:17%"></i></span><b class="why-pct">17</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 13.5% ✓)</span> · 6-month swings below 45% <span class="muted">(is 29.6% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is red ✗)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Financial Services">
+      <td class="num fw-semibold">40</td>
+      <td class="num"><span class="down">▼7</span></td>
+              <td><span class="fw-semibold">M&amp;MFIN</span>
+                     <span class="chip chip-hold" title="Fails a buy-only condition: not bought, kept if already held">no buy</span>          <div class="muted" style="font-size:.72rem">Mahindra &amp; Mahindra Financial Services Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Financial Services</td>
+                <td class="num">311.55</td>
+                    <td class="num"><span class="down">-3.9%</span></td>
+              <td class="num"><span class="up">4.8%</span></td>
+              <td class="num">39.1%</td>
+              <td class="num"><span class="up">10.7%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:33.8%"></div></div><b>34%</b><button type="button" class="why-btn" data-why="why-b2af5445c53dd71136ac524272fee1d8" title="Why this rank?" fdprocessedid="3eqzu">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-b2af5445c53dd71136ac524272fee1d8" data-sec="Financial Services" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 40:
+        <b>fit 34%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.12</span>
+            <span class="why-bar"><i style="width:17%"></i></span><b class="why-pct">17</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-3.9%</span>
+            <span class="why-bar"><i style="width:35%"></i></span><b class="why-pct">35</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+4.8%</span>
+            <span class="why-bar"><i style="width:58%"></i></span><b class="why-pct">58</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 4.8% ✓)</span> · 6-month swings below 45% <span class="muted">(is 39.1% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is red ✗)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Automobile and Auto Components">
+      <td class="num fw-semibold">41</td>
+      <td class="num"><span class="up">▲20</span></td>
+              <td><span class="fw-semibold">HEROMOTOCO</span>
+                     <span class="chip chip-hold" title="Fails a buy-only condition: not bought, kept if already held">no buy</span>          <div class="muted" style="font-size:.72rem">Hero MotoCorp Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Automobile and Auto Components</td>
+                <td class="num">5,225.00</td>
+                    <td class="num"><span class="up">6.4%</span></td>
+              <td class="num"><span class="up">1.3%</span></td>
+              <td class="num">24.6%</td>
+              <td class="num"><span class="down">-5.2%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:33%"></div></div><b>33%</b><button type="button" class="why-btn" data-why="why-8d91603908f12b64247b191d305231a5" title="Why this rank?" fdprocessedid="g9gw9">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-8d91603908f12b64247b191d305231a5" data-sec="Automobile and Auto Components" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 41:
+        <b>fit 33%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.05</span>
+            <span class="why-bar"><i style="width:8%"></i></span><b class="why-pct">8</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+6.4%</span>
+            <span class="why-bar"><i style="width:71%"></i></span><b class="why-pct">71</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-2.6%</span>
+            <span class="why-bar"><i style="width:33%"></i></span><b class="why-pct">33</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 1.3% ✓)</span> · 6-month swings below 45% <span class="muted">(is 24.6% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is red ✗)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Telecommunication">
+      <td class="num fw-semibold">42</td>
+      <td class="num"><span class="chip chip-hold">new</span></td>
+              <td><span class="fw-semibold">BHARTIHEXA</span>
+                              <div class="muted" style="font-size:.72rem">Bharti Hexacom Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Telecommunication</td>
+                <td class="num">1,621.90</td>
+                    <td class="num"><span class="up">1.0%</span></td>
+              <td class="num"><span class="up">5.8%</span></td>
+              <td class="num">29.7%</td>
+              <td class="num"><span class="down">-7.2%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:31%"></div></div><b>31%</b><button type="button" class="why-btn" data-why="why-32c33cb3338d1e1977e4602964cd7d75" title="Why this rank?" fdprocessedid="jjuox4">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-32c33cb3338d1e1977e4602964cd7d75" data-sec="Telecommunication" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 42:
+        <b>fit 31%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.20</span>
+            <span class="why-bar"><i style="width:21%"></i></span><b class="why-pct">21</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+1.0%</span>
+            <span class="why-bar"><i style="width:56%"></i></span><b class="why-pct">56</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-3.6%</span>
+            <span class="why-bar"><i style="width:21%"></i></span><b class="why-pct">21</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 5.8% ✓)</span> · 6-month swings below 45% <span class="muted">(is 29.7% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is green ✓)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Realty">
+      <td class="num fw-semibold">43</td>
+      <td class="num"><span class="up">▲12</span></td>
+              <td><span class="fw-semibold">PRESTIGE</span>
+                     <span class="chip chip-hold" title="Fails a buy-only condition: not bought, kept if already held">no buy</span>          <div class="muted" style="font-size:.72rem">Prestige Estates Projects Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Realty</td>
+                <td class="num">1,492.00</td>
+                    <td class="num"><span class="down">-11.9%</span></td>
+              <td class="num"><span class="up">11.5%</span></td>
+              <td class="num">34.3%</td>
+              <td class="num"><span class="down">-5.7%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:27.5%"></div></div><b>27%</b><button type="button" class="why-btn" data-why="why-418efd1f46a094c597d46727f1fa35a3" title="Why this rank?" fdprocessedid="3f5wu7">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-418efd1f46a094c597d46727f1fa35a3" data-sec="Realty" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 43:
+        <b>fit 27%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.34</span>
+            <span class="why-bar"><i style="width:38%"></i></span><b class="why-pct">38</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-11.9%</span>
+            <span class="why-bar"><i style="width:8%"></i></span><b class="why-pct">8</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-2.9%</span>
+            <span class="why-bar"><i style="width:31%"></i></span><b class="why-pct">31</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 11.5% ✓)</span> · 6-month swings below 45% <span class="muted">(is 34.3% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is red ✗)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Automobile and Auto Components">
+      <td class="num fw-semibold">44</td>
+      <td class="num"><span class="down">▼27</span></td>
+              <td><span class="fw-semibold">EXIDEIND</span>
+                     <span class="chip chip-hold" title="Fails a buy-only condition: not bought, kept if already held">no buy</span>          <div class="muted" style="font-size:.72rem">Exide Industries Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Automobile and Auto Components</td>
+                <td class="num">370.95</td>
+                    <td class="num"><span class="down">-14.8%</span></td>
+              <td class="num"><span class="up">11.9%</span></td>
+              <td class="num">32.2%</td>
+              <td class="num"><span class="down">-6.7%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:26.9%"></div></div><b>27%</b><button type="button" class="why-btn" data-why="why-16b295061be13ea700fda65629e33222" title="Why this rank?" fdprocessedid="tqa1ea">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-16b295061be13ea700fda65629e33222" data-sec="Automobile and Auto Components" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 44:
+        <b>fit 27%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.37</span>
+            <span class="why-bar"><i style="width:46%"></i></span><b class="why-pct">46</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-14.8%</span>
+            <span class="why-bar"><i style="width:2%"></i></span><b class="why-pct">0</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-3.4%</span>
+            <span class="why-bar"><i style="width:25%"></i></span><b class="why-pct">25</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 11.9% ✓)</span> · 6-month swings below 45% <span class="muted">(is 32.2% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is red ✗)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Information Technology">
+      <td class="num fw-semibold">45</td>
+      <td class="num"><span class="up">▲21</span></td>
+              <td><span class="fw-semibold">MPHASIS</span>
+                              <div class="muted" style="font-size:.72rem">MphasiS Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Information Technology</td>
+                <td class="num">2,500.00</td>
+                    <td class="num"><span class="up">4.4%</span></td>
+              <td class="num"><span class="up">2.4%</span></td>
+              <td class="num">32.0%</td>
+              <td class="num"><span class="down">-10.9%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:26.9%"></div></div><b>27%</b><button type="button" class="why-btn" data-why="why-b5e5754f576aa11484c3c052b5c8e00e" title="Why this rank?" fdprocessedid="kftjly">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-b5e5754f576aa11484c3c052b5c8e00e" data-sec="Information Technology" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 45:
+        <b>fit 27%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.07</span>
+            <span class="why-bar"><i style="width:12%"></i></span><b class="why-pct">12</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+4.4%</span>
+            <span class="why-bar"><i style="width:62%"></i></span><b class="why-pct">62</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-5.5%</span>
+            <span class="why-bar"><i style="width:15%"></i></span><b class="why-pct">15</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 2.4% ✓)</span> · 6-month swings below 45% <span class="muted">(is 32.0% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is green ✓)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Healthcare">
+      <td class="num fw-semibold">46</td>
+      <td class="num"><span class="up">▲3</span></td>
+              <td><span class="fw-semibold">MANKIND</span>
+                     <span class="chip chip-hold" title="Fails a buy-only condition: not bought, kept if already held">no buy</span>          <div class="muted" style="font-size:.72rem">Mankind Pharma Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Healthcare</td>
+                <td class="num">2,275.50</td>
+                    <td class="num"><span class="down">-8.4%</span></td>
+              <td class="num"><span class="up">8.1%</span></td>
+              <td class="num">27.6%</td>
+              <td class="num"><span class="down">-8.2%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:24.5%"></div></div><b>24%</b><button type="button" class="why-btn" data-why="why-7ed10f09f4312caed745f14fa8c31ba7" title="Why this rank?" fdprocessedid="zbbai">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-7ed10f09f4312caed745f14fa8c31ba7" data-sec="Healthcare" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 46:
+        <b>fit 24%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.29</span>
+            <span class="why-bar"><i style="width:33%"></i></span><b class="why-pct">33</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-8.4%</span>
+            <span class="why-bar"><i style="width:17%"></i></span><b class="why-pct">17</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-4.1%</span>
+            <span class="why-bar"><i style="width:19%"></i></span><b class="why-pct">19</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 8.1% ✓)</span> · 6-month swings below 45% <span class="muted">(is 27.6% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is red ✗)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Financial Services">
+      <td class="num fw-semibold">47</td>
+      <td class="num"><span class="down">▼16</span></td>
+              <td><span class="fw-semibold">INDUSINDBK</span>
+                     <span class="chip chip-hold" title="Fails a buy-only condition: not bought, kept if already held">no buy</span>          <div class="muted" style="font-size:.72rem">IndusInd Bank Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Financial Services</td>
+                <td class="num">877.00</td>
+                    <td class="num"><span class="down">-14.6%</span></td>
+              <td class="num"><span class="up">3.4%</span></td>
+              <td class="num">28.5%</td>
+              <td class="num"><span class="up">17.1%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:21.4%"></div></div><b>21%</b><button type="button" class="why-btn" data-why="why-ea50505fc166a0961fdebea9b6bbfe65" title="Why this rank?" fdprocessedid="f71tct">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-ea50505fc166a0961fdebea9b6bbfe65" data-sec="Financial Services" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 47:
+        <b>fit 21%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.12</span>
+            <span class="why-bar"><i style="width:15%"></i></span><b class="why-pct">15</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-14.6%</span>
+            <span class="why-bar"><i style="width:2%"></i></span><b class="why-pct">2</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+3.4%</span>
+            <span class="why-bar"><i style="width:50%"></i></span><b class="why-pct">50</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 3.4% ✓)</span> · 6-month swings below 45% <span class="muted">(is 28.5% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is red ✗)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Financial Services">
+      <td class="num fw-semibold">48</td>
+      <td class="num"><span class="down">▼11</span></td>
+              <td><span class="fw-semibold">AUBANK</span>
+                     <span class="chip chip-hold" title="Fails a buy-only condition: not bought, kept if already held">no buy</span>          <div class="muted" style="font-size:.72rem">AU Small Finance Bank Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Financial Services</td>
+                <td class="num">989.40</td>
+                    <td class="num"><span class="down">-4.0%</span></td>
+              <td class="num"><span class="up">0.6%</span></td>
+              <td class="num">27.3%</td>
+              <td class="num"><span class="up">30.2%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:21.4%"></div></div><b>21%</b><button type="button" class="why-btn" data-why="why-84a13bb1e6dd3c6a119fc8bd4c423178" title="Why this rank?" fdprocessedid="z7d9ek">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-84a13bb1e6dd3c6a119fc8bd4c423178" data-sec="Financial Services" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 48:
+        <b>fit 21%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.02</span>
+            <span class="why-bar"><i style="width:4%"></i></span><b class="why-pct">4</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-4.0%</span>
+            <span class="why-bar"><i style="width:33%"></i></span><b class="why-pct">33</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">+0.6%</span>
+            <span class="why-bar"><i style="width:37%"></i></span><b class="why-pct">37</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 0.6% ✓)</span> · 6-month swings below 45% <span class="muted">(is 27.3% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is red ✗)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Healthcare">
+      <td class="num fw-semibold">49</td>
+      <td class="num"><span class="up">▲26</span></td>
+              <td><span class="fw-semibold">ABBOTINDIA</span>
+                              <div class="muted" style="font-size:.72rem">Abbott India Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Healthcare</td>
+                <td class="num">26,170.00</td>
+                    <td class="num"><span class="down">-6.7%</span></td>
+              <td class="num"><span class="up">1.2%</span></td>
+              <td class="num">20.8%</td>
+              <td class="num"><span class="down">-11.9%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:13.5%"></div></div><b>13%</b><button type="button" class="why-btn" data-why="why-84c33027f212f7bf3118a8b0b787ac66" title="Why this rank?" fdprocessedid="tx4h9k">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-84c33027f212f7bf3118a8b0b787ac66" data-sec="Healthcare" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 49:
+        <b>fit 13%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.06</span>
+            <span class="why-bar"><i style="width:10%"></i></span><b class="why-pct">10</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-6.7%</span>
+            <span class="why-bar"><i style="width:21%"></i></span><b class="why-pct">21</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-5.9%</span>
+            <span class="why-bar"><i style="width:12%"></i></span><b class="why-pct">12</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 1.2% ✓)</span> · 6-month swings below 45% <span class="muted">(is 20.8% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is green ✓)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Consumer Durables">
+      <td class="num fw-semibold">50</td>
+      <td class="num"><span class="up">▲30</span></td>
+              <td><span class="fw-semibold">BERGEPAINT</span>
+                     <span class="chip chip-hold" title="Fails a buy-only condition: not bought, kept if already held">no buy</span>          <div class="muted" style="font-size:.72rem">Berger Paints India Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Consumer Durables</td>
+                <td class="num">473.95</td>
+                    <td class="num"><span class="down">-4.0%</span></td>
+              <td class="num"><span class="up">0.4%</span></td>
+              <td class="num">31.3%</td>
+              <td class="num"><span class="down">-11.1%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:13.5%"></div></div><b>13%</b><button type="button" class="why-btn" data-why="why-bde9cd03250509f8ea1ff8ce6c7a4c88" title="Why this rank?" fdprocessedid="mf8dsr">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-bde9cd03250509f8ea1ff8ce6c7a4c88" data-sec="Consumer Durables" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 50:
+        <b>fit 13%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.01</span>
+            <span class="why-bar"><i style="width:2%"></i></span><b class="why-pct">2</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-4.0%</span>
+            <span class="why-bar"><i style="width:31%"></i></span><b class="why-pct">31</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-5.5%</span>
+            <span class="why-bar"><i style="width:13%"></i></span><b class="why-pct">13</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 0.4% ✓)</span> · 6-month swings below 45% <span class="muted">(is 31.3% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is red ✗)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Consumer Durables">
+      <td class="num fw-semibold">51</td>
+      <td class="num"><span class="down">▼8</span></td>
+              <td><span class="fw-semibold">DIXON</span>
+                     <span class="chip chip-hold" title="Fails a buy-only condition: not bought, kept if already held">no buy</span>          <div class="muted" style="font-size:.72rem">Dixon Technologies (India) Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Consumer Durables</td>
+                <td class="num">12,340.00</td>
+                    <td class="num"><span class="down">-13.9%</span></td>
+              <td class="num"><span class="up">9.3%</span></td>
+              <td class="num">34.4%</td>
+              <td class="num"><span class="down">-27.8%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:13.5%"></div></div><b>13%</b><button type="button" class="why-btn" data-why="why-78b31b7c9f448b5a7682795d8104978c" title="Why this rank?" fdprocessedid="hmjor">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-78b31b7c9f448b5a7682795d8104978c" data-sec="Consumer Durables" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 51:
+        <b>fit 13%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.27</span>
+            <span class="why-bar"><i style="width:29%"></i></span><b class="why-pct">29</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-13.9%</span>
+            <span class="why-bar"><i style="width:4%"></i></span><b class="why-pct">4</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-13.9%</span>
+            <span class="why-bar"><i style="width:2%"></i></span><b class="why-pct">0</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 9.3% ✓)</span> · 6-month swings below 45% <span class="muted">(is 34.4% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is red ✗)</span></div>    </div></td></tr>
+                  <tr class="z-hold" data-sec="Consumer Services">
+      <td class="num fw-semibold">52</td>
+      <td class="num"><span class="up">▲38</span></td>
+              <td><span class="fw-semibold">ITCHOTELS</span>
+                              <div class="muted" style="font-size:.72rem">ITC Hotels Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Consumer Services</td>
+                <td class="num">162.48</td>
+                    <td class="num"><span class="down">-5.8%</span></td>
+              <td class="num"><span class="up">0.3%</span></td>
+              <td class="num">28.6%</td>
+              <td class="num"><span class="down">-24.2%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:7.7%"></div></div><b>8%</b><button type="button" class="why-btn" data-why="why-afd31da9a9f457e6f67c54d54d9b3f4e" title="Why this rank?" fdprocessedid="g3pxsh">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-afd31da9a9f457e6f67c54d54d9b3f4e" data-sec="Consumer Services" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 52:
+        <b>fit 8%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.01</span>
+            <span class="why-bar"><i style="width:2%"></i></span><b class="why-pct">0</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-5.8%</span>
+            <span class="why-bar"><i style="width:25%"></i></span><b class="why-pct">25</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-12.1%</span>
+            <span class="why-bar"><i style="width:2%"></i></span><b class="why-pct">2</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 0.3% ✓)</span> · 6-month swings below 45% <span class="muted">(is 28.6% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is green ✓)</span></div>    </div></td></tr>
+              <tr class="zone-line exit"><td colspan="10"><span>Exit rank 52: a holding that falls below this line is sold at the next rebalance.</span></td></tr>    <tr class="z-sell" data-sec="Automobile and Auto Components">
+      <td class="num fw-semibold">53</td>
+      <td class="num"><span class="down">▼8</span></td>
+              <td><span class="fw-semibold">ENDURANCE</span>
+                     <span class="chip chip-hold" title="Fails a buy-only condition: not bought, kept if already held">no buy</span>          <div class="muted" style="font-size:.72rem">Endurance Technologies Ltd.</div></td>
+        <td class="muted" style="font-size:.8rem">Automobile and Auto Components</td>
+                <td class="num">2,406.40</td>
+                    <td class="num"><span class="down">-12.0%</span></td>
+              <td class="num"><span class="up">0.9%</span></td>
+              <td class="num">28.0%</td>
+              <td class="num"><span class="down">-18.1%</span></td>
+            <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill " style="width:5.8%"></div></div><b>6%</b><button type="button" class="why-btn" data-why="why-f6a516609123a631ec2159911da27fe6" title="Why this rank?" fdprocessedid="ai0f4h">Why?</button></div></td>
+    </tr>
+        <tr class="why-row" id="why-f6a516609123a631ec2159911da27fe6" data-sec="Automobile and Auto Components" hidden=""><td colspan="10"><div class="why">
+      <div class="why-h">Why rank 53:
+        <b>fit 6%</b>, the weighted blend of how it ranks on each factor against the 53 stocks ranked on 2026-10-16 (100 = best).
+        </div>
+      <div class="why-grid">
+                  <div class="why-l">
+            <span class="why-lbl">6M risk-adjusted <span class="why-w" title="Weight">●●●</span></span>
+            <span class="why-val">0.03</span>
+            <span class="why-bar"><i style="width:6%"></i></span><b class="why-pct">6</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">3M momentum <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-12.0%</span>
+            <span class="why-bar"><i style="width:6%"></i></span><b class="why-pct">6</b>
+                      </div>
+                  <div class="why-l">
+            <span class="why-lbl">Steadiness <span class="why-w" title="Weight">●●</span></span>
+            <span class="why-val">-9.1%</span>
+            <span class="why-bar"><i style="width:6%"></i></span><b class="why-pct">6</b>
+                      </div>
+              </div>
+      <div class="why-c"><i class="bi bi-funnel"></i> Conditions:
+        6-month return above 0% <span class="muted">(is 0.9% ✓)</span> · 6-month swings below 45% <span class="muted">(is 28.0% ✓)</span> · Buy only if Supertrend (10, 3, daily) is green <span class="muted">(is red ✗)</span></div>    </div></td></tr>
+        </tbody>
+</table></div></div>
+<script>
+document.querySelectorAll('#secChips [data-sec]').forEach(function (b) {
+  b.addEventListener('click', function () {
+    document.querySelectorAll('#secChips [data-sec]').forEach(function (x) { x.classList.toggle('active', x === b); });
+    var sec = b.getAttribute('data-sec');
+    document.querySelectorAll('.rank-table tbody tr').forEach(function (tr) {
+      if (tr.classList.contains('zone-line')) { tr.style.display = sec ? 'none' : ''; return; }
+      tr.style.display = !sec || tr.getAttribute('data-sec') === sec ? '' : 'none';
+    });
+  });
+});
+// "Why this rank?": open or close the row's explanation
+document.querySelectorAll('.why-btn').forEach(function (b) {
+  b.addEventListener('click', function () {
+    var row = document.getElementById(b.getAttribute('data-why'));
+    row.hidden = !row.hidden;
+    b.classList.toggle('on', !row.hidden);
+  });
+});
+</script>
+      <div class="foot-note">
+        MomentumScore ranks securities only against rules you define and never recommends a stock or ETF.
+        Backtested results are hypothetical and do not guarantee future returns. Not investment advice. MomentumScore (operated by Technobot Technolgies Pvt Ltd) is not registered with SEBI as an Investment Adviser or Research Analyst. Strategies in the Research section are prepared by <b>RISHABH KUMAR SHARMA</b>, SEBI Registered Research Analyst (Reg. No. INH000018081), who is also a partner in MomentumScore.        <div class="d-flex flex-wrap gap-3 mt-2"><a href="pricing">Pricing</a><a href="terms">Terms</a><a href="privacy">Privacy</a><a href="refund">Refund &amp; cancellation</a><a href="delivery">Service delivery</a><a href="contact">Contact us</a><a href="disclaimer">Disclaimer</a></div>
+      </div>
+    </main>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.getElementById('themeBtn')?.addEventListener('click', function () {
+  var t = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', t);
+  document.documentElement.setAttribute('data-bs-theme', t);
+  try { localStorage.setItem('as-theme', t); } catch (e) {}
+  document.dispatchEvent(new Event('themechange'));
+});
+</script>
+<div class="modal fade" id="limitModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content">
+  <div class="modal-body p-4 text-center">
+    <div class="verify-ic mx-auto mb-3" style="width:52px;height:52px;border-radius:14px;display:grid;place-items:center;background:var(--brand-soft);color:var(--brand);font-size:24px"><i class="bi bi-lightning-charge"></i></div>
+    <h5 class="fw-bold mb-1">Today's 25 backtests are used up</h5>
+    <p class="muted mb-3" style="font-size:14px">Results you already ran stay open, and the count resets at midnight. Need more? Ask us for a higher daily limit: the request is written for you, just press Send.</p>
+    <div class="d-flex gap-2 justify-content-center flex-wrap">
+      <a class="btn btn-primary" href="support?prefill=limit"><i class="bi bi-send"></i> Request a higher limit</a>
+      <button class="btn btn-soft" type="button" data-bs-dismiss="modal">Not now</button>
+    </div>
+  </div>
+</div></div></div>
+<script>
+// any page can call this when a run is refused for the daily limit
+window.msLimitHit = function () {
+  var m = document.getElementById('limitModal');
+  if (m && window.bootstrap) bootstrap.Modal.getOrCreateInstance(m).show();
+};
+window.msIsLimitError = function (msg) { return /backtests on the .* plan/i.test(String(msg || '')); };
+(function () {
+  // the credits chip in the top bar: at 0 left it opens this instead of the account page
+  var c = document.getElementById('btCredits');
+  if (c && c.getAttribute('data-left') === '0') {
+    c.addEventListener('click', function (e) { e.preventDefault(); window.msLimitHit(); });
+  }
+})();
+</script>
+<style>
+  #aiBtn { position: fixed; right: 20px; bottom: 20px; z-index: 2147483600; border-radius: 999px; box-shadow: 0 6px 20px rgba(0,0,0,.22);
+    padding: 12px 22px; font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+  #aiBtn i { font-size: 20px; }
+  /* above the Tawk.to overlay, which otherwise swallows clicks near its bubble */
+  #aiBox { position: fixed; right: 20px; bottom: 74px; z-index: 2147483600; width: min(380px, calc(100vw - 32px)); height: min(520px, calc(100vh - 120px));
+    display: none; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 12px 40px rgba(0,0,0,.22); overflow: hidden; }
+  /* phones and tablets: the app's bottom tab bar (64 px, .tabbar, below 992 px) and the Tawk
+     bubble just above it (yOffset 76 in livechat.php) take the bottom-right corner, so the button
+     sits above them and the chat opens as a panel above the tab bar */
+  @media (max-width: 991.98px) {
+    #aiBtn { bottom: calc(76px + env(safe-area-inset-bottom, 0px)); right: 12px; padding: 9px 15px; font-size: 14px; }
+    #aiBtn i { font-size: 17px; }
+    #aiBox { left: 8px; right: 8px; width: auto; bottom: calc(72px + env(safe-area-inset-bottom, 0px)); height: calc(100dvh - 150px); max-height: 600px; border-radius: 14px; }
+  }
+  #aiBox.open { display: flex; }
+  #aiBox .hd { padding: 10px 14px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 8px; font-weight: 700; }
+  #aiLog { flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; }
+  #aiLog .m { max-width: 88%; padding: 8px 11px; border-radius: 12px; line-height: 1.5; overflow-wrap: anywhere; }
+  #aiLog .u { align-self: flex-end; background: var(--brand); color: #fff; }
+  #aiLog .a { align-self: flex-start; background: var(--brand-soft); color: var(--text); }
+  #aiLog .a code { background: rgba(0,0,0,.06); padding: 0 4px; border-radius: 4px; }
+  #aiLog .err { align-self: center; color: var(--text-2); font-size: 12.5px; text-align: center; }
+  #aiBox form { border-top: 1px solid var(--line); padding: 8px; display: flex; gap: 6px; }
+  #aiBox .ft { font-size: 11px; color: var(--text-2); padding: 0 12px 8px; }
+  #aiBox .agent { display: flex; align-items: center; gap: 8px; padding: 7px 12px; border-top: 1px solid var(--line); background: var(--brand-soft); font-size: 13px; }
+  #aiBox .agent button { margin-left: auto; white-space: nowrap; }
+  #aiLog .qk { display: flex; align-items: center; gap: 8px; margin-top: 6px; padding-top: 6px; border-top: 1px dashed var(--line); font-size: 11.5px; color: var(--text-2); }
+  #aiLog .qk button { font-size: 11.5px; padding: 0; }
+</style>
+<button class="btn btn-primary" id="aiBtn" type="button" title="Ask a doubt" fdprocessedid="n7bwa"><i class="bi bi-chat-square-text"></i> Ask doubt</button>
+<div id="aiBox" role="dialog" aria-label="Ask doubt">
+  <div class="hd"><i class="bi bi-chat-square-text" style="color:var(--brand)"></i> Ask doubt
+    <button class="btn btn-sm btn-link ms-auto p-0" type="button" id="aiNew" title="New chat">New</button>
+    <button class="btn-close" type="button" id="aiClose" aria-label="Close"></button></div>
+  <div id="aiLog"></div>
+    <div class="agent"><i class="bi bi-headset"></i> Not understood?
+    <button type="button" class="btn btn-sm btn-primary" id="aiAgent"><i class="bi bi-person-raised-hand"></i> Ask a live agent</button></div>
+    <form id="aiForm"><input type="hidden" name="csrf_token" value="c5690cf92d6d5acfe2759b5796f553f50e3f8d1301f9d092930644586b36423e">    <input class="form-control form-control-sm" id="aiQ" maxlength="2000" placeholder="How do exit ranks work?" autocomplete="off">
+    <button class="btn btn-sm btn-primary" id="aiSend"><i class="bi bi-send"></i></button></form>
+  <div class="ft">AI help for using the app, not investment advice<span id="aiLeft"> · 9 AI questions left today</span></div>
+</div>
+<script>
+(function () {
+  var box = document.getElementById('aiBox'), log = document.getElementById('aiLog'), q = document.getElementById('aiQ'), msgs = [];
+  var hello = 'Hi! Ask me how MomentumScore works: ranking rules, settings, backtests, alerts. (I can\'t give stock tips or investment advice.)';
+  try { msgs = JSON.parse(sessionStorage.getItem('ai-chat') || '[]') || []; } catch (e) { msgs = []; }
+  function save() { try { sessionStorage.setItem('ai-chat', JSON.stringify(msgs.slice(-20))); } catch (e) {} }
+  function esc(t) { return t.replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function md(t) {
+    return esc(t).replace(/`([^`]+)`/g, '<code>$1</code>').replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>')
+      .replace(/^#+\s*(.*)$/gm, '<b>$1</b>').replace(/^\s*[-*]\s+/gm, '• ').replace(/\n/g, '<br>');
+  }
+  function add(cls, html) { var d = document.createElement('div'); d.className = 'm ' + cls; d.innerHTML = html; log.appendChild(d); log.scrollTop = log.scrollHeight; return d; }
+  function draw() { log.innerHTML = ''; add('a', esc(hello)); msgs.forEach(function (m) { add(m.role === 'user' ? 'u' : 'a', m.role === 'user' ? esc(m.content) : md(m.content)); }); }
+  document.getElementById('aiBtn').addEventListener('click', function () { box.classList.toggle('open'); if (box.classList.contains('open')) { draw(); q.focus(); } });
+  document.getElementById('aiClose').addEventListener('click', function () { box.classList.remove('open'); });
+  document.getElementById('aiNew').addEventListener('click', function () { msgs = []; save(); draw(); q.focus(); });
+  var agent = document.getElementById('aiAgent');
+  if (agent) agent.addEventListener('click', function () { box.classList.remove('open'); if (window.msLiveChat) window.msLiveChat(); });
+  var form = document.getElementById('aiForm');
+  // send the chat; forceAi skips the free quick answers (the "Ask AI instead" button), and
+  // keep = the quick answer being replaced: it stays on screen unless the AI really answers
+  function send(forceAi, keep) {
+    var btn = document.getElementById('aiSend');
+    btn.disabled = true;
+    var wait = add('a', '<span class="spinner-border spinner-border-sm"></span>');
+    var fd = new FormData(form);
+    fd.append('messages', JSON.stringify(msgs.slice(-8)));
+    if (forceAi) fd.append('ai', '1');
+    fetch('assistant.php', { method: 'POST', body: fd, credentials: 'same-origin' }).then(function (r) { return r.json(); }).then(function (j) {
+      wait.remove();
+      if (keep && !j.ok) {   // no AI answer: the quick answer stays
+        msgs.push({ role: 'assistant', content: keep.content }); save();
+        var n = add('err', esc(j.reply)); n.classList.remove('m');
+        btn.disabled = false;
+        return;
+      }
+      if (keep) keep.el.remove();
+      if (j.ok) {
+        msgs.push({ role: 'assistant', content: j.reply }); save();
+        var d = add('a', md(j.reply));
+        if (j.quick) {
+          var f = document.createElement('div');
+          f.className = 'qk';
+          f.innerHTML = '<span><i class="bi bi-lightning-charge"></i> Quick answer from the guide (free)</span><button type="button" class="btn btn-link ms-auto">Ask AI instead</button>';
+          f.querySelector('button').addEventListener('click', function () {
+            f.remove();
+            var mine = msgs.pop(); save();   // the AI answers the same question; the quick answer waits on screen
+            send(true, { el: d, content: mine.content });
+          });
+          d.appendChild(f);
+        }
+      } else { msgs.pop(); save(); var e = add('err', esc(j.reply)); e.classList.remove('m'); }
+      if (j.left !== null && j.left !== undefined) document.getElementById('aiLeft').textContent = ' · ' + j.left + ' AI questions left today';
+    }).catch(function () {
+      wait.remove();
+      if (keep) msgs.push({ role: 'assistant', content: keep.content }); else msgs.pop();
+      save(); add('err', 'Could not reach the server. Try again.');
+    }).then(function () { btn.disabled = false; q.focus(); });
+  }
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var text = q.value.trim();
+    if (!text || document.getElementById('aiSend').disabled) return;
+    // "Ask AI instead" belongs to the latest answer only: once a new question is asked, it goes
+    document.querySelectorAll('#aiLog .qk button').forEach(function (b) { b.remove(); });
+    msgs.push({ role: 'user', content: text }); save();
+    add('u', esc(text)); q.value = '';
+    send(false);
+  });
+})();
+</script>
+<script>
+window.msLiveChat = function () {
+  var T = window.Tawk_API;
+  if (T && T.maximize) { if (T.showWidget) T.showWidget(); T.maximize(); return; }
+  if (T) {   // the page's own Tawk (or an earlier click) is still loading: open it once it has
+    var was = T.onLoad;
+    T.onLoad = function () { if (was) was(); T.maximize(); };
+    return;
+  }
+  T = window.Tawk_API = {}; window.Tawk_LoadStart = new Date();
+  T.onLoad = function () { T.maximize(); };
+  T.onChatMinimized = function () { T.hideWidget(); };   // no bubble on pages that had none
+  var s = document.createElement('script');
+  s.async = true; s.src = "https://embed.tawk.to/6ab796eaededd83442cff18a/default"; s.charset = 'UTF-8';
+  s.setAttribute('crossorigin', '*');
+  document.body.appendChild(s);
+};
+</script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4bc70e2c01a94c73b74392e4234840661791215815920" integrity="sha512-L0ha0OXavK/8okipN9F8BtP84dg9DUhPERbBXzwI6dgTA55d2+yweo3pn5CSFYs45/r8md2+xvUPtTdvTNRfjA==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;266760461e5248eda129ab5f18ef68c7&quot;,&quot;r&quot;:1,&quot;spa&quot;:2}" crossorigin="anonymous"></script>
+
+
+<span id="PING_CONTENT_PUSH_NOTIFICATION" style="display: none;"></span><span id="PING_IFRAME_FORM_DETECTION" style="display: none;"></span></body></html>

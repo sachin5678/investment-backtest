@@ -1,0 +1,1775 @@
+<html lang="en" data-theme="dark" data-bs-theme="dark"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Strategies · MomentumScore</title>
+<!-- real files, not a data: icon: search engines only show favicons they can fetch -->
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="icon" href="assets/brand/icon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/brand/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#1d4ed8">
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem('as-theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', t);
+    document.documentElement.setAttribute('data-bs-theme', t);
+  } catch (e) {}
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin="">
+<!-- fonts and icons don't hold up the first paint (the system font shows until Inter arrives) -->
+<link rel="stylesheet" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="stylesheet" as="style" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"></noscript>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="assets/app.css?v=1791969918" rel="stylesheet">
+<meta name="robots" content="noindex">
+</head>
+<body>
+<div class="studio">
+  <header class="appbar">
+    <div class="wrap appbar-in">
+      <a class="logo" href="home"><svg width="34" height="34" viewBox="0 -8 112 112" aria-hidden="true"><defs><linearGradient id="msg1b" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#2563eb"></stop><stop offset="1" stop-color="#34d399"></stop></linearGradient><linearGradient id="msg1m" x1="48" y1="92" x2="108" y2="8" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#2563eb"></stop><stop offset=".55" stop-color="#3b82f6"></stop><stop offset="1" stop-color="#22d3ee"></stop></linearGradient></defs><rect x="2" y="64" width="11" height="28" rx="3.5" fill="url(#msg1b)"></rect><rect x="18" y="52" width="11" height="40" rx="3.5" fill="url(#msg1b)"></rect><rect x="34" y="40" width="11" height="52" rx="3.5" fill="url(#msg1b)"></rect><path d="M58 92V36L80 62L103 14V92" fill="none" stroke="url(#msg1m)" stroke-width="13" stroke-linejoin="round" stroke-linecap="round"></path></svg><span class="wm" aria-label="MomentumScore"><span class="wm-1">Momentum</span><span class="wm-2">Score</span></span></a>
+      <nav class="topnav d-none d-lg-flex" aria-label="Main">
+                              <div class="dropdown">
+              <button class="tn " type="button" data-bs-toggle="dropdown" aria-expanded="false" fdprocessedid="tmu7qf">Research <i class="bi bi-chevron-down"></i></button>
+              <div class="dropdown-menu"><a class="dropdown-item d-flex align-items-center gap-2" href="ranks"><i class="bi bi-bar-chart-line"></i>Stock Scoring</a><a class="dropdown-item d-flex align-items-center gap-2" href="ranks?asset=etf"><i class="bi bi-collection"></i>ETF Scoring</a></div>
+            </div>
+                                        <div class="dropdown">
+              <button class="tn on" type="button" data-bs-toggle="dropdown" aria-expanded="false" fdprocessedid="2fpia">Build &amp; Test <i class="bi bi-chevron-down"></i></button>
+              <div class="dropdown-menu"><a class="dropdown-item d-flex align-items-center gap-2 active" href="strategies"><i class="bi bi-sliders"></i>My Strategies</a><a class="dropdown-item d-flex align-items-center gap-2" href="backtest"><i class="bi bi-graph-up-arrow"></i>Backtest</a><a class="dropdown-item d-flex align-items-center gap-2" href="compare"><i class="bi bi-layout-three-columns"></i>Compare</a><a class="dropdown-item d-flex align-items-center gap-2" href="multi"><i class="bi bi-diagram-3"></i>Multi-System</a></div>
+            </div>
+                                        <a class="tn " href="portfolio">My Portfolio</a>
+                                        <a class="tn " href="broker">My Broker</a>
+                                        <div class="dropdown">
+              <button class="tn " type="button" data-bs-toggle="dropdown" aria-expanded="false" fdprocessedid="hd6oio">Learn <i class="bi bi-chevron-down"></i></button>
+              <div class="dropdown-menu"><a class="dropdown-item d-flex align-items-center gap-2" href="learn"><i class="bi bi-play-btn"></i>Video guides &amp; articles</a><a class="dropdown-item d-flex align-items-center gap-2" href="guide"><i class="bi bi-book"></i>Ranking Guide</a><a class="dropdown-item d-flex align-items-center gap-2" href="support"><i class="bi bi-life-preserver"></i>Help &amp; Requests</a><a class="dropdown-item d-flex align-items-center gap-2" href="https://t.me/+AMmQzuRvGJQ1NzQ9" target="_blank" rel="noopener"><i class="bi bi-telegram"></i>Telegram Group</a></div>
+            </div>
+                        </nav>
+      <div class="ms-auto d-flex align-items-center gap-2">
+                <a class="tb-btn text-decoration-none" href="account" id="btCredits" data-left="22" data-limit="25" title="Fresh backtests left today. Opening a result you already ran is free. Resets at midnight." style="font-size:12.5px;font-weight:600;">
+          <i class="bi bi-lightning-charge-fill" style="color:var(--brand)"></i>
+          <span>22<span class="muted fw-normal"> / 25</span></span><span class="d-none d-xl-inline muted fw-normal">&nbsp;backtests today</span>
+        </a>
+                <button class="tb-btn" id="themeBtn" title="Light / dark" fdprocessedid="3ss0ip"><i class="bi bi-circle-half"></i></button>
+        <div class="dropdown">
+          <button class="tb-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Account" fdprocessedid="o4lnu">
+            <span class="avatar">S</span>
+            <span class="d-none d-md-inline" style="font-weight:600;font-size:13px">Sachin Patil</span>
+          </button>
+          <div class="dropdown-menu dropdown-menu-end">
+            <div class="px-3 py-2" style="font-size:12.5px"><b>Launch offer plan</b><div class="muted">90 days left</div></div>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item " href="account"><i class="bi bi-person-circle me-2"></i>Account</a>
+            <a class="dropdown-item" href="account#invite"><i class="bi bi-gift me-2"></i>Invite friends</a>                        <a class="dropdown-item" href="connect"><i class="bi bi-download me-2"></i>Download Broker Connect <span class="muted" style="font-size:11px">v2.5.2</span></a>                        <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="logout"><i class="bi bi-box-arrow-right me-2"></i>Log out</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+    <nav class="tabbar d-lg-none" aria-label="Main">
+          <a class="" href="ranks"><i class="bi bi-search"></i><span>Research</span></a>
+          <a class="on" href="strategies"><i class="bi bi-sliders"></i><span>Build &amp; Test</span></a>
+          <a class="" href="portfolio"><i class="bi bi-briefcase"></i><span>My Portfolio</span></a>
+          <a class="" href="learn"><i class="bi bi-book"></i><span>Learn</span></a>
+        <button type="button" onclick="document.getElementById('moreSheet').classList.toggle('open')"><i class="bi bi-grid"></i><span>More</span></button>
+  </nav>
+  <div class="more-sheet d-lg-none" id="moreSheet" onclick="if (event.target === this) this.classList.remove('open')">
+    <div class="sheet-in">
+      <div class="sheet-grp">Research</div><a class="dropdown-item d-flex align-items-center gap-2" href="ranks"><i class="bi bi-bar-chart-line"></i>Stock Scoring</a><a class="dropdown-item d-flex align-items-center gap-2" href="ranks?asset=etf"><i class="bi bi-collection"></i>ETF Scoring</a><div class="sheet-grp">Build &amp; Test</div><a class="dropdown-item d-flex align-items-center gap-2 active" href="strategies"><i class="bi bi-sliders"></i>My Strategies</a><a class="dropdown-item d-flex align-items-center gap-2" href="backtest"><i class="bi bi-graph-up-arrow"></i>Backtest</a><a class="dropdown-item d-flex align-items-center gap-2" href="compare"><i class="bi bi-layout-three-columns"></i>Compare</a><a class="dropdown-item d-flex align-items-center gap-2" href="multi"><i class="bi bi-diagram-3"></i>Multi-System</a><div class="sheet-grp">My Portfolio</div><a class="dropdown-item d-flex align-items-center gap-2" href="portfolio"><i class="bi bi-briefcase"></i>My Portfolios</a><div class="sheet-grp">My Broker</div><a class="dropdown-item d-flex align-items-center gap-2" href="broker"><i class="bi bi-bank"></i>My Broker</a><div class="sheet-grp">Learn</div><a class="dropdown-item d-flex align-items-center gap-2" href="learn"><i class="bi bi-play-btn"></i>Video guides &amp; articles</a><a class="dropdown-item d-flex align-items-center gap-2" href="guide"><i class="bi bi-book"></i>Ranking Guide</a><a class="dropdown-item d-flex align-items-center gap-2" href="support"><i class="bi bi-life-preserver"></i>Help &amp; Requests</a><a class="dropdown-item d-flex align-items-center gap-2" href="https://t.me/+AMmQzuRvGJQ1NzQ9" target="_blank" rel="noopener"><i class="bi bi-telegram"></i>Telegram Group</a>      <div class="sheet-grp">You</div><a class="dropdown-item d-flex align-items-center gap-2" href="account"><i class="bi bi-person-circle"></i>Account</a><a class="dropdown-item d-flex align-items-center gap-2" href="logout"><i class="bi bi-box-arrow-right"></i>Log out</a>    </div>
+  </div>
+  <div class="studio-body">
+    <main class="content wrap">
+                  <div class="alert alert-success py-2"><i class="bi bi-megaphone"></i> Beta Access Enabled</div>
+        <div class="page-head">
+  <a href="strategies" class="btn btn-sm btn-outline-secondary align-self-center"><i class="bi bi-arrow-left"></i></a>
+  <div class="me-auto">
+    <div class="eyebrow">Strategy builder</div>
+    <h2 class="t">New strategy</h2>
+    <p class="s">Choose how to rank, pick a universe and portfolio rules, then backtest it on 10+ years of data.</p>
+  </div>
+</div>
+<form method="post" id="stratForm">
+  <input type="hidden" name="csrf_token" value="c5690cf92d6d5acfe2759b5796f553f50e3f8d1301f9d092930644586b36423e">  <input type="hidden" name="action" value="save">
+  <input type="hidden" name="id" value="0">
+  <datalist id="indexNames"><option value="NIFTY 10 YR BENCHMARK G-SEC"></option><option value="NIFTY 10 YR BENCHMARK G-SEC (CLEAN PRICE)"></option><option value="NIFTY 100"></option><option value="NIFTY 100 EQUAL WEIGHT"></option><option value="NIFTY 11-15 YR G-SEC INDEX"></option><option value="NIFTY 15 YR AND ABOVE G-SEC INDEX"></option><option value="NIFTY 1D RATE INDEX"></option><option value="NIFTY 200"></option><option value="NIFTY 4-8 YR G-SEC INDEX"></option><option value="NIFTY 50"></option><option value="NIFTY 50 ARBITRAGE"></option><option value="NIFTY 50 FUTURES INDEX"></option><option value="NIFTY 50 FUTURES TR INDEX"></option><option value="NIFTY 500"></option><option value="NIFTY 500 SHARIAH"></option><option value="NIFTY 8-13 YR G-SEC"></option><option value="NIFTY ADITYA BIRLA GROUP"></option><option value="NIFTY AI CATALYSTS"></option><option value="NIFTY ALPHA 50"></option><option value="NIFTY ALPHA INDEX"></option><option value="NIFTY ALPHA LOW-VOLATILITY 30"></option><option value="NIFTY ALPHA QUALITY LOW-VOLATILITY 30"></option><option value="NIFTY ALPHA QUALITY VALUE LOW-VOLATILITY 30"></option><option value="NIFTY AUTO"></option><option value="NIFTY BANK"></option><option value="NIFTY BHARAT BOND INDEX - APRIL 2025"></option><option value="NIFTY BHARAT BOND INDEX - APRIL 2030"></option><option value="NIFTY BHARAT BOND INDEX - APRIL 2031"></option><option value="NIFTY BHARAT BOND INDEX - APRIL 2032"></option><option value="NIFTY BHARAT BOND INDEX - APRIL 2033"></option><option value="NIFTY CAPITAL GOODS"></option><option value="NIFTY CAPITAL MARKETS"></option><option value="NIFTY CEMENT"></option><option value="NIFTY CHEMICALS"></option><option value="NIFTY COMMERCIAL &amp; TRANSPORT SERVICES"></option><option value="NIFTY COMMODITIES"></option><option value="NIFTY COMPOSITE G-SEC INDEX"></option><option value="NIFTY CONGLOMERATE 50"></option><option value="NIFTY CONSTRUCTION"></option><option value="NIFTY CONSUMER DURABLES"></option><option value="NIFTY CONSUMER SERVICES"></option><option value="NIFTY CONSUMPTION"></option><option value="NIFTY CORE HOUSING"></option><option value="NIFTY CPSE"></option><option value="NIFTY DEFTY"></option><option value="NIFTY DIVIDEND OPPORTUNITIES"></option><option value="NIFTY DIVIDEND OPPORTUNITIES 50"></option><option value="NIFTY ENERGY"></option><option value="NIFTY EV &amp; NEW AGE AUTOMOTIVE"></option><option value="NIFTY FINANCE"></option><option value="NIFTY FINANCIAL SERVICES"></option><option value="NIFTY FINANCIAL SERVICES 25/50"></option><option value="NIFTY FINANCIAL SERVICES EX-BANK"></option><option value="NIFTY FMCG"></option><option value="NIFTY FREE FLOAT MIDCAP 100"></option><option value="NIFTY FREE FLOAT SMALLCAP 100"></option><option value="NIFTY FULL MIDCAP 100"></option><option value="NIFTY FULL SMALLCAP 100"></option><option value="NIFTY GROWTH SECTORS 15"></option><option value="NIFTY HEALTHCARE"></option><option value="NIFTY HEALTHCARE INDEX"></option><option value="NIFTY HIGH BETA"></option><option value="NIFTY HIGH BETA 50"></option><option value="NIFTY HIGH DIVIDEND YIELD 15"></option><option value="NIFTY HOSPITALS"></option><option value="NIFTY HOUSING"></option><option value="NIFTY HOUSING FINANCE"></option><option value="NIFTY INDIA CONSUMPTION"></option><option value="NIFTY INDIA CORPORATE GROUP INDEX - ADITYA BIRLA GROUP"></option><option value="NIFTY INDIA CORPORATE GROUP INDEX - MAHINDRA GROUP"></option><option value="NIFTY INDIA CORPORATE GROUP INDEX - TATA GROUP"></option><option value="NIFTY INDIA CORPORATE GROUP INDEX - TATA GROUP 25% CAP"></option><option value="NIFTY INDIA DEFENCE"></option><option value="NIFTY INDIA DEFENCE EQUAL WEIGHT"></option><option value="NIFTY INDIA DIGITAL"></option><option value="NIFTY INDIA FPI 150"></option><option value="NIFTY INDIA INFRASTRUCTURE &amp; LOGISTICS"></option><option value="NIFTY INDIA INTERNET"></option><option value="NIFTY INDIA INTERNET &amp; E-COMMERCE"></option><option value="NIFTY INDIA MANUFACTURING"></option><option value="NIFTY INDIA NEW AGE CONSUMPTION"></option><option value="NIFTY INDIA RAILWAYS PSU"></option><option value="NIFTY INDIA SELECT 5 CORPORATE GROUPS (MAATR)"></option><option value="NIFTY INDIA TOURISM"></option><option value="NIFTY INFRASTRUCTURE"></option><option value="NIFTY INSURANCE"></option><option value="NIFTY IPO"></option><option value="NIFTY IT"></option><option value="NIFTY LARGEMIDCAP 250"></option><option value="NIFTY LOW VOLATILITY"></option><option value="NIFTY LOW VOLATILITY 50"></option><option value="NIFTY MAHINDRA GROUP"></option><option value="NIFTY MEDIA"></option><option value="NIFTY METAL"></option><option value="NIFTY MICROCAP 250"></option><option value="NIFTY MIDCAP"></option><option value="NIFTY MIDCAP 100"></option><option value="NIFTY MIDCAP 150"></option><option value="NIFTY MIDCAP 50"></option><option value="NIFTY MIDCAP LIQUID 15"></option><option value="NIFTY MIDCAP SELECT"></option><option value="NIFTY MIDCAP150 MOMENTUM 50"></option><option value="NIFTY MIDCAP150 QUALITY 50"></option><option value="NIFTY MIDSMALL FINANCIAL SERVICES"></option><option value="NIFTY MIDSMALL HEALTHCARE"></option><option value="NIFTY MIDSMALL INDIA CONSUMPTION"></option><option value="NIFTY MIDSMALL IT &amp; TELECOM"></option><option value="NIFTY MIDSMALLCAP 400"></option><option value="NIFTY MIDSMALLCAP400 50:50"></option><option value="NIFTY MIDSMALLCAP400 MOMENTUM QUALITY 100"></option><option value="NIFTY MNC"></option><option value="NIFTY MOBILITY"></option><option value="NIFTY NBFC"></option><option value="NIFTY NEXT 100"></option><option value="NIFTY NEXT 50"></option><option value="NIFTY NIFTY DIVIDEND"></option><option value="NIFTY NIFTY JUNIOR"></option><option value="NIFTY NIFTY SHARIAH"></option><option value="NIFTY NON-CYCLICAL CONSUMER"></option><option value="NIFTY OIL &amp; GAS"></option><option value="NIFTY PHARMA"></option><option value="NIFTY POWER"></option><option value="NIFTY PR 1X INVERSE"></option><option value="NIFTY PR 2X LEVERAGE"></option><option value="NIFTY PRIVATE BANK"></option><option value="NIFTY PSE"></option><option value="NIFTY PSU BANK"></option><option value="NIFTY QUALITY 30"></option><option value="NIFTY QUALITY LOW-VOLATILITY 30"></option><option value="NIFTY REALTY"></option><option value="NIFTY REITS &amp; INVITS"></option><option value="NIFTY REITS &amp; INVITS 90:10"></option><option value="NIFTY REITS &amp; REALTY"></option><option value="NIFTY RETAIL"></option><option value="NIFTY RURAL"></option><option value="NIFTY SERVICE SECTOR"></option><option value="NIFTY SERVICES SECTOR"></option><option value="NIFTY SHARIAH 25"></option><option value="NIFTY SHARIAH25"></option><option value="NIFTY SMALL FINANCE BANKS &amp; MICROFINANCE INSTITUTIONS"></option><option value="NIFTY SMALLCAP"></option><option value="NIFTY SMALLCAP 100"></option><option value="NIFTY SMALLCAP 250"></option><option value="NIFTY SMALLCAP 50"></option><option value="NIFTY SMALLCAP 500"></option><option value="NIFTY SMALLCAP250 MOMENTUM QUALITY 100"></option><option value="NIFTY SMALLCAP250 QUALITY 50"></option><option value="NIFTY SME EMERGE"></option><option value="NIFTY SUGAR &amp; ETHANOL"></option><option value="NIFTY TATA GROUP"></option><option value="NIFTY TATA GROUP 25% CAP"></option><option value="NIFTY TELECOMMUNICATIONS"></option><option value="NIFTY TOP 10 EQUAL WEIGHT"></option><option value="NIFTY TOP 15 EQUAL WEIGHT"></option><option value="NIFTY TOP 20 EQUAL WEIGHT"></option><option value="NIFTY TOTAL MARKET"></option><option value="NIFTY TOTAL MARKET MOMENTUM QUALITY 50"></option><option value="NIFTY TR 1X INVERSE"></option><option value="NIFTY TR 2X LEVERAGE"></option><option value="NIFTY TRANSPORTATION &amp; LOGISTICS"></option><option value="NIFTY WAVES"></option><option value="NIFTY100 ALPHA 30"></option><option value="NIFTY100 ENHANCED ESG"></option><option value="NIFTY100 EQUAL WEIGHT"></option><option value="NIFTY100 ESG"></option><option value="NIFTY100 ESG SECTOR LEADERS"></option><option value="NIFTY100 ESG SECTOR LEADERS - OLD"></option><option value="NIFTY100 LIQUID 15"></option><option value="NIFTY100 LOW VOLATILITY 30"></option><option value="NIFTY100 QUALITY 30"></option><option value="NIFTY200 ALPHA 30"></option><option value="NIFTY200 MOMENTUM 30"></option><option value="NIFTY200 QUALITY 30"></option><option value="NIFTY200 VALUE 30"></option><option value="NIFTY50 DIVIDEND POINTS"></option><option value="NIFTY50 EQUAL WEIGHT"></option><option value="NIFTY50 PR 1X INVERSE"></option><option value="NIFTY50 PR 2X LEVERAGE"></option><option value="NIFTY50 SHARIAH"></option><option value="NIFTY50 TR 1X INVERSE"></option><option value="NIFTY50 TR 2X LEVERAGE"></option><option value="NIFTY50 USD"></option><option value="NIFTY50 VALUE 20"></option><option value="NIFTY500 AHIMSA"></option><option value="NIFTY500 EQUAL WEIGHT"></option><option value="NIFTY500 FLEXICAP QUALITY 30"></option><option value="NIFTY500 GROWTH 50"></option><option value="NIFTY500 HEALTHCARE"></option><option value="NIFTY500 LARGEMIDSMALL EQUAL-CAP WEIGHTED"></option><option value="NIFTY500 LOW VOLATILITY 50"></option><option value="NIFTY500 MOMENTUM 50"></option><option value="NIFTY500 MULTICAP 50:25:25"></option><option value="NIFTY500 MULTICAP INDIA MANUFACTURING 50:30:20"></option><option value="NIFTY500 MULTICAP INFRASTRUCTURE 50:30:20"></option><option value="NIFTY500 MULTICAP MOMENTUM QUALITY 50"></option><option value="NIFTY500 MULTIFACTOR MQVLV 50"></option><option value="NIFTY500 QUALITY 50"></option><option value="NIFTY500 SHARIAH"></option><option value="NIFTY500 VALUE 50"></option></datalist>
+    
+  <div class="row g-3 mb-3">
+  <div class="col-12"><div class="card"><div class="card-body row g-3 align-items-end">
+    <div class="col-md-5">
+      <label class="form-label">Name</label>
+      <input class="form-control" name="name" value="" required="" maxlength="120" fdprocessedid="tgkned">
+    </div>
+    <div class="col-6 col-md-2"><label class="form-label" title="The backtest and the Quick check run over these dates">Backtest from</label>
+      <input class="form-control" type="date" name="start" value="2013-04-01"></div>
+    <div class="col-6 col-md-2"><label class="form-label">to <span class="muted fw-normal">(blank = latest)</span></label>
+      <input class="form-control" type="date" name="end" value=""></div>
+    <div class="col-md-3">
+      <label class="form-label">Invest in</label>
+      <div class="btn-group w-100" role="group">
+        <input type="radio" class="btn-check" name="asset" id="aStock" value="stock" checked="">
+        <label class="btn btn-outline-primary" for="aStock"><i class="bi bi-buildings"></i> Stocks</label>
+        <input type="radio" class="btn-check" name="asset" id="aEtf" value="etf">
+        <label class="btn btn-outline-primary" for="aEtf"><i class="bi bi-collection"></i> ETFs</label>
+      </div>
+    </div>
+  </div></div></div>
+
+  </div>
+  <div class="flow">
+  <aside class="flow-rail">
+    <button type="button" class="flow-node on" data-go="universe" fdprocessedid="r1ncqk"><span class="fn-ic"><i class="bi bi-globe2"></i></span><span class="fn-t"><b>1. Universe</b><small class="fn-sum" data-sum="universe">NIFTY MICROCAP 250 · historical members</small></span></button>
+    <div class="flow-link"></div>
+    <button type="button" class="flow-node" data-go="conditions" fdprocessedid="51kfq"><span class="fn-ic"><i class="bi bi-funnel"></i></span><span class="fn-t"><b>2. Conditions</b><small class="fn-sum" data-sum="conditions">No conditions: everything is ranked</small></span></button>
+    <div class="flow-link"></div>
+    <button type="button" class="flow-node" data-go="score" fdprocessedid="ztuauc"><span class="fn-ic"><i class="bi bi-star"></i></span><span class="fn-t"><b>3. Rank by</b><small class="fn-sum" data-sum="score">Style: All-rounder (speed medium · smooth · staying power medium)</small></span></button>
+    <div class="flow-link"></div>
+    <button type="button" class="flow-node" data-go="pick" fdprocessedid="rbs1gx"><span class="fn-ic"><i class="bi bi-check2-square"></i></span><span class="fn-t"><b>4. Pick</b><small class="fn-sum" data-sum="pick">Top 20 · exit 52 · monthly, day 20 · 0.10% cost</small></span></button>
+    <div class="flow-link"></div>
+    <button type="button" class="flow-node" data-go="money" fdprocessedid="4uqtvs"><span class="fn-ic"><i class="bi bi-currency-rupee"></i></span><span class="fn-t"><b>5. Money</b><small class="fn-sum" data-sum="money">₹1,00,000</small></span></button>
+    <div class="flow-link"></div>
+    <button type="button" class="flow-node" data-go="protect" fdprocessedid="14p5h"><span class="fn-ic"><i class="bi bi-shield-check"></i></span><span class="fn-t"><b>6. Protect</b><small class="fn-sum" data-sum="protect">No trend filter · vs NIFTY 500</small></span></button>
+    <div class="flow-link"></div>
+    <button type="button" class="flow-node" data-go="run" fdprocessedid="zx6tz"><span class="fn-ic"><i class="bi bi-play-circle"></i></span><span class="fn-t"><b>7. Run</b><small class="fn-sum" data-sum="run">Save &amp; backtest</small></span></button>
+    <div class="flow-save d-none d-lg-flex">
+      <button class="btn btn-primary" name="run" value="1" fdprocessedid="msdp4n"><i class="bi bi-play-fill"></i> Save &amp; backtest</button>
+      <button class="btn btn-outline-secondary" fdprocessedid="70zccg">Save</button>
+    </div>
+  </aside>
+  <div class="flow-stage">
+  <section class="flow-step row g-3 on" data-step="universe">
+  <div class="col-12 stock-only"><div class="card"><div class="card-header">Stock universe</div><div class="card-body">
+    <div class="btn-group w-100 mb-3" role="group">
+      <input type="radio" class="btn-check" name="u_mode" id="uIndex" value="index" checked="">
+      <label class="btn btn-outline-primary" for="uIndex">Index members</label>
+      <input type="radio" class="btn-check" name="u_mode" id="uLiq" value="liquidity">
+      <label class="btn btn-outline-primary" for="uLiq">Liquidity rank</label>
+    </div>
+        <div id="uIndexBox">
+              <div class="d-flex align-items-center gap-2 ix-row">
+          <div class="form-check flex-grow-1 mb-0">
+            <input class="form-check-input" type="checkbox" name="u_indices[]" value="nifty500" id="ix_nifty500">
+            <label class="form-check-label" for="ix_nifty500">NIFTY 500</label>
+          </div>
+          <div class="input-group input-group-sm spl-in" style="width:96px;display:none"><input class="form-control spl-w" type="number" min="0" max="100" step="5" data-k="nifty500" value="" placeholder="0"><span class="input-group-text">%</span></div>
+        </div>
+              <div class="d-flex align-items-center gap-2 ix-row">
+          <div class="form-check flex-grow-1 mb-0">
+            <input class="form-check-input" type="checkbox" name="u_indices[]" value="niftymidcap150" id="ix_niftymidcap150">
+            <label class="form-check-label" for="ix_niftymidcap150">NIFTY MIDCAP 150</label>
+          </div>
+          <div class="input-group input-group-sm spl-in" style="width:96px;display:none"><input class="form-control spl-w" type="number" min="0" max="100" step="5" data-k="niftymidcap150" value="" placeholder="0"><span class="input-group-text">%</span></div>
+        </div>
+              <div class="d-flex align-items-center gap-2 ix-row">
+          <div class="form-check flex-grow-1 mb-0">
+            <input class="form-check-input" type="checkbox" name="u_indices[]" value="niftysmallcap250" id="ix_niftysmallcap250">
+            <label class="form-check-label" for="ix_niftysmallcap250">NIFTY SMALLCAP 250</label>
+          </div>
+          <div class="input-group input-group-sm spl-in" style="width:96px;display:none"><input class="form-control spl-w" type="number" min="0" max="100" step="5" data-k="niftysmallcap250" value="" placeholder="0"><span class="input-group-text">%</span></div>
+        </div>
+              <div class="d-flex align-items-center gap-2 ix-row">
+          <div class="form-check flex-grow-1 mb-0">
+            <input class="form-check-input" type="checkbox" name="u_indices[]" value="niftymidsmallcap400" id="ix_niftymidsmallcap400">
+            <label class="form-check-label" for="ix_niftymidsmallcap400">NIFTY MIDSMALLCAP 400</label>
+          </div>
+          <div class="input-group input-group-sm spl-in" style="width:96px;display:none"><input class="form-control spl-w" type="number" min="0" max="100" step="5" data-k="niftymidsmallcap400" value="" placeholder="0"><span class="input-group-text">%</span></div>
+        </div>
+              <div class="d-flex align-items-center gap-2 ix-row">
+          <div class="form-check flex-grow-1 mb-0">
+            <input class="form-check-input" type="checkbox" name="u_indices[]" value="niftymicrocap250" id="ix_niftymicrocap250" checked="">
+            <label class="form-check-label" for="ix_niftymicrocap250">NIFTY MICROCAP 250</label>
+          </div>
+          <div class="input-group input-group-sm spl-in" style="width:96px;display:none"><input class="form-control spl-w" type="number" min="0" max="100" step="5" data-k="niftymicrocap250" value="" placeholder="0"><span class="input-group-text">%</span></div>
+        </div>
+              <div class="d-flex align-items-center gap-2 ix-row">
+          <div class="form-check flex-grow-1 mb-0">
+            <input class="form-check-input" type="checkbox" name="u_indices[]" value="niftytotalmarket" id="ix_niftytotalmarket">
+            <label class="form-check-label" for="ix_niftytotalmarket">NIFTY TOTAL MARKET</label>
+          </div>
+          <div class="input-group input-group-sm spl-in" style="width:96px;display:none"><input class="form-control spl-w" type="number" min="0" max="100" step="5" data-k="niftytotalmarket" value="" placeholder="0"><span class="input-group-text">%</span></div>
+        </div>
+            <div class="form-check form-switch mt-2">
+        <input class="form-check-input" type="checkbox" id="splIdxOn">
+        <label class="form-check-label" for="splIdxOn"><i class="bi bi-pie-chart"></i> Set a weight for each index <span class="muted">(e.g. Midcap 25% + Microcap 75%)</span></label>
+      </div>
+      <div class="form-check form-switch mt-2">
+        <input class="form-check-input" type="checkbox" name="u_pit" id="uPit" value="1" checked="">
+        <label class="form-check-label" for="uPit">Historical members (as they were on each past date)</label>
+      </div>
+            <div class="form-text">On: each past date uses the index as it was then. These are NSE's real lists, rebuilt from the changes NSE announced (Nifty 500 from 2012 · Midcap 150 from 2016 · Smallcap 250 from 2016 · Microcap 250 from 2021); years before an index existed are estimated from market cap and turnover. Off: today's official members for every past date, which flatters backtests (survivorship bias).</div>
+    </div>
+    <div id="uLiqBox" style="display: none;">
+      <div class="row g-2">
+        <div class="col"><label class="form-label">Rank from</label><input class="form-control" type="number" name="u_from" value="251"></div>
+        <div class="col"><label class="form-label">Rank to</label><input class="form-control" type="number" name="u_to" value="750"></div>
+      </div>
+      <div class="form-text">On every rebalance day all NSE stocks are ranked by 6-month average traded value, using only data up to that day. 251–750 is roughly the small/microcap band.</div>
+    </div>
+        <div class="mt-3 pt-3" style="border-top:1px solid var(--line)">
+      <label class="form-label"><i class="bi bi-grid-3x3-gap"></i> Sectors</label>
+      <div class="btn-group btn-group-sm w-100 mb-2" role="group">
+        <input type="radio" class="btn-check" name="sector_mode" id="secAll" value="" checked=""><label class="btn btn-outline-secondary" for="secAll">All sectors</label>
+        <input type="radio" class="btn-check" name="sector_mode" id="secOnly" value="only"><label class="btn btn-outline-secondary" for="secOnly">Only these</label>
+        <input type="radio" class="btn-check" name="sector_mode" id="secOut" value="exclude"><label class="btn btn-outline-secondary" for="secOut">Leave these out</label>
+        <input type="radio" class="btn-check" name="sector_mode" id="secW" value="weights"><label class="btn btn-outline-secondary" for="secW"><i class="bi bi-pie-chart"></i> Weights</label>
+      </div>
+      <div id="secBox" class="row g-1" style="display:none">
+                  <div class="col-md-6 d-flex align-items-center gap-2">
+            <div class="form-check flex-grow-1 mb-0 sec-ck"><input class="form-check-input" type="checkbox" name="sectors[]" value="Automobile and Auto Components" id="sec0"><label class="form-check-label" for="sec0" style="font-size:13.5px">Automobile and Auto Components</label></div>
+            <span class="flex-grow-1 sec-name" style="font-size:13.5px;display:none">Automobile and Auto Components</span>
+            <div class="input-group input-group-sm spl-in" style="width:96px;display:none"><input class="form-control spl-w" type="number" min="0" max="100" step="5" data-k="Automobile and Auto Components" value="" placeholder="0"><span class="input-group-text">%</span></div>
+          </div>
+                  <div class="col-md-6 d-flex align-items-center gap-2">
+            <div class="form-check flex-grow-1 mb-0 sec-ck"><input class="form-check-input" type="checkbox" name="sectors[]" value="Capital Goods" id="sec1"><label class="form-check-label" for="sec1" style="font-size:13.5px">Capital Goods</label></div>
+            <span class="flex-grow-1 sec-name" style="font-size:13.5px;display:none">Capital Goods</span>
+            <div class="input-group input-group-sm spl-in" style="width:96px;display:none"><input class="form-control spl-w" type="number" min="0" max="100" step="5" data-k="Capital Goods" value="" placeholder="0"><span class="input-group-text">%</span></div>
+          </div>
+                  <div class="col-md-6 d-flex align-items-center gap-2">
+            <div class="form-check flex-grow-1 mb-0 sec-ck"><input class="form-check-input" type="checkbox" name="sectors[]" value="Chemicals" id="sec2"><label class="form-check-label" for="sec2" style="font-size:13.5px">Chemicals</label></div>
+            <span class="flex-grow-1 sec-name" style="font-size:13.5px;display:none">Chemicals</span>
+            <div class="input-group input-group-sm spl-in" style="width:96px;display:none"><input class="form-control spl-w" type="number" min="0" max="100" step="5" data-k="Chemicals" value="" placeholder="0"><span class="input-group-text">%</span></div>
+          </div>
+                  <div class="col-md-6 d-flex align-items-center gap-2">
+            <div class="form-check flex-grow-1 mb-0 sec-ck"><input class="form-check-input" type="checkbox" name="sectors[]" value="Construction" id="sec3"><label class="form-check-label" for="sec3" style="font-size:13.5px">Construction</label></div>
+            <span class="flex-grow-1 sec-name" style="font-size:13.5px;display:none">Construction</span>
+            <div class="input-group input-group-sm spl-in" style="width:96px;display:none"><input class="form-control spl-w" type="number" min="0" max="100" step="5" data-k="Construction" value="" placeholder="0"><span class="input-group-text">%</span></div>
+          </div>
+                  <div class="col-md-6 d-flex align-items-center gap-2">
+            <div class="form-check flex-grow-1 mb-0 sec-ck"><input class="form-check-input" type="checkbox" name="sectors[]" value="Construction Materials" id="sec4"><label class="form-check-label" for="sec4" style="font-size:13.5px">Construction Materials</label></div>
+            <span class="flex-grow-1 sec-name" style="font-size:13.5px;display:none">Construction Materials</span>
+            <div class="input-group input-group-sm spl-in" style="width:96px;display:none"><input class="form-control spl-w" type="number" min="0" max="100" step="5" data-k="Construction Materials" value="" placeholder="0"><span class="input-group-text">%</span></div>
+          </div>
+                  <div class="col-md-6 d-flex align-items-center gap-2">
+            <div class="form-check flex-grow-1 mb-0 sec-ck"><input class="form-check-input" type="checkbox" name="sectors[]" value="Consumer Durables" id="sec5"><label class="form-check-label" for="sec5" style="font-size:13.5px">Consumer Durables</label></div>
+            <span class="flex-grow-1 sec-name" style="font-size:13.5px;display:none">Consumer Durables</span>
+            <div class="input-group input-group-sm spl-in" style="width:96px;display:none"><input class="form-control spl-w" type="number" min="0" max="100" step="5" data-k="Consumer Durables" value="" placeholder="0"><span class="input-group-text">%</span></div>
+          </div>
+                  <div class="col-md-6 d-flex align-items-center gap-2">
+            <div class="form-check flex-grow-1 mb-0 sec-ck"><input class="form-check-input" type="checkbox" name="sectors[]" value="Consumer Services" id="sec6"><label class="form-check-label" for="sec6" style="font-size:13.5px">Consumer Services</label></div>
+            <span class="flex-grow-1 sec-name" style="font-size:13.5px;display:none">Consumer Services</span>
+            <div class="input-group input-group-sm spl-in" style="width:96px;display:none"><input class="form-control spl-w" type="number" min="0" max="100" step="5" data-k="Consumer Services" value="" placeholder="0"><span class="input-group-text">%</span></div>
+          </div>
+                  <div class="col-md-6 d-flex align-items-center gap-2">
+            <div class="form-check flex-grow-1 mb-0 sec-ck"><input class="form-check-input" type="checkbox" name="sectors[]" value="Diversified" id="sec7"><label class="form-check-label" for="sec7" style="font-size:13.5px">Diversified</label></div>
+            <span class="flex-grow-1 sec-name" style="font-size:13.5px;display:none">Diversified</span>
+            <div class="input-group input-group-sm spl-in" style="width:96px;display:none"><input class="form-control spl-w" type="number" min="0" max="100" step="5" data-k="Diversified" value="" placeholder="0"><span class="input-group-text">%</span></div>
+          </div>
+                  <div class="col-md-6 d-flex align-items-center gap-2">
+            <div class="form-check flex-grow-1 mb-0 sec-ck"><input class="form-check-input" type="checkbox" name="sectors[]" value="Fast Moving Consumer Goods" id="sec8"><label class="form-check-label" for="sec8" style="font-size:13.5px">Fast Moving Consumer Goods</label></div>
+            <span class="flex-grow-1 sec-name" style="font-size:13.5px;display:none">Fast Moving Consumer Goods</span>
+            <div class="input-group input-group-sm spl-in" style="width:96px;display:none"><input class="form-control spl-w" type="number" min="0" max="100" step="5" data-k="Fast Moving Consumer Goods" value="" placeholder="0"><span class="input-group-text">%</span></div>
+          </div>
+                  <div class="col-md-6 d-flex align-items-center gap-2">
+            <div class="form-check flex-grow-1 mb-0 sec-ck"><input class="form-check-input" type="checkbox" name="sectors[]" value="Financial Services" id="sec9"><label class="form-check-label" for="sec9" style="font-size:13.5px">Financial Services</label></div>
+            <span class="flex-grow-1 sec-name" style="font-size:13.5px;display:none">Financial Services</span>
+            <div class="input-group input-group-sm spl-in" style="width:96px;display:none"><input class="form-control spl-w" type="number" min="0" max="100" step="5" data-k="Financial Services" value="" placeholder="0"><span class="input-group-text">%</span></div>
+          </div>
+                  <div class="col-md-6 d-flex align-items-center gap-2">
+            <div class="form-check flex-grow-1 mb-0 sec-ck"><input class="form-check-input" type="checkbox" name="sectors[]" value="Forest Materials" id="sec10"><label class="form-check-label" for="sec10" style="font-size:13.5px">Forest Materials</label></div>
+            <span class="flex-grow-1 sec-name" style="font-size:13.5px;display:none">Forest Materials</span>
+            <div class="input-group input-group-sm spl-in" style="width:96px;display:none"><input class="form-control spl-w" type="number" min="0" max="100" step="5" data-k="Forest Materials" value="" placeholder="0"><span class="input-group-text">%</span></div>
+          </div>
+                  <div class="col-md-6 d-flex align-items-center gap-2">
+            <div class="form-check flex-grow-1 mb-0 sec-ck"><input class="form-check-input" type="checkbox" name="sectors[]" value="Healthcare" id="sec11"><label class="form-check-label" for="sec11" style="font-size:13.5px">Healthcare</label></div>
+            <span class="flex-grow-1 sec-name" style="font-size:13.5px;display:none">Healthcare</span>
+            <div class="input-group input-group-sm spl-in" style="width:96px;display:none"><input class="form-control spl-w" type="number" min="0" max="100" step="5" data-k="Healthcare" value="" placeholder="0"><span class="input-group-text">%</span></div>
+          </div>
+                  <div class="col-md-6 d-flex align-items-center gap-2">
+            <div class="form-check flex-grow-1 mb-0 sec-ck"><input class="form-check-input" type="checkbox" name="sectors[]" value="Information Technology" id="sec12"><label class="form-check-label" for="sec12" style="font-size:13.5px">Information Technology</label></div>
+            <span class="flex-grow-1 sec-name" style="font-size:13.5px;display:none">Information Technology</span>
+            <div class="input-group input-group-sm spl-in" style="width:96px;display:none"><input class="form-control spl-w" type="number" min="0" max="100" step="5" data-k="Information Technology" value="" placeholder="0"><span class="input-group-text">%</span></div>
+          </div>
+                  <div class="col-md-6 d-flex align-items-center gap-2">
+            <div class="form-check flex-grow-1 mb-0 sec-ck"><input class="form-check-input" type="checkbox" name="sectors[]" value="Media Entertainment &amp; Publication" id="sec13"><label class="form-check-label" for="sec13" style="font-size:13.5px">Media Entertainment &amp; Publication</label></div>
+            <span class="flex-grow-1 sec-name" style="font-size:13.5px;display:none">Media Entertainment &amp; Publication</span>
+            <div class="input-group input-group-sm spl-in" style="width:96px;display:none"><input class="form-control spl-w" type="number" min="0" max="100" step="5" data-k="Media Entertainment &amp; Publication" value="" placeholder="0"><span class="input-group-text">%</span></div>
+          </div>
+                  <div class="col-md-6 d-flex align-items-center gap-2">
+            <div class="form-check flex-grow-1 mb-0 sec-ck"><input class="form-check-input" type="checkbox" name="sectors[]" value="Metals &amp; Mining" id="sec14"><label class="form-check-label" for="sec14" style="font-size:13.5px">Metals &amp; Mining</label></div>
+            <span class="flex-grow-1 sec-name" style="font-size:13.5px;display:none">Metals &amp; Mining</span>
+            <div class="input-group input-group-sm spl-in" style="width:96px;display:none"><input class="form-control spl-w" type="number" min="0" max="100" step="5" data-k="Metals &amp; Mining" value="" placeholder="0"><span class="input-group-text">%</span></div>
+          </div>
+                  <div class="col-md-6 d-flex align-items-center gap-2">
+            <div class="form-check flex-grow-1 mb-0 sec-ck"><input class="form-check-input" type="checkbox" name="sectors[]" value="Oil Gas &amp; Consumable Fuels" id="sec15"><label class="form-check-label" for="sec15" style="font-size:13.5px">Oil Gas &amp; Consumable Fuels</label></div>
+            <span class="flex-grow-1 sec-name" style="font-size:13.5px;display:none">Oil Gas &amp; Consumable Fuels</span>
+            <div class="input-group input-group-sm spl-in" style="width:96px;display:none"><input class="form-control spl-w" type="number" min="0" max="100" step="5" data-k="Oil Gas &amp; Consumable Fuels" value="" placeholder="0"><span class="input-group-text">%</span></div>
+          </div>
+                  <div class="col-md-6 d-flex align-items-center gap-2">
+            <div class="form-check flex-grow-1 mb-0 sec-ck"><input class="form-check-input" type="checkbox" name="sectors[]" value="Power" id="sec16"><label class="form-check-label" for="sec16" style="font-size:13.5px">Power</label></div>
+            <span class="flex-grow-1 sec-name" style="font-size:13.5px;display:none">Power</span>
+            <div class="input-group input-group-sm spl-in" style="width:96px;display:none"><input class="form-control spl-w" type="number" min="0" max="100" step="5" data-k="Power" value="" placeholder="0"><span class="input-group-text">%</span></div>
+          </div>
+                  <div class="col-md-6 d-flex align-items-center gap-2">
+            <div class="form-check flex-grow-1 mb-0 sec-ck"><input class="form-check-input" type="checkbox" name="sectors[]" value="Realty" id="sec17"><label class="form-check-label" for="sec17" style="font-size:13.5px">Realty</label></div>
+            <span class="flex-grow-1 sec-name" style="font-size:13.5px;display:none">Realty</span>
+            <div class="input-group input-group-sm spl-in" style="width:96px;display:none"><input class="form-control spl-w" type="number" min="0" max="100" step="5" data-k="Realty" value="" placeholder="0"><span class="input-group-text">%</span></div>
+          </div>
+                  <div class="col-md-6 d-flex align-items-center gap-2">
+            <div class="form-check flex-grow-1 mb-0 sec-ck"><input class="form-check-input" type="checkbox" name="sectors[]" value="Services" id="sec18"><label class="form-check-label" for="sec18" style="font-size:13.5px">Services</label></div>
+            <span class="flex-grow-1 sec-name" style="font-size:13.5px;display:none">Services</span>
+            <div class="input-group input-group-sm spl-in" style="width:96px;display:none"><input class="form-control spl-w" type="number" min="0" max="100" step="5" data-k="Services" value="" placeholder="0"><span class="input-group-text">%</span></div>
+          </div>
+                  <div class="col-md-6 d-flex align-items-center gap-2">
+            <div class="form-check flex-grow-1 mb-0 sec-ck"><input class="form-check-input" type="checkbox" name="sectors[]" value="Telecommunication" id="sec19"><label class="form-check-label" for="sec19" style="font-size:13.5px">Telecommunication</label></div>
+            <span class="flex-grow-1 sec-name" style="font-size:13.5px;display:none">Telecommunication</span>
+            <div class="input-group input-group-sm spl-in" style="width:96px;display:none"><input class="form-control spl-w" type="number" min="0" max="100" step="5" data-k="Telecommunication" value="" placeholder="0"><span class="input-group-text">%</span></div>
+          </div>
+                  <div class="col-md-6 d-flex align-items-center gap-2">
+            <div class="form-check flex-grow-1 mb-0 sec-ck"><input class="form-check-input" type="checkbox" name="sectors[]" value="Textiles" id="sec20"><label class="form-check-label" for="sec20" style="font-size:13.5px">Textiles</label></div>
+            <span class="flex-grow-1 sec-name" style="font-size:13.5px;display:none">Textiles</span>
+            <div class="input-group input-group-sm spl-in" style="width:96px;display:none"><input class="form-control spl-w" type="number" min="0" max="100" step="5" data-k="Textiles" value="" placeholder="0"><span class="input-group-text">%</span></div>
+          </div>
+                  <div class="col-md-6 d-flex align-items-center gap-2">
+            <div class="form-check flex-grow-1 mb-0 sec-ck"><input class="form-check-input" type="checkbox" name="sectors[]" value="Utilities" id="sec21"><label class="form-check-label" for="sec21" style="font-size:13.5px">Utilities</label></div>
+            <span class="flex-grow-1 sec-name" style="font-size:13.5px;display:none">Utilities</span>
+            <div class="input-group input-group-sm spl-in" style="width:96px;display:none"><input class="form-control spl-w" type="number" min="0" max="100" step="5" data-k="Utilities" value="" placeholder="0"><span class="input-group-text">%</span></div>
+          </div>
+              </div>
+      <div class="form-text">NSE's sector ("Industry") of each stock. Stocks left out are not ranked at all. Today's sectors are used for past dates too; stocks no longer in any NSE list have no sector, so "Only these" leaves them out. <b>Weights</b>: give sectors a %; only those sectors are bought.</div>
+    </div>
+        <input type="hidden" name="split_json" id="splitJson" value="">
+    <div class="p-2 px-3 mt-3" id="splNote" style="display:none;border:1px dashed var(--line);border-radius:10px;font-size:13px"><i class="bi bi-pie-chart"></i> Give at least two sectors a weight above 0%. The weight sets how many of the 20 stocks come from each.</div>
+  </div></div></div>
+
+  <div class="col-12 etf-only" style="display: none;"><div class="card"><div class="card-header">ETF universe</div><div class="card-body">
+        <div class="row g-2" id="etfPick">
+      <div class="col-md-6"><label class="form-label">ETF universe</label>
+        <div class="dropdown">
+          <button type="button" class="form-select text-start" data-bs-toggle="dropdown" data-bs-auto-close="outside" id="catBtn">Broad Market +4 more</button>
+          <div class="dropdown-menu p-2 w-100" style="max-height:340px;overflow:auto">
+            <label class="dropdown-item d-flex gap-2 fw-semibold" style="border-bottom:1px solid var(--line)"><input class="form-check-input" type="checkbox" id="catAll"> Select all categories</label>
+                          <label class="dropdown-item d-flex gap-2"><input class="form-check-input cat flex-shrink-0" type="checkbox" value="broad"> Broad Market</label>
+                          <label class="dropdown-item d-flex gap-2"><input class="form-check-input cat flex-shrink-0" type="checkbox" value="sector"> Sectoral</label>
+                          <label class="dropdown-item d-flex gap-2"><input class="form-check-input cat flex-shrink-0" type="checkbox" value="factor"> Factor / Strategy</label>
+                          <label class="dropdown-item d-flex gap-2"><input class="form-check-input cat flex-shrink-0" type="checkbox" value="theme"> Thematic</label>
+                          <label class="dropdown-item d-flex gap-2"><input class="form-check-input cat flex-shrink-0" type="checkbox" value="fund"> Funds (gold, silver, global, liquid)</label>
+                      </div></div></div>
+      <div class="col-md-6"><label class="form-label">Eligible ETFs</label>
+        <div class="dropdown">
+          <button type="button" class="form-select text-start text-truncate" data-bs-toggle="dropdown" data-bs-auto-close="outside" id="etfBtn">NIFTY 100 +41 more</button>
+          <div class="dropdown-menu p-2 w-100" style="max-height:380px;overflow:auto;min-width:320px">
+            <input class="form-control form-control-sm mb-2" id="etfFind" placeholder="Search index or ETF symbol">
+                          <div class="grp-broad"><div class="eyebrow px-2 mt-2 mb-1">Broad Market</div>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty 100 nif100bees">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY 100" data-cat="broad" data-line="NIFTY 100 = NIF100BEES" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY 100</span><span class="muted" style="font-size:.75rem">NIF100BEES</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty 50 niftyietf">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY 50" data-cat="broad" data-line="NIFTY 50 = NIFTYIETF" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY 50</span><span class="muted" style="font-size:.75rem">NIFTYIETF</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty 500 monifty500">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY 500" data-cat="broad" data-line="NIFTY 500 = MONIFTY500" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY 500</span><span class="muted" style="font-size:.75rem">MONIFTY500</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty midcap 150 mid150bees">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY MIDCAP 150" data-cat="broad" data-line="NIFTY MIDCAP 150 = MID150BEES" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY MIDCAP 150</span><span class="muted" style="font-size:.75rem">MID150BEES</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty next 50 juniorbees">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY NEXT 50" data-cat="broad" data-line="NIFTY NEXT 50 = JUNIORBEES" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY NEXT 50</span><span class="muted" style="font-size:.75rem">JUNIORBEES</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty smallcap 250 hdfcsml250">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY SMALLCAP 250" data-cat="broad" data-line="NIFTY SMALLCAP 250 = HDFCSML250" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY SMALLCAP 250</span><span class="muted" style="font-size:.75rem">HDFCSML250</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty top 10 equal weight top10add">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY TOP 10 EQUAL WEIGHT" data-cat="broad" data-line="NIFTY TOP 10 EQUAL WEIGHT = TOP10ADD" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY TOP 10 EQUAL WEIGHT</span><span class="muted" style="font-size:.75rem">TOP10ADD</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty500 multicap 50:25:25 multicap">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY500 MULTICAP 50:25:25" data-cat="broad" data-line="NIFTY500 MULTICAP 50:25:25 = MULTICAP" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY500 MULTICAP 50:25:25</span><span class="muted" style="font-size:.75rem">MULTICAP</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="sensex sensexietf">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="SENSEX" data-cat="broad" data-line="SENSEX | SENSEXIETF = SENSEXIETF">
+                  <span class="flex-fill" style="font-size:.85rem">SENSEX</span><span class="muted" style="font-size:.75rem">SENSEXIETF</span></label>
+              </div>
+                          <div class="grp-sector"><div class="eyebrow px-2 mt-2 mb-1">Sectoral</div>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="bse capital mkts &amp; insurance ecapinsure">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="BSE CAPITAL MKTS &amp; INSURANCE" data-cat="sector" data-line="BSE CAPITAL MKTS &amp; INSURANCE | ECAPINSURE = ECAPINSURE">
+                  <span class="flex-fill" style="font-size:.85rem">BSE CAPITAL MKTS &amp; INSURANCE</span><span class="muted" style="font-size:.75rem">ECAPINSURE</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="bse power &amp; energy growwpower">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="BSE POWER &amp; ENERGY" data-cat="sector" data-line="BSE POWER &amp; ENERGY | GROWWPOWER = GROWWPOWER">
+                  <span class="flex-fill" style="font-size:.85rem">BSE POWER &amp; ENERGY</span><span class="muted" style="font-size:.75rem">GROWWPOWER</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty auto autobees">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY AUTO" data-cat="sector" data-line="NIFTY AUTO = AUTOBEES" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY AUTO</span><span class="muted" style="font-size:.75rem">AUTOBEES</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty bank bankbees">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY BANK" data-cat="sector" data-line="NIFTY BANK = BANKBEES" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY BANK</span><span class="muted" style="font-size:.75rem">BANKBEES</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty capital markets mocapital">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY CAPITAL MARKETS" data-cat="sector" data-line="NIFTY CAPITAL MARKETS = MOCAPITAL" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY CAPITAL MARKETS</span><span class="muted" style="font-size:.75rem">MOCAPITAL</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty financial services finietf">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY FINANCIAL SERVICES" data-cat="sector" data-line="NIFTY FINANCIAL SERVICES = FINIETF" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY FINANCIAL SERVICES</span><span class="muted" style="font-size:.75rem">FINIETF</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty fmcg fmcgietf">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY FMCG" data-cat="sector" data-line="NIFTY FMCG = FMCGIETF" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY FMCG</span><span class="muted" style="font-size:.75rem">FMCGIETF</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty healthcare index healthietf">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY HEALTHCARE INDEX" data-cat="sector" data-line="NIFTY HEALTHCARE INDEX = HEALTHIETF" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY HEALTHCARE INDEX</span><span class="muted" style="font-size:.75rem">HEALTHIETF</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty it itbees">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY IT" data-cat="sector" data-line="NIFTY IT = ITBEES" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY IT</span><span class="muted" style="font-size:.75rem">ITBEES</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty metal metalietf">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY METAL" data-cat="sector" data-line="NIFTY METAL = METALIETF" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY METAL</span><span class="muted" style="font-size:.75rem">METALIETF</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty oil &amp; gas oilietf">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY OIL &amp; GAS" data-cat="sector" data-line="NIFTY OIL &amp; GAS = OILIETF" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY OIL &amp; GAS</span><span class="muted" style="font-size:.75rem">OILIETF</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty pharma pharmabees">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY PHARMA" data-cat="sector" data-line="NIFTY PHARMA = PHARMABEES" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY PHARMA</span><span class="muted" style="font-size:.75rem">PHARMABEES</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty private bank pvtbanietf">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY PRIVATE BANK" data-cat="sector" data-line="NIFTY PRIVATE BANK = PVTBANIETF" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY PRIVATE BANK</span><span class="muted" style="font-size:.75rem">PVTBANIETF</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty psu bank psubnkbees">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY PSU BANK" data-cat="sector" data-line="NIFTY PSU BANK = PSUBNKBEES" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY PSU BANK</span><span class="muted" style="font-size:.75rem">PSUBNKBEES</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty realty morealty">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY REALTY" data-cat="sector" data-line="NIFTY REALTY = MOREALTY" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY REALTY</span><span class="muted" style="font-size:.75rem">MOREALTY</span></label>
+              </div>
+                          <div class="grp-factor"><div class="eyebrow px-2 mt-2 mb-1">Factor / Strategy</div>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty alpha 50 alpha">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY ALPHA 50" data-cat="factor" data-line="NIFTY ALPHA 50 = ALPHA" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY ALPHA 50</span><span class="muted" style="font-size:.75rem">ALPHA</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty dividend opportunities 50 divoppbees">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY DIVIDEND OPPORTUNITIES 50" data-cat="factor" data-line="NIFTY DIVIDEND OPPORTUNITIES 50 = DIVOPPBEES" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY DIVIDEND OPPORTUNITIES 50</span><span class="muted" style="font-size:.75rem">DIVOPPBEES</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty midcap150 momentum 50 momidmtm">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY MIDCAP150 MOMENTUM 50" data-cat="factor" data-line="NIFTY MIDCAP150 MOMENTUM 50 = MOMIDMTM" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY MIDCAP150 MOMENTUM 50</span><span class="muted" style="font-size:.75rem">MOMIDMTM</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty midcap150 quality 50 midq50add">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY MIDCAP150 QUALITY 50" data-cat="factor" data-line="NIFTY MIDCAP150 QUALITY 50 = MIDQ50ADD" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY MIDCAP150 QUALITY 50</span><span class="muted" style="font-size:.75rem">MIDQ50ADD</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty quality low-volatility 30 nifty quality low-volatility 30">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY QUALITY LOW-VOLATILITY 30" data-cat="factor" data-line="NIFTY QUALITY LOW-VOLATILITY 30">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY QUALITY LOW-VOLATILITY 30</span><span class="muted" style="font-size:.75rem">ranked on itself</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty100 low volatility 30 lowvolietf">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY100 LOW VOLATILITY 30" data-cat="factor" data-line="NIFTY100 LOW VOLATILITY 30 = LOWVOLIETF" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY100 LOW VOLATILITY 30</span><span class="muted" style="font-size:.75rem">LOWVOLIETF</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty200 alpha 30 alphaetf">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY200 ALPHA 30" data-cat="factor" data-line="NIFTY200 ALPHA 30 = ALPHAETF" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY200 ALPHA 30</span><span class="muted" style="font-size:.75rem">ALPHAETF</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty200 momentum 30 mom30ietf">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY200 MOMENTUM 30" data-cat="factor" data-line="NIFTY200 MOMENTUM 30 = MOM30IETF" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY200 MOMENTUM 30</span><span class="muted" style="font-size:.75rem">MOM30IETF</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty200 quality 30 qual30ietf">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY200 QUALITY 30" data-cat="factor" data-line="NIFTY200 QUALITY 30 = QUAL30IETF" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY200 QUALITY 30</span><span class="muted" style="font-size:.75rem">QUAL30IETF</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty200 value 30 val30ietf">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY200 VALUE 30" data-cat="factor" data-line="NIFTY200 VALUE 30 = VAL30IETF" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY200 VALUE 30</span><span class="muted" style="font-size:.75rem">VAL30IETF</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty50 value 20 nv20ietf">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY50 VALUE 20" data-cat="factor" data-line="NIFTY50 VALUE 20 = NV20IETF" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY50 VALUE 20</span><span class="muted" style="font-size:.75rem">NV20IETF</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty500 momentum 50 momentum50">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY500 MOMENTUM 50" data-cat="factor" data-line="NIFTY500 MOMENTUM 50 = MOMENTUM50" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY500 MOMENTUM 50</span><span class="muted" style="font-size:.75rem">MOMENTUM50</span></label>
+              </div>
+                          <div class="grp-theme"><div class="eyebrow px-2 mt-2 mb-1">Thematic</div>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty commodities commoietf">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY COMMODITIES" data-cat="theme" data-line="NIFTY COMMODITIES = COMMOIETF" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY COMMODITIES</span><span class="muted" style="font-size:.75rem">COMMOIETF</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty cpse cpseetf">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY CPSE" data-cat="theme" data-line="NIFTY CPSE = CPSEETF" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY CPSE</span><span class="muted" style="font-size:.75rem">CPSEETF</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty india consumption consumer">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY INDIA CONSUMPTION" data-cat="theme" data-line="NIFTY INDIA CONSUMPTION = CONSUMER" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY INDIA CONSUMPTION</span><span class="muted" style="font-size:.75rem">CONSUMER</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty india defence modefence">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY INDIA DEFENCE" data-cat="theme" data-line="NIFTY INDIA DEFENCE = MODEFENCE" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY INDIA DEFENCE</span><span class="muted" style="font-size:.75rem">MODEFENCE</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty india internet growwnet">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY INDIA INTERNET" data-cat="theme" data-line="NIFTY INDIA INTERNET = GROWWNET" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY INDIA INTERNET</span><span class="muted" style="font-size:.75rem">GROWWNET</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty infrastructure infraietf">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY INFRASTRUCTURE" data-cat="theme" data-line="NIFTY INFRASTRUCTURE = INFRAIETF" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY INFRASTRUCTURE</span><span class="muted" style="font-size:.75rem">INFRAIETF</span></label>
+              </div>
+                          <div class="grp-fund"><div class="eyebrow px-2 mt-2 mb-1">Funds (gold, silver, global, liquid)</div>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="goldbees tatagold">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="GOLDBEES" data-cat="fund" data-line="GOLDBEES = TATAGOLD" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">GOLDBEES</span><span class="muted" style="font-size:.75rem">TATAGOLD</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="mon100 mon100">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="MON100" data-cat="fund" data-line="MON100" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">MON100</span><span class="muted" style="font-size:.75rem">ranked on itself</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="nifty 1d rate index liquidcase">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="NIFTY 1D RATE INDEX" data-cat="fund" data-line="NIFTY 1D RATE INDEX = LIQUIDCASE" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">NIFTY 1D RATE INDEX</span><span class="muted" style="font-size:.75rem">LIQUIDCASE</span></label>
+                              <label class="dropdown-item d-flex gap-2 align-items-center py-1 etf-row" data-q="silverbees tatsilv">
+                  <input class="form-check-input etf flex-shrink-0" type="checkbox" value="SILVERBEES" data-cat="fund" data-line="SILVERBEES = TATSILV" checked="">
+                  <span class="flex-fill" style="font-size:.85rem">SILVERBEES</span><span class="muted" style="font-size:.75rem">TATSILV</span></label>
+              </div>
+                      </div></div>
+        <div class="form-text" id="etfCount">42 selected of 46</div></div>
+    </div>
+    <div class="mt-2"><a class="small" data-bs-toggle="collapse" href="#etfLines" role="button"><i class="bi bi-code"></i> Advanced: edit the lines (change which ETF is bought for an index)</a></div>
+    <div class="collapse mt-2" id="etfLines">
+      <textarea class="form-control formula" name="etf_universe" id="etfText" rows="10" spellcheck="false"># RANK ON = BUY. Your picks from the sheet are kept; the rest are the most
+# liquid NSE ETF that tracks the index (checked by name and a year of daily returns).
+GOLDBEES = TATAGOLD
+SILVERBEES = TATSILV
+NIFTY 1D RATE INDEX = LIQUIDCASE
+MON100 = MON100
+NIFTY INDIA INTERNET = GROWWNET
+NIFTY COMMODITIES = COMMOIETF
+NIFTY INDIA CONSUMPTION = CONSUMER
+NIFTY DIVIDEND OPPORTUNITIES 50 = DIVOPPBEES
+NIFTY TOP 10 EQUAL WEIGHT = TOP10ADD
+NIFTY200 MOMENTUM 30 = MOM30IETF
+NIFTY500 MOMENTUM 50 = MOMENTUM50
+NIFTY500 MULTICAP 50:25:25 = MULTICAP
+NIFTY100 LOW VOLATILITY 30 = LOWVOLIETF
+NIFTY200 VALUE 30 = VAL30IETF
+NIFTY50 VALUE 20 = NV20IETF
+NIFTY200 QUALITY 30 = QUAL30IETF
+NIFTY200 ALPHA 30 = ALPHAETF
+NIFTY ALPHA 50 = ALPHA
+NIFTY MIDCAP150 MOMENTUM 50 = MOMIDMTM
+NIFTY MIDCAP150 QUALITY 50 = MIDQ50ADD
+NIFTY INDIA DEFENCE = MODEFENCE
+NIFTY INFRASTRUCTURE = INFRAIETF
+NIFTY FINANCIAL SERVICES = FINIETF
+NIFTY CAPITAL MARKETS = MOCAPITAL
+NIFTY HEALTHCARE INDEX = HEALTHIETF
+NIFTY OIL &amp; GAS = OILIETF
+NIFTY METAL = METALIETF
+NIFTY REALTY = MOREALTY
+NIFTY PRIVATE BANK = PVTBANIETF
+NIFTY PSU BANK = PSUBNKBEES
+NIFTY PHARMA = PHARMABEES
+NIFTY FMCG = FMCGIETF
+NIFTY IT = ITBEES
+NIFTY AUTO = AUTOBEES
+NIFTY BANK = BANKBEES
+NIFTY CPSE = CPSEETF
+NIFTY SMALLCAP 250 = HDFCSML250
+NIFTY MIDCAP 150 = MID150BEES
+NIFTY NEXT 50 = JUNIORBEES
+NIFTY 500 = MONIFTY500
+NIFTY 100 = NIF100BEES
+NIFTY 50 = NIFTYIETF
+# no ETF on NSE for these yet - they could top the ranking and still not be buyable
+# NIFTY MEDIA
+# NIFTY QUALITY LOW-VOLATILITY 30</textarea>
+      <div class="form-text">One line per underlying: <code>RANK ON = BUY</code>. <b>Rank on</b> is an NSE index name (ranked on the index, less the tracking error) or an ETF symbol (ranked on its own price, e.g. Gold, Silver, NASDAQ). <b>Buy</b> is the ETF you would actually hold. The pickers above rewrite this list; edits here are kept for the lines you leave ticked.</div>
+    </div>
+    <div class="row g-2 mt-2">
+      <div class="col-6"><label class="form-label">Tracking error % / yr</label><input class="form-control" type="number" step="0.01" min="0" max="5" name="tracking_error" value="0.5"></div>
+      <div class="col-12"><div class="form-check"><input class="form-check-input" type="checkbox" name="etf_listed_only" value="1" id="elo" checked="">
+        <label class="form-check-label" for="elo">Only ETFs that were listed on the day</label>
+        <div class="form-text">On: a line whose ETF wasn't trading on NSE yet on a rebalance day is skipped and the next-ranked one is bought, so every trade could really have been made. Off: the index is treated as if it were tradable, which flatters older results.</div></div></div>
+      <div class="col-6"><label class="form-label">Interval</label>
+        <select class="form-select" name="interval">
+          <option value="day" selected="">Day (trading days)</option>
+          <option value="week">Week (weekly candles)</option>
+          <option value="month">Month (monthly candles)</option>
+          <option value="calendar">Calendar (same date N months back)</option>
+        </select></div>
+    </div>
+    <div class="form-text">Interval: "3 Week Performance" on the Week interval is today's price against the close of the weekly candle 3 weeks back. Day = 15 trading days.
+      A line can list fallbacks for days its own series has no data: <code>LIQGRWBEES | NIFTY 1D RATE INDEX = LIQUIDCASE</code>.</div>
+  </div></div></div>
+
+  </section>
+  <section class="flow-step row g-3" data-step="conditions">
+  <div class="col-12"><div class="card"><div class="card-header">Conditions</div><div class="card-body">
+    <div class="gate-race mb-3"><span class="gr-b on"><i class="bi bi-door-open"></i><span><b>2 · Conditions = the gate</b><small>Who is allowed in? Yes or no.</small></span></span><i class="bi bi-arrow-right gr-ar"></i><span class="gr-b"><i class="bi bi-trophy"></i><span><b>3 · Rank by = the race</b><small>Among those let in, who is best?</small></span></span><i class="bi bi-arrow-right gr-ar"></i><span class="gr-b"><i class="bi bi-cart-check"></i><span><b>4 · Pick</b><small>Hold the top <span class="stock-only">stocks</span><span class="etf-only" style="display: none;">ETFs</span>.</small></span></span></div>
+    <p class="mb-2" style="font-size:14px">Only <span class="stock-only">stocks</span><span class="etf-only" style="display: none;">ETFs</span> that pass <b>every</b> condition go on to be ranked; the rest are left out. One you hold that stops passing is sold at the next rebalance. No conditions = everything is ranked.<span class="stock-only"> Change a row to <b>Buy only if</b> to check it only before buying (what you hold stays), or to <b>Sell when</b> for an exit rule: it is checked <b>every day</b>, the holding is sold that day and its slot waits in cash for the next rebalance.</span></p>
+    <div id="condRows" class="d-flex flex-column gap-2"></div>
+    <div class="d-flex flex-wrap gap-2 mt-2"><button type="button" class="btn btn-sm btn-soft" id="condAdd"><i class="bi bi-plus-lg"></i> Add condition</button>
+      <button type="button" class="btn btn-sm btn-outline-primary stock-only" id="condAddInd" title="EMA / SMA, Supertrend, RSI, 52-week high"><i class="bi bi-graph-up-arrow"></i> Add indicator</button></div>
+    <input type="hidden" name="filters_json" id="filtersJson" value="[]">
+    <div class="cond-quick mt-3"><span class="muted">Quick add:</span>
+      <button type="button" class="cq" data-c="[&quot;perf_6m&quot;,&quot;gt&quot;,0]"><i class="bi bi-arrow-up-right"></i> Only what is rising <small>6-month return above 0%</small></button>
+      <button type="button" class="cq" data-c="[&quot;vol_6m&quot;,&quot;lt&quot;,45]"><i class="bi bi-activity"></i> Skip the wildest <small>6-month swings below 45%</small></button>
+      <button type="button" class="cq stock-only" data-c="[&quot;turnover_6m&quot;,&quot;ge&quot;,5]"><i class="bi bi-water"></i> Easy to trade <small>daily turnover at least ₹5 Cr</small></button>
+      <button type="button" class="cq stock-only" data-c="[&quot;close&quot;,&quot;ge&quot;,50]"><i class="bi bi-currency-rupee"></i> No penny stocks <small>price at least ₹50</small></button>
+            <button type="button" class="cq stock-only" data-c="[&quot;ema200_d&quot;,&quot;gt&quot;,0,&quot;buy&quot;]"><i class="bi bi-graph-up"></i> Above the 200-day EMA <small>buy only if price is above it</small></button>
+      <button type="button" class="cq stock-only" data-c="[&quot;st_dir&quot;,&quot;gt&quot;,0,&quot;buy&quot;]"><i class="bi bi-arrow-up-circle"></i> Supertrend green <small>buy only on a daily uptrend</small></button>
+      <button type="button" class="cq stock-only" data-c="[&quot;st_dir&quot;,&quot;lt&quot;,0,&quot;sell&quot;]"><i class="bi bi-arrow-down-circle"></i> Exit on Supertrend red <small>sell the day it turns</small></button>
+      <button type="button" class="cq stock-only" data-c="[&quot;rsi14&quot;,&quot;gt&quot;,50,&quot;buy&quot;]"><i class="bi bi-speedometer"></i> RSI above 50 <small>buy only with strength</small></button>
+      <button type="button" class="cq stock-only" data-c="[&quot;ema50_200&quot;,&quot;gt&quot;,0]"><i class="bi bi-intersect"></i> Golden cross <small>50-day EMA above the 200-day</small></button>
+            <button type="button" class="cq" data-c="[&quot;ath_d&quot;,&quot;ge&quot;,-10,&quot;buy&quot;]"><i class="bi bi-trophy"></i> Near all-time high <small>buy only within 10% of it</small></button>            <button type="button" class="cq" data-c="[&quot;vix&quot;,&quot;lt&quot;,20,&quot;buy&quot;]"><i class="bi bi-cloud-sun"></i> Calm market <small>buy only while India VIX is below 20</small></button>
+      <button type="button" class="cq etf-only" data-c="[&quot;pe&quot;,&quot;lt&quot;,25]" style="display: none;"><i class="bi bi-tag"></i> Not expensive <small>index P/E below 25</small></button>
+          </div>
+    <div class="form-text mt-2"><b>Swings</b> = how much the price jumps around (volatility, a year's worth).<span class="stock-only"> <b>Daily turnover</b> = average value traded a day over 6 months. <b>Price vs EMA/SMA</b> = how far the close is above (+) or below (−) that average, in %. <b>Supertrend</b> = (10, 3) on daily candles. <b>From 52-week high</b> = 0% at the high, −20% means 20% below it. <b>From all-time high</b> = the same against the highest price since 2012 (or since listing).</span> <b>India VIX</b> = the market's expected volatility (from mid-2014; earlier dates pass), used only before a buy.<span class="etf-only" style="display: none;"> <b>Index P/E</b> = the P/E NSE publishes for the index a line tracks; lines without one (gold, silver, liquid, foreign) are not held back by it.</span></div>
+    <div class="stock-only">
+    <div class="row g-2 mt-2">
+      <div class="col-6"><label class="form-label">Minimum price ₹</label><input class="form-control" type="number" step="0.01" min="0" name="min_price" value="0"></div>
+      <div class="col-6"><label class="form-label">Maximum price ₹</label><input class="form-control" type="number" step="0.01" min="0" name="max_price" value="0" placeholder="0 = no limit"></div>
+      <div class="col-12 form-text">Only stocks priced in this range on the rebalance day are bought. 0 = no limit. A stock you already hold that rises above the maximum is kept until its rank falls below the exit rank.</div>
+    </div>
+    </div>
+  </div></div></div>
+  </section>
+  <section class="flow-step row g-3" data-step="score">
+    <div class="col-12"><div class="card"><div class="card-header">How to rank
+    <span class="ms-2" style="text-transform:none;letter-spacing:0">the stocks that passed the conditions, best first, at each review</span></div><div class="card-body">
+    <div class="gate-race mb-3"><span class="gr-b"><i class="bi bi-door-open"></i><span><b>2 · Conditions = the gate</b><small>Who is allowed in? Yes or no.</small></span></span><i class="bi bi-arrow-right gr-ar"></i><span class="gr-b on"><i class="bi bi-trophy"></i><span><b>3 · Rank by = the race</b><small>Among those let in, who is best?</small></span></span><i class="bi bi-arrow-right gr-ar"></i><span class="gr-b"><i class="bi bi-cart-check"></i><span><b>4 · Pick</b><small>Hold the top <span class="stock-only">stocks</span><span class="etf-only" style="display: none;">ETFs</span>.</small></span></span></div>
+    <input type="hidden" name="score_method" id="scoreMethod" value="mix">
+    <input type="hidden" name="mix_json" id="mixJson" value="[[&quot;radj_6m&quot;,3],[&quot;mom_3m&quot;,2],[&quot;steady&quot;,2]]">
+    <input type="hidden" name="style_json" id="styleJson" value="{&quot;shape&quot;:&quot;balanced&quot;,&quot;speed&quot;:2,&quot;smooth&quot;:2,&quot;stay&quot;:2}">
+    <input type="hidden" name="funnel_json" id="funnelJson" value="{&quot;rounds&quot;:[],&quot;sort&quot;:&quot;&quot;}">
+    <div class="sm-tabs">
+      <button type="button" class="sm-tab on" data-m="style"><span class="fn-ic"><i class="bi bi-graph-up-arrow"></i></span><span><b>Style</b><small>Pick a shape, turn 3 dials</small></span></button>
+      <button type="button" class="sm-tab" data-m="mix"><span class="fn-ic"><i class="bi bi-sliders"></i></span><span><b>Factor Mix</b><small>Blend factors by weight</small></span></button>
+      <button type="button" class="sm-tab" data-m="funnel"><span class="fn-ic"><i class="bi bi-funnel"></i></span><span><b>Funnel</b><small>Narrow down in rounds, then sort</small></span></button>
+    </div>
+        <div class="sm-pane mt-3" data-m="style">
+      <p class="mb-2" style="font-size:14px">Pick the kind of rise you want to own, then fine-tune it with the three dials. Each review, every stock is scored on how well it fits.</p>
+      <div class="shape-grid">
+                <button type="button" class="shape" data-shape="rocket">
+          <svg viewBox="0 0 72 38" aria-hidden="true"><path d="M4 34 L30 32 L44 29 L54 20 L62 8 L68 3" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <b>Rocket</b><small>Shot up fast, lately</small>
+        </button>
+                <button type="button" class="shape" data-shape="stairs">
+          <svg viewBox="0 0 72 38" aria-hidden="true"><path d="M4 34 L14 30 L18 31 L28 25 L32 26 L42 19 L46 20 L56 13 L60 14 L68 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <b>Steady climber</b><small>Up a little, month after month</small>
+        </button>
+                <button type="button" class="shape" data-shape="marathon">
+          <svg viewBox="0 0 72 38" aria-hidden="true"><path d="M4 35 L12 31 L20 29 L28 25 L36 23 L44 18 L52 16 L60 11 L68 8" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <b>Marathon</b><small>Rising for a year or more</small>
+        </button>
+                <button type="button" class="shape on" data-shape="balanced">
+          <svg viewBox="0 0 72 38" aria-hidden="true"><path d="M4 33 L14 28 L22 30 L32 22 L40 24 L50 15 L58 16 L68 6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <b>All-rounder</b><small>A bit of everything</small>
+        </button>
+              </div>
+      <div class="dials mt-3">
+                <div class="dial-row" title="How recent the rise should be.">
+          <b>Speed</b>
+          <span class="dial-lo">Slow · 1 year</span>
+          <input type="range" class="form-range dial" min="0" max="4" step="1" data-k="speed" aria-valuetext="medium" style="--fill: 50%;">
+          <span class="dial-hi">Fast · 1 month</span>
+        </div>
+                <div class="dial-row" title="Favour steady rises over jumpy ones.">
+          <b>Smoothness</b>
+          <span class="dial-lo">Any path</span>
+          <input type="range" class="form-range dial" min="0" max="4" step="1" data-k="smooth" aria-valuetext="smooth" style="--fill: 50%;">
+          <span class="dial-hi">Smooth</span>
+        </div>
+                <div class="dial-row" title="Reward a rise that has held over 6 and 12 months.">
+          <b>Staying power</b>
+          <span class="dial-lo">Short burst</span>
+          <input type="range" class="form-range dial" min="0" max="4" step="1" data-k="stay" aria-valuetext="medium" style="--fill: 50%;">
+          <span class="dial-hi">Long lasting</span>
+        </div>
+              </div>
+      <div class="form-text mt-2">Under the hood this is a Factor Mix: <span id="styleUnder">6M risk-adjusted ●●● · 3M momentum ●● · Steadiness ●●</span>. Open the Factor Mix tab to change it by hand.</div>
+    </div>
+    <div class="sm-pane mt-3" data-m="mix" style="display: none;">
+      <p class="mb-2" style="font-size:14px">Each factor is turned into a <b>0–100 rank</b> against every other stock on the review day, then blended by weight. The best blend ranks first.</p>
+      <div id="mixRows" class="d-flex flex-column gap-2"></div>
+      <button type="button" class="btn btn-sm btn-soft mt-2" id="mixAdd"><i class="bi bi-plus-lg"></i> Add factor</button>
+      <div class="mix-share mt-3" id="mixShare"><div class="ms-bar"><span style="flex:3;opacity:1"></span><span style="flex:2;opacity:0.9"></span><span style="flex:2;opacity:0.8"></span></div><div class="ms-legend">6M risk-adjusted <b>43%</b> · 3M momentum <b>29%</b> · Steadiness <b>29%</b></div></div>
+    </div>
+    <div class="sm-pane mt-3" data-m="funnel" style="display: none;">
+      <p class="mb-2" style="font-size:14px">Each round keeps only the best part of what is left. What survives every round is sorted, and the top of that list is bought.</p>
+      <div class="fun-start"><i class="bi bi-collection"></i> Every eligible stock <b class="fun-n" data-i="0"></b></div>
+      <div id="funRounds"></div>
+      <button type="button" class="btn btn-sm btn-soft mt-2" id="funAdd"><i class="bi bi-plus-lg"></i> Add round</button>
+      <div class="fun-round fun-sort"><span class="cond-if">SORT</span><span class="fun-txt">Finally, sort by</span><span id="funSort"></span><b class="fun-n" data-i="last"></b></div>
+      <div class="form-text mt-2" id="funHint">Counts are for the latest ranking day.</div>
+    </div>
+      </div></div></div>
+  <div class="col-12" id="fxCard" style="display:none"><div class="card"><div class="card-header d-flex align-items-center">Scoring formula
+    <span class="ms-2" style="text-transform:none;letter-spacing:0">every eligible stock is scored with this at each review, then ranked highest first</span>
+    <a class="ms-auto btn btn-sm btn-soft" href="guide" target="_blank" style="text-transform:none;letter-spacing:0"><i class="bi bi-book"></i> Formula guide</a></div><div class="card-body">
+    <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+      <b style="font-size:.9rem"><i class="bi bi-basket2"></i> Step 1 · Measures</b>
+      <span class="muted" style="font-size:.8rem">click one to add it to the formula</span>
+      <div class="ms-auto d-flex gap-2">
+        <div class="dropdown"><button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown"><i class="bi bi-lightbulb"></i> Load example</button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><button type="button" class="dropdown-item ex" data-f="ret(6m) / vol(6m)">Risk-adjusted 6M<div class="muted" style="font-size:.72rem;max-width:380px;white-space:normal">ret(6m) / vol(6m)</div></button></li><li><button type="button" class="dropdown-item ex" data-f="(5% * ret(1m) + 5% * ret(3m) + 60% * ret(6m) + 20% * ret(9m) + 10% * ret(1y)) / vol(6m)">Blend ÷ 6M volatility<div class="muted" style="font-size:.72rem;max-width:380px;white-space:normal">(5% * ret(1m) + 5% * ret(3m) + 60% * ret(6m) + 20% * ret(9m) + 10% * ret(1y)) / vol(6m)</div></button></li><li><button type="button" class="dropdown-item ex" data-f="0.2 * ret(1m) / vol(1m) + 0.2 * ret(3m) / vol(3m) + 0.2 * ret(6m) / vol(6m) + 0.2 * ret(9m) / vol(9m) + 0.2 * ret(1y) / vol(1y)">Each period ÷ own volatility<div class="muted" style="font-size:.72rem;max-width:380px;white-space:normal">0.2 * ret(1m) / vol(1m) + 0.2 * ret(3m) / vol(3m) + 0.2 * ret(6m) / vol(6m) + 0.2 * ret(9m) / vol(9m) + 0.2 * ret(1y) / vol(1y)</div></button></li><li><button type="button" class="dropdown-item ex" data-f="ret(1w) + ret(2w) + ret(3w) + ret(4w)">Short-term (ETF)<div class="muted" style="font-size:.72rem;max-width:380px;white-space:normal">ret(1w) + ret(2w) + ret(3w) + ret(4w)</div></button></li><li><button type="button" class="dropdown-item ex" data-f="ret(1y)">Plain 12-month momentum<div class="muted" style="font-size:.72rem;max-width:380px;white-space:normal">ret(1y)</div></button></li>          </ul></div>
+        <button type="button" class="btn btn-sm btn-outline-secondary" id="fxClear">Clear</button>
+      </div>
+    </div>
+    <div class="p-2 mb-3" style="background:var(--surface-2);border:1px solid var(--line);border-radius:12px">
+              <div class="d-flex flex-wrap align-items-center gap-1 mb-1">
+          <span class="muted me-1" style="font-size:.72rem;width:74px;font-weight:700;letter-spacing:.06em;text-transform:uppercase"><i class="bi bi-graph-up-arrow"></i> Return</span>
+                      <button type="button" class="chip chip-buy border-0 ins" data-t="ret(1w)" title="ret(1w): 1 Week price return">1W</button>
+                      <button type="button" class="chip chip-buy border-0 ins" data-t="ret(2w)" title="ret(2w): 2 Week price return">2W</button>
+                      <button type="button" class="chip chip-buy border-0 ins" data-t="ret(3w)" title="ret(3w): 3 Week price return">3W</button>
+                      <button type="button" class="chip chip-buy border-0 ins" data-t="ret(4w)" title="ret(4w): 4 Week price return">4W</button>
+                      <button type="button" class="chip chip-buy border-0 ins" data-t="ret(5w)" title="ret(5w): 5 Week price return">5W</button>
+                      <button type="button" class="chip chip-buy border-0 ins" data-t="ret(1m)" title="ret(1m): 1 Month price return">1M</button>
+                      <button type="button" class="chip chip-buy border-0 ins" data-t="ret(2m)" title="ret(2m): 2 Month price return">2M</button>
+                      <button type="button" class="chip chip-buy border-0 ins" data-t="ret(3m)" title="ret(3m): 3 Month price return">3M</button>
+                      <button type="button" class="chip chip-buy border-0 ins" data-t="ret(4m)" title="ret(4m): 4 Month price return">4M</button>
+                      <button type="button" class="chip chip-buy border-0 ins" data-t="ret(5m)" title="ret(5m): 5 Month price return">5M</button>
+                      <button type="button" class="chip chip-buy border-0 ins" data-t="ret(6m)" title="ret(6m): 6 Month price return">6M</button>
+                      <button type="button" class="chip chip-buy border-0 ins" data-t="ret(9m)" title="ret(9m): 9 Month price return">9M</button>
+                      <button type="button" class="chip chip-buy border-0 ins" data-t="ret(1y)" title="ret(1y): 1 Year price return">1Y</button>
+                  </div>
+              <div class="d-flex flex-wrap align-items-center gap-1 mb-1">
+          <span class="muted me-1" style="font-size:.72rem;width:74px;font-weight:700;letter-spacing:.06em;text-transform:uppercase"><i class="bi bi-activity"></i> Volatility</span>
+                      <button type="button" class="chip chip-medium border-0 ins" data-t="vol(1w)" title="vol(1w): 1 Week annualised volatility of daily returns">1W</button>
+                      <button type="button" class="chip chip-medium border-0 ins" data-t="vol(2w)" title="vol(2w): 2 Week annualised volatility of daily returns">2W</button>
+                      <button type="button" class="chip chip-medium border-0 ins" data-t="vol(3w)" title="vol(3w): 3 Week annualised volatility of daily returns">3W</button>
+                      <button type="button" class="chip chip-medium border-0 ins" data-t="vol(4w)" title="vol(4w): 4 Week annualised volatility of daily returns">4W</button>
+                      <button type="button" class="chip chip-medium border-0 ins" data-t="vol(5w)" title="vol(5w): 5 Week annualised volatility of daily returns">5W</button>
+                      <button type="button" class="chip chip-medium border-0 ins" data-t="vol(1m)" title="vol(1m): 1 Month annualised volatility of daily returns">1M</button>
+                      <button type="button" class="chip chip-medium border-0 ins" data-t="vol(2m)" title="vol(2m): 2 Month annualised volatility of daily returns">2M</button>
+                      <button type="button" class="chip chip-medium border-0 ins" data-t="vol(3m)" title="vol(3m): 3 Month annualised volatility of daily returns">3M</button>
+                      <button type="button" class="chip chip-medium border-0 ins" data-t="vol(4m)" title="vol(4m): 4 Month annualised volatility of daily returns">4M</button>
+                      <button type="button" class="chip chip-medium border-0 ins" data-t="vol(5m)" title="vol(5m): 5 Month annualised volatility of daily returns">5M</button>
+                      <button type="button" class="chip chip-medium border-0 ins" data-t="vol(6m)" title="vol(6m): 6 Month annualised volatility of daily returns">6M</button>
+                      <button type="button" class="chip chip-medium border-0 ins" data-t="vol(9m)" title="vol(9m): 9 Month annualised volatility of daily returns">9M</button>
+                      <button type="button" class="chip chip-medium border-0 ins" data-t="vol(1y)" title="vol(1y): 1 Year annualised volatility of daily returns">1Y</button>
+                  </div>
+          </div>
+    <b style="font-size:.9rem"><i class="bi bi-pencil-square"></i> Step 2 · Write your formula</b>
+    <div class="d-flex mt-2" style="border:1px solid var(--line);border-radius:12px;overflow:hidden">
+      <div class="px-2 pt-2 muted" style="background:var(--surface-2);font-family:JetBrains Mono,monospace;font-size:.8rem;border-right:1px solid var(--line)">fx</div>
+      <textarea class="form-control formula border-0 " name="formula" id="formula" rows="3" spellcheck="false" style="font-size:.9rem;border-radius:0;box-shadow:none">(20% * (ret(1m) / vol(1m))) + (20% * (ret(3m) / vol(3m))) + (20% * (ret(6m) / vol(6m))) + (20% * (ret(9m) / vol(9m))) + (20% * (ret(1y) / vol(1y)))</textarea>
+    </div>
+    <div class="d-flex flex-wrap align-items-center gap-1 mt-2">
+      <span class="muted me-1" style="font-size:.72rem;font-weight:700;letter-spacing:.06em">INSERT</span>
+              <button type="button" class="btn btn-sm btn-outline-secondary px-3 op" data-t=" + ">+</button>
+              <button type="button" class="btn btn-sm btn-outline-secondary px-3 op" data-t=" - ">−</button>
+              <button type="button" class="btn btn-sm btn-outline-secondary px-3 op" data-t=" * ">×</button>
+              <button type="button" class="btn btn-sm btn-outline-secondary px-3 op" data-t=" / ">÷</button>
+              <button type="button" class="btn btn-sm btn-outline-secondary px-3 op" data-t="(">(</button>
+              <button type="button" class="btn btn-sm btn-outline-secondary px-3 op" data-t=")">)</button>
+              <button type="button" class="btn btn-sm btn-outline-secondary px-3 op" data-t="%">%</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary" id="fxBack" title="Delete the last piece"><i class="bi bi-backspace"></i></button>
+    </div>
+    <div id="fxStatus" class="mt-2 px-3 py-2 d-flex align-items-center gap-2" style="border-radius:10px;font-size:.85rem;background:var(--up-soft);color:var(--up)">
+      <i class="bi bi-check-circle-fill"></i><span>Formula is valid.</span><span class="ms-auto muted" id="fxChars">240 chars</span></div>
+    <div class="form-text mt-2"><code>ret(3m)</code> = 3-month price return, <code>vol(6m)</code> = 6-month volatility (annualised). Periods: <code>1w</code>–<code>5w</code>, <code>1m</code>–<code>6m</code>, <code>9m</code>, <code>1y</code>. Use numbers or percentages (<code>60%</code>), <code>+ − × ÷</code> and brackets. Higher score = higher rank.</div>
+  </div></div></div>
+
+  <div class="col-12" id="quickCard"><div class="card"><div class="card-header d-flex align-items-center">Quick check
+    <span class="ms-2" style="text-transform:none;letter-spacing:0">your backtest period with these rules, updated as you change them</span></div><div class="card-body">
+    <div class="qp" id="quickPreview">
+      <div class="qp-stats">
+        <div><small>Growth / yr</small><b id="qpCagr">–</b></div>
+        <div><small>Worst fall</small><b id="qpDd">–</b></div>
+        <div><small id="qpBenchLbl">Benchmark / yr</small><b id="qpBench">–</b></div>
+      </div>
+      <svg class="qp-chart" id="qpChart" viewBox="0 0 300 90" preserveAspectRatio="none" aria-label="Last 5 years"></svg>
+    </div>
+    <div class="form-text mt-2" id="qpNote">The same run as Save &amp; backtest, with your dates, money settings and costs, so the full report then opens at once.</div>
+  </div></div></div>
+  </section>
+  <section class="flow-step row g-3" data-step="pick">
+  <div class="col-12"><div class="card"><div class="card-header">Pick &amp; rebalance</div><div class="card-body"><div class="row g-2">
+    <div class="col-6 col-md-3"><label class="form-label"><span class="stock-only">No. of stocks</span><span class="etf-only" style="display: none;">No. of ETFs</span></label><input class="form-control" type="number" min="1" max="100" name="n_stocks" value="20"></div>
+    <div class="col-6 col-md-3"><label class="form-label">Buy only from the top <span class="muted">(optional)</span></label><input class="form-control" type="number" min="1" name="entry_rank" value="" placeholder="any open slot">
+      <div class="form-text mt-1" style="font-size:.75rem">Entry rank. Must be lower than the number held: e.g. hold 10, buy only from the top 5. An open slot waits in cash until something new reaches it.</div></div>
+    <div class="col-6 col-md-3 stock-only"><label class="form-label">Max per sector <span class="muted">(optional)</span></label><input class="form-control" type="number" min="1" name="sector_max" value="" placeholder="no limit">
+      <div class="form-text mt-1" style="font-size:.75rem" id="secMaxNote">At most this many stocks from one sector. When a sector is full, the next-ranked stock from another sector is bought instead.</div></div>
+    <div class="col-6 col-md-3"><label class="form-label">Exit rank</label><input class="form-control" type="number" min="1" name="exit_rank" value="52">
+      <div class="form-check mt-1"><input class="form-check-input" type="checkbox" name="exit_at_rank" value="1" id="xar"><label class="form-check-label" for="xar" style="font-size:.78rem" title="Off: sell when rank is worse than the exit rank. On: sell when it reaches the exit rank.">Sell when it reaches this rank</label></div></div>
+    <div class="col-6 col-md-3"><label class="form-label">Rebalance</label>
+      <select class="form-select" name="rebal_freq" id="freq">
+        <option value="monthly" selected="">Monthly</option>
+        <option value="weekly">Weekly</option>
+      </select></div>
+    <div class="col-6 col-md-3 f-monthly"><label class="form-label">Day of month</label><input class="form-control" type="number" min="1" max="28" name="rebal_day" value="20"></div>
+    <div class="col-6 col-md-3 f-weekly" style="display: none;"><label class="form-label">Weekday</label>
+      <select class="form-select" name="rebal_weekday">
+                  <option value="1">Monday</option>
+                  <option value="2">Tuesday</option>
+                  <option value="3" selected="">Wednesday</option>
+                  <option value="4">Thursday</option>
+                  <option value="5">Friday</option>
+              </select></div>
+    <div class="col-6 col-md-3"><label class="form-label">If holiday</label>
+      <select class="form-select" name="alt_day">
+        <option value="next" selected="">Next day</option>
+        <option value="prev">Previous day</option>
+      </select></div>
+    <div class="col-6 col-md-3"><label class="form-label">Cost % per side</label><input class="form-control" type="number" step="0.01" min="0" max="5" name="cost_pct" value="0"></div>
+    <div class="col-6 col-md-3"><label class="form-label">Slippage % per side</label><input class="form-control" type="number" step="0.01" min="0" max="5" name="slippage_pct" value="0.1"></div>
+    <div class="col-12 col-md-6"><label class="form-label">Execution</label>
+      <select class="form-select" name="exec">
+        <option value="prev" selected="">Decide on the previous day's close, trade at the rebalance day's open (as you would live)</option>
+        <option value="same">Buy &amp; sell at the rebalance day's close</option>
+        <option value="close_open">Buy at the close, sell at the next day's open</option>
+        <option value="next">Buy &amp; sell at the next day's close</option>
+      </select></div>
+    <div class="col-12 col-md-6 d-flex align-items-end etf-only" style="display: none;"><div class="form-check mb-2">
+      <input class="form-check-input" type="checkbox" name="whole_units" id="wUnits" value="1" checked="">
+      <label class="form-check-label" for="wUnits">Whole units only (buys whole units at the index level, the rest stays in cash)</label>
+    </div></div>
+  </div>
+  <div class="form-text mt-2"><span class="stock-only">A common starting point: exit rank ≈ 2.5 × the number of stocks.</span> <span class="stock-only">Shares are bought in whole numbers; what is left over stays in cash.</span> End blank = up to the latest data. Cost = brokerage, STT, charges. Slippage = how far a real fill lands from the close/open the backtest uses (default 0.1%).</div></div></div></div>
+
+  </section>
+  <section class="flow-step row g-3" data-step="money">
+  <div class="col-12"><div class="card"><div class="card-header">Money</div><div class="card-body"><div class="row g-2">
+    <div class="col-6 col-md-3"><label class="form-label">Capital ₹</label><input class="form-control" type="number" min="1000" name="capital" value="100000"></div>
+    <div class="col-6 col-md-3"><label class="form-label" title="Yes: profits are reinvested, each buy gets an equal share of the whole portfolio. No: each buy is at most capital ÷ no. of stocks; profits stay in cash.">Compounding <i class="bi bi-info-circle muted"></i></label>
+      <select class="form-select" name="compounding"><option value="1">Yes: reinvest profits</option><option value="0">No: fixed amount per position</option></select></div>
+    <div class="col-6 col-md-3"><label class="form-label" title="Added on the first rebalance of every month: it buys new picks up to an equal share and tops up what you hold. Leave 0 for a one-time investment.">SIP ₹ / month <i class="bi bi-info-circle muted"></i></label>
+      <input class="form-control" type="number" min="0" step="500" name="sip_amount" value="0" placeholder="0 = no SIP"></div>
+    <div class="col-6 col-md-3"><label class="form-label" title="The monthly SIP grows by this % every year, e.g. 10% turns ₹10,000 into ₹11,000 in year 2.">SIP step-up % / year <i class="bi bi-info-circle muted"></i></label>
+      <input class="form-control" type="number" min="0" max="50" step="1" name="sip_step_up" value="0"></div>
+    <div class="col-12" id="minScoreBox"><div class="p-2 px-3 mt-1" style="border:1px dashed var(--line);border-radius:10px">
+      <div class="form-check"><input class="form-check-input" type="checkbox" name="positive_only" value="1" id="posOnly">
+        <label class="form-check-label fw-semibold" for="posOnly" style="font-size:.9rem"><i class="bi bi-arrow-up-right-circle"></i> Only buy what is going up</label></div>
+      <div class="form-text mt-0 mb-1">Of the top <span class="stock-only">stocks</span><span class="etf-only" style="display: none;">ETFs</span>, one whose momentum (the returns your ranking uses) is negative is not bought: its slot waits in cash. 3 slots and only 1 going up = 1/3 invested, 2/3 in cash.</div>
+      <div class="form-check ms-4"><input class="form-check-input" type="checkbox" name="min_score_sell" value="1" id="msSell" checked="">
+        <label class="form-check-label" for="msSell" style="font-size:.85rem">Also sell a holding once it turns negative</label></div>
+    </div></div>
+        <div class="col-12"><div class="p-2 px-3" style="border:1px dashed var(--line);border-radius:10px">
+      <div class="fw-semibold mb-1" style="font-size:.85rem"><i class="bi bi-arrow-down-circle"></i> Buy the dip <span class="muted fw-normal">· extra money when the market is oversold</span></div>
+      <div class="row g-2">
+        <div class="col-6 col-md-3"><label class="form-label mb-1">Extra ₹</label><input class="form-control" type="number" min="0" step="1000" name="dip_amount" value="0" placeholder="0 = off"></div>
+        <div class="col-6 col-md-3"><label class="form-label mb-1">When the RSI of</label><input class="form-control" name="dip_index" list="indexNames" value="NIFTY 50"></div>
+        <div class="col-4 col-md-2"><label class="form-label mb-1">RSI period</label><input class="form-control" type="number" min="2" max="50" name="dip_period" value="14"></div>
+        <div class="col-4 col-md-2"><label class="form-label mb-1">is below</label><input class="form-control" type="number" min="5" max="50" step="0.5" name="dip_below" value="30"></div>
+        <div class="col-4 col-md-2"><label class="form-label mb-1">Candles</label><select class="form-select" name="dip_tf"><option value="daily" selected="">Daily</option><option value="weekly">Weekly</option></select></div>
+      </div>
+      <div class="form-text">Checked at every day's close (weekly candles: each week's close), at most once a month: when the index's RSI is below the level, the extra amount goes into your holdings that day, like a SIP. E.g. ₹25,000 when NIFTY 50 RSI(14) is below 30. The report shows each top-up, the money put in and the XIRR. On a live portfolio you get a Telegram / WhatsApp alert the same evening.</div>
+    </div></div>
+  </div></div></div></div>
+  </section>
+  <section class="flow-step row g-3" data-step="protect">
+  <div class="col-12"><div class="card"><div class="card-header">Trend filter &amp; benchmark</div><div class="card-body">
+    <div class="form-check form-switch mb-2">
+      <input class="form-check-input" type="checkbox" name="regime_on" id="regOn" value="1">
+      <label class="form-check-label" for="regOn">Trend filter: cut exposure when the broad market turns down</label>
+    </div>
+    <div id="regFields" style="opacity: 0.45; pointer-events: none;">
+    <div class="row g-2 mb-2">
+      <div class="col-6"><label class="form-label">Signal</label>
+        <select class="form-select" name="regime_type" id="rtype">
+          <option value="supertrend">SUPERTREND</option>
+          <option value="dma" selected="">Below moving average</option>
+        </select></div>
+      <div class="col-6"><label class="form-label" title="The index whose trend decides whether the market is up or down. This changes the trades.">Trend index <i class="bi bi-info-circle muted"></i></label><input class="form-control" name="regime_index" list="indexNames" value="NIFTY 500"></div>
+      <div class="col-6 r-st" style="display: none;"><label class="form-label">ATR period</label><input class="form-control" type="number" min="1" name="st_period" value="1"></div>
+      <div class="col-6 r-st" style="display: none;"><label class="form-label">Multiplier</label><input class="form-control" type="number" step="0.1" min="0.1" name="st_mult" value="2.5"></div>
+      <div class="col-6 r-dma"><label class="form-label">DMA days</label><input class="form-control" type="number" name="regime_dma" value="200"></div>
+      <div class="col-12"><label class="form-label">Action in a bear market</label>
+        <select class="form-select" name="regime_action">
+          <option value="cash" selected="">Go cash: sell every holding</option>
+          <option value="half">Half portfolio: keep the best-ranked half, run on half the slots</option>
+        </select></div>
+      <div class="col-12"><label class="form-label" title="On each rebalance: the trend is read on rebalance days only. Every day: the day it turns down, everything is sold (Go cash); buying back waits for the next rebalance with the trend up, or (the third choice) happens the day the trend turns up again.">Check the trend <i class="bi bi-info-circle muted"></i></label>
+        <select class="form-select" name="regime_check" id="rcheck">
+          <option value="rebalance" selected="">On each rebalance day</option>
+          <option value="daily">Every day: sell everything the day it turns down (with Go cash)</option>
+          <option value="daily_both">Every day: sell the day it turns down, buy back the day it turns up (with Go cash)</option>
+        </select></div>
+      <div class="col-12"><div class="form-check form-switch mt-1">
+        <input class="form-check-input" type="checkbox" name="park_on" id="parkOn" value="1">
+        <label class="form-check-label" for="parkOn">Park cash in an uncorrelated asset (gold) instead of holding cash</label></div></div>
+            <div class="col-12 park" style="display: none;">
+        <div class="d-flex fw-semibold mb-1" style="font-size:.8rem"><span style="flex:1" title="An NSE symbol: an ETF (GOLDBEES, SILVERBEES, LIQUIDCASE...) or a stock">Park in <i class="bi bi-info-circle muted"></i></span><span style="width:120px">% of the freed cash</span><span style="width:38px"></span></div>
+        <div id="parkRows">
+                    <div class="d-flex gap-2 mb-2 park-row">
+            <input class="form-control" name="park_sym[]" list="parkList" placeholder="GOLDBEES" value="GOLDBEES" style="flex:1;text-transform:uppercase">
+            <div class="input-group" style="width:120px"><input class="form-control" type="number" min="1" max="100" step="any" name="park_row_pct[]" value="100"><span class="input-group-text">%</span></div>
+            <button type="button" class="btn btn-outline-secondary park-del" title="Remove" style="width:38px" disabled=""><i class="bi bi-x-lg"></i></button>
+          </div>
+                  </div>
+        <datalist id="parkList"><option value="ABGSEC"></option><option value="ABSL10BANK"></option><option value="ABSLBANETF"></option><option value="ABSLLIQUID"></option><option value="ABSLMSCIN"></option><option value="ABSLNN50ET"></option><option value="ABSLPSE"></option><option value="ALPHA"></option><option value="ALPHAETF"></option><option value="ALPL30IETF"></option><option value="AONEGOLD"></option><option value="AONELIQUID"></option><option value="AONENIFTY"></option><option value="AONESILVER"></option><option value="AONETMMQ50"></option><option value="AONETOTAL"></option><option value="AUTOBEES"></option><option value="AUTOIETF"></option><option value="BANK10ADD"></option><option value="BANK10BETF"></option><option value="BANKADD"></option><option value="BANKBEES"></option><option value="BANKBETA"></option><option value="BANKBETF"></option><option value="BANKETF"></option><option value="BANKIETF"></option><option value="BANKNIFTY1"></option><option value="BANKPSU"></option><option value="BBETF0432"></option><option value="BBNPNBETF"></option><option value="BBNPPGOLD"></option><option value="BFSI"></option><option value="BNKETFAXIS"></option><option value="BSE500IETF"></option><option value="BSLGOLDETF"></option><option value="BSLNIFTY"></option><option value="BSLSENETFG"></option><option value="CASHIETF"></option><option value="CEMNTGROWW"></option><option value="CHEMICAL"></option><option value="CHOICEGOLD"></option><option value="COMMOIETF"></option><option value="CONS"></option><option value="CONSUMAXIS"></option><option value="CONSUMBEES"></option><option value="CONSUMER"></option><option value="CONSUMIETF"></option><option value="CPSEETF"></option><option value="DEFENCE"></option><option value="DIVIDEND"></option><option value="DIVOPPBEES"></option><option value="EBANK10"></option><option value="EBANKNIFTY"></option><option value="EBBETF0430"></option><option value="EBBETF0431"></option><option value="EBBETF0433"></option><option value="ECAPINSURE"></option><option value="EGOLD"></option><option value="ELIQUID"></option><option value="ELM250"></option><option value="ELMDIV"></option><option value="EMETAL"></option><option value="EMULTIMQ"></option><option value="ENERGY"></option><option value="ENERGYAXIS"></option><option value="ENEXT50"></option><option value="ENIFTY"></option><option value="EQUAL200"></option><option value="EQUAL50"></option><option value="EQUAL50ADD"></option><option value="ESENSEX"></option><option value="ESG"></option><option value="ESILVER"></option><option value="EVIETF"></option><option value="EVINDIA"></option><option value="FARBEES"></option><option value="FINIETF"></option><option value="FLEXIADD"></option><option value="FMCGADD"></option><option value="FMCGIETF"></option><option value="GILT10BETA"></option><option value="GILT5BETA"></option><option value="GILT5YBEES"></option><option value="GOLD1"></option><option value="GOLD360"></option><option value="GOLDADD"></option><option value="GOLDAXIS"></option><option value="GOLDBEES"></option><option value="GOLDBETA"></option><option value="GOLDBND"></option><option value="GOLDCASE"></option><option value="GOLDETF"></option><option value="GOLDIETF"></option><option value="GROWWCAPM"></option><option value="GROWWCHEM"></option><option value="GROWWDEFNC"></option><option value="GROWWEV"></option><option value="GROWWGOLD"></option><option value="GROWWHOSPI"></option><option value="GROWWLIQID"></option><option value="GROWWLOVOL"></option><option value="GROWWMC150"></option><option value="GROWWMETAL"></option><option value="GROWWMOM50"></option><option value="GROWWN200"></option><option value="GROWWNET"></option><option value="GROWWNIFTY"></option><option value="GROWWNXT50"></option><option value="GROWWPOWER"></option><option value="GROWWPSE"></option><option value="GROWWPSUBK"></option><option value="GROWWRAIL"></option><option value="GROWWRLTY"></option><option value="GROWWSC250"></option><option value="GROWWSLVR"></option><option value="GSEC10ABSL"></option><option value="GSEC10ADD"></option><option value="GSEC10IETF"></option><option value="GSEC10YEAR"></option><option value="GSEC5IETF"></option><option value="HDFCBSE500"></option><option value="HDFCGOLD"></option><option value="HDFCGROWTH"></option><option value="HDFCLIQUID"></option><option value="HDFCLOWVOL"></option><option value="HDFCMID150"></option><option value="HDFCMOMENT"></option><option value="HDFCNEXT50"></option><option value="HDFCNIF100"></option><option value="HDFCNIFBAN"></option><option value="HDFCNIFIT"></option><option value="HDFCNIFTY"></option><option value="HDFCNIMEG"></option><option value="HDFCPSUBK"></option><option value="HDFCPVTBAN"></option><option value="HDFCQUAL"></option><option value="HDFCSENSEX"></option><option value="HDFCSILVER"></option><option value="HDFCSML250"></option><option value="HDFCVALUE"></option><option value="HEALTHADD"></option><option value="HEALTHAXIS"></option><option value="HEALTHCARE"></option><option value="HEALTHIETF"></option><option value="HEALTHY"></option><option value="HFTSEINDIA"></option><option value="HNGSNGBEES"></option><option value="HSBCGOLD"></option><option value="HYBRIDETF"></option><option value="ICICIB22"></option><option value="IDFNIFTYET"></option><option value="INFRA"></option><option value="INFRABEES"></option><option value="INFRAIETF"></option><option value="INSURADD"></option><option value="INSUREIETF"></option><option value="INTERNET"></option><option value="IT"></option><option value="ITADD"></option><option value="ITAXIS"></option><option value="ITBEES"></option><option value="ITBETA"></option><option value="ITETF"></option><option value="ITIETF"></option><option value="IVZBANKNF"></option><option value="IVZINGOLD"></option><option value="IVZINNIFTY"></option><option value="IVZSENSEX"></option><option value="JUNIORBEES"></option><option value="LARGEMID50"></option><option value="LICMFGOLD"></option><option value="LICNETFGSC"></option><option value="LICNETFN50"></option><option value="LICNETFSEN"></option><option value="LICNFNHGP"></option><option value="LICNMID100"></option><option value="LIQGRWBEES"></option><option value="LIQUID"></option><option value="LIQUID1"></option><option value="LIQUIDADD"></option><option value="LIQUIDBEES"></option><option value="LIQUIDBETA"></option><option value="LIQUIDBETF"></option><option value="LIQUIDCASE"></option><option value="LIQUIDETF"></option><option value="LIQUIDIETF"></option><option value="LIQUIDPLUS"></option><option value="LIQUIDSBI"></option><option value="LIQUIDSHRI"></option><option value="LOWVOL"></option><option value="LOWVOL1"></option><option value="LOWVOLIETF"></option><option value="LTGILTBEES"></option><option value="LTGILTCASE"></option><option value="MAFANG"></option><option value="MAHKTECH"></option><option value="MAKEINDIA"></option><option value="MANUFGBEES"></option><option value="MASPTOP50"></option><option value="METAL"></option><option value="METALIETF"></option><option value="MID150"></option><option value="MID150BEES"></option><option value="MID150CASE"></option><option value="MIDBANKADD"></option><option value="MIDCAP"></option><option value="MIDCAPADD"></option><option value="MIDCAPBETA"></option><option value="MIDCAPETF"></option><option value="MIDCAPIETF"></option><option value="MIDQ50ADD"></option><option value="MIDSELIETF"></option><option value="MIDSMALL"></option><option value="MNC"></option><option value="MOALPHA50"></option><option value="MOBANK10"></option><option value="MOCAPITAL"></option><option value="MODEFENCE"></option><option value="MOENERGY"></option><option value="MOGOLD"></option><option value="MOGSEC"></option><option value="MOHEALTH"></option><option value="MOINFRA"></option><option value="MOIPO"></option><option value="MOLOWVOL"></option><option value="MOM100"></option><option value="MOM30IETF"></option><option value="MOM50"></option><option value="MOMENTUM"></option><option value="MOMENTUM30"></option><option value="MOMENTUM50"></option><option value="MOMETAL"></option><option value="MOMGF"></option><option value="MOMIDMTM"></option><option value="MOMMIDCAP"></option><option value="MOMNC"></option><option value="MOMOMENTUM"></option><option value="MON100"></option><option value="MON50EQUAL"></option><option value="MONEXT50"></option><option value="MONIFTY100"></option><option value="MONIFTY500"></option><option value="MONQ50"></option><option value="MOOILGAS"></option><option value="MOPSE"></option><option value="MOQUALITY"></option><option value="MOREALTY"></option><option value="MOSERVICE"></option><option value="MOSILVER"></option><option value="MOSMALL250"></option><option value="MOTOUR"></option><option value="MOVALUE"></option><option value="MSCI360"></option><option value="MSCIADD"></option><option value="MSCIINDIA"></option><option value="MULTICAP"></option><option value="NETF"></option><option value="NEXT30ADD"></option><option value="NEXT50"></option><option value="NEXT50ADD"></option><option value="NEXT50BETA"></option><option value="NEXT50ETF"></option><option value="NEXT50IETF"></option><option value="NIF100BEES"></option><option value="NIF100IETF"></option><option value="NIF500BETA"></option><option value="NIFTY1"></option><option value="NIFTY100EW"></option><option value="NIFTYADD"></option><option value="NIFTYAXIS"></option><option value="NIFTYBEES"></option><option value="NIFTYBETA"></option><option value="NIFTYBETF"></option><option value="NIFTYCASE"></option><option value="NIFTYETF"></option><option value="NIFTYIETF"></option><option value="NIFTYJBLK"></option><option value="NIFTYQLITY"></option><option value="NPBET"></option><option value="NV20"></option><option value="NV20BEES"></option><option value="NV20IETF"></option><option value="NXT100CASE"></option><option value="OILIETF"></option><option value="PHARMABEES"></option><option value="PSUBANK"></option><option value="PSUBANKADD"></option><option value="PSUBNKBEES"></option><option value="PSUBNKIETF"></option><option value="PVTBANIETF"></option><option value="PVTBANK"></option><option value="PVTBANKADD"></option><option value="PVTBKGROWW"></option><option value="QGOLDHALF"></option><option value="QNIFTY"></option><option value="QUAL30IETF"></option><option value="QUALITY30"></option><option value="SBIBPB"></option><option value="SBIETFCON"></option><option value="SBIETFIT"></option><option value="SBIETFPB"></option><option value="SBIETFQLTY"></option><option value="SBILIQETF"></option><option value="SBIMIDMOM"></option><option value="SBINEQWETF"></option><option value="SBINMID150"></option><option value="SBISILVER"></option><option value="SBISMLETF"></option><option value="SBIVALETF"></option><option value="SECLEDBETA"></option><option value="SELECTIPO"></option><option value="SENSEXADD"></option><option value="SENSEXAXIS"></option><option value="SENSEXBETA"></option><option value="SENSEXETF"></option><option value="SENSEXIETF"></option><option value="SETF10GILT"></option><option value="SETFGOLD"></option><option value="SETFNIF50"></option><option value="SETFNIFBK"></option><option value="SETFNN50"></option><option value="SHARIABEES"></option><option value="SILVER"></option><option value="SILVER001"></option><option value="SILVER1"></option><option value="SILVER360"></option><option value="SILVERADD"></option><option value="SILVERAG"></option><option value="SILVERAXIS"></option><option value="SILVERBEES"></option><option value="SILVERBETA"></option><option value="SILVERBND"></option><option value="SILVERCASE"></option><option value="SILVERIETF"></option><option value="SMALL250"></option><option value="SMALLADD"></option><option value="SMALLCAP"></option><option value="SMALLGROWW"></option><option value="SMALLIETF"></option><option value="SML100CASE"></option><option value="SNXT30BEES"></option><option value="SNXT50BETA"></option><option value="TATAGOLD"></option><option value="TATSILV"></option><option value="TECH"></option><option value="TNIDETF"></option><option value="TOP100CASE"></option><option value="TOP10ADD"></option><option value="TOP15IETF"></option><option value="TOP20"></option><option value="TWCGOLDETF"></option><option value="UNIONGOLD"></option><option value="VAL30IETF"></option><option value="VALUE"></option><option value="VALUEAXIS"></option></datalist>
+        <div class="d-flex align-items-center gap-2 flex-wrap">
+          <button type="button" class="btn btn-sm btn-soft" id="parkAdd"><i class="bi bi-plus-lg"></i> Add another</button>
+          <span class="muted" style="font-size:.8rem" id="parkSum">Total 100% parked</span>
+        </div>
+        <div class="form-text">Each one gets its own % of the freed cash, e.g. GOLDBEES 50% + SILVERBEES 25%: the other 25% stays cash. Up to 4. Any NSE symbol we have prices for: an ETF (any BeES, LIQUIDCASE...) or a stock. One listed later than a date in the backtest (e.g. SILVERBEES from Feb 2022) leaves its share in cash until then. Liquid ETFs that pay their return as extra units (LIQUIDBEES and similar, price stays near ₹1,000) show 0% in a backtest; growth-type liquid ETFs show the return in the price.</div>
+      </div>
+    </div>
+    <div class="form-text">The trend is read from a broad index, with SUPERTREND or a moving average (for example the 200-day average of NIFTY 500). Optionally, park part of the freed cash in gold (GOLDBEES) until the trend turns up again.</div>
+    </div>
+        <div class="form-check form-switch mt-3 mb-2">
+      <input class="form-check-input" type="checkbox" name="vix_on" id="vixOn" value="1">
+      <label class="form-check-label" for="vixOn">Volatility filter: treat a jumpy market (India VIX high) as a down market too</label>
+    </div>
+    <div class="row g-2 align-items-end" id="vixFields" style="opacity: 0.45; pointer-events: none;">
+      <div class="col-6 col-md-4"><label class="form-label">India VIX above</label><input class="form-control" type="number" min="10" max="80" step="0.5" name="vix_above" value="25"></div>
+      <div class="col-12 form-text">Above it the rules do what the action above says (go cash or half, and park in gold if set), the same as a down-trend; below it they invest again. Works with or without the trend filter. India VIX data starts mid-2014; before that this filter stays out of the way.</div>
+    </div>
+        <hr class="my-3" style="border-color:var(--line);opacity:1">
+    <label class="form-label">Benchmark <span class="muted fw-normal">· for comparison only</span></label><input class="form-control" name="benchmark" list="indexNames" value="NIFTY 500">
+    <div class="form-text">The index your results are compared with: the dashed line on the chart, benchmark CAGR and the year-by-year table. It never changes the trades. It can differ from the trend index, e.g. trend on NIFTY 500 and benchmark NIFTY SMALLCAP 250 for a smallcap strategy.</div>
+  </div></div></div>
+  <script>
+  (function () {
+    // regime settings only matter when the filter is on: dim them when it is off
+    // (dimmed, not disabled, so their values still save)
+    // the action and parking also apply to the volatility filter, so stay usable when only that is on
+    var on = document.getElementById('regOn'), box = document.getElementById('regFields');
+    var vOn = document.getElementById('vixOn'), vBox = document.getElementById('vixFields');
+    function sync() {
+      var any = on.checked || (vOn && vOn.checked);
+      box.style.opacity = any ? '' : '.45'; box.style.pointerEvents = any ? '' : 'none';
+      if (vBox) { vBox.style.opacity = vOn.checked ? '' : '.45'; vBox.style.pointerEvents = vOn.checked ? '' : 'none'; }
+    }
+    on.addEventListener('change', sync);
+    if (vOn) vOn.addEventListener('change', sync);
+    sync();
+  })();
+  </script>
+
+  </section>
+  <section class="flow-step row g-3" data-step="run">
+  <div class="col-12"><div class="card"><div class="card-header">Review</div><div class="card-body">
+    <div id="flowReview" class="flow-review"><button type="button" class="rv-row" data-go="universe"><span class="rv-n">1</span><span class="rv-k">Universe</span><span class="rv-v">NIFTY MICROCAP 250 · historical members</span><i class="bi bi-pencil"></i></button><button type="button" class="rv-row" data-go="conditions"><span class="rv-n">2</span><span class="rv-k">Conditions</span><span class="rv-v">No conditions: everything is ranked</span><i class="bi bi-pencil"></i></button><button type="button" class="rv-row" data-go="score"><span class="rv-n">3</span><span class="rv-k">Rank by</span><span class="rv-v">Style: All-rounder (speed medium · smooth · staying power medium)</span><i class="bi bi-pencil"></i></button><button type="button" class="rv-row" data-go="pick"><span class="rv-n">4</span><span class="rv-k">Pick</span><span class="rv-v">Top 20 · exit 52 · monthly, day 20 · 0.10% cost</span><i class="bi bi-pencil"></i></button><button type="button" class="rv-row" data-go="money"><span class="rv-n">5</span><span class="rv-k">Money</span><span class="rv-v">₹1,00,000</span><i class="bi bi-pencil"></i></button><button type="button" class="rv-row" data-go="protect"><span class="rv-n">6</span><span class="rv-k">Protect</span><span class="rv-v">No trend filter · vs NIFTY 500</span><i class="bi bi-pencil"></i></button></div>
+    <div class="d-flex flex-wrap gap-2 mt-3">
+      <button class="btn btn-primary" name="run" value="1"><i class="bi bi-play-fill"></i> Save &amp; backtest</button>
+      <button class="btn btn-outline-secondary">Save</button>
+    </div>
+    <div class="form-text mt-2">A backtest replays every rebalance on point-in-time data with your costs. Results are hypothetical.</div>
+  </div></div></div>
+  </section>
+    <div class="flow-nav"><button type="button" class="btn btn-outline-secondary" id="flowBack" style="visibility: hidden;"><i class="bi bi-arrow-left"></i> Back</button><button type="button" class="btn btn-primary ms-auto" id="flowNext" fdprocessedid="ie1nm">Next <i class="bi bi-arrow-right"></i></button></div>
+  </div>
+  </div>
+</form>
+<script>
+// Strategy Flow: one step at a time, live summaries on the rail, conditions editor
+(function () {
+  var form = document.getElementById('stratForm');
+  if (!form || !form.querySelector('.flow')) return;
+  var order = ['universe', 'conditions', 'score', 'pick', 'money', 'protect', 'run'];
+  var q = function (sel) { return form.querySelector(sel); };
+  var val = function (name) { var e = form.elements[name]; return e ? (e.type === 'checkbox' ? e.checked : e.value) : ''; };
+  var isEtf = function () { return document.getElementById('aEtf').checked; };
+  var esc = function (t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var inr = function (n) { n = Number(n) || 0; return '₹' + n.toLocaleString('en-IN'); };
+
+  // ---- conditions editor ----
+  var periods = ["1w","2w","3w","4w","5w","1m","2m","3m","4m","5m","6m","9m","1y"];
+  var metrics = [];
+  var span = function (p) { return parseInt(p, 10) + '-' + { w: 'week', m: 'month', y: 'year' }[p.slice(-1)]; };
+  periods.forEach(function (p) { metrics.push(['perf_' + p, span(p) + ' return', '%', false]); });
+  periods.forEach(function (p) { metrics.push(['vol_' + p, span(p) + ' swings', '%', false]); });
+  metrics.push(['close', 'Price', '₹', true], ['turnover_6m', 'Daily turnover', '₹ Cr', true]);
+  // trend indicators (stocks), once the daily data has them: [key, label, unit, stock only, group]
+    metrics.push(["ema20_d", "Price vs 20-day EMA", "%", true, 'ind']);
+    metrics.push(["ema50_d", "Price vs 50-day EMA", "%", true, 'ind']);
+    metrics.push(["ema100_d", "Price vs 100-day EMA", "%", true, 'ind']);
+    metrics.push(["ema200_d", "Price vs 200-day EMA", "%", true, 'ind']);
+    metrics.push(["sma50_d", "Price vs 50-day SMA", "%", true, 'ind']);
+    metrics.push(["sma200_d", "Price vs 200-day SMA", "%", true, 'ind']);
+    metrics.push(["ema50_200", "50-day EMA vs 200-day EMA", "%", true, 'ind']);
+    metrics.push(["st_dir", "Supertrend (10, 3, daily)", "dir", true, 'ind']);
+    metrics.push(["rsi14", "RSI (14)", "", true, 'ind']);
+    metrics.push(["hi52_d", "From 52-week high", "%", true, 'ind']);
+    // all-time high (stocks and ETF lines), index P/E (ETF lines), India VIX (the market; buy-only)
+  // [key, label, unit, stock only, group, ETF only]
+  metrics.push(['ath_d', 'From all-time high', '%', false, 'ind']);  metrics.push(['pe', 'Index P/E', '', false, 'val', true], ['vix', 'India VIX', '', false, 'mkt']);  var ops = [['gt', 'is above'], ['ge', 'is at least'], ['lt', 'is below'], ['le', 'is at most']];
+  // what a condition is for: to be ranked and stay held / only to be bought / sell the day it is true
+  var uses = [['', 'Keep if'], ['buy', 'Buy only if'], ['sell', 'Sell when']];
+  var rows = document.getElementById('condRows'), hidden = document.getElementById('filtersJson');
+  var conds = [];
+  try { conds = JSON.parse(hidden.value || '[]') || []; } catch (e) { conds = []; }
+  function metricOf(k) { for (var i = 0; i < metrics.length; i++) if (metrics[i][0] === k) return metrics[i]; return null; }
+  function metricOptions(sel) {
+    var avail = metrics.filter(function (m) { return !(m[3] && isEtf()) && !(m[5] && !isEtf()); });
+    var opt = function (m) { return '<option value="' + m[0] + '"' + (m[0] === sel ? ' selected' : '') + '>' + esc(m[1]) + '</option>'; };
+    var grp = function (g, label) { var l = avail.filter(function (m) { return m[4] === g; }); return l.length ? '<optgroup label="' + label + '">' + l.map(opt).join('') + '</optgroup>' : ''; };
+    return avail.filter(function (m) { return !m[4]; }).map(opt).join('') + grp('ind', 'Trend indicators') + grp('val', 'Index valuation') + grp('mkt', 'Market');
+  }
+  function drawConds() {
+    rows.innerHTML = '';
+    conds.forEach(function (c, i) {
+      var r = document.createElement('div'), m = metricOf(c[0]) || ['', '', '%'];
+      r.className = 'cond-row';
+      var valBox = m[2] === 'dir'
+        // Supertrend: green (price above the line) or red, stored as > 0 / < 0
+        ? '<select class="form-select form-select-sm cdir"><option value="gt"' + (c[1] === 'gt' || c[1] === 'ge' ? ' selected' : '') + '>is green (price above)</option>'
+          + '<option value="lt"' + (c[1] === 'lt' || c[1] === 'le' ? ' selected' : '') + '>is red (price below)</option></select>'
+        : '<select class="form-select form-select-sm co">' + ops.map(function (o) { return '<option value="' + o[0] + '"' + (o[0] === c[1] ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('') + '</select>'
+          + '<div class="input-group input-group-sm cv"><input class="form-control" type="number" step="any" value="' + esc(c[2]) + '">' + (m[2] ? '<span class="input-group-text">' + esc(m[2]) + '</span>' : '') + '</div>';
+      r.innerHTML = '<select class="form-select form-select-sm cu" title="Keep if: checked on rebalance days, to be bought and to stay held. Buy only if: checked before a buy; what you hold is not sold for it. Sell when: checked every day; a holding is sold the first day it is true.">'
+          // India VIX is the market, not the stock: it can only decide buys
+          + uses.filter(function (u) { return c[0] !== 'vix' || u[0] === 'buy'; }).map(function (u) { return '<option value="' + u[0] + '"' + (u[0] === (c[3] || '') ? ' selected' : '') + '>' + u[1] + '</option>'; }).join('') + '</select>'
+        + '<select class="form-select form-select-sm cm">' + metricOptions(c[0]) + '</select>'
+        + valBox
+        + '<button type="button" class="btn btn-sm btn-link text-danger cx" title="Remove"><i class="bi bi-x-lg"></i></button>';
+      r.querySelector('.cu').addEventListener('change', function () { c[3] = this.value; save(); });
+      r.querySelector('.cm').addEventListener('change', function () {
+        c[0] = this.value;
+        var nm = metricOf(c[0]);
+        if (nm && nm[2] === 'dir') { c[1] = 'gt'; c[2] = 0; }
+        if (c[0] === 'vix') { c[3] = 'buy'; c[1] = 'lt'; c[2] = 20; }
+        drawConds();
+      });
+      if (r.querySelector('.cdir')) {
+        r.querySelector('.cdir').addEventListener('change', function () { c[1] = this.value; c[2] = 0; save(); });
+      } else {
+        r.querySelector('.co').addEventListener('change', function () { c[1] = this.value; save(); });
+        r.querySelector('.cv input').addEventListener('input', function () { c[2] = this.value; save(); });
+      }
+      r.querySelector('.cx').addEventListener('click', function () { conds.splice(i, 1); drawConds(); });
+      rows.appendChild(r);
+    });
+    save();
+  }
+  function save() {
+    // ETF strategies can't test price, turnover or the indicators: drop those
+    conds = conds.filter(function (c) { var m = metricOf(c[0]); return m && !(m[3] && isEtf()) && !(m[5] && !isEtf()); });
+    hidden.value = JSON.stringify(conds.filter(function (c) { return c[2] !== '' && !isNaN(Number(c[2])); }).map(function (c) {
+      var o = [c[0], c[1], Number(c[2])];
+      if (c[3] === 'buy' || c[3] === 'sell') o.push(c[3]);
+      return o;
+    }));
+    summarize();
+  }
+  document.getElementById('condAdd').addEventListener('click', function () { conds.push(['perf_6m', 'gt', 0]); drawConds(); });
+  // an indicator row, ready to change: price above the 200-day EMA, before a buy
+  var addInd = document.getElementById('condAddInd');
+  if (addInd) addInd.addEventListener('click', function () {
+    conds.push(['ema200_d', 'gt', 0, 'buy']);
+    drawConds();
+    var sel = rows.querySelectorAll('.cm');
+    if (sel.length) sel[sel.length - 1].focus();
+  });
+  // quick add: a ready condition in words; the same measure with the same use again replaces the old one
+  [].forEach.call(document.querySelectorAll('.cq'), function (b) {
+    b.addEventListener('click', function () {
+      var n = JSON.parse(b.getAttribute('data-c'));
+      conds = conds.filter(function (c) { return !(c[0] === n[0] && (c[3] || '') === (n[3] || '')); });
+      conds.push(n);
+      drawConds();
+    });
+  });
+
+  // ---- how to rank: Factor Mix, Funnel, or a formula (includes/scoring.php) ----
+  // [key, label, has a period, stocks only, ETFs only]
+  var ftypes = [['mom', 'Momentum', 1], ['radj', 'Risk-adjusted momentum', 1], ['lowvol', 'Low volatility', 1], ['steady', 'Steadiness', 0], ['liq', 'Liquidity', 0, 1], ['value', 'Low P/E (value)', 0, 0, 1]];
+  var ftip = { mom: 'Price return over the period. Higher is better.', radj: 'Return divided by volatility: rewards a smooth rise.',
+    lowvol: 'Annualised volatility of daily returns. Lower is better.', steady: 'The weaker of the 6-month return and half the 1-year return: rewards a rise that lasts.',
+    liq: '6-month average daily turnover. Higher is better.', value: 'The P/E of the index a line tracks (NSE). Lower is cheaper. Lines with no P/E (gold, silver, liquid, foreign) sit in the middle.' };
+  var smInput = document.getElementById('scoreMethod'), mixJson = document.getElementById('mixJson'), funJson = document.getElementById('funnelJson');
+  var mixRows = document.getElementById('mixRows'), funRounds = document.getElementById('funRounds');
+  var mix = [], fun = { rounds: [], sort: '' };
+  try { mix = JSON.parse(mixJson.value || '[]') || []; } catch (e) { mix = []; }
+  try { fun = JSON.parse(funJson.value || '{}') || {}; } catch (e) { fun = {}; }
+  fun.rounds = fun.rounds || []; fun.sort = fun.sort || '';
+  function ftype(t) { return ftypes.filter(function (x) { return x[0] === t; })[0] || null; }
+  function fsplit(k) { var m = /^(mom|radj|lowvol)_(.+)$/.exec(k || ''); return m ? [m[1], m[2]] : [k, null]; }
+  function fok(k) { var t = ftype(fsplit(k)[0]); return !!t && !(t[3] && isEtf()) && !(t[4] && !isEtf()); }
+  function flabel(k) { var a = fsplit(k), P = (a[1] || '').toUpperCase();
+    return { mom: P + ' momentum', radj: P + ' risk-adjusted', lowvol: P + ' low volatility', steady: 'Steadiness', liq: 'Liquidity', value: 'Low P/E' }[a[0]] || k; }
+  function fshort(k) { var a = fsplit(k);
+    return { mom: 'ret(' + a[1] + ')', radj: 'ret/vol(' + a[1] + ')', lowvol: 'low vol(' + a[1] + ')', steady: 'steadiness', liq: 'liquidity', value: 'low P/E' }[a[0]] || k; }
+  // a factor as two selects: what, and over which period (when it has one)
+  function picker(k, onChange) {
+    var a = fsplit(k), w = document.createElement('span');
+    w.className = 'fpick';
+    w.innerHTML = '<select class="form-select form-select-sm ft">' + ftypes.filter(function (t) { return !(t[3] && isEtf()) && !(t[4] && !isEtf()); }).map(function (t) {
+        return '<option value="' + t[0] + '"' + (t[0] === a[0] ? ' selected' : '') + '>' + t[1] + '</option>'; }).join('') + '</select>'
+      + '<select class="form-select form-select-sm fp">' + periods.map(function (p) {
+        return '<option value="' + p + '"' + (p === (a[1] || '6m') ? ' selected' : '') + '>' + p.toUpperCase() + '</option>'; }).join('') + '</select>';
+    var ft = w.querySelector('.ft'), fp = w.querySelector('.fp');
+    function sync() {
+      var t = ftype(ft.value);
+      fp.style.display = t && t[2] ? '' : 'none';
+      ft.title = ftip[ft.value] || '';
+      return t && t[2] ? ft.value + '_' + fp.value : ft.value;
+    }
+    sync();
+    ft.addEventListener('change', function () { onChange(sync()); });
+    fp.addEventListener('change', function () { onChange(sync()); });
+    return w;
+  }
+  function removeBtn(fn) {
+    var x = document.createElement('button');
+    x.type = 'button'; x.className = 'btn btn-sm btn-link text-danger cx'; x.title = 'Remove';
+    x.innerHTML = '<i class="bi bi-x-lg"></i>';
+    x.addEventListener('click', fn);
+    return x;
+  }
+  function drawMix() {
+    mixRows.innerHTML = '';
+    mix.forEach(function (m, i) {
+      var r = document.createElement('div');
+      r.className = 'mix-row';
+      r.appendChild(picker(m[0], function (k) { m[0] = k; saveScore(); }));
+      var d = document.createElement('span');
+      d.className = 'wdots';
+      d.title = 'Weight';
+      d.innerHTML = [1, 2, 3].map(function (w) { return '<button type="button" class="wdot' + (w <= m[1] ? ' on' : '') + '" data-w="' + w + '" aria-label="Weight ' + w + '"></button>'; }).join('')
+        + '<small>' + ['', 'Low', 'Medium', 'High'][m[1]] + '</small>';
+      d.addEventListener('click', function (e) { var b = e.target.closest('[data-w]'); if (b) { m[1] = +b.getAttribute('data-w'); drawMix(); } });
+      r.appendChild(d);
+      r.appendChild(removeBtn(function () { mix.splice(i, 1); drawMix(); }));
+      mixRows.appendChild(r);
+    });
+    document.getElementById('mixAdd').disabled = mix.length >= 8;
+    saveScore();
+  }
+  function drawFun() {
+    funRounds.innerHTML = '';
+    fun.rounds.forEach(function (rd, i) {
+      var r = document.createElement('div');
+      r.className = 'fun-round';
+      r.innerHTML = '<span class="cond-if">R' + (i + 1) + '</span><span class="fun-txt">Keep the top</span>'
+        + '<select class="form-select form-select-sm fk">' + [10, 20, 25, 30, 40, 50, 60, 70, 75, 80, 90].map(function (p) {
+          return '<option value="' + p + '"' + (p === +rd[1] ? ' selected' : '') + '>' + p + '%</option>'; }).join('') + '</select><span class="fun-txt">by</span>';
+      r.querySelector('.fk').addEventListener('change', function () { rd[1] = +this.value; saveScore(); });
+      r.appendChild(picker(rd[0], function (k) { rd[0] = k; saveScore(); }));
+      var n = document.createElement('b');
+      n.className = 'fun-n';
+      n.setAttribute('data-i', i + 1);
+      r.appendChild(n);
+      r.appendChild(removeBtn(function () { fun.rounds.splice(i, 1); drawFun(); }));
+      funRounds.appendChild(r);
+    });
+    if (!fun.sort) fun.sort = 'mom_3m';
+    var sw = document.getElementById('funSort');
+    sw.innerHTML = '';
+    sw.appendChild(picker(fun.sort, function (k) { fun.sort = k; saveScore(); }));
+    document.getElementById('funAdd').disabled = fun.rounds.length >= 4;
+    saveScore();
+  }
+  document.getElementById('mixAdd').addEventListener('click', function () { mix.push(['mom_3m', 2]); drawMix(); });
+  document.getElementById('funAdd').addEventListener('click', function () { fun.rounds.push(['mom_1y', 50]); drawFun(); });
+  function saveScore() {
+    // ETF strategies have no turnover: drop liquidity
+    mix = mix.filter(function (m) { return fok(m[0]); });
+    fun.rounds = fun.rounds.filter(function (r) { return fok(r[0]); });
+    if (fun.sort && !fok(fun.sort)) fun.sort = 'mom_3m';
+    mixJson.value = JSON.stringify(mix);
+    styleJson.value = ui === 'style' ? JSON.stringify(style) : 'null';
+    funJson.value = JSON.stringify(fun);
+    var tot = mix.reduce(function (a, m) { return a + m[1]; }, 0);
+    document.getElementById('mixShare').innerHTML = tot ? '<div class="ms-bar">' + mix.map(function (m, i) {
+        return '<span style="flex:' + m[1] + ';opacity:' + (1 - i * 0.1) + '"></span>'; }).join('') + '</div><div class="ms-legend">'
+      + mix.map(function (m) { return esc(flabel(m[0])) + ' <b>' + Math.round(100 * m[1] / tot) + '%</b>'; }).join(' · ') + '</div>' : '';
+    summarize();
+    preview();
+    quick();
+  }
+  // ---- Style: a chart shape sets three dials; the dials make a Factor Mix ----
+  var SHAPES = { rocket: ['Rocket', 4, 0, 0], stairs: ['Steady climber', 2, 4, 2], marathon: ['Marathon', 0, 1, 4], balanced: ['All-rounder', 2, 2, 2] };
+  var WORDS = { speed: ['very slow', 'slow', 'medium', 'fast', 'very fast'], smooth: ['any path', 'a little smooth', 'smooth', 'very smooth', 'smoothest'],
+    stay: ['short burst', 'a little', 'medium', 'long', 'very long'] };
+  var styleJson = document.getElementById('styleJson'), ui = 'mix', style = null;
+  try { style = JSON.parse(styleJson.value || 'null'); } catch (e) { style = null; }
+  if (!style) style = { shape: 'balanced', speed: 2, smooth: 2, stay: 2 };
+  // speed picks the two momentum periods (main, second); smoothness swaps plain return
+  // for return / volatility and adds low volatility; staying power adds steadiness
+  function styleMix(st) {
+    var P = [['1y', '6m'], ['6m', '1y'], ['6m', '3m'], ['3m', '6m'], ['1m', '3m']][st.speed];
+    var out = [[(st.smooth >= 2 ? 'radj_' : 'mom_') + P[0], 3], [(st.smooth >= 3 ? 'radj_' : 'mom_') + P[1], 2]];
+    if (st.smooth === 1) out.push(['lowvol_6m', 1]);
+    if (st.smooth === 4) out.push(['lowvol_6m', 2]);
+    if (st.stay > 0) out.push(['steady', Math.min(3, st.stay)]);
+    if (st.stay === 4 && P.indexOf('1y') < 0) out.push(['mom_1y', 1]);
+    return out;
+  }
+  function styleLabel(st) {
+    return 'Style: ' + (SHAPES[st.shape] ? SHAPES[st.shape][0] : 'Custom') + ' (speed ' + WORDS.speed[st.speed] + ' · ' + WORDS.smooth[st.smooth]
+      + ' · staying power ' + WORDS.stay[st.stay] + ')';
+  }
+  function drawStyle() {
+    form.querySelectorAll('.shape').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-shape') === style.shape); });
+    form.querySelectorAll('.dial').forEach(function (d) {
+      var k = d.getAttribute('data-k');
+      d.value = style[k];
+      d.style.setProperty('--fill', (style[k] * 25) + '%');
+      d.setAttribute('aria-valuetext', WORDS[k][style[k]]);
+    });
+    mix = styleMix(style);
+    document.getElementById('styleUnder').textContent = mix.map(function (m) { return flabel(m[0]) + ' ' + '●●●'.slice(0, m[1]); }).join(' · ');
+    saveScore();
+  }
+  form.querySelectorAll('.shape').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var sh = SHAPES[b.getAttribute('data-shape')];
+      style = { shape: b.getAttribute('data-shape'), speed: sh[1], smooth: sh[2], stay: sh[3] };
+      drawStyle();
+    });
+  });
+  form.querySelectorAll('.dial').forEach(function (d) {
+    d.addEventListener('input', function () {
+      style[d.getAttribute('data-k')] = +d.value;
+      // still one of the shapes? otherwise it is the member's own
+      style.shape = '';
+      for (var k in SHAPES) if (SHAPES[k][1] === style.speed && SHAPES[k][2] === style.smooth && SHAPES[k][3] === style.stay) style.shape = k;
+      drawStyle();
+    });
+  });
+
+  // ---- Quick check: the last 5 years with the current rules ----
+  var qpTimer = null, qpSeq = 0, qpKey = '';
+  function quick(now) {
+    if (cur !== 'score') return;   // only while the Score step is open
+    clearTimeout(qpTimer);
+    qpTimer = setTimeout(function () {
+      var fd = new FormData(form), key = [];
+      fd.forEach(function (v, k) { if (k !== 'csrf' && k !== 'name') key.push(k + '=' + v); });
+      key = key.join('&');
+      if (key === qpKey) return;   // nothing that matters changed
+      qpKey = key;
+      var seq = ++qpSeq, box = document.getElementById('quickPreview');
+      box.classList.add('wait');
+      document.getElementById('qpNote').textContent = 'Running your backtest period…';
+      fetch('strategies.php?quick=1', { method: 'POST', body: fd, credentials: 'same-origin' })
+        .then(function (r) { return r.json(); }).then(function (j) {
+          if (seq !== qpSeq) return;
+          box.classList.remove('wait');
+          if (!j.ok) { document.getElementById('qpNote').textContent = j.msg || 'The quick check could not run.'; return; }
+          var fmt = function (v) { return v === null ? '–' : (v > 0 ? '+' : '') + v.toFixed(1) + '%'; };
+          document.getElementById('qpCagr').textContent = fmt(j.cagr);
+          document.getElementById('qpCagr').className = j.cagr >= 0 ? 'up' : 'down';
+          document.getElementById('qpDd').textContent = fmt(j.dd);
+          document.getElementById('qpBench').textContent = fmt(j.bench_cagr);
+          document.getElementById('qpBenchLbl').textContent = j.bench + ' / yr';
+          drawSpark(j.eq, j.bm);
+          document.getElementById('qpNote').textContent = 'From ' + j.from + (j.to ? ' to ' + j.to : '') + ', with your money settings and costs: the same run as Save & backtest, so the full report opens at once.';
+        }).catch(function () { box.classList.remove('wait'); });
+    }, now ? 50 : 900);
+  }
+  function drawSpark(eq, bm) {
+    var all = eq.concat(bm), lo = Math.min.apply(null, all), hi = Math.max.apply(null, all);
+    var path = function (v) {
+      return v.map(function (y, i) { return (i ? 'L' : 'M') + (300 * i / Math.max(1, v.length - 1)).toFixed(1) + ' ' + (86 - 82 * (y - lo) / Math.max(1e-9, hi - lo)).toFixed(1); }).join(' ');
+    };
+    document.getElementById('qpChart').innerHTML = (bm.length ? '<path class="qp-bm" d="' + path(bm) + '"/>' : '') + '<path class="qp-eq" d="' + path(eq) + '"/>';
+  }
+  function setMethod(m) {
+    ui = m;
+    if (m === 'style') m = 'mix';
+    smInput.value = m;
+    form.querySelectorAll('.sm-tab').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-m') === ui); });
+    form.querySelectorAll('.sm-pane').forEach(function (p) { p.style.display = p.getAttribute('data-m') === ui ? '' : 'none'; });
+    if (m === 'mix' && !mix.length) mix = [['mom_6m', 3], ['mom_1y', 2]];
+    if (m === 'funnel' && !fun.rounds.length && !fun.sort) fun = { rounds: [['mom_1y', 50]], sort: 'mom_3m' };
+    if (ui === 'style') drawStyle(); else if (m === 'mix') drawMix(); else if (m === 'funnel') drawFun(); else saveScore();
+  }
+  form.querySelectorAll('.sm-tab').forEach(function (b) { b.addEventListener('click', function () { setMethod(b.getAttribute('data-m')); }); });
+  var fxConvert = document.getElementById('fxConvert');
+  if (fxConvert) fxConvert.addEventListener('click', function () { mix = JSON.parse(fxConvert.getAttribute('data-mix')); setMethod('mix'); });
+  // funnel: how many pass each round on the latest ranking day
+  var pvTimer = null, pvSeq = 0;
+  function preview() {
+    if (smInput.value !== 'funnel') return;
+    clearTimeout(pvTimer);
+    pvTimer = setTimeout(function () {
+      var seq = ++pvSeq;
+      form.querySelectorAll('.fun-n').forEach(function (e) { e.classList.add('wait'); });
+      fetch('strategies.php?score_preview=1', { method: 'POST', body: new FormData(form), credentials: 'same-origin' })
+        .then(function (r) { return r.json(); }).then(function (j) {
+          if (seq !== pvSeq) return;
+          form.querySelectorAll('.fun-n').forEach(function (e) {
+            var i = e.getAttribute('data-i'), v = !j.ok ? '' : i === 'last' ? j.ranked : (j.counts || [])[+i];
+            e.textContent = v === '' || v === undefined || v === null ? '' : v;
+            e.classList.remove('wait');
+          });
+          document.getElementById('funHint').textContent = j.ok ? 'Counts are for ' + j.dt + ', the latest ranking day.' : 'Counts are for the latest ranking day.';
+        }).catch(function () {});
+    }, 600);
+  }
+
+  // ---- weights (split), set in the Universe step: a % next to each ticked index ("Set a weight
+  // for each index"), or a % next to each sector (Sectors → Weights). Only one kind at a time.
+  // The counts are rounded as the engine does (strategy_split_slots).
+  function splitSync() {
+    var hid = document.getElementById('splitJson'), note = document.getElementById('splNote');
+    if (!hid) return '';
+    var idxOn = document.getElementById('splIdxOn'), indexMode = document.getElementById('uIndex').checked;
+    var secMode = (form.querySelector('[name=sector_mode]:checked') || {}).value || '';
+    var by = isEtf() ? '' : (idxOn && idxOn.checked && indexMode ? 'index' : (secMode === 'weights' ? 'sector' : ''));
+    // the % boxes: next to ticked indices when index weights are on; next to every sector in Weights mode
+    form.querySelectorAll('#uIndexBox .ix-row').forEach(function (r) {
+      var ck = r.querySelector('[name="u_indices[]"]');
+      r.querySelector('.spl-in').style.display = by === 'index' && ck.checked ? '' : 'none';
+    });
+    var secBox = document.getElementById('secBox');
+    if (secBox) {
+      secBox.querySelectorAll('.sec-ck').forEach(function (e) { e.style.setProperty('display', secMode === 'weights' ? 'none' : '', 'important'); });
+      secBox.querySelectorAll('.sec-name, .spl-in').forEach(function (e) { e.style.display = secMode === 'weights' ? '' : 'none'; });
+    }
+    var parts = [];
+    if (by === 'index') {
+      form.querySelectorAll('#uIndexBox .ix-row').forEach(function (r) {
+        var ck = r.querySelector('[name="u_indices[]"]'), w = Number(r.querySelector('.spl-w').value) || 0;
+        if (ck.checked && w > 0) parts.push([ck.value, w, ck.nextElementSibling.textContent.trim()]);
+      });
+    } else if (by === 'sector' && secBox) {
+      secBox.querySelectorAll('.spl-w').forEach(function (i) {
+        var w = Number(i.value) || 0;
+        if (w > 0) parts.push([i.getAttribute('data-k'), w, i.getAttribute('data-k')]);
+      });
+    }
+    var n = Number(val('n_stocks')) || 0, sum = parts.reduce(function (a, p) { return a + p[1]; }, 0), label = '';
+    note.style.display = by ? '' : 'none';
+    if (by && parts.length >= 2 && sum > 0) {
+      var rows = parts.map(function (p, i) { var ex = n * p[1] / sum; return { i: i, n: Math.floor(ex), r: ex - Math.floor(ex) }; }), given = rows.reduce(function (a, r) { return a + r.n; }, 0);
+      rows.slice().sort(function (a, b) { return b.r - a.r; }).forEach(function (r) { if (given < n) { rows[r.i].n++; given++; } });
+      hid.value = JSON.stringify({ by: by, parts: parts.map(function (p) { return [p[0], p[1]]; }) });
+      label = parts.map(function (p, i) { return p[2] + ' ' + rows[i].n; }).join(' · ');
+      note.innerHTML = '<i class="bi bi-pie-chart"></i> Of ' + n + ' stocks: ' + parts.map(function (p, i) { return '<b>' + esc(p[2]) + '</b> ' + Math.round(p[1] / sum * 100) + '% → ' + rows[i].n + (rows[i].n ? '' : ' <span class="text-danger">(none: raise its weight or the number of stocks)</span>'); }).join(' · ')
+        + (Math.round(sum) !== 100 ? ' <span class="muted">(weights add up to ' + sum + '%, so they are scaled to 100%)</span>' : '')
+        + (by === 'sector' ? '. Only these sectors are bought, each ranked on its own.' : '. Each index is ranked on its own; its exit rank is scaled to its size.');
+    } else {
+      hid.value = '';
+      note.innerHTML = '<i class="bi bi-pie-chart"></i> Give at least two ' + (by === 'index' ? 'ticked indices' : 'sectors') + ' a weight above 0%. The weight sets how many of the ' + n + ' stocks come from each.';
+    }
+    return label;
+  }
+  // index weights and sector weights don't mix: turning one on turns the other off
+  (function () {
+    var idxOn = document.getElementById('splIdxOn'), secW = document.getElementById('secW'), secAll = document.getElementById('secAll');
+    if (idxOn && secW) {
+      idxOn.addEventListener('change', function () { if (idxOn.checked && secW.checked) secAll.click(); });
+      secW.addEventListener('change', function () { if (secW.checked && idxOn.checked) { idxOn.checked = false; idxOn.dispatchEvent(new Event('input', { bubbles: true })); } });
+    }
+  })();
+
+  // ---- summaries, shown on the rail and on the review step ----
+  function sums() {
+    var s = {}, bad = {};
+    if (isEtf()) {
+      var n = form.querySelectorAll('.etf:checked').length;
+      s.universe = n + ' ETF' + (n === 1 ? '' : 's') + ' selected';
+      bad.universe = !n && !val('etf_universe').trim();
+    } else if (document.getElementById('uIndex').checked) {
+      var ix = [].map.call(form.querySelectorAll('[name="u_indices[]"]:checked'), function (e) { return e.nextElementSibling.textContent.trim(); });
+      s.universe = ix.length ? ix.join(' + ') + (val('u_pit') ? ' · historical members' : ' · today\'s members') : 'No index picked';
+      bad.universe = !ix.length;
+    } else {
+      s.universe = 'Liquidity rank ' + val('u_from') + '–' + val('u_to');
+    }
+    if (!isEtf()) {
+      // the sector list, and its box shown only when one is being picked
+      var secMode = (form.querySelector('[name=sector_mode]:checked') || {}).value || '', secBox = document.getElementById('secBox');
+      if (secBox) secBox.style.display = secMode ? '' : 'none';
+      var secs = [].map.call(form.querySelectorAll('[name="sectors[]"]:checked'), function (e) { return e.value; });
+      if ((secMode === 'only' || secMode === 'exclude') && secs.length) s.universe +=(secMode === 'only' ? ' · only ' : ' · without ') + (secs.length > 3 ? secs.slice(0, 3).join(', ') + ' +' + (secs.length - 3) : secs.join(', '));
+      bad.universe = bad.universe || (secMode === 'only' && !secs.length);
+    }
+    var cw = { '': [], buy: [], sell: [] };
+    conds.filter(function (c) { return c[2] !== '' && !isNaN(Number(c[2])); }).forEach(function (c) {
+      var m = metricOf(c[0]), o = ops.filter(function (x) { return x[0] === c[1]; })[0];
+      cw[c[3] || ''].push(m[2] === 'dir' ? m[1] + ' is ' + (c[1] === 'gt' || c[1] === 'ge' ? 'green' : 'red')
+        : m[1] + ' ' + o[1].replace(/^is /, '') + ' ' + (m[2] === '₹' ? '₹' + c[2] : m[2] === '₹ Cr' ? '₹' + c[2] + ' Cr' : m[2] === '' ? c[2] : c[2] + '%'));
+    });
+    var cl = cw[''];
+    if (!isEtf() && Number(val('min_price')) > 0) cl.push('Price at least ₹' + val('min_price'));
+    if (!isEtf() && Number(val('max_price')) > 0) cl.push('Price at most ₹' + val('max_price'));
+    var cs = [];
+    if (cl.length) cs.push('Only if ' + cl.join(' and '));
+    if (cw.buy.length) cs.push('Buy only if ' + cw.buy.join(' and '));
+    if (cw.sell.length) cs.push('Sell when ' + cw.sell.join(' or '));
+    s.conditions = cs.length ? cs.join(' · ') : 'No conditions: everything is ranked';
+    var fx = document.getElementById('formula'), sm = smInput.value;
+    if (ui === 'style') {
+      s.score = styleLabel(style);
+      bad.score = false;
+    } else if (sm === 'mix') {
+      s.score = mix.length ? 'Factor Mix: ' + mix.map(function (m) { return flabel(m[0]) + ' ' + '●●●'.slice(0, m[1]); }).join(' · ') : 'No factors yet';
+      bad.score = !mix.length;
+    } else if (sm === 'funnel') {
+      s.score = 'Funnel: ' + fun.rounds.map(function (r) { return 'top ' + r[1] + '% ' + fshort(r[0]); }).concat(['sort by ' + fshort(fun.sort)]).join(' → ');
+      bad.score = !fun.sort;
+    } else {
+      s.score = fx.value.trim() || 'No formula yet';
+      bad.score = !fx.value.trim() || fx.classList.contains('is-invalid');
+    }
+    // weights: a split of the holdings between indices or sectors (stored as split_json)
+    var spl = splitSync();
+    // max per sector, also as the share of the holdings it allows (holdings are equal weight)
+    var smx = Number(val('sector_max')) || 0, nh = Number(val('n_stocks')) || 0, smNote = document.getElementById('secMaxNote');
+    if (smNote) smNote.textContent = smx > 0 && nh > 0
+      ? (smx >= nh ? 'No effect: it must be lower than the number of stocks (' + nh + ').' : 'At most ' + smx + ' of ' + nh + ' = ' + Math.round(smx / nh * 100) + '% of the portfolio in one sector. When a sector is full, the next-ranked stock from another sector is bought instead.')
+      : 'At most this many stocks from one sector. When a sector is full, the next-ranked stock from another sector is bought instead.';
+    s.pick = 'Top ' + val('n_stocks') + (spl ? ' (' + spl + ')' : '') + (Number(val('entry_rank')) > 0 && Number(val('entry_rank')) < Number(val('n_stocks')) ? ' · entry ' + val('entry_rank') : '') + (!isEtf() && smx > 0 && smx < nh ? ' · max ' + smx + '/sector' : '') + ' · exit ' + val('exit_rank') + ' · ' + (val('rebal_freq') === 'weekly'
+      ? 'weekly, ' + form.elements.rebal_weekday.options[form.elements.rebal_weekday.selectedIndex].text : 'monthly, day ' + val('rebal_day'))
+      + ' · ' + (Number(val('cost_pct')) + Number(val('slippage_pct'))).toFixed(2) + '% cost';
+    bad.pick = !(Number(val('n_stocks')) > 0) || Number(val('exit_rank')) < Number(val('n_stocks'));
+    var m = [inr(val('capital'))];
+    if (Number(val('sip_amount')) > 0) m.push('SIP ' + inr(val('sip_amount')) + '/mo');
+    if (Number(val('dip_amount')) > 0) m.push('dip ' + inr(val('dip_amount')));
+    if (val('positive_only')) m.push('rising only');
+    s.money = m.join(' · ');
+    s.protect = val('regime_on') ? (val('regime_type') === 'supertrend' ? 'SUPERTREND(' + val('st_period') + ', ' + val('st_mult') + ')' : val('regime_dma') + '-day average')
+      + ' on ' + val('regime_index') + (val('park_on') ? ' → ' + [].map.call(document.querySelectorAll('#parkRows .park-row'), function (r) { var s = r.querySelector('[name="park_sym[]"]').value.trim(), p = r.querySelector('[name="park_row_pct[]"]').value; return s ? s.toUpperCase() + (p ? ' ' + p + '%' : '') : ''; }).filter(Boolean).join(' + ') : ' → cash') : 'No trend filter';
+    s.protect += ' · vs ' + (val('benchmark') || '–');
+    s.run = 'Save & backtest';
+    return [s, bad];
+  }
+  function summarize() {
+    var r = sums(), s = r[0], bad = r[1];
+    form.querySelectorAll('[data-sum]').forEach(function (e) {
+      var k = e.getAttribute('data-sum');
+      e.textContent = s[k];
+      e.closest('.flow-node').classList.toggle('bad', !!bad[k]);
+    });
+    document.getElementById('flowReview').innerHTML = order.slice(0, -1).map(function (k, i) {
+      return '<button type="button" class="rv-row' + (bad[k] ? ' bad' : '') + '" data-go="' + k + '"><span class="rv-n">' + (i + 1) + '</span><span class="rv-k">'
+        + (k === 'score' ? 'Rank by' : k.charAt(0).toUpperCase() + k.slice(1)) + '</span><span class="rv-v">' + esc(s[k]) + '</span><i class="bi ' + (bad[k] ? 'bi-exclamation-triangle-fill' : 'bi-pencil') + '"></i></button>';
+    }).join('');
+  }
+
+  // ---- steps ----
+  var cur = 'universe';
+  function show(k, scroll) {
+    cur = k;
+    form.querySelectorAll('.flow-step').forEach(function (s) { s.classList.toggle('on', s.getAttribute('data-step') === k); });
+    form.querySelectorAll('.flow-node').forEach(function (n) { n.classList.toggle('on', n.getAttribute('data-go') === k); });
+    var i = order.indexOf(k);
+    document.getElementById('flowBack').style.visibility = i ? '' : 'hidden';
+    document.getElementById('flowNext').style.display = i === order.length - 1 ? 'none' : '';
+    summarize();
+    if (k === 'score') quick(true);
+    try { history.replaceState(null, '', '#' + k); } catch (e) {}
+    if (scroll && innerWidth < 992) q('.flow-stage').scrollIntoView({ behavior: 'smooth' });
+  }
+  form.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-go]');
+    if (b) { show(b.getAttribute('data-go'), true); }
+  });
+  document.getElementById('flowNext').addEventListener('click', function () { show(order[Math.min(order.length - 1, order.indexOf(cur) + 1)], true); });
+  document.getElementById('flowBack').addEventListener('click', function () { show(order[Math.max(0, order.indexOf(cur) - 1)], true); });
+  form.addEventListener('input', function () { summarize(); quick(); });
+  form.addEventListener('change', function (e) {
+    if (e.target.name === 'asset') { drawConds(); setMethod(ui); return; }
+    quick();
+    summarize();
+    if (!e.target.closest('.sm-pane')) preview();   // the universe changed: recount the funnel
+  });
+  // the formula check is async: refresh once it has answered
+  new MutationObserver(summarize).observe(document.getElementById('formula'), { attributes: true, attributeFilter: ['class'] });
+
+  drawConds();
+  setMethod(styleJson.value && styleJson.value !== 'null' ? 'style' : smInput.value);
+  var start = "" || (location.hash || '').slice(1);
+  show(order.indexOf(start) >= 0 ? start : 'universe', false);
+})();
+</script>
+<script>
+(function () {
+  var f = document.getElementById('formula');
+  function put(t, joinPlus) {
+    var s = f.selectionStart, e = f.selectionEnd, v = f.value;
+    var pre = v.slice(0, s), sep = joinPlus && pre && !/[\s(+\-*\/]$/.test(pre) ? ' + ' : '';
+    f.value = pre + sep + t + v.slice(e);
+    f.focus();
+    f.selectionStart = f.selectionEnd = (pre + sep + t).length;
+    check();
+  }
+  document.querySelectorAll('.ins').forEach(function (b) { b.addEventListener('click', function () { put(b.getAttribute('data-t'), true); }); });
+  document.querySelectorAll('.op').forEach(function (b) { b.addEventListener('click', function () { put(b.getAttribute('data-t'), false); }); });
+  document.querySelectorAll('.ex').forEach(function (b) { b.addEventListener('click', function () { f.value = b.getAttribute('data-f'); check(); }); });
+  document.getElementById('fxClear').addEventListener('click', function () { f.value = ''; f.focus(); check(); });
+  document.getElementById('fxBack').addEventListener('click', function () {
+    // drop the last measure / number / operator
+    f.value = f.value.replace(/\s*((ret|vol)\(\d+[wmy]\)|\d+\s*(Week|Month|Year)s?\s*(Performance|Volatility)|[\d.]+%?|[()+\-*\/])\s*$/i, '');
+    f.focus();
+    check();
+  });
+  var timer, box = document.getElementById('fxStatus');
+  function check() {
+    document.getElementById('fxChars').textContent = f.value.length + ' chars';
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      fetch('formula_check.php?f=' + encodeURIComponent(f.value)).then(function (r) { return r.json(); }).then(function (j) {
+        box.style.background = j.ok ? 'var(--up-soft)' : 'var(--down-soft)';
+        box.style.color = j.ok ? 'var(--up)' : 'var(--down)';
+        box.querySelector('i').className = 'bi ' + (j.ok ? 'bi-check-circle-fill' : 'bi-x-circle');
+        box.querySelector('span').textContent = j.ok ? 'Formula is valid. Uses ' + j.vars.join(', ') + '.' : j.msg;
+        f.classList.toggle('is-invalid', !j.ok);
+      }).catch(function () {});
+    }, 300);
+  }
+  f.addEventListener('input', check);
+  var uI = document.getElementById('uIndex'), bI = document.getElementById('uIndexBox'), bL = document.getElementById('uLiqBox');
+  var aE = document.getElementById('aEtf');
+  function sync() {
+    bI.style.display = uI.checked ? '' : 'none';
+    bL.style.display = uI.checked ? 'none' : '';
+    document.querySelectorAll('.stock-only').forEach(function (x) { x.style.display = aE.checked ? 'none' : ''; });
+    document.querySelectorAll('.etf-only').forEach(function (x) { x.style.display = aE.checked ? '' : 'none'; });
+    var wk = document.getElementById('freq').value === 'weekly';
+    document.querySelectorAll('.f-weekly').forEach(function (x) { x.style.display = wk ? '' : 'none'; });
+    document.querySelectorAll('.f-monthly').forEach(function (x) { x.style.display = wk ? 'none' : ''; });
+    var st = document.getElementById('rtype').value === 'supertrend';
+    document.querySelectorAll('.r-st').forEach(function (x) { x.style.display = st ? '' : 'none'; });
+    document.querySelectorAll('.r-dma').forEach(function (x) { x.style.display = st ? 'none' : ''; });
+    var pk = document.getElementById('parkOn').checked;
+    document.querySelectorAll('.park').forEach(function (x) { x.style.display = pk ? '' : 'none'; });
+  }
+  // parking rows: symbol + % each, "Add another" (up to 4), remove, and the running total
+  (function () {
+    var box = document.getElementById('parkRows');
+    if (!box) return;
+    var add = document.getElementById('parkAdd'), sum = document.getElementById('parkSum');
+    function rows() { return box.querySelectorAll('.park-row'); }
+    function changed() {
+      var t = 0;
+      box.querySelectorAll('[name="park_row_pct[]"]').forEach(function (i) { t += parseFloat(i.value) || 0; });
+      t = Math.round(t * 100) / 100;
+      sum.textContent = t > 100 ? 'Total ' + t + '%: keep it at 100% or less' : 'Total ' + t + '% parked' + (t < 100 ? ', ' + Math.round((100 - t) * 100) / 100 + '% stays cash' : '');
+      sum.style.color = t > 100 ? 'var(--down)' : '';
+      add.disabled = rows().length >= 4;
+      rows().forEach(function (r) { r.querySelector('.park-del').disabled = rows().length < 2; });
+      var f = box.closest('form');
+      if (f) f.dispatchEvent(new Event('change', {bubbles: true}));
+    }
+    add.addEventListener('click', function () {
+      if (rows().length >= 4) return;
+      var r = rows()[0].cloneNode(true);
+      r.querySelector('[name="park_sym[]"]').value = '';
+      r.querySelector('[name="park_row_pct[]"]').value = '';
+      box.appendChild(r);
+      r.querySelector('[name="park_sym[]"]').focus();
+      changed();
+    });
+    box.addEventListener('click', function (e) {
+      var b = e.target.closest('.park-del');
+      if (b && rows().length > 1) { b.closest('.park-row').remove(); changed(); }
+    });
+    box.addEventListener('input', function (e) {
+      if (e.target.name === 'park_sym[]') e.target.value = e.target.value.toUpperCase();
+      changed();
+    });
+    changed();
+  })();
+  // ETF universe picker: categories tick whole groups, ETFs rewrite the lines
+  (function () {
+    var box = document.getElementById('etfPick');
+    if (!box) return;
+    var text = document.getElementById('etfText'), etfs = box.querySelectorAll('.etf'), cats = box.querySelectorAll('.cat');
+    var custom = {};   // lines as written in the textarea, kept when re-ticked
+    function readText() {
+      text.value.split('\n').forEach(function (l) {
+        var s = l.replace(/#.*$/, '').trim();
+        if (!s) return;
+        var on = s.split('=')[0].split('|')[0].trim().toUpperCase();
+        custom[on] = s;
+      });
+    }
+    function writeText() {
+      var lines = [];
+      etfs.forEach(function (e) { if (e.checked) lines.push(custom[e.value] || e.dataset.line); });
+      text.value = lines.join('\n');
+    }
+    function paint() {
+      var n = 0, first = [];
+      etfs.forEach(function (e) { if (e.checked) { n++; if (first.length < 1) first.push(e.value); } });
+      document.getElementById('etfBtn').textContent = n ? first[0] + (n > 1 ? ' +' + (n - 1) + ' more' : '') : 'No ETFs selected';
+      document.getElementById('etfCount').textContent = n + ' selected of ' + etfs.length;
+      var on = [];
+      cats.forEach(function (c) {
+        var mine = box.querySelectorAll('.etf[data-cat="' + c.value + '"]'), ticked = box.querySelectorAll('.etf[data-cat="' + c.value + '"]:checked').length;
+        c.checked = mine.length > 0 && ticked === mine.length;
+        c.indeterminate = ticked > 0 && ticked < mine.length;
+        if (ticked) on.push(c.parentNode.textContent.trim().split(' (')[0]);
+      });
+      var all = document.getElementById('catAll');
+      all.checked = n === etfs.length;
+      all.indeterminate = n > 0 && n < etfs.length;
+      document.getElementById('catBtn').textContent = on.length ? on[0] + (on.length > 1 ? ' +' + (on.length - 1) + ' more' : '') : 'No categories';
+    }
+    cats.forEach(function (c) {
+      c.addEventListener('change', function () {
+        box.querySelectorAll('.etf[data-cat="' + c.value + '"]').forEach(function (e) { e.checked = c.checked; });
+        writeText(); paint();
+      });
+    });
+    document.getElementById('catAll').addEventListener('change', function () {
+      var v = this.checked;
+      etfs.forEach(function (e) { e.checked = v; });
+      writeText(); paint();
+    });
+    etfs.forEach(function (e) { e.addEventListener('change', function () { writeText(); paint(); }); });
+    text.addEventListener('change', function () {
+      custom = {};
+      readText();
+      etfs.forEach(function (e) { e.checked = !!custom[e.value]; });
+      paint();
+    });
+    document.getElementById('etfFind').addEventListener('input', function () {
+      var q = this.value.toLowerCase();
+      box.querySelectorAll('.etf-row').forEach(function (r) { r.style.display = r.dataset.q.indexOf(q) >= 0 ? '' : 'none'; });
+    });
+    readText();
+    paint();
+  })();
+  document.getElementById('stratForm').addEventListener('change', sync);
+  sync();
+})();
+</script>
+      <div class="foot-note">
+        MomentumScore ranks securities only against rules you define and never recommends a stock or ETF.
+        Backtested results are hypothetical and do not guarantee future returns. Not investment advice. MomentumScore (operated by Technobot Technolgies Pvt Ltd) is not registered with SEBI as an Investment Adviser or Research Analyst. Strategies in the Research section are prepared by <b>RISHABH KUMAR SHARMA</b>, SEBI Registered Research Analyst (Reg. No. INH000018081), who is also a partner in MomentumScore.        <div class="d-flex flex-wrap gap-3 mt-2"><a href="pricing">Pricing</a><a href="terms">Terms</a><a href="privacy">Privacy</a><a href="refund">Refund &amp; cancellation</a><a href="delivery">Service delivery</a><a href="contact">Contact us</a><a href="disclaimer">Disclaimer</a></div>
+      </div>
+    </main>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.getElementById('themeBtn')?.addEventListener('click', function () {
+  var t = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', t);
+  document.documentElement.setAttribute('data-bs-theme', t);
+  try { localStorage.setItem('as-theme', t); } catch (e) {}
+  document.dispatchEvent(new Event('themechange'));
+});
+</script>
+<div class="modal fade" id="limitModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content">
+  <div class="modal-body p-4 text-center">
+    <div class="verify-ic mx-auto mb-3" style="width:52px;height:52px;border-radius:14px;display:grid;place-items:center;background:var(--brand-soft);color:var(--brand);font-size:24px"><i class="bi bi-lightning-charge"></i></div>
+    <h5 class="fw-bold mb-1">Today's 25 backtests are used up</h5>
+    <p class="muted mb-3" style="font-size:14px">Results you already ran stay open, and the count resets at midnight. Need more? Ask us for a higher daily limit: the request is written for you, just press Send.</p>
+    <div class="d-flex gap-2 justify-content-center flex-wrap">
+      <a class="btn btn-primary" href="support?prefill=limit"><i class="bi bi-send"></i> Request a higher limit</a>
+      <button class="btn btn-soft" type="button" data-bs-dismiss="modal">Not now</button>
+    </div>
+  </div>
+</div></div></div>
+<script>
+// any page can call this when a run is refused for the daily limit
+window.msLimitHit = function () {
+  var m = document.getElementById('limitModal');
+  if (m && window.bootstrap) bootstrap.Modal.getOrCreateInstance(m).show();
+};
+window.msIsLimitError = function (msg) { return /backtests on the .* plan/i.test(String(msg || '')); };
+(function () {
+  // the credits chip in the top bar: at 0 left it opens this instead of the account page
+  var c = document.getElementById('btCredits');
+  if (c && c.getAttribute('data-left') === '0') {
+    c.addEventListener('click', function (e) { e.preventDefault(); window.msLimitHit(); });
+  }
+})();
+</script>
+<style>
+  #aiBtn { position: fixed; right: 20px; bottom: 20px; z-index: 2147483600; border-radius: 999px; box-shadow: 0 6px 20px rgba(0,0,0,.22);
+    padding: 12px 22px; font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+  #aiBtn i { font-size: 20px; }
+  /* above the Tawk.to overlay, which otherwise swallows clicks near its bubble */
+  #aiBox { position: fixed; right: 20px; bottom: 74px; z-index: 2147483600; width: min(380px, calc(100vw - 32px)); height: min(520px, calc(100vh - 120px));
+    display: none; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 12px 40px rgba(0,0,0,.22); overflow: hidden; }
+  /* phones and tablets: the app's bottom tab bar (64 px, .tabbar, below 992 px) and the Tawk
+     bubble just above it (yOffset 76 in livechat.php) take the bottom-right corner, so the button
+     sits above them and the chat opens as a panel above the tab bar */
+  @media (max-width: 991.98px) {
+    #aiBtn { bottom: calc(76px + env(safe-area-inset-bottom, 0px)); right: 12px; padding: 9px 15px; font-size: 14px; }
+    #aiBtn i { font-size: 17px; }
+    #aiBox { left: 8px; right: 8px; width: auto; bottom: calc(72px + env(safe-area-inset-bottom, 0px)); height: calc(100dvh - 150px); max-height: 600px; border-radius: 14px; }
+  }
+  #aiBox.open { display: flex; }
+  #aiBox .hd { padding: 10px 14px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 8px; font-weight: 700; }
+  #aiLog { flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; }
+  #aiLog .m { max-width: 88%; padding: 8px 11px; border-radius: 12px; line-height: 1.5; overflow-wrap: anywhere; }
+  #aiLog .u { align-self: flex-end; background: var(--brand); color: #fff; }
+  #aiLog .a { align-self: flex-start; background: var(--brand-soft); color: var(--text); }
+  #aiLog .a code { background: rgba(0,0,0,.06); padding: 0 4px; border-radius: 4px; }
+  #aiLog .err { align-self: center; color: var(--text-2); font-size: 12.5px; text-align: center; }
+  #aiBox form { border-top: 1px solid var(--line); padding: 8px; display: flex; gap: 6px; }
+  #aiBox .ft { font-size: 11px; color: var(--text-2); padding: 0 12px 8px; }
+  #aiBox .agent { display: flex; align-items: center; gap: 8px; padding: 7px 12px; border-top: 1px solid var(--line); background: var(--brand-soft); font-size: 13px; }
+  #aiBox .agent button { margin-left: auto; white-space: nowrap; }
+  #aiLog .qk { display: flex; align-items: center; gap: 8px; margin-top: 6px; padding-top: 6px; border-top: 1px dashed var(--line); font-size: 11.5px; color: var(--text-2); }
+  #aiLog .qk button { font-size: 11.5px; padding: 0; }
+</style>
+<button class="btn btn-primary" id="aiBtn" type="button" title="Ask a doubt" fdprocessedid="bjfjyv"><i class="bi bi-chat-square-text"></i> Ask doubt</button>
+<div id="aiBox" role="dialog" aria-label="Ask doubt">
+  <div class="hd"><i class="bi bi-chat-square-text" style="color:var(--brand)"></i> Ask doubt
+    <button class="btn btn-sm btn-link ms-auto p-0" type="button" id="aiNew" title="New chat">New</button>
+    <button class="btn-close" type="button" id="aiClose" aria-label="Close"></button></div>
+  <div id="aiLog"></div>
+    <div class="agent"><i class="bi bi-headset"></i> Not understood?
+    <button type="button" class="btn btn-sm btn-primary" id="aiAgent"><i class="bi bi-person-raised-hand"></i> Ask a live agent</button></div>
+    <form id="aiForm"><input type="hidden" name="csrf_token" value="c5690cf92d6d5acfe2759b5796f553f50e3f8d1301f9d092930644586b36423e">    <input class="form-control form-control-sm" id="aiQ" maxlength="2000" placeholder="How do exit ranks work?" autocomplete="off">
+    <button class="btn btn-sm btn-primary" id="aiSend"><i class="bi bi-send"></i></button></form>
+  <div class="ft">AI help for using the app, not investment advice<span id="aiLeft"> · 9 AI questions left today</span></div>
+</div>
+<script>
+(function () {
+  var box = document.getElementById('aiBox'), log = document.getElementById('aiLog'), q = document.getElementById('aiQ'), msgs = [];
+  var hello = 'Hi! Ask me how MomentumScore works: ranking rules, settings, backtests, alerts. (I can\'t give stock tips or investment advice.)';
+  try { msgs = JSON.parse(sessionStorage.getItem('ai-chat') || '[]') || []; } catch (e) { msgs = []; }
+  function save() { try { sessionStorage.setItem('ai-chat', JSON.stringify(msgs.slice(-20))); } catch (e) {} }
+  function esc(t) { return t.replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function md(t) {
+    return esc(t).replace(/`([^`]+)`/g, '<code>$1</code>').replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>')
+      .replace(/^#+\s*(.*)$/gm, '<b>$1</b>').replace(/^\s*[-*]\s+/gm, '• ').replace(/\n/g, '<br>');
+  }
+  function add(cls, html) { var d = document.createElement('div'); d.className = 'm ' + cls; d.innerHTML = html; log.appendChild(d); log.scrollTop = log.scrollHeight; return d; }
+  function draw() { log.innerHTML = ''; add('a', esc(hello)); msgs.forEach(function (m) { add(m.role === 'user' ? 'u' : 'a', m.role === 'user' ? esc(m.content) : md(m.content)); }); }
+  document.getElementById('aiBtn').addEventListener('click', function () { box.classList.toggle('open'); if (box.classList.contains('open')) { draw(); q.focus(); } });
+  document.getElementById('aiClose').addEventListener('click', function () { box.classList.remove('open'); });
+  document.getElementById('aiNew').addEventListener('click', function () { msgs = []; save(); draw(); q.focus(); });
+  var agent = document.getElementById('aiAgent');
+  if (agent) agent.addEventListener('click', function () { box.classList.remove('open'); if (window.msLiveChat) window.msLiveChat(); });
+  var form = document.getElementById('aiForm');
+  // send the chat; forceAi skips the free quick answers (the "Ask AI instead" button), and
+  // keep = the quick answer being replaced: it stays on screen unless the AI really answers
+  function send(forceAi, keep) {
+    var btn = document.getElementById('aiSend');
+    btn.disabled = true;
+    var wait = add('a', '<span class="spinner-border spinner-border-sm"></span>');
+    var fd = new FormData(form);
+    fd.append('messages', JSON.stringify(msgs.slice(-8)));
+    if (forceAi) fd.append('ai', '1');
+    fetch('assistant.php', { method: 'POST', body: fd, credentials: 'same-origin' }).then(function (r) { return r.json(); }).then(function (j) {
+      wait.remove();
+      if (keep && !j.ok) {   // no AI answer: the quick answer stays
+        msgs.push({ role: 'assistant', content: keep.content }); save();
+        var n = add('err', esc(j.reply)); n.classList.remove('m');
+        btn.disabled = false;
+        return;
+      }
+      if (keep) keep.el.remove();
+      if (j.ok) {
+        msgs.push({ role: 'assistant', content: j.reply }); save();
+        var d = add('a', md(j.reply));
+        if (j.quick) {
+          var f = document.createElement('div');
+          f.className = 'qk';
+          f.innerHTML = '<span><i class="bi bi-lightning-charge"></i> Quick answer from the guide (free)</span><button type="button" class="btn btn-link ms-auto">Ask AI instead</button>';
+          f.querySelector('button').addEventListener('click', function () {
+            f.remove();
+            var mine = msgs.pop(); save();   // the AI answers the same question; the quick answer waits on screen
+            send(true, { el: d, content: mine.content });
+          });
+          d.appendChild(f);
+        }
+      } else { msgs.pop(); save(); var e = add('err', esc(j.reply)); e.classList.remove('m'); }
+      if (j.left !== null && j.left !== undefined) document.getElementById('aiLeft').textContent = ' · ' + j.left + ' AI questions left today';
+    }).catch(function () {
+      wait.remove();
+      if (keep) msgs.push({ role: 'assistant', content: keep.content }); else msgs.pop();
+      save(); add('err', 'Could not reach the server. Try again.');
+    }).then(function () { btn.disabled = false; q.focus(); });
+  }
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var text = q.value.trim();
+    if (!text || document.getElementById('aiSend').disabled) return;
+    // "Ask AI instead" belongs to the latest answer only: once a new question is asked, it goes
+    document.querySelectorAll('#aiLog .qk button').forEach(function (b) { b.remove(); });
+    msgs.push({ role: 'user', content: text }); save();
+    add('u', esc(text)); q.value = '';
+    send(false);
+  });
+})();
+</script>
+<script>
+window.msLiveChat = function () {
+  var T = window.Tawk_API;
+  if (T && T.maximize) { if (T.showWidget) T.showWidget(); T.maximize(); return; }
+  if (T) {   // the page's own Tawk (or an earlier click) is still loading: open it once it has
+    var was = T.onLoad;
+    T.onLoad = function () { if (was) was(); T.maximize(); };
+    return;
+  }
+  T = window.Tawk_API = {}; window.Tawk_LoadStart = new Date();
+  T.onLoad = function () { T.maximize(); };
+  T.onChatMinimized = function () { T.hideWidget(); };   // no bubble on pages that had none
+  var s = document.createElement('script');
+  s.async = true; s.src = "https://embed.tawk.to/6ab796eaededd83442cff18a/default"; s.charset = 'UTF-8';
+  s.setAttribute('crossorigin', '*');
+  document.body.appendChild(s);
+};
+</script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4bc70e2c01a94c73b74392e4234840661791215815920" integrity="sha512-L0ha0OXavK/8okipN9F8BtP84dg9DUhPERbBXzwI6dgTA55d2+yweo3pn5CSFYs45/r8md2+xvUPtTdvTNRfjA==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;266760461e5248eda129ab5f18ef68c7&quot;,&quot;r&quot;:1,&quot;spa&quot;:2}" crossorigin="anonymous"></script>
+
+
+<span id="PING_CONTENT_PUSH_NOTIFICATION" style="display: none;"></span><span id="PING_IFRAME_FORM_DETECTION" style="display: none;"></span></body></html>

@@ -1,0 +1,92 @@
+{
+ "title": "My Broker · MomentumScore",
+ "url": "https://momentumscore.in/broker",
+ "heads": [
+  "h2: My broker"
+ ],
+ "buttons": [
+  "Research",
+  "Build & Test",
+  "Learn",
+  "S Sachin Patil",
+  "More",
+  "Accounts",
+  "Add an account",
+  "Add",
+  "New code",
+  "Not now",
+  "Ask doubt",
+  "New",
+  "Ask a live agent"
+ ],
+ "links": [
+  "home :: MomentumScore",
+  "ranks :: Stock Scoring",
+  "ranks?asset=etf :: ETF Scoring",
+  "strategies :: My Strategies",
+  "backtest :: Backtest",
+  "compare :: Compare",
+  "multi :: Multi-System",
+  "portfolio :: My Portfolio",
+  "broker :: My Broker",
+  "learn :: Video guides & articles",
+  "guide :: Ranking Guide",
+  "support :: Help & Requests",
+  "https://t.me/+AMmQzuRvGJQ1NzQ9 :: Telegram Group",
+  "account :: 22 / 25 backtests today",
+  "account :: Account",
+  "account#invite :: Invite friends",
+  "connect :: Download Broker Connect v2.5.2",
+  "logout :: Log out",
+  "ranks :: Research",
+  "strategies :: Build & Test",
+  "learn :: Learn",
+  "portfolio :: My Portfolios",
+  "connect :: Download the helper",
+  "pricing :: Pricing",
+  "terms :: Terms",
+  "privacy :: Privacy",
+  "refund :: Refund & cancellation",
+  "delivery :: Service delivery",
+  "contact :: Contact us",
+  "disclaimer :: Disclaimer",
+  "support?prefill=limit :: Request a higher limit"
+ ],
+ "selects": [
+  "broker [13]: flattrade=FlatTrade | shoonya=Shoonya (Finvasia) | angel=Angel One | dhan=Dhan | zerodha=Zerodha | upstox=Upstox | fyers=Fyers | kotak=Kotak Neo | aliceblue=Alice Blue | 5paisa=5paisa | iifl=IIFL Securities | acagarwal=AC Agarwal | zebu=Zebu"
+ ],
+ "forms": [
+  "POST  fields=[csrf_token,action,broker,client_id,label,own]",
+  "POST  fields=[csrf_token,action]",
+  "GET  fields=[csrf_token,aiQ]"
+ ],
+ "inputs": [
+  "csrf_token",
+  "action",
+  "client_id",
+  "label",
+  "own",
+  "aiQ"
+ ],
+ "tables": 1,
+ "text": "Momentum Score Research Build & Test My Portfolio My Broker Learn 22 / 25 backtests today S Sachin Patil Beta Access Enabled PORTFOLIO My broker All your broker accounts in one place: live holdings, P&L and cash, read by MomentumScore Connect on your PC. Nothing here is stored by MomentumScore. Checking… Download Broker Connect v2.5.2 Accounts Add your first broker account Zerodha, Upstox, Angel One, Kotak Neo, Fyers, Dhan, Alice Blue, 5paisa, IIFL, AC Agarwal, Zebu, FlatTrade or Shoonya, in your own name. Add an account Sell without a T-PIN every time: enable DDPI Without DDPI, your broker can take shares from your demat account only after you authorise them with your CDSL T-PIN, and a sell is rejected until you do. With DDPI (Demat Debit and Pledge Instruction) active, sells from Place orders go straight through. It is a one-time online form in your broker's app or website (look for DDPI in your profile or account settings; some brokers charge a small fee). Once it is active, mark it in the helper (DDPI next to the account) so we stop asking. Without DDPI: on Dhan the helper can send the T-PIN and open CDSL for you before selling; for other brokers, authorise in their app first. Read from your own broker accounts by the helper on your PC and shown only in this browser. MomentumScore never sees your broker login, holdings or orders. Not investment advice. MomentumScore ranks securities only against rules you define and never recommends a stock or ETF. Backtested results are hypothetical and do not guarantee future returns. Not investment advice. MomentumScore (operated by Technobot Technolgies Pvt Ltd) is not registered with SEBI as an Investment Adviser or Research Analyst. Strategies in the Research section are prepared by RISHABH KUMAR SHARMA, SEBI Registered Research Analyst (Reg. No. INH000018081), who is also a partner in MomentumScore. Pricing Terms Privacy Refund & cancellation Service delivery Contact us Disclaimer Ask doubt",
+ "xhr": [
+  {
+   "url": "https://momentumscore.in/cdn-cgi/rum?",
+   "status": 204,
+   "type": "XHR"
+  },
+  {
+   "url": "chrome-extension://fheoggkfdfchfphceeifdbepaooicaho/wasm_feature.wasm",
+   "status": 200,
+   "type": "Fetch"
+  },
+  {
+   "url": "https://momentumscore.in/favicon.ico",
+   "status": 200,
+   "type": "Fetch"
+  }
+ ],
+ "loaded": true,
+ "nav_error": null
+}

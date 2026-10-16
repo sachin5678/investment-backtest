@@ -1,0 +1,116 @@
+{
+ "title": "Ranking guide · MomentumScore",
+ "url": "https://momentumscore.in/guide",
+ "heads": [
+  "h1: How MomentumScore picks what to hold",
+  "h2: From 500 stocks to your 20",
+  "h2: The gate: yes or no",
+  "h2: The race: try it yourself",
+  "h2: The five things a style looks at",
+  "h2: Factor Mix: marks, then a total",
+  "h2: Funnel: narrow it down in rounds",
+  "h2: Buy the top, keep the good, let go of the weak",
+  "h2: Rules or luck?",
+  "h2: Questions people ask",
+  "h3: What does a fit of 86% mean?",
+  "h3: What is the difference between Conditions and Rank by?",
+  "h3: What does \"6-month momentum\" mean exactly?",
+  "h3: Which should I use: Style, Factor Mix or Funnel?",
+  "h3: Why is a stock I like missing from the ranks?",
+  "h3: Should I use short or long periods?",
+  "h3: Can a falling stock still be ranked?",
+  "h3: Is a good backtest a promise of future returns?",
+  "h2: Put your rules to the test"
+ ],
+ "buttons": [
+  "Research",
+  "Build & Test",
+  "Learn",
+  "S Sachin Patil",
+  "More",
+  "RocketShot up fast, lately",
+  "Steady climberUp a little, month after month",
+  "MarathonRising for a year or more",
+  "All-rounderA bit of everything",
+  "What does a fit of 86% mean?",
+  "What is the difference between Conditions and Rank by?",
+  "What does \"6-month momentum\" mean exactly?",
+  "Which should I use: Style, Factor Mix or Funnel?",
+  "Why is a stock I like missing from the ranks?",
+  "Should I use short or long periods?",
+  "Can a falling stock still be ranked?",
+  "Is a good backtest a promise of future returns?",
+  "Not now",
+  "Ask doubt",
+  "New",
+  "Ask a live agent"
+ ],
+ "links": [
+  "home :: MomentumScore",
+  "ranks :: Stock Scoring",
+  "ranks?asset=etf :: ETF Scoring",
+  "strategies :: My Strategies",
+  "backtest :: Backtest",
+  "compare :: Compare",
+  "multi :: Multi-System",
+  "portfolio :: My Portfolio",
+  "broker :: My Broker",
+  "learn :: Video guides & articles",
+  "guide :: Ranking Guide",
+  "support :: Help & Requests",
+  "https://t.me/+AMmQzuRvGJQ1NzQ9 :: Telegram Group",
+  "account :: 22 / 25 backtests today",
+  "account :: Account",
+  "account#invite :: Invite friends",
+  "connect :: Download Broker Connect v2.5.2",
+  "logout :: Log out",
+  "ranks :: Research",
+  "strategies :: Build & Test",
+  "learn :: Learn",
+  "portfolio :: My Portfolios",
+  "strategies?new=1 :: Open the strategy builder",
+  "https://t.me/+AMmQzuRvGJQ1NzQ9 :: Questions? Join our Telegram group",
+  "disclaimer :: Disclaimer",
+  "pricing :: Pricing",
+  "terms :: Terms",
+  "privacy :: Privacy",
+  "refund :: Refund & cancellation",
+  "delivery :: Service delivery",
+  "contact :: Contact us",
+  "support?prefill=limit :: Request a higher limit"
+ ],
+ "selects": [
+  "? [4]: 0=Off | 1=● Low | 2=●● Medium | 3=●●● High",
+  "? [4]: 0=Off | 1=● Low | 2=●● Medium | 3=●●● High",
+  "? [4]: 0=Off | 1=● Low | 2=●● Medium | 3=●●● High"
+ ],
+ "forms": [
+  "GET  fields=[csrf_token,aiQ]"
+ ],
+ "inputs": [
+  "range",
+  "csrf_token",
+  "aiQ"
+ ],
+ "tables": 0,
+ "text": "Momentum Score Research Build & Test My Portfolio My Broker Learn 22 / 25 backtests today S Sachin Patil Beta Access Enabled Ranking guide How MomentumScore picks what to hold Five simple steps, the same on every review day. You choose the rules; MomentumScore applies them to every stock, every time, without emotion. The journey The gate Style lab Factors Factor Mix Funnel Each review Rules or luck FAQ STEP BY STEP From 500 stocks to your 20 An example with the NIFTY 500. The numbers change with your rules; the path is always the same. 500 Universe every stock in the index you pick 320 The gate only those passing your conditions 1 → 320 The race ranked by how well they fit your style 20 Your basket the top 20 are bought Monthly Each review the race runs again; weak ones leave STEP 2 · CONDITIONS The gate: yes or no A condition is a simple test. Stocks that fail are never ranked, and one you hold that stops passing is sold at the next review. Conditions are optional. Every stock THE GATE Rising over 6 months? Not too wild? Enough trading? Pass go on to the race Fail not ranked at all Only rising: 6-month return above 0% Skip wild swings: volatility under 45% Enough liquidity: ₹5 crore traded a day Price range: e.g. at least ₹50 STEP 3 · RANK BY The race: try it yourself Four made-up stocks, each with a different kind of rise. Pick a style or move the dials and watch the order change. This is exactly how your real universe is ranked. Rocket Shot up fast, lately Steady climber Up a little, month after month Marathon Rising for a year or more All-rounder A bit of everything Speed medium Slow · 1 year Fast · 1 month Smoothness smoothest Any path Smooth Staying power medium Short burst Long lasting Scored on: 6M risk-adjusted ●●● · 3M risk-adjusted ●● · 6M low volatility ●● · steadiness ●● #3 Rocket Ltd flat, then a sharp jump 41% #1 Steady Co up a little every month 78% #2 Marathon Inc a long, strong climb 74% #4 Wild Tech big swings, up overall 7% Fit = how well each stock matches the style, from 0 to 100%, against the others. Made-up prices; in the app it is your whole universe with real prices. UNDER THE HOOD The five things a style looks at Every style is a mix of these plain measures, each over a period from 1 week to 1 year. Momentum How much the price rose over the period Higher is better Risk-adjusted The rise divided by how bumpy it was Smooth rises win Low volatility How calmly the price moves day to day Calmer is better Steadiness Still rising over both 6 and 12 months Lasting rises win Liquidity Rupees traded a day, on average (stocks) Easier to trade Stock A: steady Up 30% in 6 months, calmly. Wins on risk-adjusted and low volatility. Stock B: wild Up 35% in 6 months, but jumping around. Wins on plain momentum only. FOR MORE CONTROL Factor Mix: marks, then a total Like a class rank. Each factor gives every stock a mark out of 100 against the others, and your weights decide how much each mark counts. 6M momentum Off ● Low ●● Medium ●●● High Low volatility Off ● Low ●● Medium ●●● High 1Y momentum Off ● Low ●● Medium ●●● High 🏆 Rocket Ltd 78% Marathon Inc 61% Wild Tech 44% Steady Co 17% Each bar is one stock's total fit, built from its marks. Turn low volatility up and the calm stock climbs; turn it off and the fastest one wins. FOR STRICT RULES Funnel: narrow it down in rounds Each round keeps only the best part of what is left. What survives every round is sorted, and the top is bought. 500 stocks Round 1: keep the top 50% by 1-year momentum 250 Round 2: top 40% by 3-month momentum 100 sorted steadiest first → the top 20 of the sorted list are bought. The builder shows these counts live as you set the rounds. STEP 5 · EVERY REVIEW Buy the top, keep the good, let go of the weak On each review day the race runs again. Your holdings get room to breathe: one is only sold when it falls well down the list. #1 New leader → bought #2 Held ⋮ #20 Held #21 Held · slipped a bit ⋮ #48 Held · still inside #51 Fell past the line → sold ⋮ Top 20: the buy zone Empty slots are filled from the top of the list. Ranks 21 to 50: the hold zone A holding that slips here is kept. This saves costs and stops needless selling. Below the exit rank (50): sold Its place goes to the best stock not yet held. Optional trend filter When the whole market turns down, step aside into cash (or halve the holdings) until it turns up again. BEFORE YOU TRUST A RESULT Rules or luck? A great backtest can be a lucky one. The robustness check runs your rules again on every other review day and on each half of the history. Date luck Growth a year with the review on day 15, 16 … 25. Your day is the dark bar. All the bars are close: the result comes from the rules, not the day. Robust Both halves Did it beat the market in each half on its own? First half beat the market Second half beat the market Verdict Holds up FAQ Questions people ask What does a fit of 86% mean? On the review day, the stock matched your ranking rules better than 86% of the other stocks in your universe. It is a comparison, not a forecast: the best fit ranks first, and your portfolio holds the top ranks. What is the difference between Conditions and Rank by? What does \"6-month momentum\" mean exactly? Which should I use: Style, Factor Mix or Funnel? Why is a stock I like missing from the ranks? Should I use short or long periods? Can a falling stock still be ranked? Is a good backtest a promise of future returns? Put your rules to the test Pick a style, check it on 10+ years of NSE data in seconds, then see whether it holds up. Open the strategy builder Questions? Join our Telegram group MomentumScore is a research and backtesting tool, not investment advice. Not registered with SEBI as an investment adviser or research analyst. Backtested results are hypothetical and past performance does not guarantee future returns. Disclaimer MomentumScore ranks securities only against rules you define and never recommends a stock or ETF. Backtested results are hypothetical and do not guarantee future returns. Not investment advice. MomentumScore (operated by Technobot Technolgies Pvt Ltd) is not registered with SEBI as an Investment Adviser or Research Analyst. Strategies in the Research section are prepared by RISHABH KUMAR SHARMA, SEBI Registered Research Analyst (Reg. No. INH000018081), who is also a partner in MomentumScore. Pricing Terms Privacy Refund & cancellation Service delivery Contact us Disclaimer Ask doubt",
+ "xhr": [
+  {
+   "url": "https://momentumscore.in/cdn-cgi/rum?",
+   "status": 204,
+   "type": "XHR"
+  },
+  {
+   "url": "chrome-extension://fheoggkfdfchfphceeifdbepaooicaho/wasm_feature.wasm",
+   "status": 200,
+   "type": "Fetch"
+  },
+  {
+   "url": "https://momentumscore.in/favicon.ico",
+   "status": 200,
+   "type": "Fetch"
+  }
+ ],
+ "loaded": true,
+ "nav_error": null
+}
