@@ -175,3 +175,55 @@ recon artifacts), this file, `momentumscore-feature-inventory.md`.
 titles), `components/Sidebar.jsx` (Tools section), `components/TradeLog.jsx`
 (rank/fit columns + CSV), `pages/ReportPage.jsx` (review panels + CSV),
 `data/reportsIndex.js` (report 93 entry).
+
+---
+
+## 6. Builder Labs — reports 94-98 (the builder's own tabs, tested)
+
+The MomentumScore strategy-builder's tabs (Protect / Conditions / Money /
+Pick & Rebalance) applied to report 48/93's hero as config-driven
+experiments — one knob at a time, then the winners stacked. The engine is
+`ms_builder.py`: report 93's exact accounting generalized by a config dict
+(`default_config()` is report 93 itself; the hero row of the Protect lab
+reproduces `results92.json` exactly — verified by
+`check_builder_regression.py`).
+
+**The labs** (each `backtestNN.py` → `results(NN-1).json`, webapp id NN):
+
+| Report | Lab | Winner | Verdict |
+|---|---|---|---|
+| 94 | Protect | the hero's own layer | nothing beat daily 200-EMA + 100% gold; VIX/Supertrend cost 9-16pp |
+| 95 | Conditions | keep-if 6m > 0 | +0.08pp and a shallower drawdown; 200-EMA/golden-cross gates are exact no-ops; daily sell-when collapses to 4.6% |
+| 96 | Money | dip top-ups (66× on money) | compounding stays ON (fixed sizing = 15.6%); SIP/dip judged by final vs contributed |
+| 97 | Pick | exit rank 30 | +0.4pp; entry-rank gates & sector caps destructive; 0.5%/side stress still 30.7% |
+| 98 | Max | keep-if 6m > 0 + exit rank 30 | 40.0% CAGR / -24.0% DD / health 70; six-calendar date-luck 38.2-40.1%; whole units 39.8% |
+
+**How to reproduce:**
+
+```bash
+# regression gate: hero config must reproduce report 93 exactly
+py -3 check_builder_regression.py
+
+# the labs (each writes its results JSON; run in any order after the gate passes)
+py -3 backtest94.py    # Protect        -> results93.json
+py -3 backtest95.py    # Conditions     -> results94.json
+py -3 backtest96.py    # Money          -> results95.json
+py -3 backtest97.py    # Pick           -> results96.json
+py -3 backtest98.py    # Max strategy   -> results97.json
+
+# static HTML reports (94-98) + webapp prose/JSON refresh
+py -3 build_html_lab.py
+py -3 extract_report_content.py
+Copy-Item results93.json,results94.json,results95.json,results96.json,results97.json webapp\public\data\ -Force
+```
+
+**New:** `ms_builder.py`, `check_builder_regression.py`,
+`fetch_builder_extras.py` → `builder_extras_raw.pkl` (^INDIAVIX, ^CRSLDX,
+GOLDBEES/SILVERBEES/LIQUIDBEES/NIFTYBEES), `backtest94-98.py`,
+`build_html_lab.py`, `94_protect_lab.html` … `98_max_strategy.html`,
+`webapp/src/pages/Builder.jsx` (cross-lab comparison page at `/builder`).
+
+**Modified:** `webapp/src/App.jsx` (builder route),
+`components/Sidebar.jsx` (Builder lab tool entry),
+`data/reportsIndex.js` (MomentumScore Builder Labs group, ids 94-98),
+`webapp/public/data/report_content.json` (regenerated; now includes 93-98).
