@@ -201,6 +201,7 @@ export const GROUPS = [
       { id: "90", file: "results89.json", icon: ICON_RULER, title: "Midcap150 Momentum 10 — Report 48 With a 400-EMA Filter", subtitle: "Gold still beats cash on CAGR under the wider EMA, with the same drawdown protection" },
       { id: "91", file: "results90.json", icon: ICON_SHIELD, title: "Midcap150 Momentum 10 — Gold-Strength Guard on Report 48", subtitle: "+11.5pp CAGR and a shallower drawdown; the benefit is spread thin, not from 2013/2021-22 as first assumed" },
       { id: "92", file: "results91.json", icon: ICON_COMPASS, title: "Gold-Strength Guard — Does It Hold Up on Every Rebalance Calendar?", subtitle: "Not a Jun/Dec artifact — every one of the six calendars gains 11.3-11.9pp CAGR and lands at -20.0% DD" },
+      { id: "93", file: "results92.json", icon: ICON_FLASK, title: "MomentumScore-Style Review — Exit Rank 52", subtitle: "Fit ranks, exit-rank hysteresis, costs, tax, health & robustness — the whole review layer on report 48's design" },
     ],
   },
   {

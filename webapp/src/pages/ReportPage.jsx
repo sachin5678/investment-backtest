@@ -10,6 +10,8 @@ import ProseSection from "../components/ProseSection";
 import TradeLog from "../components/TradeLog";
 import LockedReportGate from "../components/LockedReportGate";
 import Panel, { WhatThisShows } from "../components/Panel";
+import ReviewPanels from "../components/ReviewPanels";
+import { downloadCsv } from "../lib/csv";
 
 const DATA_BASE = "./data/";
 
@@ -27,6 +29,7 @@ export default function ReportPage() {
   const [error, setError] = useState(null);
   const [trades, setTrades] = useState(null);
   const [tradeStats, setTradeStats] = useState(null);
+  const [raw, setRaw] = useState(null);
 
   useEffect(() => {
     setSeries(null);
@@ -35,6 +38,7 @@ export default function ReportPage() {
     setError(null);
     setTrades(null);
     setTradeStats(null);
+    setRaw(null);
     // A locked premium report skips the fetch entirely — it's a UI gate
     // only (every report's data actually sits in the public static
     // webapp/public/data/ files, reachable directly by anyone who looks),
@@ -70,6 +74,9 @@ export default function ReportPage() {
         // renders nothing.
         setTrades(raw.trades ?? null);
         setTradeStats(raw.trade_stats ?? null);
+        // kept whole for the review panels (health/robustness/tax/rebalances/
+        // ranks blocks) — only reports that carry those keys render them.
+        setRaw(raw);
       })
       .catch((e) => setError(e.message));
   }, [id, item, locked]);
@@ -117,10 +124,32 @@ export default function ReportPage() {
   return (
     <div className="space-y-6 w-full">
       <Panel tight>
-        <WhatThisShows>
-          Every series this report's data actually contains, detected automatically — net return, {series[0]?.growthLabel ?? "CAGR"}, max
-          drawdown and longest time underwater, exactly as computed in the original backtest (no numbers are recalculated here).
-        </WhatThisShows>
+        <div className="flex items-start justify-between gap-3">
+          <WhatThisShows>
+            Every series this report's data actually contains, detected automatically — net return, {series[0]?.growthLabel ?? "CAGR"}, max
+            drawdown and longest time underwater, exactly as computed in the original backtest (no numbers are recalculated here).
+          </WhatThisShows>
+          <button
+            onClick={() =>
+              downloadCsv(
+                `${item.file.replace(/\.json$/, "")}_kpis.csv`,
+                series.map((s) => ({
+                  label: s.label,
+                  path: s.path,
+                  net_return_pct: s.netReturnPct,
+                  growth_pct: s.growthPct,
+                  growth_label: s.growthLabel,
+                  max_drawdown_pct: s.maxDrawdownPct,
+                  longest_underwater_days: s.longestUnderwaterDays,
+                }))
+              )
+            }
+            className="text-[11.5px] font-semibold text-muted hover:text-text transition-colors cursor-pointer shrink-0 mt-0.5"
+            title="Download this table as CSV"
+          >
+            ⇩ CSV
+          </button>
+        </div>
         <KpiTable series={series} symbol={symbol} />
       </Panel>
 
@@ -143,6 +172,8 @@ export default function ReportPage() {
       </Panel>
 
       <TradeLog trades={trades} tradeStats={tradeStats} symbol={symbol} />
+
+      <ReviewPanels raw={raw} file={item.file} symbol={symbol} />
 
       <ProseSection content={content} open={proseOpen} onToggle={() => setProseOpen((v) => !v)} locked={!isLoggedIn} />
     </div>

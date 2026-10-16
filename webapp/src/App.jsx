@@ -3,6 +3,11 @@ import Layout from "./components/Layout";
 import ReportPage from "./pages/ReportPage";
 import Overview from "./pages/Overview";
 import Comparison from "./pages/Comparison";
+import Health from "./pages/Health";
+import Tax from "./pages/Tax";
+import Mixer from "./pages/Mixer";
+import Track from "./pages/Track";
+import Ranks from "./pages/Ranks";
 import { AuthProvider } from "./context/AuthContext";
 
 // HashRouter (not BrowserRouter) is deliberate: it makes every route work
@@ -23,6 +28,11 @@ export default function App() {
           <Route path="/" element={<Layout />}>
             <Route path="report/:id" element={<ReportPage />} />
             <Route path="compare" element={<Comparison />} />
+            <Route path="health" element={<Health />} />
+            <Route path="tax" element={<Tax />} />
+            <Route path="mix" element={<Mixer />} />
+            <Route path="track" element={<Track />} />
+            <Route path="ranks" element={<Ranks />} />
           </Route>
           {/* Defensive fallback: HashRouter treats the WHOLE url hash as its
               routing namespace, so a plain in-page anchor like #methodology

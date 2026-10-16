@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { pct, money } from "../lib/format";
+import { downloadCsv } from "../lib/csv";
 import Panel, { WhatThisShows } from "./Panel";
 import Pill from "./Pill";
 
@@ -36,7 +37,7 @@ function isMergedTrade(t) {
   return t.num_rebalances_held !== undefined;
 }
 
-function TradeRow({ t, symbol, merged }) {
+function TradeRow({ t, symbol, merged, hasRanks }) {
   const kind = rowKind(t);
   return (
     <tr className="border-b border-border/60">
@@ -54,6 +55,16 @@ function TradeRow({ t, symbol, merged }) {
       {merged && (
         <td className="px-3 py-1.5 text-right whitespace-nowrap font-mono text-muted-2">{t.num_rebalances_held}</td>
       )}
+      {hasRanks && (
+        <td className="px-3 py-1.5 text-right whitespace-nowrap font-mono text-muted-2" title={t.why_in || ""}>
+          {t.rank_in ?? "—"} → {t.rank_out ?? "—"}
+        </td>
+      )}
+      {hasRanks && (
+        <td className="px-3 py-1.5 text-right whitespace-nowrap font-mono text-muted-2" title={t.why_out || ""}>
+          {t.fit_in != null ? `${t.fit_in}%` : "—"} → {t.fit_out != null ? `${t.fit_out}%` : "—"}
+        </td>
+      )}
       <td className={`px-3 py-1.5 text-right whitespace-nowrap font-mono ${ROW_CLASS[kind]}`}>{pct(t.pct_return)}</td>
       <td className={`px-3 py-1.5 text-right whitespace-nowrap font-mono ${ROW_CLASS[kind]}`}>{money(t.pnl, symbol, 2)}</td>
       <td className="px-3 py-1.5 text-left whitespace-nowrap text-muted-2">{t.status === "open" ? "Still held" : "Closed"}</td>
@@ -61,10 +72,10 @@ function TradeRow({ t, symbol, merged }) {
   );
 }
 
-function TradeTable({ rows, symbol, merged, caption }) {
+function TradeTable({ rows, symbol, merged, caption, hasRanks }) {
   const headers = merged
-    ? ["Stock", "Entered", "Entry price", "Exited / as-of", "Exit price", "Rebalances held", "Return", `P&L (${symbol})`, "Status"]
-    : ["Stock", "Bought", "Buy price", "Sold / as-of", "Sell price", "Return", `P&L (${symbol})`, "Status"];
+    ? ["Stock", "Entered", "Entry price", "Exited / as-of", "Exit price", "Rebalances held", ...(hasRanks ? ["Rank in → out", "Fit in → out"] : []), "Return", `P&L (${symbol})`, "Status"]
+    : ["Stock", "Bought", "Buy price", "Sold / as-of", "Sell price", ...(hasRanks ? ["Rank in → out", "Fit in → out"] : []), "Return", `P&L (${symbol})`, "Status"];
   return (
     <div className="mb-5 last:mb-0">
       {caption && <div className="text-[13px] font-semibold text-muted-2 mb-2 font-mono">{caption}</div>}
@@ -86,7 +97,7 @@ function TradeTable({ rows, symbol, merged, caption }) {
           </thead>
           <tbody>
             {rows.map((t) => (
-              <TradeRow key={t.ticker + t.entry_date} t={t} symbol={symbol} merged={merged} />
+              <TradeRow key={t.ticker + t.entry_date} t={t} symbol={symbol} merged={merged} hasRanks={hasRanks} />
             ))}
           </tbody>
         </table>
@@ -108,12 +119,16 @@ export default function TradeLog({ trades, tradeStats, symbol = "₹" }) {
   if (!trades || trades.length === 0) return null;
 
   const merged = isMergedTrade(trades[0]);
+  // reports whose trade rows carry entry/exit rank & fit (the
+  // MomentumScore-style review run) get two extra columns instead of a
+  // bespoke component
+  const hasRanks = trades[0].rank_in !== undefined;
   const totalRows = tradeStats?.total_trades ?? tradeStats?.total_positions ?? trades.length;
 
   let body;
   if (merged) {
     const sorted = [...trades].sort((a, b) => b.pct_return - a.pct_return);
-    body = <TradeTable rows={sorted} symbol={symbol} merged />;
+    body = <TradeTable rows={sorted} symbol={symbol} merged hasRanks={hasRanks} />;
   } else {
     const byPeriod = new Map();
     for (const t of trades) {
@@ -128,7 +143,7 @@ export default function TradeLog({ trades, tradeStats, symbol = "₹" }) {
         return { label, rows: [...rows].sort((a, b) => b.pct_return - a.pct_return), sortKey: entryDate };
       })
       .sort((a, b) => (a.sortKey < b.sortKey ? -1 : a.sortKey > b.sortKey ? 1 : 0));
-    body = periods.map((p) => <TradeTable key={p.label} rows={p.rows} symbol={symbol} caption={p.label} />);
+    body = periods.map((p) => <TradeTable key={p.label} rows={p.rows} symbol={symbol} caption={p.label} hasRanks={hasRanks} />);
   }
 
   return (
@@ -139,6 +154,13 @@ export default function TradeLog({ trades, tradeStats, symbol = "₹" }) {
         </h3>
         <div className="flex items-center gap-2">
           <Pill kind="neutral">{totalRows} rows total</Pill>
+          <button
+            onClick={() => downloadCsv("trades.csv", trades)}
+            className="text-[11px] font-semibold text-muted hover:text-text transition-colors cursor-pointer"
+            title="Download the full trade log as CSV"
+          >
+            ⇩ CSV
+          </button>
           <button
             onClick={() => setOpen((v) => !v)}
             className="text-[11px] font-semibold text-muted hover:text-text transition-colors cursor-pointer"

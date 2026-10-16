@@ -4,12 +4,38 @@ import Sidebar from "./Sidebar";
 import AuthButton from "./AuthButton";
 import { ITEM_BY_ID } from "../data/reportsIndex";
 
+// header titles for the Tools routes (everything outside report/:id and
+// /compare, which derive their own titles from ITEM_BY_ID)
+const TOOL_TITLES = {
+  "/health": {
+    title: "Strategy Health",
+    subtitle: "MomentumScore's 10-target scorecard, applied to every series in the project",
+  },
+  "/tax": {
+    title: "Capital-Gains Tax",
+    subtitle: "What each report's own trade log would owe under Indian capital-gains rules — estimate",
+  },
+  "/mix": {
+    title: "Multi-System Mixer",
+    subtitle: "Blend any strategies into one constant-weight combined curve",
+  },
+  "/track": {
+    title: "My Portfolios",
+    subtitle: "Paper-track any strategy from any date — saved in this browser",
+  },
+  "/ranks": {
+    title: "Ranking Preview",
+    subtitle: "Report 93's exit-rank-52 review engine, recomputed at the latest close",
+  },
+};
+
 export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { id } = useParams();
   const location = useLocation();
   const item = ITEM_BY_ID[id];
   const isCompare = location.pathname === "/compare";
+  const tool = TOOL_TITLES[location.pathname] || null;
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -44,11 +70,15 @@ export default function Layout() {
                 Overview
               </Link>
             </>
-          ) : isCompare ? (
+          ) : isCompare || tool ? (
             <>
               <div className="min-w-0 flex-1">
-                <h2 className="text-[15px] font-semibold text-text truncate">Master Comparison</h2>
-                <p className="text-xs text-muted truncate">Every strategy variant, sortable and filterable, against NIFTY 50</p>
+                <h2 className="text-[15px] font-semibold text-text truncate">
+                  {tool ? tool.title : "Master Comparison"}
+                </h2>
+                <p className="text-xs text-muted truncate">
+                  {tool ? tool.subtitle : "Every strategy variant, sortable and filterable, against NIFTY 50"}
+                </p>
               </div>
               <AuthButton />
               <Link

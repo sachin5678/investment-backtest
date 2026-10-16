@@ -6,6 +6,19 @@ import Logo from "./Logo";
 
 const ICON_LOCK_SMALL = "M6 11h12v9h-12z M9 11V7a3 3 0 0 1 6 0v4";
 const ICON_COMPARE = "M4 21V9l8-6 8 6v12 M4 15h16 M9 15v6 M15 15v6";
+const ICON_HEALTH = "M3 12h5l2-6 4 12 2-6h5";
+const ICON_TAX = "M6 4h12 M6 8h12 M16 4c0 5-4 7-10 7l9 9";
+const ICON_MIX = "M9.5 7a5 5 0 1 0 0 10a5 5 0 1 0 0-10 M14.5 7a5 5 0 1 0 0 10a5 5 0 1 0 0-10";
+const ICON_TRACK = "M3 8h18v12H3z M8 8V5h8v3 M3 13h18";
+const ICON_RANKS = "M4 6h2 M9 6h11 M4 12h2 M9 12h11 M4 18h2 M9 18h11";
+
+const TOOLS = [
+  { label: "Strategy health", path: "/health", icon: ICON_HEALTH },
+  { label: "Capital-gains tax", path: "/tax", icon: ICON_TAX },
+  { label: "Multi-system mixer", path: "/mix", icon: ICON_MIX },
+  { label: "My portfolios", path: "/track", icon: ICON_TRACK },
+  { label: "Ranking preview", path: "/ranks", icon: ICON_RANKS },
+];
 
 export default function Sidebar({ open, onClose }) {
   const navigate = useNavigate();
@@ -69,6 +82,27 @@ export default function Sidebar({ open, onClose }) {
           <span className="flex-1 text-left">Compare all strategies</span>
           {!isLoggedIn && <Icon path={ICON_LOCK_SMALL} className="w-[13px] h-[13px] shrink-0 text-assumption" />}
         </button>
+        <div className="mt-3 pt-3 border-t border-border">
+          <div className="text-[11px] font-semibold uppercase tracking-wide text-muted mb-1.5 px-1">Tools</div>
+          {TOOLS.map((t) => {
+            const active = location.pathname === t.path;
+            return (
+              <button
+                key={t.path}
+                onClick={() => {
+                  navigate(t.path);
+                  onClose?.();
+                }}
+                className={`w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg mb-0.5 border-l-2 cursor-pointer transition-colors text-[12.5px] font-semibold
+                  ${active ? "bg-accent-dim border-accent text-text" : "border-transparent text-muted hover:bg-white/[0.03] hover:text-text"}
+                  focus-visible:outline-2 focus-visible:outline-accent`}
+              >
+                <Icon path={t.icon} className={`w-[15px] h-[15px] shrink-0 ${active ? "text-accent" : "text-muted"}`} />
+                <span className="flex-1 text-left">{t.label}</span>
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {GROUPS.map((g) => (
