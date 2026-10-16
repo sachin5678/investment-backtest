@@ -205,6 +205,16 @@ export const GROUPS = [
     ],
   },
   {
+    label: "MomentumScore Builder Labs",
+    items: [
+      { id: "94", file: "results93.json", icon: ICON_SHIELD, title: "Protect Lab — the Market-Timing Layer, Varied", subtitle: "Daily checks beat at-review by 2.8pp and gold beats cash by 3.2pp; VIX and Supertrend filters cost 9–16pp of CAGR" },
+      { id: "95", file: "results94.json", icon: ICON_FUNNEL, title: "Conditions Lab — keep-if / buy-only-if / sell-when", subtitle: "Only keep-if 6m>0 helps (+0.1pp); the daily sell-when rule collapses CAGR to 4.6% — filters mostly subtract" },
+      { id: "96", file: "results95.json", icon: ICON_COIN_SHIELD, title: "Money Lab — Compounding, SIP, Dip Top-Ups", subtitle: "No-compounding drops to 15.6% CAGR; dip top-ups return the best multiple on money contributed (66×)" },
+      { id: "97", file: "results96.json", icon: ICON_TUNE, title: "Pick & Rebalance Lab — Exit Rank, Entry Rank, Sectors, Friction", subtitle: "Exit rank 30 is the one winner (+0.4pp); entry-rank gates and sector caps are destructive; 0.5%/side stress still yields 30.7%" },
+      { id: "98", file: "results97.json", icon: ICON_FLASK, title: "Max Strategy — Every Winning Knob Stacked", subtitle: "keep-if 6m>0 + exit rank 30, stress-tested: whole units, 0.3%/0.5% friction, the money plan, and the six-calendar date-luck grid" },
+    ],
+  },
+  {
     label: "Opencode Ideas & Findings",
     items: [
       { id: "f1", file: "results_find_dipbuy.json", icon: ICON_PULSE, title: "Dip-Buy Override on Report 48", subtitle: "Switch gold→stocks when NIFTY is ≥15% below its 200-EMA — tried, fails" },

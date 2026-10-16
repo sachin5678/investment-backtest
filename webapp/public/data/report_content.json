@@ -6158,5 +6158,411 @@
     ]
    }
   ]
+ },
+ "93": {
+  "title": "MomentumScore-Style Review — Exit Rank 52",
+  "subtitle": "Report 48's strategy skeleton (Midcap150 momentum 10, NIFTY-50 200-EMA regime filter, GOLDBEES hedge) re-run with MomentumScore's review layer on top: a held stock is sold only when it falls below rank 52 of the eligible universe, carried names keep their original shares, reviews happen at scheduled month-ends (Jun/Dec) plus every regime flip, and every leg pays 0.1%/side. The run ships with a real-rupee trade log, an Indian capital-gains tax estimate, the 10-target health scorecard, both-halves and date-luck robustness checks, and a live ranking preview.",
+  "source_line": "2009-01-02–2026-10-16 Report generated 2026-10-16 21:36",
+  "pages": [
+   {
+    "file": "93_midcap150_momentumscore_style_review.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "positive",
+        "text": "After costs: CAGR +39.5% at -25.4% max drawdown — NIFTY 50 made +12.1%"
+       },
+       {
+        "kind": "positive",
+        "text": "After the tax estimate: +34.4% a year"
+       },
+       {
+        "kind": "assumption",
+        "text": "Health score 60/100 — both-halves PASS, date-luck PASS"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "The review layer does not change the regime filter — it changes which stocks are held and when they are sold. That means the whipsaw is inherited intact: this run logs 65 regime exits and 64 re-entries across 2009-01-02–2026-10-16, the same behaviour report 48 showed with its 69 re-entries. Costs and the tax estimate are what move the headline numbers: +41.7% before costs, +39.5% after 0.1%/side on every leg, +34.4% after the capital-gains estimate — still roughly three times NIFTY 50's +12.1%, with a materially shallower drawdown than the index."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Rebalance log — every review, and why",
+      "pills": [
+       {
+        "kind": "negative",
+        "text": "regime exit × 65"
+       },
+       {
+        "kind": "positive",
+        "text": "regime reentry × 64"
+       },
+       {
+        "kind": "neutral",
+        "text": "scheduled rebalance × 23"
+       },
+       {
+        "kind": "assumption",
+        "text": "initial entry × 1"
+       },
+       {
+        "kind": "negative",
+        "text": "regime exit"
+       },
+       {
+        "kind": "positive",
+        "text": "regime reentry"
+       },
+       {
+        "kind": "negative",
+        "text": "regime exit"
+       },
+       {
+        "kind": "positive",
+        "text": "regime reentry"
+       },
+       {
+        "kind": "negative",
+        "text": "regime exit"
+       },
+       {
+        "kind": "positive",
+        "text": "regime reentry"
+       },
+       {
+        "kind": "negative",
+        "text": "regime exit"
+       },
+       {
+        "kind": "positive",
+        "text": "regime reentry"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the last 8 of 153 logged reviews (newest first): which positions carried (still ranked inside 52), which fell below the exit rank, and which names refilled the slots, at what rank and fit percentile. The full log is in results92.json and the webapp's report 93.",
+      "paragraphs": [],
+      "list_items": []
+     },
+     {
+      "heading": "Trade statistics",
+      "pills": [],
+      "what_this_shows": "WHAT THIS SHOWS — every closed position over the run. Positions are held until they fall below the exit rank; carried names keep their original shares (no re-equalisation), so trade sizes drift with performance.",
+      "paragraphs": [],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "The whipsaw is inherited from report 48's regime filter, unchanged: 65 regime exits and 64\n        re-entries in this run (report 48 logged 69 re-entries). The review layer deliberately does not try to dampen\n        it — it changes the stock-holding rules, not the market-timing rule.",
+       "Health: 9 of the 10 target ranges are MomentumScore's published ones; the \"tail risk\" checks\n        (monthly and per-trade) use skewness as a documented proxy because MomentumScore's exact definition is not\n        published. Curve checks here run on the engine's full-resolution daily curve; the webapp's cross-report lab\n        scores archived chart series (≤1500 points), so a lab score can differ by a check.",
+       "Tax: FY-by-FY estimate on the trade log — exit-date-based FY assignment, 4% cess, no\n        surcharge, no advance-tax timing, no pre-2018 grandfathering; the s.112A 31-Jan-2025 FMV map affected 0 trades\n        here because every position was held under a year. Not tax advice.",
+       "Costs: a flat 0.1% per side on every leg including the gold\n        hedge — no slippage or market-impact model, and no allowance for the fact that small-cap fills are usually\n        worse than midcap ones.",
+       "Design choices in the review layer: carried stocks keep their original shares (report 31's\n        convention, no re-equalisation); freed cash refills slots at the next review; a regime re-entry buys a fresh\n        top-10 without hysteresis (the exit-rank rule only protects positions during an ongoing regime, not across\n        one).",
+       "Same reconstruction caveats as report 48: today's fixed Midcap150 constituent list applied\n        retroactively (survivorship bias), equal weighting, unadjusted prices, no dividends modeled, no\n        F&O-eligibility screen.",
+       "Date luck: the mid-month variant (day ~15) is one alternative calendar, a smoke test — not\n        the full six-calendar sweep of reports 85/92.",
+       "Rupee figures (P&L, tax) scale the window start to ₹1,00,000 through the engine's own unit accounting;\n        the percentage curves are scale-free."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "94": {
+  "title": "Protect Lab",
+  "subtitle": "Protect Lab — report 48's market-timing layer, varied",
+  "source_line": "2009-01-02–2026-10-16 Report generated 2026-10-16 23:11",
+  "pages": [
+   {
+    "file": "94_protect_lab.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "Hero: hero — daily checks · gold 100%"
+       },
+       {
+        "kind": "positive",
+        "text": "Hero CAGR +39.5% at -25.4% max drawdown"
+       },
+       {
+        "kind": "neutral",
+        "text": "11 variants, every one the same engine with one knob changed"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "The protect layer survives every challenge. Checking the NIFTY 50 200-EMA only at the Jun/Dec reviews instead of daily costs 2.8pp of CAGR (36.7% vs 39.5%) — the daily check is what catches the cracks between reviews. Replacing the gold park with plain cash costs 3.2pp (36.3%): gold's hedge earns its keep beyond safety.",
+       "Alternatives to the signal itself are all worse. NIFTY 500 as the trend index buys a shallower drawdown (-22.9% vs -25.4%) at the price of 2.4pp of CAGR and the health score. Supertrend (10, 3) on either index costs 9–10pp. The 2-of-3 EMA/Supertrend/VIX ensemble costs 5.8pp. Any VIX-based regime — as an OR-filter or alone — is destructive (23.7–24.3% CAGR; VIX-only draws down -46.1%). One mild alternative: a 50% gold + 25% silver + 25% cash park lands within 1.4pp of the hero with a slightly shallower drawdown (silver's share sits in cash before Feb 2022)."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "How to read this lab — the fine print",
+      "pills": [],
+      "what_this_shows": null,
+      "paragraphs": [],
+      "list_items": [
+       "•All variants share report 48/93's skeleton: Midcap150 universe, top-10 risk-adjusted 6m/12m momentum, exit rank 52 with hysteresis, carried stocks keep their original shares, 0.1%/side costs on every leg including the hedge, rupee figures scaled from a Rs 1,00,000 start.",
+       "•Every variant is report 93's engine with ONE knob changed; the hero row reproduces report 93 exactly (verified by check_builder_regression.py).",
+       "•'trend checked only on review days' evaluates the same daily signal but acts on it only at the Jun/Dec reviews — the whipsaw question.",
+       "•'sell half' de-risks 50% of every position in a bear market and tops the positions back up on re-entry; freed cash still parks per the park rule.",
+       "•Park baskets: freed cash is split by the given percentages; a symbol without a price that day (SILVERBEES before Feb 2022) leaves its share in cash until it trades — MomentumScore's own rule.",
+       "•India VIX history on Yahoo starts in 2008 (MomentumScore shows it from ~2014); the 2-of-3 ensemble treats VIX > 20 as its risk-off vote.",
+       "•Health, halves and the tax layer are computed per variant with the same ms_port code report 93 uses; the after-tax curve follows report 93's conventions (indicative, not advice)."
+      ]
+     },
+     {
+      "heading": "Exact configurations — reproduction cards",
+      "pills": [],
+      "what_this_shows": "Every knob of every variant as the engine saw it. The hero's card is report\n        93's configuration; run it through check_builder_regression.py to reproduce report 93 exactly.",
+      "paragraphs": [],
+      "list_items": []
+     }
+    ]
+   }
+  ]
+ },
+ "95": {
+  "title": "Conditions Lab",
+  "subtitle": "Conditions Lab — keep-if / buy-only-if / sell-when rules, one at a time",
+  "source_line": "2009-01-02–2026-10-16 Report generated 2026-10-16 23:13",
+  "pages": [
+   {
+    "file": "95_conditions_lab.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "Hero: hero — no conditions"
+       },
+       {
+        "kind": "positive",
+        "text": "Hero CAGR +39.5% at -25.4% max drawdown"
+       },
+       {
+        "kind": "neutral",
+        "text": "15 variants, every one the same engine with one knob changed"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "The Conditions tab is mostly a trap on this strategy — and two of its most popular gates are exact no-ops. 'Above the 200-day EMA' and 'golden cross' produce curves identical to the hero to the last paisa: across 17 years and 686 trades, the top-10 momentum names were never bought below their 200-EMA or outside a golden cross. Not a rounding coincidence — a property of what the ranking already selects.",
+       "The only keepers are the gentle half of the momentum-discipline pair: 'buy only what is rising' (+0.16pp) and 'keep-if 6m return > 0' (+0.08pp, drawdown improving to -24.0%). Everything heavier subtracts: swings cap 13.5pp, turnover floor 9pp, near-ATH 8.6pp, VIX-calm 12.2pp, the five-condition quality gate 20.1pp. The daily 'sell when 6m turns negative' rule collapses the strategy to 4.6% CAGR — it sells every dip and re-enters late, the whipsaw in its purest form."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "How to read this lab — the fine print",
+      "pills": [],
+      "what_this_shows": null,
+      "paragraphs": [],
+      "list_items": [
+       "•All variants share report 48/93's skeleton: Midcap150 universe, top-10 risk-adjusted 6m/12m momentum, exit rank 52 with hysteresis, carried stocks keep their original shares, 0.1%/side costs, gold hedge on the NIFTY 200-EMA regime.",
+       "•Slot semantics are MomentumScore's: money is divided over the open slots; a slot whose best candidate fails the buy conditions waits in cash until a name passes — it is never redistributed to other slots.",
+       "•swings_6m = annualized standard deviation of daily returns over the last 126 trading days (the documented proxy for MomentumScore's '6-month swings' — its exact definition is unpublished).",
+       "•turnover = average daily Close × Volume over 126 trading days; ₹5 Cr = 50,000,000.",
+       "•sell-when rules are evaluated at every close: the holding is sold that day at the close (0.1% cost) and the slot waits in cash until the next Jun/Dec review.",
+       "•keep-if rules are evaluated at the Jun/Dec reviews, alongside the exit rank: a holder that fails either is sold at that review.",
+       "•India VIX on Yahoo starts in 2008 (MomentumScore shows it from ~2014); the VIX < 20 gate is simply not triggered on dates without data.",
+       "•Health, halves and the tax layer are computed per variant with the same ms_port code report 93 uses; after-tax curves follow report 93's conventions (indicative, not advice)."
+      ]
+     },
+     {
+      "heading": "Exact configurations — reproduction cards",
+      "pills": [],
+      "what_this_shows": "Every knob of every variant as the engine saw it. The hero's card is report\n        93's configuration; run it through check_builder_regression.py to reproduce report 93 exactly.",
+      "paragraphs": [],
+      "list_items": []
+     }
+    ]
+   }
+  ]
+ },
+ "96": {
+  "title": "Money Lab",
+  "subtitle": "Money Lab — compounding, SIP, dip top-ups, momentum discipline",
+  "source_line": "2009-01-02–2026-10-16 Report generated 2026-10-16 23:13",
+  "pages": [
+   {
+    "file": "96_money_lab.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "Hero: hero — reinvest everything"
+       },
+       {
+        "kind": "positive",
+        "text": "Hero CAGR +39.5% at -25.4% max drawdown"
+       },
+       {
+        "kind": "neutral",
+        "text": "7 variants, every one the same engine with one knob changed"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Compounding is the engine, not a preference: fixed ₹10,000 per position — profits accumulating as cash instead of sizing up new positions — drops CAGR from 39.5% to 15.6%.",
+       "The SIP and dip rows must not be compared by CAGR (the contribution base grows, so CAGR flatters them by construction). On the honest measure — multiple on money contributed — the dip top-ups win: ₹9L contributed at NIFTY RSI(14) < 30 closes (once a month) turned into ₹5.94 Cr, 66×. SIP ₹25k/month contributed ₹50L and closed at ₹24.1 Cr (48×); with the 10%/yr step-up, ₹1.31 Cr contributed → ₹35.6 Cr (27×); the full stack closes at ₹39.3 Cr on ₹1.39 Cr contributed (28×). Money deployed at panic prices is the best deployment method tested anywhere in these labs.",
+       "The Money tab's momentum-discipline pair fails here too: 'only buy rising + sell when negative' ends at 4.5% CAGR — same whipsaw, same verdict as the Conditions lab."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "How to read this lab — the fine print",
+      "pills": [],
+      "what_this_shows": null,
+      "paragraphs": [],
+      "list_items": [
+       "•All variants share report 48/93's skeleton: Midcap150 universe, top-10 risk-adjusted 6m/12m momentum, exit rank 52 with hysteresis, carried stocks keep their original shares, 0.1%/side costs, gold hedge on the NIFTY 200-EMA regime.",
+       "•Fixed mode: every new position gets exactly ₹10,000 (₹1,00,000 / 10); sale proceeds accumulate as cash and only park in gold during bear markets — profits never size up new positions.",
+       "•SIP: on the first trading day of each month the amount is added into the current holdings proportionally to their value (or into the park asset when the regime is off); the step-up compounds yearly from the window's first year.",
+       "•Buy the dip: checked at every close; when NIFTY 50 RSI(14) is below 30 the amount is added into the holdings that day, at most once per calendar month — MomentumScore's own rule.",
+       "•For SIP/dip variants compare final_value against contributed_total (both in the variant data); the equity curve and CAGR include the contribution timing by construction.",
+       "•Health, halves and the tax layer are computed per variant with the same ms_port code report 93 uses; after-tax curves follow report 93's conventions (indicative, not advice)."
+      ]
+     },
+     {
+      "heading": "Exact configurations — reproduction cards",
+      "pills": [],
+      "what_this_shows": "Every knob of every variant as the engine saw it. The hero's card is report\n        93's configuration; run it through check_builder_regression.py to reproduce report 93 exactly.",
+      "paragraphs": [],
+      "list_items": []
+     }
+    ]
+   }
+  ]
+ },
+ "97": {
+  "title": "Pick & Rebalance Lab",
+  "subtitle": "Pick & Rebalance Lab — exit rank, entry rank, sectors, units, friction",
+  "source_line": "2009-01-02–2026-10-16 Report generated 2026-10-16 23:15",
+  "pages": [
+   {
+    "file": "97_pick_rebalance_lab.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "Hero: hero — exit rank 52 · 0.1%/side"
+       },
+       {
+        "kind": "positive",
+        "text": "Hero CAGR +39.5% at -25.4% max drawdown"
+       },
+       {
+        "kind": "neutral",
+        "text": "12 variants, every one the same engine with one knob changed"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Exit rank 30 — a tighter leash than the hero's 52 — is the only winner: +0.4pp of CAGR (39.9%) with a marginally shallower drawdown and the same health score. The leash has an optimum: rank 20 gives the gain back (39.3%), rank 10 loses 1.1pp, rank 100 loses 3.4pp, and checking the rank daily instead of at reviews loses 1.1pp for a slightly shallower drawdown.",
+       "The destructive knobs are the restricting ones: buy only from the top 5 drops to 25.7% (slots sit in cash waiting for a top-5 name), 3-per-sector caps collapse to 16.7%, 5-per-sector to 22.0% — this strategy's returns need the full breadth of its top 10. Whole units cost 0.3pp (39.2%) — the honest real-broker version of the same strategy. Friction stress: 0.3%/side → 35.0%, 0.5%/side → 30.7%."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "How to read this lab — the fine print",
+      "pills": [],
+      "what_this_shows": null,
+      "paragraphs": [],
+      "list_items": [
+       "•All variants share report 48/93's skeleton: Midcap150 universe, top-10 risk-adjusted 6m/12m momentum, carried stocks keep their original shares, gold hedge on the NIFTY 200-EMA regime, ₹1,00,000 start.",
+       "•Exit rank N: a holder is sold at a review only when its fit rank falls below N of the ~150 eligible names; the freed slot is refilled with the best-ranked non-held name.",
+       "•Daily-breach mode: the same rank check runs at every close — a holder is sold THAT day (0.1% cost) and the slot waits in cash until the next Jun/Dec review.",
+       "•Entry rank K: new buys may only come from the top K ranks; an open slot waits in cash until a name reaches the top K — never redistributed to other slots.",
+       "•Sector caps use Yahoo Finance's present-day sector for each NIFTY 500 name (sectors_raw.json, fetched once for report 18) applied backwards; a name without a sector is uncapped.",
+       "•Whole units: share quantities are floored to integers on every buy and the leftover rupee amount stays in cash.",
+       "•Friction variants add slippage on top of the base 0.1% cost — 0.3% and 0.5% per side total, the honest stress test for a 2-rebalance-a-year system.",
+       "•Health, halves and the tax layer are computed per variant with the same ms_port code report 93 uses; after-tax curves follow report 93's conventions (indicative, not advice)."
+      ]
+     },
+     {
+      "heading": "Exact configurations — reproduction cards",
+      "pills": [],
+      "what_this_shows": "Every knob of every variant as the engine saw it. The hero's card is report\n        93's configuration; run it through check_builder_regression.py to reproduce report 93 exactly.",
+      "paragraphs": [],
+      "list_items": []
+     }
+    ]
+   }
+  ]
+ },
+ "98": {
+  "title": "Max Strategy — everything stacked",
+  "subtitle": "Max Strategy — every winning knob stacked, stress-tested, date-luck checked",
+  "source_line": "2009-01-02–2026-10-16 Report generated 2026-10-16 23:17",
+  "pages": [
+   {
+    "file": "98_max_strategy.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "Hero: hero — report 93 exactly"
+       },
+       {
+        "kind": "positive",
+        "text": "Hero CAGR +39.5% at -25.4% max drawdown"
+       },
+       {
+        "kind": "neutral",
+        "text": "19 variants, every one the same engine with one knob changed"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "The winners stack into a modest, honest improvement. keep-if 6m > 0 + exit rank 30 — 'max stack A' — gives 40.0% CAGR at -24.0% max drawdown and health 70/100, against the hero's 39.5% / -25.4% / 60. Adding the buy-only-if gate (stack B) nudges CAGR to 40.1% but gives back some of the drawdown gain.",
+       "The honesty battery: whole units 39.8% / -23.9%; 0.5%/side friction still 31.1%; both-halves robustness passes on every row; and all six rebalance calendars — the same six report 92 tested — land between 38.2% and 40.1% for both stacks, so the result is not a June/December artifact (though Jun/Dec does happen to be the best of the six — a 1.8pp date-luck spread worth knowing about).",
+       "The money plan on top — SIP ₹25k/month with a 10%/yr step-up plus ₹25k dip top-ups — turns ₹1.39 Cr of contributions into ₹41.4 Cr at the window's end (30×), the fullest version of this strategy these labs produced."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "How to read this lab — the fine print",
+      "pills": [],
+      "what_this_shows": null,
+      "paragraphs": [],
+      "list_items": [
+       "•Stack A = keep-if 6m return > 0 (a holder is sold at the review that finds its 6-month return negative) + exit rank 30 (a holder is also sold when its fit rank falls below 30 of the ~150 eligible names). Stack B adds buy-only-if 6m > 0 — new buys must be rising.",
+       "•The protect layer is report 48/93's untouched winner: daily NIFTY-50 200-EMA check, 100% GOLDBEES park, 0.1%/side on every leg. Lab 94 found nothing that beat it.",
+       "•The Jun/Dec rows of stack A and stack B are the same configuration as their headline rows — they are repeated inside the date-luck grids so each stack's six-calendar spread reads on its own.",
+       "•Date-luck calendars are month-offset pairs (Jul/Jan, Aug/Feb, Sep/Mar, Oct/Apr, Nov/May) at month-end, the same six report 92 tested on the gold-strength guard.",
+       "•Friction rows add slippage on top of the base cost — 0.3% and 0.5% per side total. Whole-units floors every buy to integer shares (leftover rupees stay in cash), the honest real-broker version.",
+       "•The SIP + dip row deploys the winning strategy on the winning money plan (₹25,000/month with a 10%/yr step-up, plus ₹25,000 on every close where NIFTY 50 RSI(14) < 30, at most once a month) — judge it by final value vs money contributed, both in its variant data.",
+       "•Health, halves and the tax layer are computed per variant with the same ms_port code report 93 uses; after-tax curves follow report 93's conventions (indicative, not advice)."
+      ]
+     },
+     {
+      "heading": "Exact configurations — reproduction cards",
+      "pills": [],
+      "what_this_shows": "Every knob of every variant as the engine saw it. The hero's card is report\n        93's configuration; run it through check_builder_regression.py to reproduce report 93 exactly.",
+      "paragraphs": [],
+      "list_items": []
+     }
+    ]
+   }
+  ]
  }
 }

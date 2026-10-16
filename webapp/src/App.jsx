@@ -8,6 +8,7 @@ import Tax from "./pages/Tax";
 import Mixer from "./pages/Mixer";
 import Track from "./pages/Track";
 import Ranks from "./pages/Ranks";
+import Builder from "./pages/Builder";
 import { AuthProvider } from "./context/AuthContext";
 
 // HashRouter (not BrowserRouter) is deliberate: it makes every route work
@@ -33,6 +34,7 @@ export default function App() {
             <Route path="mix" element={<Mixer />} />
             <Route path="track" element={<Track />} />
             <Route path="ranks" element={<Ranks />} />
+            <Route path="builder" element={<Builder />} />
           </Route>
           {/* Defensive fallback: HashRouter treats the WHOLE url hash as its
               routing namespace, so a plain in-page anchor like #methodology

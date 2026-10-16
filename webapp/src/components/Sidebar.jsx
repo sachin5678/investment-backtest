@@ -11,8 +11,10 @@ const ICON_TAX = "M6 4h12 M6 8h12 M16 4c0 5-4 7-10 7l9 9";
 const ICON_MIX = "M9.5 7a5 5 0 1 0 0 10a5 5 0 1 0 0-10 M14.5 7a5 5 0 1 0 0 10a5 5 0 1 0 0-10";
 const ICON_TRACK = "M3 8h18v12H3z M8 8V5h8v3 M3 13h18";
 const ICON_RANKS = "M4 6h2 M9 6h11 M4 12h2 M9 12h11 M4 18h2 M9 18h11";
+const ICON_BUILDER = "M4 21V14 M4 10V3 M12 21V12 M12 8V3 M20 21V16 M20 12V3 M1.5 14h5 M9.5 12h5 M17.5 16h5";
 
 const TOOLS = [
+  { label: "Builder lab", path: "/builder", icon: ICON_BUILDER },
   { label: "Strategy health", path: "/health", icon: ICON_HEALTH },
   { label: "Capital-gains tax", path: "/tax", icon: ICON_TAX },
   { label: "Multi-system mixer", path: "/mix", icon: ICON_MIX },

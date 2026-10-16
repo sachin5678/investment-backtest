@@ -7,6 +7,10 @@ import { ITEM_BY_ID } from "../data/reportsIndex";
 // header titles for the Tools routes (everything outside report/:id and
 // /compare, which derive their own titles from ITEM_BY_ID)
 const TOOL_TITLES = {
+  "/builder": {
+    title: "Builder Labs",
+    subtitle: "Reports 94–98 — MomentumScore's builder tabs (Protect, Conditions, Money, Pick), one knob at a time, then stacked",
+  },
   "/health": {
     title: "Strategy Health",
     subtitle: "MomentumScore's 10-target scorecard, applied to every series in the project",
