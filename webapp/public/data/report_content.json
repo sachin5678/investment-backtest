@@ -6075,8 +6075,8 @@
  },
  "91": {
   "title": "Midcap150 Momentum 10 — Gold-Strength Guard on Report 48",
-  "subtitle": "Report 48's exact design, with one change: during a risk-off period (NIFTY below its 200-day EMA), the hedge sleeve holds gold ONLY while gold itself passes two checks — its own 126-day (~6-month) return beats NIFTY's 126-day return, AND that return is positive. Whenever either check fails, the hedge sleeve sits in flat 0%-return cash instead of gold for that day. This guard never adds leverage or a third asset — it only ever replaces gold with cash — so any improvement has to come from avoiding gold's own bad stretches, not from gold earning something better.",
-  "source_line": "2009-01-02–2026-08-24 Report generated 2026-10-05 12:56",
+  "subtitle": "Report 48's exact design, with one change: during a risk-off period (NIFTY below its 200-day EMA), the hedge sleeve holds gold ONLY while gold itself passes two checks — its own 126-day (~6-month) return beats NIFTY's 126-day return, AND that return is positive. Whenever either check fails, the hedge sleeve sits in flat 0%-return cash instead of gold for that day. This guard never adds leverage or a third asset — it only ever replaces gold with cash — so any improvement has to come from avoiding gold's own bad stretches, not from gold earning something better.CORRECTED after report 99's timing audit — the first release of this page claimed +11.5pp of CAGR from an execution-timing artifact; every number below is the corrected one, and the lead panel explains what changed.",
+  "source_line": "2009-01-02–2026-10-15 Report generated 2026-10-17 17:51",
   "pages": [
    {
     "file": "91_midcap150_gold_strength_guard.html",
@@ -6085,14 +6085,15 @@
       "heading": null,
       "pills": [
        {
-        "kind": "positive",
-        "text": "11.5 points of extra CAGR, AND a shallower drawdown"
+        "kind": "assumption",
+        "text": "corrected — a timing fix removed a phantom +11.5pp; what remains is a small, real drawdown tool"
        }
       ],
       "what_this_shows": null,
       "paragraphs": [
-       "CAGR rises from +43.3% (report 48, unconditional gold) to +54.8% with the guard — and max drawdown improves too, from -23.4% to -20.0%. This is a genuine two-sided improvement, not a return bought with extra risk.",
-       "The mechanism moved 222 of 1026 regime-off days from gold into flat cash. The cash-block breakdown below shows exactly which historical periods those days came from — and it is NOT the periods an earlier, less careful pass through this idea assumed."
+       "As first published, this page showed CAGR jumping from ~43.3% to ~54.8% with the guard. That version was wrong: it credited the guard with gold (or flat cash) on the regime flip-off day itself — a day whose realized return in report 48 is still stocks, because the switch executes at that day's close — and its exit checks used the same day's close. On 2015-08-24 alone (−11.3% in stocks) the old code charged +1.2% gold. Report 99 (“Timing Audit — the Gold-Strength Guard's +11.5pp That Wasn't”) breaks this down day by day. Corrected, the honest numbers are:",
+       "CAGR +42.0% (report 48, unconditional gold) → +42.1% (+0.07pp — essentially unchanged), while max drawdown improves from -23.4% to -22.6% — a real but modest defensive edge, not a return engine.",
+       "Mechanically the guard still does what it was built to do: 247 of 1063 regime-off days sit in flat cash instead of gold, and the cash-block breakdown below shows which historical periods those days came from."
       ],
       "list_items": []
      },
@@ -6107,7 +6108,8 @@
       "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
       "paragraphs": [],
       "list_items": [
-       "Zero transaction costs on the extra gold↔cash switches this guard introduces beyond report 48's\n        own switching. Report 89 found even 0.1% slippage costs report 48 itself ~2.6 points of CAGR — this guard adds\n        MORE switch events than report 48 alone, and has not been cost-tested. The real improvement, after costs, is\n        almost certainly smaller than the headline number above.",
+       "Zero transaction costs on the extra gold↔cash switches this guard introduces beyond report 48's\n        own switching. At the corrected scale (+0.1pp CAGR, ~0.8pp drawdown), those costs plausibly absorb the CAGR part\n        entirely — treat the guard as a small drawdown tool, not a return one. Report 89 found even 0.1% slippage costs\n        report 48 itself ~2.6 points of CAGR.",
+       "Timing convention (the report 99 fix): every guard decision uses only data through the PRIOR\n        close, matching report 48's own close-execution convention — a day's realized return belongs to the state decided\n        at the previous close. The first release of this report used same-day information and overstated the effect by\n        roughly 100×; the corrected implementation lives in backtest91.build_gold_strength_guard, and report 99 quantifies\n        the before/after.",
        "The guard's \"beats NIFTY\" and \"is positive\" checks both use the same 126-day lookback —\n        this specific window wasn't tuned or compared against other lookback lengths here; a different window could\n        move the result in either direction.",
        "Flat cash earns literally 0% here, same convention as report 48's own cash-based variants —\n        a liquid fund or short-term debt instrument (reports 68/69/70 assumed ~6%) would likely improve this further,\n        untested in this report.",
        "Today's fixed Midcap150 constituent list is applied retroactively across the whole window\n        (survivorship bias). Equal weighting, no F&O-eligibility screen, unadjusted prices, no dividends modeled — same\n        as every other reconstruction here."
@@ -6119,8 +6121,8 @@
  },
  "92": {
   "title": "Gold-Strength Guard — Does It Hold Up on Every Rebalance Calendar?",
-  "subtitle": "Report 91 tested the gold-strength guard only on June/December, report 48's own calendar. Report 85 already asked whether the rebalance-month offset matters for report 48 itself; this asks the same question for report 91's guard — all six semi-annual calendars (Jun/Dec, Jul/Jan, Aug/Feb, Sep/Mar, Oct/Apr, Nov/May), same 200-day EMA regime filter, same guard mechanism (gold's own 126-day return must beat NIFTY's AND be positive, else flat cash) reused exactly as backtest91.py built it — nothing reimplemented.",
-  "source_line": "2009-02-27–2026-08-24 Report generated 2026-10-05 13:16",
+  "subtitle": "Report 91 tested the gold-strength guard only on June/December, report 48's own calendar. Report 85 already asked whether the rebalance-month offset matters for report 48 itself; this asks the same question for report 91's guard — all six semi-annual calendars (Jun/Dec, Jul/Jan, Aug/Feb, Sep/Mar, Oct/Apr, Nov/May), same 200-day EMA regime filter, same guard mechanism (gold's own 126-day return must beat NIFTY's AND be positive, else flat cash) reused exactly as backtest91.py built it — nothing reimplemented.CORRECTED by report 99: the first release reported +11.3–11.9pp per calendar from an execution-timing artifact; the corrected edge is ~+0.2pp per calendar, with drawdown equal or slightly better.",
+  "source_line": "2009-02-27–2026-10-15 Report generated 2026-10-17 17:54",
   "pages": [
    {
     "file": "92_midcap150_gold_strength_guard_calendars.html",
@@ -6129,13 +6131,14 @@
       "heading": null,
       "pills": [
        {
-        "kind": "positive",
-        "text": "Every calendar gains 11.3 to 11.9pp of CAGR, every one ends at -20.0% max drawdown"
+        "kind": "assumption",
+        "text": "every calendar: +0.20 to +0.21pp CAGR, drawdown equal or better — the old +11.3-11.9pp claim was a timing artifact (report 99)"
        }
       ],
       "what_this_shows": null,
       "paragraphs": [
-       "Report 91's result was not a June/December artifact. The guard improves CAGR on all six calendars by a tight, consistent band — +11.35pp to +11.91pp — and drawdown lands at exactly -20.0% regardless of which months the stock picks refresh in, suggesting the same single structural episode (not the calendar choice) sets the floor on how deep this design can draw down with the guard active."
+       "First published, this report showed the guard adding 11.3–11.9pp of CAGR on every single calendar. The flatness of that band was the tell: report 99 traced it to an execution-timing bug — the guard was collecting gold (or cash) on the regime flip-off day itself, whose realized return in report 48 is still stocks, and its exit checks used the same day's close. Corrected, the pattern that survives is still remarkably uniform — +0.20pp to +0.21pp across all six calendars — but small. The uniformity is real and explainable: the guard acts purely on the hedge leg, and the regime and gold inputs are identical on every calendar; only the stock re-selection changes.",
+       "Drawdown is unchanged on 4 of the six calendars and 0.43–0.79pp shallower on the other 2 (Jun/Dec and Aug/Feb) — a modest defensive edge at essentially zero CAGR cost, not the return engine the first release advertised."
       ],
       "list_items": []
      },
@@ -6150,7 +6153,8 @@
       "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
       "paragraphs": [],
       "list_items": [
-       "Same limitations as report 91 apply to every calendar here: zero transaction costs on the\n        guard's extra gold↔cash switches, the 126-day lookback wasn't tuned or compared against alternatives, and flat\n        cash earns literally 0% rather than a liquid-fund yield.",
+       "Same limitations as report 91 apply to every calendar here: zero transaction costs on the\n        guard's extra gold↔cash switches — and at the corrected scale (+0.2pp CAGR), those costs plausibly consume the\n        CAGR part entirely; the guard is best read as a free-to-cheap drawdown trim. The 126-day lookback wasn't\n        tuned or compared against alternatives, and flat cash earns literally 0% rather than a liquid-fund yield.",
+       "Timing convention: every guard decision here uses only data through the PRIOR close (report 99's\n        fix). The first release of this report used same-day information — most visibly, flipping the guard's position on\n        the same close that tripped the check — and its +11.3-11.9pp band was the artifact.",
        "This report's window (2009-02-27 onward) is narrower than report 91's own single-calendar\n        window (2009-01-02 onward) because it's restricted to the overlap across all six calendars' own first-valid-\n        rebalance dates at once — same convention report 85 used for report 48 itself.",
        "Today's fixed Midcap150 constituent list is applied retroactively across the whole window\n        (survivorship bias). Equal weighting, no F&O-eligibility screen, unadjusted prices, no dividends modeled — same\n        as every other reconstruction here."
       ]
@@ -6560,6 +6564,65 @@
       "what_this_shows": "Every knob of every variant as the engine saw it. The hero's card is report\n        93's configuration; run it through check_builder_regression.py to reproduce report 93 exactly.",
       "paragraphs": [],
       "list_items": []
+     }
+    ]
+   }
+  ]
+ },
+ "99": {
+  "title": "Timing Audit — the Gold-Strength Guard's +11.5pp That Wasn't",
+  "subtitle": "Reports 91/92 introduced a guard on report 48's hedge leg: during a risk-off period, hold gold only while gold's own ~6-month return beats NIFTY's and is positive — else sit in flat cash. The first release claimed the guard added 11.5–11.9 points of CAGR on every rebalance calendar and cut drawdown to −20.0%. This report recomputes the published logic exactly as it shipped, side by side with the corrected logic, on one identical window, and accounts for every rupee of the difference.",
+  "source_line": "2009-01-02–2026-10-15 Report generated 2026-10-17 17:58",
+  "pages": [
+   {
+    "file": "99_guard_timing_audit.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "negative",
+        "text": "same code, two timings: +11.86pp of CAGR collapses to +0.07pp"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "The published guard showed CAGR rising from +42.0% to +53.9% — a terminal multiple of 4.16× report 48. Corrected, the same guard produces +42.1% — 1.01×. Roughly all of the difference came from two classes of days where the published code used information it could not have had live: flip-off days (whose realized return in report 48 is still stocks — the switch executes at that day's close) and same-day exit checks (flat cash applied to the very close that tripped the check).",
+       "What survives is honest and small: +42.1% vs +42.0% (+0.07pp), with max drawdown improving +0.79pp (-23.4% → -22.6%). Reports 91 and 92 now publish these corrected numbers; this report is the audit trail.",
+       "One more page carried the same phantom: the earlier findings-round release of this idea (the \"Gold-Strength Guard Before Switching to Gold\" finding, f10) published the identical double-digit gains across Midcap150, Smallcap250 and NIFTY100, on the same flawed day-level masks. It has been regenerated with this fix — its Midcap150 top-10 \"both checks\" variant now reads 42.08% CAGR / −22.63% drawdown (report 48's own, same window: 42.01% / −23.42%), versus the 54.80% / −19.95% it published at its older data vintage — and across all nine universe/size variants the honest effect runs −0.2 to +0.9pp of CAGR with drawdown between 0.8pp better and 1.4pp worse."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "The arithmetic — every rupee accounted for",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "reconciliation"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "The two mechanisms touch disjoint sets of days, so their effects multiply: 1.90× (zeroing same-day-detected fail days — the \"small\" half) × 2.19× (resubstituting boundary and transition days with gold) = 4.16× — exactly the published terminal multiple. With both corrected, the guard's multiple over report 48 is 1.01×. Over a 2009-01-02–2026-10-15 window, a 4.16× head start compounds to the +11.86pp of CAGR that was published; 1.01× compounds to +0.07pp."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations & the general lesson",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [],
+      "list_items": [
+       "The corrected guard itself is not \"proven good\": +0.07pp of CAGR is inside\n        any plausible cost band, and −0.79pp of drawdown is a trim, not a transformation. Reports\n        91/92 now present it that way.",
+       "The rule this audit enforces project-wide: strategies that act at a day's close must be evaluated on\n        PRIOR-close information — a day's realized return belongs to the state decided at the previous close. Any day-level\n        substitution (hedge swaps, exit checks, recovery dodges) is exactly where this class of bug hides, and aggregate metrics\n        cannot see it — crash-day tables are the only way.",
+       "Zero transaction costs throughout, matching reports 91/92's own convention; the guard adds few extra\n        switch events (~247 flat days across 21-odd regime blocks), so costs do not change the\n        audit's conclusions about the artifact.",
+       "Same reconstruction caveats as everywhere in this project: today's fixed Midcap150 constituent list\n        applied retroactively (survivorship bias), equal weighting, unadjusted prices, no dividends."
+      ]
      }
     ]
    }

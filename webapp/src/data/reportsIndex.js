@@ -199,9 +199,10 @@ export const GROUPS = [
       { id: "88", file: "results87.json", icon: ICON_HOURGLASS, title: "Midcap150 Momentum 10 — Report 48, Execution Timing", subtitle: "3 PM isn't testable with daily bars; next-day-open costs a little CAGR, drawdown unchanged" },
       { id: "89", file: "results88.json", icon: ICON_COINS, title: "Midcap150 Momentum 10 — Report 48 With 0.1% Slippage", subtitle: "Costs 2.6 points of CAGR and makes the drawdown worse too, not just the return" },
       { id: "90", file: "results89.json", icon: ICON_RULER, title: "Midcap150 Momentum 10 — Report 48 With a 400-EMA Filter", subtitle: "Gold still beats cash on CAGR under the wider EMA, with the same drawdown protection" },
-      { id: "91", file: "results90.json", icon: ICON_SHIELD, title: "Midcap150 Momentum 10 — Gold-Strength Guard on Report 48", subtitle: "+11.5pp CAGR and a shallower drawdown; the benefit is spread thin, not from 2013/2021-22 as first assumed" },
-      { id: "92", file: "results91.json", icon: ICON_COMPASS, title: "Gold-Strength Guard — Does It Hold Up on Every Rebalance Calendar?", subtitle: "Not a Jun/Dec artifact — every one of the six calendars gains 11.3-11.9pp CAGR and lands at -20.0% DD" },
+      { id: "91", file: "results90.json", icon: ICON_SHIELD, title: "Midcap150 Momentum 10 — Gold-Strength Guard on Report 48", subtitle: "CORRECTED: +0.1pp CAGR and a 0.8pp shallower drawdown — the original +11.5pp came from an execution-timing bug (report 99)" },
+      { id: "92", file: "results91.json", icon: ICON_COMPASS, title: "Gold-Strength Guard — Does It Hold Up on Every Rebalance Calendar?", subtitle: "Corrected: ~+0.2pp CAGR on every calendar, drawdown equal or slightly better — the old +11.3-11.9pp band was the same timing bug (report 99)" },
       { id: "93", file: "results92.json", icon: ICON_FLASK, title: "MomentumScore-Style Review — Exit Rank 52", subtitle: "Fit ranks, exit-rank hysteresis, costs, tax, health & robustness — the whole review layer on report 48's design" },
+      { id: "99", file: "results98.json", icon: ICON_STOPWATCH, title: "Gold-Strength Guard — Timing Audit (the +11.5pp That Wasn't)", subtitle: "The published edge came from same-day information; corrected, the guard adds +0.1pp CAGR and 0.8pp of drawdown — reports 91 and 92 republished" },
     ],
   },
   {
@@ -226,7 +227,7 @@ export const GROUPS = [
       { id: "f7", file: "results_find_sweep.json", icon: ICON_LAYERS, title: "Full Sweep: EMA Span × Confirmation × Hedge Asset", subtitle: "Span, confirm-days, asset (gold/silver/liquid fund/midcap), full-vs-half allocation — 160 variants, top-16 plotted" },
       { id: "f8", file: "results_find_weekly.json", icon: ICON_COMPASS, title: "Weekly-Bar EMA Regime Signal", subtitle: "Below weekly 50/100/200 EMA flips to gold/half-blend; weekly-any signal is close to daily-200 but with fewer whipsaws" },
       { id: "f9", file: "results_find_universe.json", icon: ICON_GRID, title: "Round-1 Logic on Smallcap/Nifty100 × Basket 5/10/15", subtitle: "Dip-buy and overextended-exit hooks keep failing on every universe and basket size" },
-      { id: "f10", file: "results_find_goldguard2.json", icon: ICON_SHIELD, title: "Gold-Strength Guard Before Switching to Gold", subtitle: "Risk-off switches to gold only when gold 6m > NIFTY 6m or gold 6m > 0 — improves CAGR across all universes/baskets" },
+      { id: "f10", file: "results_find_goldguard2.json", icon: ICON_SHIELD, title: "Gold-Strength Guard Before Switching to Gold", subtitle: "Corrected by report 99: the +11pp was a same-day timing artifact — honestly −0.2 to +0.9pp CAGR depending on the check, drawdown 0.8pp better to 1.4pp worse" },
     ],
   },
 ];
