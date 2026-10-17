@@ -4,6 +4,17 @@ mask shortcut used in wild8). The standard r48 series is exactly the
 built-in event loop; the guard variants only modify what the same
 state machine HOLDS during its own "cash" (risk-off) days — gold
 when strong, flat cash otherwise.
+
+TIMING CORRECTION (report 99 — same fix as backtest91.py): the first
+release of this file decided the guard's position for a day using THAT
+day's own close — unattainable live, and worth ~+11pp of phantom CAGR
+across every universe here, because the day the regime flips to cash
+is still realized as stocks (the flip executes at that day's close),
+and the exit check was allowed to dodge the very close that tripped
+it. Corrected to a prior-close convention: the guard sits in flat cash
+only when the PRIOR close showed the regime off AND the PRIOR close's
+gold checks failing. The honest edge is small — a few tenths of a pp
+of CAGR at most, plus a modest drawdown trim.
 """
 import json
 
@@ -73,25 +84,27 @@ def main():
             # days `guarded` is byte-for-byte identical to report48_standard.
             # The guard only ever overrides a CASH day's return below.
             rets = r48w.pct_change().fillna(0.0)
-            gold_rets = gold_aligned.reindex(r48w.index).ffill().pct_change().fillna(0.0)
 
             strong1 = (g6 > n6).reindex(r48w.index).fillna(False)
             strong2 = (g6 > 0).reindex(r48w.index).fillna(False)
             strong_both = strong1 & strong2
 
+            # Prior-close convention (report 99): day i's position is what
+            # was decided at day i-1's close, matching the event loop's own
+            # close-execution flip.
+            cash_prev = is_cash.shift(1).fillna(False).astype(bool)
+
             def build_guarded(strong_mask):
-                """During cash days: hold gold iff strong else flat cash
-                (0%) -- report 48 itself always holds gold on a cash day,
-                so the "strong" branch just reproduces rets unchanged and
-                only the "weak" branch actually changes anything. During
-                invested days: r48's own real returns, untouched. The
-                state machine itself (when it flips cash<->invested) is
-                unchanged from report 48."""
+                """Corrected timing: flat cash (0%) only when the PRIOR
+                close showed the regime off AND the PRIOR close's gold
+                checks failing; every other day keeps r48's own realized
+                return untouched (on a held-cash day that return is gold
+                already, so no substitution is needed). The state machine
+                itself (when it flips cash<->invested) is unchanged from
+                report 48."""
+                strong_prev = strong_mask.reindex(rets.index).fillna(False).astype(bool).shift(1).fillna(False).astype(bool)
                 guarded = rets.copy()
-                cash_gold = is_cash & strong_mask.reindex(rets.index).fillna(False)
-                cash_flat = is_cash & (~strong_mask.reindex(rets.index).fillna(False))
-                guarded[cash_gold] = gold_rets[cash_gold]
-                guarded[cash_flat] = 0.0
+                guarded[cash_prev & (~strong_prev)] = 0.0
                 return (1 + guarded).cumprod() * 100
 
             m48 = metrics_only(r48w, orig_idx)
