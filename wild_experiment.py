@@ -1,6 +1,11 @@
 """Wild combinations on report 48's design (200-EMA NIFTY regime
 filter, gold in risk-off). All variants hold gold instead of cash;
 the stock portfolio only differs in WHEN it gets switched in/out.
+
+Variants G/H were corrected 2026-10-17 (report 99 methodology): their
+cash-substitution masks now use the prior close only. The first release
+read gold's trend with the same day's close and substituted the same
+day's return, worth a phantom ~+10pp of CAGR (see report 99).
 """
 import pandas as pd
 import numpy as np
@@ -171,38 +176,41 @@ def main():
     variants["F. 200EMA + 40% breadth entry gate"] = run(closes, nifty_close, sig_f, rbdates, select_top_original, gold_aligned)
 
     # G. Nested: risk-off -> gold, unless gold itself is below ITS 200-EMA -> cash
+    # (corrected 2026-10-17, report 99 methodology: every check below is
+    #  evaluated on the PRIOR close only. The first release read gold's trend
+    #  with the same day's close and substituted the same day's return, a
+    #  phantom ~+10pp of CAGR — the reports 91/92 / f10 artifact class.)
     gold_ema200 = gold_aligned.ewm(span=200, adjust=False).mean()
     def sig_g(i, state, aux):
         risk_off = nifty_close.iloc[i] < ema200.iloc[i]
         if not risk_off:
             return "invested", aux
-        g_ok = gold_aligned.iloc[i] > gold_ema200.iloc[i]
-        aux["cash_mode"] = not g_ok
         return "cash", aux
-    # needs the cash_mode to be honored — wrap hedge value in run? simpler: post-scale
     s7 = run(closes, nifty_close, sig_g, rbdates, select_top_original, gold_aligned)
-    # patch: in risk-off AND gold<its ema200 periods, hold flat 0% instead of gold return
+    # the gold-vs-its-200EMA condition is applied post-scale, on PRIOR-close
+    # states: risk-off periods where gold was below its 200-EMA at the prior
+    # close hold flat 0% instead of gold's return
     ret_g = gold_aligned.pct_change().fillna(0.0)
-    mask_cash = (nifty_close < ema200) & (gold_aligned < gold_ema200)
+    risk_off_prev = (nifty_close < ema200).shift(1).fillna(False)
+    mask_cash = risk_off_prev & (gold_aligned < gold_ema200).shift(1).fillna(False)
     ret_g_adj = ret_g.mask(mask_cash, 0.0).fillna(0.0)
     base = s7.pct_change().fillna(0.0)
-    in_gold = (nifty_close < ema200).reindex(s7.index).fillna(False)
+    in_gold = risk_off_prev.reindex(s7.index).fillna(False)
     adj_ret = base.where(~in_gold, ret_g_adj.reindex(s7.index).fillna(0.0))
     variants["G. risk-off gold, but cash if gold<its 200EMA"] = (1 + adj_ret).cumprod() * 100.0
 
     # H. Momentum card: during risk-off hold gold ONLY if gold's 6m return
-    #    beats NIFTY's 6m return, else cash
+    #    beats NIFTY's 6m return, else cash (same prior-close correction)
     g6 = gold_aligned.pct_change(126); n6 = nifty_close.pct_change(126)
     def sig_h(i, state, aux):
         risk_off = nifty_close.iloc[i] < ema200.iloc[i]
         if not risk_off:
             return "invested", aux
-        aux["gold_ok"] = bool(g6.iloc[i] > n6.iloc[i])
         return "cash", aux
     s8 = run(closes, nifty_close, sig_h, rbdates, select_top_original, gold_aligned)
-    mask_cash_h = (nifty_close < ema200) & (g6 < n6)
+    mask_cash_h = risk_off_prev & (g6 < n6).shift(1).fillna(False)
     base8 = s8.pct_change().fillna(0.0)
-    in_gold8 = (nifty_close < ema200).reindex(s8.index).fillna(False)
+    in_gold8 = risk_off_prev.reindex(s8.index).fillna(False)
     ret_g_adj8 = ret_g.mask(mask_cash_h, 0.0).fillna(0.0)
     adj_ret8 = base8.where(~in_gold8, ret_g_adj8.reindex(s8.index).fillna(0.0))
     variants["H. risk-off gold only if gold 6m > NIFTY 6m"] = (1 + adj_ret8).cumprod() * 100.0

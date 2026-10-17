@@ -121,6 +121,14 @@ def build():
           it published at its older data vintage — and across all nine universe/size variants the honest effect runs
           −0.2 to +0.9pp of CAGR with drawdown between 0.8pp better and 1.4pp worse.
         </p>
+        <p class="text-[14px] text-[#E6EDF0] leading-relaxed mt-3">
+          A second findings page, "Wild Combinations on Report 48" (f3), carried the same class of phantom: its two
+          gold-trend-filter variants (G/H) were that batch's headline at 53.2% / 53.5% CAGR, having read gold's own trend with
+          each day's close and substituted the same day's return on the very close that tripped the check. Corrected to the
+          prior-close convention they land at 43.21% / −22.6% and 42.90% / −23.2% (report 48's own, same window:
+          42.01% / −23.42%) — real but small: +1.2pp and +0.9pp of CAGR with drawdowns 0.2–0.8pp shallower. The page and
+          its results file have been regenerated.
+        </p>
       </div>
     </div>
     """

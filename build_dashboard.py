@@ -314,7 +314,7 @@ GROUPS = [
             {"id": "f2", "file": "opencode_ideas_overextended.html", "icon": ICON_SHIELD_OFF,
              "title": "Overextended-Exit Override on Report 48", "subtitle": "Gold when NIFTY ≥15% above its 200-EMA — tried, much worse"},
             {"id": "f3", "file": "opencode_ideas_wild.html", "icon": ICON_FLASK,
-             "title": "Wild Combinations on Report 48", "subtitle": "Gold filtered by its own 200-EMA doubles CAGR; vol/drawdown triggers fail"},
+             "title": "Wild Combinations on Report 48", "subtitle": "The published 'doubles CAGR' edge came from same-day information; corrected, the gold-trend filter adds +0.9–1.2pp of CAGR and 0.2–0.8pp of drawdown — page regenerated"},
         ],
     },
 ]

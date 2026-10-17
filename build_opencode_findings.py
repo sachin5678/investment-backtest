@@ -3,6 +3,10 @@ opencode_ideas_dipbuy.html, opencode_ideas_overextended.html,
 opencode_ideas_wild.html. Numbers are the already-produced experiment
 outputs (dipbuy_experiment.py, overextended_experiment.py,
 wild_experiment.py on the regenerated caches, 2026-10-01 window).
+
+The wild page was republished 2026-10-17 from a corrected re-run:
+variants G/H's cash-substitution masks use the prior close only (report
+99 methodology) and every wild row reflects the 2026-10-17 data window.
 """
 
 TAILWIND_CDN = '<script src="https://cdn.tailwindcss.com"></script>'
@@ -93,23 +97,23 @@ novarden = page(
 
 # ---------- wild page ----------
 wild_rows = [
-    ("hl", ["G. Risk-off → gold, but flat cash if gold < its own 200-EMA", "53.22%", "-20.0%"]),
-    ("hl", ["H. Risk-off → gold only if gold 6m > NIFTY 6m", "53.48%", "-20.0%"]),
-    ("", ["A. Exit < NIFTY 100-EMA, re-enter > 200-EMA", "42.25%", "-23.1%"]),
-    ("", ["B. Stocks only above both 50 & 200 EMA", "41.21%", "-27.4%"]),
-    ("", ["E. 200-EMA with 3-day confirmation both sides", "39.28%", "-31.4%"]),
-    ("", ["F. 200-EMA + breadth entry gate (≥40%)", "38.76%", "-26.6%"]),
-    ("", ["Report 48 (standard)", "42.23%", "-23.4%"]),
-    ("bad", ["D. -8% from 252d high → gold, back at -3%", "31.53%", "-21.2%"]),
-    ("bad", ["C. Volatility >20% → gold, <15% → stocks", "28.67%", "-34.7%"]),
-    ("", ["No filter", "40.07%", "-35.1%"]),
+    ("hl", ["G. Risk-off → gold, but flat cash if gold < its own 200-EMA", "43.21%", "-22.6%"]),
+    ("hl", ["H. Risk-off → gold only if gold 6m > NIFTY 6m", "42.90%", "-23.2%"]),
+    ("", ["A. Exit < NIFTY 100-EMA, re-enter > 200-EMA", "42.03%", "-23.1%"]),
+    ("", ["B. Stocks only above both 50 & 200 EMA", "40.99%", "-27.4%"]),
+    ("", ["E. 200-EMA with 3-day confirmation both sides", "39.07%", "-31.4%"]),
+    ("", ["F. 200-EMA + breadth entry gate (≥40%)", "38.55%", "-26.6%"]),
+    ("", ["Report 48 (standard)", "42.01%", "-23.4%"]),
+    ("bad", ["D. -8% from 252d high → gold, back at -3%", "31.35%", "-21.2%"]),
+    ("bad", ["C. Volatility >20% → gold, <15% → stocks", "28.52%", "-34.7%"]),
+    ("", ["No filter", "39.88%", "-35.1%"]),
 ]
 wild_html = page(
     "Opencode Finding — Wild Combinations on Report 48",
-    "A batch of untested-in-this-project regime rules on report 48's skeleton. The big finding: filtering the gold sleeve by gold's own trend (G/H) roughly doubles CAGR vs. report 48 within this framework. The rest are neutral-to-worse.",
+    "CORRECTED 2026-10-17 (report 99 methodology). The first release of this page claimed filtering the gold sleeve by gold's own trend (G/H) roughly doubles CAGR — 53.2%/53.5% — but that was a same-day timing artifact: both variants evaluated the gold checks on each day's own close and substituted that same day's return. Corrected to a prior-close convention, G/H add +1.2pp/+0.9pp of CAGR over report 48; the rest are neutral-to-worse.",
     [panel("Result", table(["Variant", "CAGR", "Max DD"], wild_rows)),
-     panel("Why G/H work", "<p class='text-[13.5px] text-[#C9D6DA] leading-relaxed'>They stack a second trend filter on the gold sleeve itself: hold gold during equity risk-off only while gold is in its own uptrend, else sit flat. This dodges gold's own crashes (2013, 2021–22) which often coincide with equity risk-off windows. (A standalone gold-filtered-by-its-own-200-EMA-vs-buy-and-hold number was claimed here in an earlier draft but didn't trace to any computed result — removed rather than left unverified. Report f10's gold-strength guard, built on the real report-48 event loop, is the properly audited version of this idea.)</p>",
-           "Caveats: same-day-close signal convention as every other report here, no transaction costs on gold↔cash switches, ~1240 usable gold days. Worth a full audited numbered report before trusting the 53% headline.")],
+     panel("Why G/H help (and by how little)", "<p class='text-[13.5px] text-[#C9D6DA] leading-relaxed'>They stack a second trend filter on the gold sleeve itself: hold gold during equity risk-off only while gold is in its own uptrend, else sit flat — dodging gold's own crashes (2013, 2021–22) when they coincide with equity risk-off. Corrected, that refinement is worth +1.2pp (G) / +0.9pp (H) of CAGR over report 48, with max drawdowns 0.8pp / 0.2pp shallower. The published 53.2%/53.5% made roughly +10pp of the headline unliveable — the same artifact class as reports 91/92 and finding f10; the full audit is report 99. (A standalone gold-filtered-by-its-own-200-EMA-vs-buy-and-hold number was claimed here in an earlier draft but didn't trace to any computed result — removed rather than left unverified. Report f10's gold-strength guard, built on the real report-48 event loop, is the properly audited version of this idea.)</p>",
+           "Caveats: every row on this page shares the 2026-10-17 data window and the prior-close convention (corrected — see report 99); no transaction costs on gold↔cash switches, ~1240 usable gold days. The corrected G/H margins of +0.9–1.2pp of CAGR over report 48 are cost-sensitive, and a variant to audit — not a numbered report.")],
 )
 
 with open("opencode_ideas_dipbuy.html", "w", encoding="utf-8") as f:

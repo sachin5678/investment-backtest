@@ -1,6 +1,12 @@
 """Emits the three Opencode-findings series files (results_find_*.json)
 in the standard results*.json convention every other report uses, so
-the webapp renders them with the normal KPI table + charts."""
+the webapp renders them with the normal KPI table + charts.
+
+Wild G/H were corrected 2026-10-17 (report 99 methodology): their first
+release checked gold's own trend with the SAME day's close and substituted
+the SAME day's return, the execution-timing artifact reports 91/92 and
+finding f10 also carried. Decisions now use the prior close only.
+"""
 import json
 
 import pandas as pd
@@ -124,6 +130,11 @@ def main():
         return ("invested" if aux.get("breadth_ok") else "cash"), aux
     m["F_breadth_40pct_entry_gate"] = run_wild(closes, nifty_close, sig_f, rbdates, select_top_original, gold_aligned)
 
+    # G/H (corrected 2026-10-17, report 99 methodology): the first release
+    # read gold's own trend (and the 6m momentum check) with the SAME day's
+    # close, and substituted the SAME day's return — the gold sleeve got to
+    # retro-collect crash-day returns on the very close that tripped the
+    # check. Every decision below now uses the PRIOR close only.
     gold_ema200 = gold_aligned.ewm(span=200, adjust=False).mean()
     def sig_g(i, state, aux):
         if nifty_close.iloc[i] >= ema.iloc[i]:
@@ -132,8 +143,10 @@ def main():
     s7 = run_wild(closes, nifty_close, sig_g, rbdates, select_top_original, gold_aligned)
     ret7 = s7.pct_change().fillna(0.0)
     ret_g = gold_aligned.pct_change().fillna(0.0)
-    mask_cash = (nifty_close < ema) & (gold_aligned < gold_ema200)
-    in_gold = (nifty_close < ema).reindex(s7.index).fillna(False)
+    risk_off_prev = (nifty_close < ema).shift(1).fillna(False)
+    gold_fail_prev = (gold_aligned < gold_ema200).shift(1).fillna(False)
+    mask_cash = risk_off_prev & gold_fail_prev
+    in_gold = risk_off_prev.reindex(s7.index).fillna(False)
     adj_ret = ret7.where(~in_gold, ret_g.mask(mask_cash, 0.0).reindex(s7.index).fillna(0.0))
     m["G_gold_only_when_gold_above_its_200ema"] = (1 + adj_ret).cumprod() * 100.0
 
@@ -144,8 +157,9 @@ def main():
         return "cash", aux
     s8 = run_wild(closes, nifty_close, sig_h, rbdates, select_top_original, gold_aligned)
     ret8 = s8.pct_change().fillna(0.0)
-    mask_cash_h = (nifty_close < ema) & (g6 < n6)
-    in_gold8 = (nifty_close < ema).reindex(s8.index).fillna(False)
+    momentum_fail_prev = (g6 < n6).shift(1).fillna(False)
+    mask_cash_h = risk_off_prev & momentum_fail_prev
+    in_gold8 = risk_off_prev.reindex(s8.index).fillna(False)
     adj_ret8 = ret8.where(~in_gold8, ret_g.mask(mask_cash_h, 0.0).reindex(s8.index).fillna(0.0))
     m["H_gold_only_when_gold6m_beats_nifty6m"] = (1 + adj_ret8).cumprod() * 100.0
 
