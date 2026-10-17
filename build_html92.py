@@ -86,7 +86,7 @@ def build():
       <div class="flex items-start justify-between gap-6">
         <div>
           <h1 class="text-2xl font-bold text-[#E6EDF0]">Gold-Strength Guard — Does It Hold Up on Every Rebalance Calendar?</h1>
-          <p class="text-[#9FB4BB] text-sm mt-1">Report 91 tested the gold-strength guard only on June/December, report 48's own calendar. Report 85 already asked whether the rebalance-month offset matters for report 48 itself; this asks the same question for report 91's guard — all six semi-annual calendars (Jun/Dec, Jul/Jan, Aug/Feb, Sep/Mar, Oct/Apr, Nov/May), same {span}-day EMA regime filter, same guard mechanism (gold's own {lookback}-day return must beat NIFTY's AND be positive, else flat cash) reused exactly as backtest91.py built it — nothing reimplemented.</p>
+          <p class="text-[#9FB4BB] text-sm mt-1">Report 91 tested the gold-strength guard only on June/December, report 48's own calendar. Report 85 already asked whether the rebalance-month offset matters for report 48 itself; this asks the same question for report 91's guard — all six semi-annual calendars (Jun/Dec, Jul/Jan, Aug/Feb, Sep/Mar, Oct/Apr, Nov/May), same {span}-day EMA regime filter, same guard mechanism (gold's own {lookback}-day return must beat NIFTY's AND be positive, else flat cash) reused exactly as backtest91.py built it — nothing reimplemented. <span class="text-[#F2B03C] font-semibold">CORRECTED by report 99: the first release reported +11.3–11.9pp per calendar from an execution-timing artifact; the corrected edge is ~+0.2pp per calendar, with drawdown equal or slightly better.</span></p>
         </div>
         <div class="text-right {MUTED} mono shrink-0">
           {esc(R['start_date'])}–{esc(R['end_date'])}<br/>Report generated {esc(R['generated'])}
@@ -95,17 +95,26 @@ def build():
     </header>
     """
 
+    dd_improved = [d for d in dd_diffs if d > 0.05]
     lead_disclosure = f"""
     <div class="px-10 pt-6">
-      <div class="{PANEL} border-2 border-[#37F083]">
+      <div class="{PANEL} border-2 border-[#F2B03C]">
         <div class="flex items-center gap-2 mb-3 flex-wrap">
-          {pill(f'Every calendar gains {min(cagr_diffs):.1f} to {max(cagr_diffs):.1f}pp of CAGR, every one ends at -20.0% max drawdown', 'positive')}
+          {pill(f'every calendar: +{min(cagr_diffs):.2f} to +{max(cagr_diffs):.2f}pp CAGR, drawdown equal or better — the old +11.3-11.9pp claim was a timing artifact (report 99)', 'assumption')}
         </div>
+        <p class="text-[14px] text-[#E6EDF0] leading-relaxed mb-3">
+          First published, this report showed the guard adding 11.3–11.9pp of CAGR on every single calendar. The flatness of
+          that band was the tell: report 99 traced it to an execution-timing bug — the guard was collecting gold (or cash) on
+          the regime flip-off day itself, whose realized return in report 48 is still stocks, and its exit checks used the same
+          day's close. Corrected, the pattern that survives is <span class="font-semibold">still remarkably uniform</span> —
+          {min(cagr_diffs):+.2f}pp to {max(cagr_diffs):+.2f}pp across all six calendars — but small. The uniformity is real
+          and explainable: the guard acts purely on the hedge leg, and the regime and gold inputs are identical on every
+          calendar; only the stock re-selection changes.
+        </p>
         <p class="text-[14px] text-[#E6EDF0] leading-relaxed">
-          Report 91's result was not a June/December artifact. The guard improves CAGR on all six calendars by a tight,
-          consistent band — {min(cagr_diffs):+.2f}pp to {max(cagr_diffs):+.2f}pp — and drawdown lands at exactly -20.0%
-          regardless of which months the stock picks refresh in, suggesting the same single structural episode (not the
-          calendar choice) sets the floor on how deep this design can draw down with the guard active.
+          Drawdown is unchanged on {len(rows) - len(dd_improved)} of the six calendars and {min(dd_improved):.2f}–{max(dd_improved):.2f}pp
+          shallower on the other {len(dd_improved)} (Jun/Dec and Aug/Feb) — a modest defensive edge at essentially zero CAGR
+          cost, not the return engine the first release advertised.
         </p>
       </div>
     </div>
@@ -135,9 +144,9 @@ def build():
     """
 
     kpis = [
-        kpi_card("CAGR improvement range across all six calendars", "The guard's CAGR gain over report 48, min to max across every calendar tested.",
+        kpi_card("CAGR improvement range across all six calendars", "The guard's CAGR gain over report 48, min to max across every calendar tested — small but present everywhere (the old +11.3-11.9pp band was a timing artifact; see report 99).",
                   [("Smallest gain", pp(min(cagr_diffs)), "positive"), ("Largest gain", pp(max(cagr_diffs)), "positive")]),
-        kpi_card("Drawdown improvement range across all six calendars", "The guard's drawdown improvement over report 48 (positive = shallower), min to max.",
+        kpi_card("Drawdown improvement range across all six calendars", "The guard's drawdown improvement over report 48 (positive = shallower), min to max. Zero means exactly unchanged.",
                   [("Smallest improvement", pp(min(dd_diffs)), "positive"), ("Largest improvement", pp(max(dd_diffs)), "positive")]),
     ]
     kpi_grid = f'<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">{"".join(kpis)}</div>'
@@ -151,8 +160,12 @@ def build():
       <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — every simplification behind this backtest.</p>
       <ul class="text-[13px] text-[#C9D6DA] list-disc pl-5 leading-relaxed">
         <li class="mb-1.5">Same limitations as report 91 apply to every calendar here: zero transaction costs on the
-        guard's extra gold↔cash switches, the 126-day lookback wasn't tuned or compared against alternatives, and flat
-        cash earns literally 0% rather than a liquid-fund yield.</li>
+        guard's extra gold↔cash switches — and at the corrected scale (+0.2pp CAGR), those costs plausibly consume the
+        CAGR part entirely; the guard is best read as a free-to-cheap drawdown trim. The {lookback}-day lookback wasn't
+        tuned or compared against alternatives, and flat cash earns literally 0% rather than a liquid-fund yield.</li>
+        <li class="mb-1.5">Timing convention: every guard decision here uses only data through the PRIOR close (report 99's
+        fix). The first release of this report used same-day information — most visibly, flipping the guard's position on
+        the same close that tripped the check — and its +11.3-11.9pp band was the artifact.</li>
         <li class="mb-1.5">This report's window (2009-02-27 onward) is narrower than report 91's own single-calendar
         window (2009-01-02 onward) because it's restricted to the overlap across all six calendars' own first-valid-
         rebalance dates at once — same convention report 85 used for report 48 itself.</li>
@@ -173,7 +186,7 @@ def build():
     </div>
     """
     return f"""<!doctype html>
-<html lang="en"><head><meta charset="utf-8"/><title>Gold-Strength Guard — Calendar Sensitivity</title>
+<html lang="en"><head><meta charset="utf-8"/><title>Gold-Strength Guard — Calendar Sensitivity (Corrected)</title>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 {TAILWIND_CDN}
 {base_style()}

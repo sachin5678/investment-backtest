@@ -13,24 +13,20 @@ asked. But gold has its own bear markets (2013's taper-tantrum selloff,
 2021-22's correction) that can and do coincide with equity weakness, so
 "gold always protects you when stocks don't" is itself an unverified
 assumption. This guard only ever REPLACES gold with flat cash — it never
-adds leverage or a third asset — so any improvement has to come from
-avoiding gold's own bad stretches, not from gold earning something
-better.
+adds leverage or a third asset.
 
-CORRECTNESS NOTE (why this file exists as a clean numbered report rather
-than just trusting the earlier exploratory sweep): an earlier
-"Opencode"-contributed version of this same idea (wild8_goldguard_
-universe.py) computed the "invested" leg from build_index_generic's
-plain buy-and-hold index rather than from report 48's own real event
-loop — those two diverge after any regime re-entry, since report 48
-freshly reselects its top-10 on re-entry while the plain index just
-keeps holding whatever it picked at the last scheduled rebalance. A
-follow-up fix (wild9_eventloop_guard.py) corrected the CASH-day timing
-but was still found, on review, to source invested-day returns from the
-same wrong series. This file is the properly audited version: every
-single invested day's return comes directly from report 48's own
-build_index_regime_filtered_with_hedge() output — nothing is
-reimplemented or approximated.
+TIMING CORRECTION (report 99 — read it alongside this file): the FIRST
+release of this guard (reports 91/92) contained an execution-timing bug
+and claimed +11.5pp of CAGR. It substituted returns on the CURRENT day
+using the CURRENT day's close, and it treated the regime flip-off day as
+a 'cash' day even though report 48's event loop still realizes STOCKS on
+that day (the switch executes at that day's close). Net effect: the
+guard retroactively collected gold (or 0%) on equity crash days like
+2015-08-24 (-11.3%) and 2022-02-24 (-6.2%). Corrected to a prior-close
+convention, the guard's edge over report 48 is ~+0.1pp CAGR and a
+modestly shallower drawdown — the crash days a guard can honestly dodge
+are only the ones AFTER the close that trips it. backtest99.py /
+audit_gold_guard_timing.py reproduce the before/after numbers.
 """
 import json
 
@@ -52,15 +48,29 @@ def is_cash_panel(state_log, index):
 
 
 def build_gold_strength_guard(closes, nifty_close, ema, rbdates, select_fn, gold_aligned, lookback_days=GOLD_LOOKBACK_DAYS):
-    """The properly-audited gold-strength guard on top of report 48's own
-    event loop: r48 and its state_log come directly from
-    build_index_regime_filtered_with_hedge, every invested day's return is
-    r48's own realized return (never approximated), and the guard only
-    ever overrides a CASH day -- hold gold if gold's own `lookback_days`
-    return beats NIFTY's AND is positive, else flat 0% cash. Returns
-    (guarded_series, r48_series, r48_log, is_cash, cash_and_fail) so
-    callers (this file's own report, and the master comparison table)
-    can share one implementation instead of two."""
+    """The CORRECTED gold-strength guard on top of report 48's own event
+    loop: r48 and its state_log come directly from
+    build_index_regime_filtered_with_hedge, and every day's return is
+    r48's own realized return unless the guard was legitimately in flat
+    cash: the PRIOR close showed the regime off AND the PRIOR close's
+    gold checks failing. That day earns 0% instead of gold.
+
+    Execution timing (the report 99 fix): build_index_regime_filtered_
+    with_hedge flips state at a day's CLOSE using that day's close data,
+    so a day's realized return belongs to the state logged at the PRIOR
+    close. The first-release version of this function checked and
+    substituted the CURRENT day — letting the guard retro-collect gold
+    or cash on the flip-off day itself (an equity crash day like
+    2015-08-24, -11.3%, whose realized return is still stocks), and
+    idling flat cash on days whose own close was what tripped the check
+    (e.g. gold's -7.6% day 2013-04-15). Both used same-day information a
+    live trader never has. See backtest99.py for the before/after.
+
+    Returns (guarded_series, r48_series, r48_log, is_cash, cash_and_fail)
+    so callers (this report, backtest92, and the master comparison)
+    share one implementation. cash_and_fail = the days actually held in
+    flat cash (prior-close state = cash AND prior-close checks failing).
+    """
     r48, _, r48_log = build_index_regime_filtered_with_hedge(closes, nifty_close, ema, rbdates, select_fn, gold_aligned)
     is_cash = is_cash_panel(r48_log, r48.index)
 
@@ -68,13 +78,14 @@ def build_gold_strength_guard(closes, nifty_close, ema, rbdates, select_fn, gold
     nifty6 = nifty_close.pct_change(lookback_days)
     guard_passes = (gold6 > nifty6).reindex(r48.index).fillna(False) & (gold6 > 0).reindex(r48.index).fillna(False)
 
-    rets = r48.pct_change().fillna(0.0)
-    gold_rets = gold_aligned.reindex(r48.index).ffill().pct_change().fillna(0.0)
+    # Prior-close convention — day i's position is what was decided at
+    # day i-1's close, matching r48's own close-execution flip.
+    cash_prev = is_cash.shift(1).fillna(False).astype(bool)
+    pass_prev = guard_passes.shift(1).fillna(False).astype(bool)
+    cash_and_fail = cash_prev & (~pass_prev)
 
-    cash_and_pass = is_cash & guard_passes
-    cash_and_fail = is_cash & (~guard_passes)
+    rets = r48.pct_change().fillna(0.0)
     guarded_rets = rets.copy()
-    guarded_rets[cash_and_pass] = gold_rets[cash_and_pass]
     guarded_rets[cash_and_fail] = 0.0
     guarded_series = (1 + guarded_rets).cumprod() * 100
 

@@ -90,7 +90,7 @@ def build():
       <div class="flex items-start justify-between gap-6">
         <div>
           <h1 class="text-2xl font-bold text-[#E6EDF0]">Midcap150 Momentum 10 — Gold-Strength Guard on Report 48</h1>
-          <p class="text-[#9FB4BB] text-sm mt-1">Report 48's exact design, with one change: during a risk-off period (NIFTY below its {span}-day EMA), the hedge sleeve holds gold ONLY while gold itself passes two checks — its own {lookback}-day (~6-month) return beats NIFTY's {lookback}-day return, AND that return is positive. Whenever either check fails, the hedge sleeve sits in flat 0%-return cash instead of gold for that day. This guard never adds leverage or a third asset — it only ever replaces gold with cash — so any improvement has to come from avoiding gold's own bad stretches, not from gold earning something better.</p>
+          <p class="text-[#9FB4BB] text-sm mt-1">Report 48's exact design, with one change: during a risk-off period (NIFTY below its {span}-day EMA), the hedge sleeve holds gold ONLY while gold itself passes two checks — its own {lookback}-day (~6-month) return beats NIFTY's {lookback}-day return, AND that return is positive. Whenever either check fails, the hedge sleeve sits in flat 0%-return cash instead of gold for that day. This guard never adds leverage or a third asset — it only ever replaces gold with cash — so any improvement has to come from avoiding gold's own bad stretches, not from gold earning something better. <span class="text-[#F2B03C] font-semibold">CORRECTED after report 99's timing audit — the first release of this page claimed +11.5pp of CAGR from an execution-timing artifact; every number below is the corrected one, and the lead panel explains what changed.</span></p>
         </div>
         <div class="text-right {MUTED} mono shrink-0">
           {esc(R['start_date'])}–{esc(R['end_date'])}<br/>Report generated {esc(R['generated'])}
@@ -101,20 +101,28 @@ def build():
 
     lead_disclosure = f"""
     <div class="px-10 pt-6">
-      <div class="{PANEL} border-2 border-[#37F083]">
+      <div class="{PANEL} border-2 border-[#F2B03C]">
         <div class="flex items-center gap-2 mb-3 flex-wrap">
-          {pill(f'{guard["cagr_pct"]-r48["cagr_pct"]:.1f} points of extra CAGR, AND a shallower drawdown', 'positive')}
+          {pill('corrected — a timing fix removed a phantom +11.5pp; what remains is a small, real drawdown tool', 'assumption')}
         </div>
         <p class="text-[14px] text-[#E6EDF0] leading-relaxed mb-3">
-          CAGR rises from {pct(r48['cagr_pct'])} (report 48, unconditional gold) to <span class="font-semibold">{pct(guard['cagr_pct'])}</span>
-          with the guard — and max drawdown improves too, from {pct(r48['max_drawdown_pct'],1,signed=False)} to
-          <span class="font-semibold">{pct(guard['max_drawdown_pct'],1,signed=False)}</span>. This is a genuine two-sided
-          improvement, not a return bought with extra risk.
+          As first published, this page showed CAGR jumping from ~43.3% to ~54.8% with the guard. That version was wrong:
+          it credited the guard with gold (or flat cash) on the regime flip-off day itself — a day whose realized return in
+          report 48 is still <span class="font-semibold">stocks</span>, because the switch executes at that day's close — and
+          its exit checks used the same day's close. On 2015-08-24 alone (−11.3% in stocks) the old code charged +1.2% gold.
+          Report 99 (“Timing Audit — the Gold-Strength Guard's +11.5pp That Wasn't”) breaks this down day by day. Corrected, the
+          honest numbers are:
+        </p>
+        <p class="text-[14px] text-[#E6EDF0] leading-relaxed mb-3">
+          CAGR {pct(r48['cagr_pct'])} (report 48, unconditional gold) → <span class="font-semibold">{pct(guard['cagr_pct'])}</span>
+          ({guard['cagr_pct']-r48['cagr_pct']:+.2f}pp — essentially unchanged), while max drawdown improves from
+          {pct(r48['max_drawdown_pct'],1,signed=False)} to <span class="font-semibold">{pct(guard['max_drawdown_pct'],1,signed=False)}</span>
+          — a real but modest defensive edge, not a return engine.
         </p>
         <p class="text-[14px] text-[#E6EDF0] leading-relaxed">
-          The mechanism moved <span class="font-semibold">{flat_days} of {total_cash_days}</span> regime-off days from gold
-          into flat cash. The cash-block breakdown below shows exactly which historical periods those days came from —
-          and it is NOT the periods an earlier, less careful pass through this idea assumed.
+          Mechanically the guard still does what it was built to do: <span class="font-semibold">{flat_days} of {total_cash_days}</span>
+          regime-off days sit in flat cash instead of gold, and the cash-block breakdown below shows which historical periods
+          those days came from.
         </p>
       </div>
     </div>
@@ -186,7 +194,7 @@ def build():
     dd_panel = f"""
     <div class="{PANEL} mt-6">
       <h3 class="text-base font-bold text-[#E6EDF0] mb-1">Drawdown comparison</h3>
-      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — the guarded line recovers from several episodes noticeably shallower than the unconditional-gold line.</p>
+      <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — the guarded line recovers somewhat shallower in a few episodes; the effect is small and measured (report 99 explains why the first published version showed much more).</p>
       <div class="flex items-center mb-2">{dd_legend}</div>
       {dd_svg}
     </div>
@@ -203,16 +211,12 @@ def build():
       <div class="flex items-center gap-2 mb-2"><h3 class="text-base font-bold text-[#E6EDF0]">Which historical periods actually drove this — the concentration check</h3>{pill('the honest part', 'assumption')}</div>
       <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — every regime-off (cash-eligible) period of 10+ days, and whether the guard spent most of it in gold or flat cash. This is the single clearest way to see whether the improvement is a broad, repeatable effect or a lucky bet on one or two episodes.</p>
       <p class="text-[13.5px] text-[#C9D6DA] leading-relaxed mb-4">
-        An earlier, less careful pass at this idea assumed the guard's benefit came from dodging gold's well-known 2013
-        taper-tantrum selloff and its 2021–22 correction. The breakdown below shows that's <span class="font-semibold text-[#F2643C]">not</span>
-        what actually happened: during 2013-07-30→2013-09-06 the guard stayed <span class="font-semibold">mostly in gold</span>
-        (15 of 27 days), and during 2022-05-04→2022-07-19 it stayed in gold <span class="font-semibold">every single day</span>
-        (55 of 55). The real flat-cash concentration is in 2015–16 and late 2016/early 2017, plus
-        {R['days_in_short_blips']} days scattered across many short
-        (under 10-day) regime whipsaws too brief to list individually below. Only
-        <span class="font-semibold">{R['num_cash_blocks_mostly_flat']} of {R['num_cash_blocks']}</span> listed blocks were
-        mostly flat — most of the guard's {R['days_guard_moved_to_flat']} flat-cash days are spread thinly across many
-        otherwise-gold periods, not concentrated in one or two decisive bets.
+        The flat-cash days are not concentrated in one or two decisive bets: only
+        <span class="font-semibold">{R['num_cash_blocks_mostly_flat']} of {R['num_cash_blocks']}</span> listed regime-off blocks were
+        mostly flat, and {R['days_in_short_blips']} more flat days sit inside short (under 10-day) regime whipsaws too
+        brief to list individually. That broad spread is consistent with the corrected size of the effect — a small,
+        pervasive drawdown trim rather than a big win riding on a few episodes. (The first release of this page told the
+        opposite story at ~100× the scale; report 99 shows exactly where those numbers came from.)
       </p>
       <table class="data-table">
         <thead><tr><th>Regime-off period</th><th>Length</th><th>Gold days</th><th>Flat days</th><th>Mostly</th></tr></thead>
@@ -230,9 +234,14 @@ def build():
       <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — every simplification behind this backtest.</p>
       <ul class="text-[13px] text-[#C9D6DA] list-disc pl-5 leading-relaxed">
         <li class="mb-1.5">Zero transaction costs on the extra gold↔cash switches this guard introduces beyond report 48's
-        own switching. Report 89 found even 0.1% slippage costs report 48 itself ~2.6 points of CAGR — this guard adds
-        MORE switch events than report 48 alone, and has not been cost-tested. The real improvement, after costs, is
-        almost certainly smaller than the headline number above.</li>
+        own switching. At the corrected scale (+0.1pp CAGR, ~0.8pp drawdown), those costs plausibly absorb the CAGR part
+        entirely — treat the guard as a small drawdown tool, not a return one. Report 89 found even 0.1% slippage costs
+        report 48 itself ~2.6 points of CAGR.</li>
+        <li class="mb-1.5">Timing convention (the report 99 fix): every guard decision uses only data through the PRIOR
+        close, matching report 48's own close-execution convention — a day's realized return belongs to the state decided
+        at the previous close. The first release of this report used same-day information and overstated the effect by
+        roughly 100×; the corrected implementation lives in backtest91.build_gold_strength_guard, and report 99 quantifies
+        the before/after.</li>
         <li class="mb-1.5">The guard's "beats NIFTY" and "is positive" checks both use the same {lookback}-day lookback —
         this specific window wasn't tuned or compared against other lookback lengths here; a different window could
         move the result in either direction.</li>
@@ -259,7 +268,7 @@ def build():
     </div>
     """
     return f"""<!doctype html>
-<html lang="en"><head><meta charset="utf-8"/><title>Midcap150 Momentum 10 — Gold-Strength Guard</title>
+<html lang="en"><head><meta charset="utf-8"/><title>Midcap150 Momentum 10 — Gold-Strength Guard (Corrected)</title>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 {TAILWIND_CDN}
 {base_style()}

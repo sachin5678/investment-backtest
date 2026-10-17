@@ -5,15 +5,21 @@ report 48's), July/January, August/February, September/March, October/
 April, November/May. Report 85 already asked this question for report
 48 itself (does the calendar offset matter for the gold-hedged hero
 design); this asks the same question for report 91's guard on top of
-it — does the guard's +11.5pp CAGR / shallower-drawdown result
-(reported on June/December) hold up on every other calendar too, or is
-it specific to that one?
+it — does the guard's edge over report 48 hold up on every other
+calendar too, or is it specific to that one?
+
+NOTE (corrected by report 99): the first release of this report measured
+the guard with an execution-timing bug that inflated its edge to
++11.3-11.9pp of CAGR. Corrected, the edge is ~+0.2pp of CAGR on every
+calendar — small, but almost exactly uniform, because the guard acts on
+the hedge leg and the regime/gold inputs are identical across calendars;
+only the stock re-selection differs.
 
 Same continuous/daily 200-EMA regime check and same gold-strength-guard
-mechanism (backtest91.build_gold_strength_guard — the properly audited
-version, reused as-is, not reimplemented) throughout all six variants —
-only the top-10 stock-selection/rebalance calendar changes. Same
-full-window/gold-reindex convention as reports 48/68/71/76-79/85/91.
+mechanism (backtest91.build_gold_strength_guard, reused as-is, not
+reimplemented) throughout all six variants — only the top-10
+stock-selection/rebalance calendar changes. Same full-window/gold-
+reindex convention as reports 48/68/71/76-79/85/91.
 """
 import json
 import sys
@@ -76,11 +82,13 @@ def main():
     rows = []
     for m in START_MONTHS:
         s, g = standard_metrics[m], guarded_metrics[m]
+        cagr_diff = round(g["cagr_pct"] - s["cagr_pct"], 2) or 0.0
+        dd_diff = round(g["max_drawdown_pct"] - s["max_drawdown_pct"], 2) or 0.0
         rows.append({
             "start_month": m, "calendar_label": CALENDAR_LABEL[m],
             "report48_standard": s, "gold_strength_guard": g,
-            "cagr_diff_pp": round(g["cagr_pct"] - s["cagr_pct"], 2),
-            "dd_diff_pp": round(g["max_drawdown_pct"] - s["max_drawdown_pct"], 2),
+            "cagr_diff_pp": cagr_diff,
+            "dd_diff_pp": dd_diff,
         })
 
     results = {
