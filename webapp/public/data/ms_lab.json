@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-17 18:13",
+ "generated": "2026-10-17 19:05",
  "method_note": "Health = share of the 10 MomentumScore target ranges met; trade-based checks only when the report carries a trade log, otherwise the score is met/available out of the curve checks. Curve checks here run on each report's own downsampled chart series (<=1500 points) - close, not bit-exact; report 93's engine computes its own exact card on full-resolution data. Robustness = beats the benchmark in BOTH halves of the (common) window. Tax = capital-gains estimate, 23 Jul 2024 regime + cess + set-off.",
  "checks_definition": [
   {
@@ -78770,8 +78770,8 @@
      "path": "original_no_filter",
      "kind": "strategy",
      "health": {
-      "score": 80,
-      "checks_met": 4,
+      "score": 60,
+      "checks_met": 3,
       "checks_available": 5,
       "checks_total": 10,
       "checks": [
@@ -78811,24 +78811,24 @@
         "id": "worst_daily",
         "label": "Worst fall \u00b7 daily",
         "target_text": "target <= 20%",
-        "value": -13.340428180678,
-        "value_text": "-13.34%",
+        "value": -12.905322003725272,
+        "value_text": "-12.91%",
         "passed": true
        },
        {
         "id": "cagr",
         "label": "Annual growth (CAGR)",
         "target_text": "target >= 40%",
-        "value": 40.068895726610656,
-        "value_text": "+40.07%",
-        "passed": true
+        "value": 39.87969272797025,
+        "value_text": "+39.88%",
+        "passed": false
        },
        {
         "id": "tail_monthly",
         "label": "Tail risk \u00b7 monthly returns",
         "target_text": "target -2 to +2",
-        "value": -0.5145086237366131,
-        "value_text": "-0.51",
+        "value": -0.42685306270509865,
+        "value_text": "-0.43",
         "passed": true
        },
        {
@@ -78843,26 +78843,26 @@
         "id": "monthly_std",
         "label": "Monthly swing (std. dev.)",
         "target_text": "target <= 15",
-        "value": 6.216867907465085,
-        "value_text": "6.22",
+        "value": 6.28730383795635,
+        "value_text": "6.29",
         "passed": true
        },
        {
         "id": "growth_per_fall",
         "label": "Growth per unit of fall",
         "target_text": "target >= 2.5",
-        "value": 1.327191663503337,
+        "value": 1.3329066454459135,
         "value_text": "1.33",
         "passed": false
        }
       ],
       "has_trades": false,
       "curve_metrics": {
-       "cagr_pct": 40.068895726610656,
-       "max_drawdown_pct": -30.190737953282742,
-       "worst_daily_pct": -13.340428180678,
-       "monthly_std_pct": 6.216867907465085,
-       "monthly_skew": -0.5145086237366131
+       "cagr_pct": 39.87969272797025,
+       "max_drawdown_pct": -29.91934421230889,
+       "worst_daily_pct": -12.905322003725272,
+       "monthly_std_pct": 6.28730383795635,
+       "monthly_skew": -0.42685306270509865
       },
       "trade_metrics": null,
       "note": "Score is the share of the target ranges met. Trade-based checks are excluded when the report has no trade log."
@@ -78870,23 +78870,23 @@
      "robustness": {
       "halves": {
        "benchmark_first_date": "2008-12-31",
-       "benchmark_last_date": "2026-10-01",
-       "split_date": "2017-12-01",
+       "benchmark_last_date": "2026-10-16",
+       "split_date": "2017-12-08",
        "halves": [
         {
          "label": "first",
          "start": "2008-12-31",
-         "end": "2017-12-01",
-         "strategy_cagr_pct": 46.38285272322131,
-         "benchmark_cagr_pct": 58.49947537512246,
+         "end": "2017-12-08",
+         "strategy_cagr_pct": 46.15442548617737,
+         "benchmark_cagr_pct": 48.02692453797146,
          "passed": false
         },
         {
          "label": "second",
-         "start": "2017-12-01",
-         "end": "2026-10-01",
-         "strategy_cagr_pct": 33.97050579498539,
-         "benchmark_cagr_pct": 48.56812398653108,
+         "start": "2017-12-08",
+         "end": "2026-10-16",
+         "strategy_cagr_pct": 33.81986433841253,
+         "benchmark_cagr_pct": 37.91451056087687,
          "passed": false
         }
        ],
@@ -78940,24 +78940,24 @@
         "id": "worst_daily",
         "label": "Worst fall \u00b7 daily",
         "target_text": "target <= 20%",
-        "value": -13.34042818067801,
-        "value_text": "-13.34%",
+        "value": -13.4391384170513,
+        "value_text": "-13.44%",
         "passed": true
        },
        {
         "id": "cagr",
         "label": "Annual growth (CAGR)",
         "target_text": "target >= 40%",
-        "value": 42.23269954364377,
-        "value_text": "+42.23%",
+        "value": 42.01049440225126,
+        "value_text": "+42.01%",
         "passed": true
        },
        {
         "id": "tail_monthly",
         "label": "Tail risk \u00b7 monthly returns",
         "target_text": "target -2 to +2",
-        "value": 0.11226013352849502,
-        "value_text": "0.11",
+        "value": 0.042292730962756035,
+        "value_text": "0.04",
         "passed": true
        },
        {
@@ -78972,26 +78972,26 @@
         "id": "monthly_std",
         "label": "Monthly swing (std. dev.)",
         "target_text": "target <= 15",
-        "value": 5.943335905328559,
-        "value_text": "5.94",
+        "value": 5.966459871259728,
+        "value_text": "5.97",
         "passed": true
        },
        {
         "id": "growth_per_fall",
         "label": "Growth per unit of fall",
         "target_text": "target >= 2.5",
-        "value": 1.869028924755609,
-        "value_text": "1.87",
+        "value": 1.793758113335931,
+        "value_text": "1.79",
         "passed": false
        }
       ],
       "has_trades": false,
       "curve_metrics": {
-       "cagr_pct": 42.23269954364377,
-       "max_drawdown_pct": -22.596065253065063,
-       "worst_daily_pct": -13.34042818067801,
-       "monthly_std_pct": 5.943335905328559,
-       "monthly_skew": 0.11226013352849502
+       "cagr_pct": 42.01049440225126,
+       "max_drawdown_pct": -23.420378751136347,
+       "worst_daily_pct": -13.4391384170513,
+       "monthly_std_pct": 5.966459871259728,
+       "monthly_skew": 0.042292730962756035
       },
       "trade_metrics": null,
       "note": "Score is the share of the target ranges met. Trade-based checks are excluded when the report has no trade log."
@@ -78999,28 +78999,28 @@
      "robustness": {
       "halves": {
        "benchmark_first_date": "2008-12-31",
-       "benchmark_last_date": "2026-10-01",
-       "split_date": "2017-12-01",
+       "benchmark_last_date": "2026-10-16",
+       "split_date": "2017-12-08",
        "halves": [
         {
          "label": "first",
          "start": "2008-12-31",
-         "end": "2017-12-01",
-         "strategy_cagr_pct": 45.759417012377114,
-         "benchmark_cagr_pct": 58.49947537512246,
+         "end": "2017-12-08",
+         "strategy_cagr_pct": 45.53329473116901,
+         "benchmark_cagr_pct": 48.02692453797146,
          "passed": false
         },
         {
          "label": "second",
-         "start": "2017-12-01",
-         "end": "2026-10-01",
-         "strategy_cagr_pct": 38.7586500937777,
-         "benchmark_cagr_pct": 48.56812398653108,
-         "passed": false
+         "start": "2017-12-08",
+         "end": "2026-10-16",
+         "strategy_cagr_pct": 38.5414721662289,
+         "benchmark_cagr_pct": 37.91451056087687,
+         "passed": true
         }
        ],
        "passed_both": false,
-       "passed_any": false
+       "passed_any": true
       }
      }
     },
@@ -79069,24 +79069,24 @@
         "id": "worst_daily",
         "label": "Worst fall \u00b7 daily",
         "target_text": "target <= 20%",
-        "value": -11.117646019511596,
-        "value_text": "-11.12%",
+        "value": -13.439138417051266,
+        "value_text": "-13.44%",
         "passed": true
        },
        {
         "id": "cagr",
         "label": "Annual growth (CAGR)",
         "target_text": "target >= 40%",
-        "value": 42.25340121317978,
-        "value_text": "+42.25%",
+        "value": 42.03111601370304,
+        "value_text": "+42.03%",
         "passed": true
        },
        {
         "id": "tail_monthly",
         "label": "Tail risk \u00b7 monthly returns",
         "target_text": "target -2 to +2",
-        "value": 0.22622167772755952,
-        "value_text": "0.23",
+        "value": 0.17921660597913672,
+        "value_text": "0.18",
         "passed": true
        },
        {
@@ -79101,7 +79101,7 @@
         "id": "monthly_std",
         "label": "Monthly swing (std. dev.)",
         "target_text": "target <= 15",
-        "value": 6.043063553573774,
+        "value": 6.041916878667897,
         "value_text": "6.04",
         "passed": true
        },
@@ -79109,18 +79109,18 @@
         "id": "growth_per_fall",
         "label": "Growth per unit of fall",
         "target_text": "target >= 2.5",
-        "value": 1.8524052384756977,
-        "value_text": "1.85",
+        "value": 1.9250504605416825,
+        "value_text": "1.93",
         "passed": false
        }
       ],
       "has_trades": false,
       "curve_metrics": {
-       "cagr_pct": 42.25340121317978,
-       "max_drawdown_pct": -22.810020364630983,
-       "worst_daily_pct": -11.117646019511596,
-       "monthly_std_pct": 6.043063553573774,
-       "monthly_skew": 0.22622167772755952
+       "cagr_pct": 42.03111601370304,
+       "max_drawdown_pct": -21.833773646575512,
+       "worst_daily_pct": -13.439138417051266,
+       "monthly_std_pct": 6.041916878667897,
+       "monthly_skew": 0.17921660597913672
       },
       "trade_metrics": null,
       "note": "Score is the share of the target ranges met. Trade-based checks are excluded when the report has no trade log."
@@ -79128,23 +79128,23 @@
      "robustness": {
       "halves": {
        "benchmark_first_date": "2008-12-31",
-       "benchmark_last_date": "2026-10-01",
-       "split_date": "2017-12-01",
+       "benchmark_last_date": "2026-10-16",
+       "split_date": "2017-12-08",
        "halves": [
         {
          "label": "first",
          "start": "2008-12-31",
-         "end": "2017-12-01",
-         "strategy_cagr_pct": 46.764660816181916,
-         "benchmark_cagr_pct": 58.49947537512246,
+         "end": "2017-12-08",
+         "strategy_cagr_pct": 46.53481916211071,
+         "benchmark_cagr_pct": 48.02692453797146,
          "passed": false
         },
         {
          "label": "second",
-         "start": "2017-12-01",
-         "end": "2026-10-01",
-         "strategy_cagr_pct": 37.83944954821117,
-         "benchmark_cagr_pct": 48.56812398653108,
+         "start": "2017-12-08",
+         "end": "2026-10-16",
+         "strategy_cagr_pct": 37.6259730713876,
+         "benchmark_cagr_pct": 37.91451056087687,
          "passed": false
         }
        ],
@@ -79198,24 +79198,24 @@
         "id": "worst_daily",
         "label": "Worst fall \u00b7 daily",
         "target_text": "target <= 20%",
-        "value": -14.556747429706773,
-        "value_text": "-14.56%",
+        "value": -13.43913841705129,
+        "value_text": "-13.44%",
         "passed": true
        },
        {
         "id": "cagr",
         "label": "Annual growth (CAGR)",
         "target_text": "target >= 40%",
-        "value": 41.20935018821641,
-        "value_text": "+41.21%",
+        "value": 40.99109391544842,
+        "value_text": "+40.99%",
         "passed": true
        },
        {
         "id": "tail_monthly",
         "label": "Tail risk \u00b7 monthly returns",
         "target_text": "target -2 to +2",
-        "value": 0.6059535907917821,
-        "value_text": "0.61",
+        "value": 0.12177137513217978,
+        "value_text": "0.12",
         "passed": true
        },
        {
@@ -79230,26 +79230,26 @@
         "id": "monthly_std",
         "label": "Monthly swing (std. dev.)",
         "target_text": "target <= 15",
-        "value": 5.723071606280625,
-        "value_text": "5.72",
+        "value": 5.444577732697903,
+        "value_text": "5.44",
         "passed": true
        },
        {
         "id": "growth_per_fall",
         "label": "Growth per unit of fall",
         "target_text": "target >= 2.5",
-        "value": 1.661276886696995,
-        "value_text": "1.66",
+        "value": 1.6830630940001663,
+        "value_text": "1.68",
         "passed": false
        }
       ],
       "has_trades": false,
       "curve_metrics": {
-       "cagr_pct": 41.20935018821641,
-       "max_drawdown_pct": -24.805828888735213,
-       "worst_daily_pct": -14.556747429706773,
-       "monthly_std_pct": 5.723071606280625,
-       "monthly_skew": 0.6059535907917821
+       "cagr_pct": 40.99109391544842,
+       "max_drawdown_pct": -24.35505481735931,
+       "worst_daily_pct": -13.43913841705129,
+       "monthly_std_pct": 5.444577732697903,
+       "monthly_skew": 0.12177137513217978
       },
       "trade_metrics": null,
       "note": "Score is the share of the target ranges met. Trade-based checks are excluded when the report has no trade log."
@@ -79257,28 +79257,28 @@
      "robustness": {
       "halves": {
        "benchmark_first_date": "2008-12-31",
-       "benchmark_last_date": "2026-10-01",
-       "split_date": "2017-12-01",
+       "benchmark_last_date": "2026-10-16",
+       "split_date": "2017-12-08",
        "halves": [
         {
          "label": "first",
          "start": "2008-12-31",
-         "end": "2017-12-01",
-         "strategy_cagr_pct": 42.698747698972795,
-         "benchmark_cagr_pct": 58.49947537512246,
+         "end": "2017-12-08",
+         "strategy_cagr_pct": 42.21245585142013,
+         "benchmark_cagr_pct": 48.02692453797146,
          "passed": false
         },
         {
          "label": "second",
-         "start": "2017-12-01",
-         "end": "2026-10-01",
-         "strategy_cagr_pct": 39.72141005912431,
-         "benchmark_cagr_pct": 48.56812398653108,
-         "passed": false
+         "start": "2017-12-08",
+         "end": "2026-10-16",
+         "strategy_cagr_pct": 39.769037627780015,
+         "benchmark_cagr_pct": 37.91451056087687,
+         "passed": true
         }
        ],
        "passed_both": false,
-       "passed_any": false
+       "passed_any": true
       }
      }
     },
@@ -79327,24 +79327,24 @@
         "id": "worst_daily",
         "label": "Worst fall \u00b7 daily",
         "target_text": "target <= 20%",
-        "value": -13.340428180678032,
-        "value_text": "-13.34%",
+        "value": -12.86529525989284,
+        "value_text": "-12.87%",
         "passed": true
        },
        {
         "id": "cagr",
         "label": "Annual growth (CAGR)",
         "target_text": "target >= 40%",
-        "value": 28.67177487082284,
-        "value_text": "+28.67%",
+        "value": 28.523143859270682,
+        "value_text": "+28.52%",
         "passed": false
        },
        {
         "id": "tail_monthly",
         "label": "Tail risk \u00b7 monthly returns",
         "target_text": "target -2 to +2",
-        "value": -0.16248751307460385,
-        "value_text": "-0.16",
+        "value": -0.2162748709647655,
+        "value_text": "-0.22",
         "passed": true
        },
        {
@@ -79359,26 +79359,26 @@
         "id": "monthly_std",
         "label": "Monthly swing (std. dev.)",
         "target_text": "target <= 15",
-        "value": 5.390046230883144,
-        "value_text": "5.39",
+        "value": 5.47187310581006,
+        "value_text": "5.47",
         "passed": true
        },
        {
         "id": "growth_per_fall",
         "label": "Growth per unit of fall",
         "target_text": "target >= 2.5",
-        "value": 0.8306045500137791,
+        "value": 0.8324377236183734,
         "value_text": "0.83",
         "passed": false
        }
       ],
       "has_trades": false,
       "curve_metrics": {
-       "cagr_pct": 28.67177487082284,
-       "max_drawdown_pct": -34.51916422844926,
-       "worst_daily_pct": -13.340428180678032,
-       "monthly_std_pct": 5.390046230883144,
-       "monthly_skew": -0.16248751307460385
+       "cagr_pct": 28.523143859270682,
+       "max_drawdown_pct": -34.2645978792126,
+       "worst_daily_pct": -12.86529525989284,
+       "monthly_std_pct": 5.47187310581006,
+       "monthly_skew": -0.2162748709647655
       },
       "trade_metrics": null,
       "note": "Score is the share of the target ranges met. Trade-based checks are excluded when the report has no trade log."
@@ -79386,23 +79386,23 @@
      "robustness": {
       "halves": {
        "benchmark_first_date": "2008-12-31",
-       "benchmark_last_date": "2026-10-01",
-       "split_date": "2017-12-01",
+       "benchmark_last_date": "2026-10-16",
+       "split_date": "2017-12-08",
        "halves": [
         {
          "label": "first",
          "start": "2008-12-31",
-         "end": "2017-12-01",
-         "strategy_cagr_pct": 35.22168432111712,
-         "benchmark_cagr_pct": 58.49947537512246,
+         "end": "2017-12-08",
+         "strategy_cagr_pct": 35.03363958600194,
+         "benchmark_cagr_pct": 48.02692453797146,
          "passed": false
         },
         {
          "label": "second",
-         "start": "2017-12-01",
-         "end": "2026-10-01",
-         "strategy_cagr_pct": 22.380728314513565,
-         "benchmark_cagr_pct": 48.56812398653108,
+         "start": "2017-12-08",
+         "end": "2026-10-16",
+         "strategy_cagr_pct": 22.27048342131761,
+         "benchmark_cagr_pct": 37.91451056087687,
          "passed": false
         }
        ],
@@ -79456,24 +79456,24 @@
         "id": "worst_daily",
         "label": "Worst fall \u00b7 daily",
         "target_text": "target <= 20%",
-        "value": -11.19247776108072,
-        "value_text": "-11.19%",
+        "value": -13.43913841705129,
+        "value_text": "-13.44%",
         "passed": true
        },
        {
         "id": "cagr",
         "label": "Annual growth (CAGR)",
         "target_text": "target >= 40%",
-        "value": 31.531317165371696,
-        "value_text": "+31.53%",
+        "value": 31.34954501578573,
+        "value_text": "+31.35%",
         "passed": false
        },
        {
         "id": "tail_monthly",
         "label": "Tail risk \u00b7 monthly returns",
         "target_text": "target -2 to +2",
-        "value": 0.22879801190227622,
-        "value_text": "0.23",
+        "value": 0.03268711706160151,
+        "value_text": "0.03",
         "passed": true
        },
        {
@@ -79488,26 +79488,26 @@
         "id": "monthly_std",
         "label": "Monthly swing (std. dev.)",
         "target_text": "target <= 15",
-        "value": 5.590315479182603,
-        "value_text": "5.59",
+        "value": 5.684063638432867,
+        "value_text": "5.68",
         "passed": true
        },
        {
         "id": "growth_per_fall",
         "label": "Growth per unit of fall",
         "target_text": "target >= 2.5",
-        "value": 1.5258431417172444,
-        "value_text": "1.53",
+        "value": 1.5034609541547452,
+        "value_text": "1.50",
         "passed": false
        }
       ],
       "has_trades": false,
       "curve_metrics": {
-       "cagr_pct": 31.531317165371696,
-       "max_drawdown_pct": -20.664848373526194,
-       "worst_daily_pct": -11.19247776108072,
-       "monthly_std_pct": 5.590315479182603,
-       "monthly_skew": 0.22879801190227622
+       "cagr_pct": 31.34954501578573,
+       "max_drawdown_pct": -20.85158575562119,
+       "worst_daily_pct": -13.43913841705129,
+       "monthly_std_pct": 5.684063638432867,
+       "monthly_skew": 0.03268711706160151
       },
       "trade_metrics": null,
       "note": "Score is the share of the target ranges met. Trade-based checks are excluded when the report has no trade log."
@@ -79515,23 +79515,23 @@
      "robustness": {
       "halves": {
        "benchmark_first_date": "2008-12-31",
-       "benchmark_last_date": "2026-10-01",
-       "split_date": "2017-12-01",
+       "benchmark_last_date": "2026-10-16",
+       "split_date": "2017-12-08",
        "halves": [
         {
          "label": "first",
          "start": "2008-12-31",
-         "end": "2017-12-01",
-         "strategy_cagr_pct": 32.69885136050825,
-         "benchmark_cagr_pct": 58.49947537512246,
+         "end": "2017-12-08",
+         "strategy_cagr_pct": 32.519667332206126,
+         "benchmark_cagr_pct": 48.02692453797146,
          "passed": false
         },
         {
          "label": "second",
-         "start": "2017-12-01",
-         "end": "2026-10-01",
-         "strategy_cagr_pct": 30.362984290674923,
-         "benchmark_cagr_pct": 48.56812398653108,
+         "start": "2017-12-08",
+         "end": "2026-10-16",
+         "strategy_cagr_pct": 30.17904400323308,
+         "benchmark_cagr_pct": 37.91451056087687,
          "passed": false
         }
        ],
@@ -79585,24 +79585,24 @@
         "id": "worst_daily",
         "label": "Worst fall \u00b7 daily",
         "target_text": "target <= 20%",
-        "value": -13.340428180678,
-        "value_text": "-13.34%",
+        "value": -13.43913841705129,
+        "value_text": "-13.44%",
         "passed": true
        },
        {
         "id": "cagr",
         "label": "Annual growth (CAGR)",
         "target_text": "target >= 40%",
-        "value": 39.28269141575862,
-        "value_text": "+39.28%",
+        "value": 39.07182329628611,
+        "value_text": "+39.07%",
         "passed": false
        },
        {
         "id": "tail_monthly",
         "label": "Tail risk \u00b7 monthly returns",
         "target_text": "target -2 to +2",
-        "value": 0.16289248400660664,
-        "value_text": "0.16",
+        "value": 0.07974693909649758,
+        "value_text": "0.08",
         "passed": true
        },
        {
@@ -79617,26 +79617,26 @@
         "id": "monthly_std",
         "label": "Monthly swing (std. dev.)",
         "target_text": "target <= 15",
-        "value": 6.0561255343599205,
-        "value_text": "6.06",
+        "value": 6.124256649877056,
+        "value_text": "6.12",
         "passed": true
        },
        {
         "id": "growth_per_fall",
         "label": "Growth per unit of fall",
         "target_text": "target >= 2.5",
-        "value": 1.289076266277849,
-        "value_text": "1.29",
+        "value": 1.251742654636534,
+        "value_text": "1.25",
         "passed": false
        }
       ],
       "has_trades": false,
       "curve_metrics": {
-       "cagr_pct": 39.28269141575862,
-       "max_drawdown_pct": -30.47352002623217,
-       "worst_daily_pct": -13.340428180678,
-       "monthly_std_pct": 6.0561255343599205,
-       "monthly_skew": 0.16289248400660664
+       "cagr_pct": 39.07182329628611,
+       "max_drawdown_pct": -31.21394253967587,
+       "worst_daily_pct": -13.43913841705129,
+       "monthly_std_pct": 6.124256649877056,
+       "monthly_skew": 0.07974693909649758
       },
       "trade_metrics": null,
       "note": "Score is the share of the target ranges met. Trade-based checks are excluded when the report has no trade log."
@@ -79644,23 +79644,23 @@
      "robustness": {
       "halves": {
        "benchmark_first_date": "2008-12-31",
-       "benchmark_last_date": "2026-10-01",
-       "split_date": "2017-12-01",
+       "benchmark_last_date": "2026-10-16",
+       "split_date": "2017-12-08",
        "halves": [
         {
          "label": "first",
          "start": "2008-12-31",
-         "end": "2017-12-01",
-         "strategy_cagr_pct": 45.475564076684385,
-         "benchmark_cagr_pct": 58.49947537512246,
+         "end": "2017-12-08",
+         "strategy_cagr_pct": 45.25048936553948,
+         "benchmark_cagr_pct": 48.02692453797146,
          "passed": false
         },
         {
          "label": "second",
-         "start": "2017-12-01",
-         "end": "2026-10-01",
-         "strategy_cagr_pct": 33.29771377410133,
-         "benchmark_cagr_pct": 48.56812398653108,
+         "start": "2017-12-08",
+         "end": "2026-10-16",
+         "strategy_cagr_pct": 33.102302387222295,
+         "benchmark_cagr_pct": 37.91451056087687,
          "passed": false
         }
        ],
@@ -79714,24 +79714,24 @@
         "id": "worst_daily",
         "label": "Worst fall \u00b7 daily",
         "target_text": "target <= 20%",
-        "value": -14.556747429706785,
-        "value_text": "-14.56%",
+        "value": -13.4391384170513,
+        "value_text": "-13.44%",
         "passed": true
        },
        {
         "id": "cagr",
         "label": "Annual growth (CAGR)",
         "target_text": "target >= 40%",
-        "value": 38.76078722370973,
-        "value_text": "+38.76%",
+        "value": 38.551909934812215,
+        "value_text": "+38.55%",
         "passed": false
        },
        {
         "id": "tail_monthly",
         "label": "Tail risk \u00b7 monthly returns",
         "target_text": "target -2 to +2",
-        "value": 0.0036388676929266337,
-        "value_text": "0.00",
+        "value": 0.015534499974203673,
+        "value_text": "0.02",
         "passed": true
        },
        {
@@ -79746,26 +79746,26 @@
         "id": "monthly_std",
         "label": "Monthly swing (std. dev.)",
         "target_text": "target <= 15",
-        "value": 5.861117479890953,
-        "value_text": "5.86",
+        "value": 5.763826827929318,
+        "value_text": "5.76",
         "passed": true
        },
        {
         "id": "growth_per_fall",
         "label": "Growth per unit of fall",
         "target_text": "target >= 2.5",
-        "value": 1.511485754215936,
-        "value_text": "1.51",
+        "value": 1.50334053660914,
+        "value_text": "1.50",
         "passed": false
        }
       ],
       "has_trades": false,
       "curve_metrics": {
-       "cagr_pct": 38.76078722370973,
+       "cagr_pct": 38.551909934812215,
        "max_drawdown_pct": -25.64416311274888,
-       "worst_daily_pct": -14.556747429706785,
-       "monthly_std_pct": 5.861117479890953,
-       "monthly_skew": 0.0036388676929266337
+       "worst_daily_pct": -13.4391384170513,
+       "monthly_std_pct": 5.763826827929318,
+       "monthly_skew": 0.015534499974203673
       },
       "trade_metrics": null,
       "note": "Score is the share of the target ranges met. Trade-based checks are excluded when the report has no trade log."
@@ -79773,28 +79773,28 @@
      "robustness": {
       "halves": {
        "benchmark_first_date": "2008-12-31",
-       "benchmark_last_date": "2026-10-01",
-       "split_date": "2017-12-01",
+       "benchmark_last_date": "2026-10-16",
+       "split_date": "2017-12-08",
        "halves": [
         {
          "label": "first",
          "start": "2008-12-31",
-         "end": "2017-12-01",
-         "strategy_cagr_pct": 38.56201688300143,
-         "benchmark_cagr_pct": 58.49947537512246,
+         "end": "2017-12-08",
+         "strategy_cagr_pct": 38.362085755289876,
+         "benchmark_cagr_pct": 48.02692453797146,
          "passed": false
         },
         {
          "label": "second",
-         "start": "2017-12-01",
-         "end": "2026-10-01",
-         "strategy_cagr_pct": 38.9617568978764,
-         "benchmark_cagr_pct": 48.56812398653108,
-         "passed": false
+         "start": "2017-12-08",
+         "end": "2026-10-16",
+         "strategy_cagr_pct": 38.74375906958758,
+         "benchmark_cagr_pct": 37.91451056087687,
+         "passed": true
         }
        ],
        "passed_both": false,
-       "passed_any": false
+       "passed_any": true
       }
      }
     },
@@ -79802,8 +79802,8 @@
      "path": "G_gold_only_when_gold_above_its_200ema",
      "kind": "benchmark",
      "health": {
-      "score": 100,
-      "checks_met": 5,
+      "score": 80,
+      "checks_met": 4,
       "checks_available": 5,
       "checks_total": 10,
       "checks": [
@@ -79843,24 +79843,24 @@
         "id": "worst_daily",
         "label": "Worst fall \u00b7 daily",
         "target_text": "target <= 20%",
-        "value": -10.339409148085155,
-        "value_text": "-10.34%",
+        "value": -13.439138417051277,
+        "value_text": "-13.44%",
         "passed": true
        },
        {
         "id": "cagr",
         "label": "Annual growth (CAGR)",
         "target_text": "target >= 40%",
-        "value": 53.21509961727209,
-        "value_text": "+53.22%",
+        "value": 43.213935699982976,
+        "value_text": "+43.21%",
         "passed": true
        },
        {
         "id": "tail_monthly",
         "label": "Tail risk \u00b7 monthly returns",
         "target_text": "target -2 to +2",
-        "value": 0.21713845293220121,
-        "value_text": "0.22",
+        "value": 0.10660779775441685,
+        "value_text": "0.11",
         "passed": true
        },
        {
@@ -79875,26 +79875,26 @@
         "id": "monthly_std",
         "label": "Monthly swing (std. dev.)",
         "target_text": "target <= 15",
-        "value": 5.573260383972468,
-        "value_text": "5.57",
+        "value": 5.798898213960289,
+        "value_text": "5.80",
         "passed": true
        },
        {
         "id": "growth_per_fall",
         "label": "Growth per unit of fall",
         "target_text": "target >= 2.5",
-        "value": 3.7001116945672825,
-        "value_text": "3.70",
-        "passed": true
+        "value": 1.91047749432765,
+        "value_text": "1.91",
+        "passed": false
        }
       ],
       "has_trades": false,
       "curve_metrics": {
-       "cagr_pct": 53.21509961727209,
-       "max_drawdown_pct": -14.382025195457091,
-       "worst_daily_pct": -10.339409148085155,
-       "monthly_std_pct": 5.573260383972468,
-       "monthly_skew": 0.21713845293220121
+       "cagr_pct": 43.213935699982976,
+       "max_drawdown_pct": -22.619442431689656,
+       "worst_daily_pct": -13.439138417051277,
+       "monthly_std_pct": 5.798898213960289,
+       "monthly_skew": 0.10660779775441685
       },
       "trade_metrics": null,
       "note": "Score is the share of the target ranges met. Trade-based checks are excluded when the report has no trade log."
@@ -79902,28 +79902,28 @@
      "robustness": {
       "halves": {
        "benchmark_first_date": "2008-12-31",
-       "benchmark_last_date": "2026-10-01",
-       "split_date": "2017-12-01",
+       "benchmark_last_date": "2026-10-16",
+       "split_date": "2017-12-08",
        "halves": [
         {
          "label": "first",
          "start": "2008-12-31",
-         "end": "2017-12-01",
-         "strategy_cagr_pct": 58.353128661494935,
-         "benchmark_cagr_pct": 58.49947537512246,
-         "passed": false
+         "end": "2017-12-08",
+         "strategy_cagr_pct": 48.32841757785546,
+         "benchmark_cagr_pct": 48.02692453797146,
+         "passed": true
         },
         {
          "label": "second",
-         "start": "2017-12-01",
-         "end": "2026-10-01",
-         "strategy_cagr_pct": 48.196801906805774,
-         "benchmark_cagr_pct": 48.56812398653108,
-         "passed": false
+         "start": "2017-12-08",
+         "end": "2026-10-16",
+         "strategy_cagr_pct": 38.23080328103949,
+         "benchmark_cagr_pct": 37.91451056087687,
+         "passed": true
         }
        ],
-       "passed_both": false,
-       "passed_any": false
+       "passed_both": true,
+       "passed_any": true
       }
      }
     },
@@ -79931,8 +79931,8 @@
      "path": "H_gold_only_when_gold6m_beats_nifty6m",
      "kind": "benchmark",
      "health": {
-      "score": 100,
-      "checks_met": 5,
+      "score": 80,
+      "checks_met": 4,
       "checks_available": 5,
       "checks_total": 10,
       "checks": [
@@ -79972,24 +79972,24 @@
         "id": "worst_daily",
         "label": "Worst fall \u00b7 daily",
         "target_text": "target <= 20%",
-        "value": -10.339409148085132,
-        "value_text": "-10.34%",
+        "value": -13.439138417051277,
+        "value_text": "-13.44%",
         "passed": true
        },
        {
         "id": "cagr",
         "label": "Annual growth (CAGR)",
         "target_text": "target >= 40%",
-        "value": 53.47721959413798,
-        "value_text": "+53.48%",
+        "value": 42.904622914711425,
+        "value_text": "+42.90%",
         "passed": true
        },
        {
         "id": "tail_monthly",
         "label": "Tail risk \u00b7 monthly returns",
         "target_text": "target -2 to +2",
-        "value": 0.19812638104144026,
-        "value_text": "0.20",
+        "value": 0.12196740489867004,
+        "value_text": "0.12",
         "passed": true
        },
        {
@@ -80004,26 +80004,26 @@
         "id": "monthly_std",
         "label": "Monthly swing (std. dev.)",
         "target_text": "target <= 15",
-        "value": 5.539949315346881,
-        "value_text": "5.54",
+        "value": 5.808433576883961,
+        "value_text": "5.81",
         "passed": true
        },
        {
         "id": "growth_per_fall",
         "label": "Growth per unit of fall",
         "target_text": "target >= 2.5",
-        "value": 3.7727204912087986,
-        "value_text": "3.77",
-        "passed": true
+        "value": 1.845607220110183,
+        "value_text": "1.85",
+        "passed": false
        }
       ],
       "has_trades": false,
       "curve_metrics": {
-       "cagr_pct": 53.47721959413798,
-       "max_drawdown_pct": -14.174710190895592,
-       "worst_daily_pct": -10.339409148085132,
-       "monthly_std_pct": 5.539949315346881,
-       "monthly_skew": 0.19812638104144026
+       "cagr_pct": 42.904622914711425,
+       "max_drawdown_pct": -23.246887228881786,
+       "worst_daily_pct": -13.439138417051277,
+       "monthly_std_pct": 5.808433576883961,
+       "monthly_skew": 0.12196740489867004
       },
       "trade_metrics": null,
       "note": "Score is the share of the target ranges met. Trade-based checks are excluded when the report has no trade log."
@@ -80031,23 +80031,23 @@
      "robustness": {
       "halves": {
        "benchmark_first_date": "2008-12-31",
-       "benchmark_last_date": "2026-10-01",
-       "split_date": "2017-12-01",
+       "benchmark_last_date": "2026-10-16",
+       "split_date": "2017-12-08",
        "halves": [
         {
          "label": "first",
          "start": "2008-12-31",
-         "end": "2017-12-01",
-         "strategy_cagr_pct": 58.49947537512246,
-         "benchmark_cagr_pct": 58.49947537512246,
+         "end": "2017-12-08",
+         "strategy_cagr_pct": 48.02692453797146,
+         "benchmark_cagr_pct": 48.02692453797146,
          "passed": false
         },
         {
          "label": "second",
-         "start": "2017-12-01",
-         "end": "2026-10-01",
-         "strategy_cagr_pct": 48.56812398653108,
-         "benchmark_cagr_pct": 48.56812398653108,
+         "start": "2017-12-08",
+         "end": "2026-10-16",
+         "strategy_cagr_pct": 37.91451056087687,
+         "benchmark_cagr_pct": 37.91451056087687,
          "passed": false
         }
        ],
