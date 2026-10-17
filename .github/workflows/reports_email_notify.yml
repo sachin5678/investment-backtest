@@ -1,0 +1,140 @@
+name: Rebalance email reminders — reports 91/92/71/98 (proof of concept)
+
+# Email half of the four-report alert suite (reports 91, 92, 71 and 98).
+# Same design as report 48's own email workflow (see
+# email_rebalance_notify.yml for the full rationale): GitHub's `schedule`
+# trigger has been observed collapsing to ~one late run a day on this
+# repo, so the REAL trigger is an external cron service calling
+# workflow_dispatch at the exact intended minute — one cron-job.org job
+# per report per window. The schedule block below is kept only as a
+# redundant backup, and on that path every report in the matrix runs its
+# own gated check under its own once-per-report-per-day lock (see the
+# lock key below), so a late backup tick can catch up a report that
+# missed its exact external tick and can never double-send against it.
+on:
+  schedule:
+    - cron: "*/15 9-14 * * *"
+    - cron: "*/15 3-4 * * *"
+  workflow_dispatch:
+    inputs:
+      report:
+        description: "Which report to alert for ('all' = run every report — used for tests)"
+        type: choice
+        options:
+          - all
+          - "91"
+          - "92"
+          - "71"
+          - "98"
+        default: all
+      force:
+        description: "TESTING ONLY: send unconditionally, bypassing both the day/time gate and the once-per-day lock"
+        type: boolean
+        default: false
+      pre_close:
+        description: "Run as the ~3 PM pre-close FINAL CALL instead of the after-close reminder"
+        type: boolean
+        default: false
+      morning_after:
+        description: "Run as the morning-after safety net instead of the after-close reminder"
+        type: boolean
+        default: false
+jobs:
+  notify:
+    strategy:
+      fail-fast: false
+      matrix:
+        report: ["91", "92", "71", "98"]
+    if: github.event_name == 'schedule' || inputs.report == 'all' || inputs.report == matrix.report
+    runs-on: ubuntu-latest
+    steps:
+      - name: Decide which alert (if any) is due right now
+        id: decide
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.force }}" = "true" ]; then
+            # Manual test click with force=true: bypass day/time gating
+            # AND the lock, exactly like report 48's workflows -- always
+            # sends (for every report in the matrix unless one was picked).
+            echo "mode=manual_test" >> "$GITHUB_OUTPUT"
+          elif [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            # An external caller (or a manual test with force=false)
+            # declares which alert it wants directly via inputs, instead
+            # of us inferring it from the wall clock -- but it still goes
+            # through the exact same once-per-day lock as the schedule
+            # path below, so it's safe for both to be configured at once.
+            if [ "${{ inputs.pre_close }}" = "true" ]; then
+              echo "mode=pre_close" >> "$GITHUB_OUTPUT"
+            elif [ "${{ inputs.morning_after }}" = "true" ]; then
+              echo "mode=morning_after" >> "$GITHUB_OUTPUT"
+            else
+              echo "mode=after_close" >> "$GITHUB_OUTPUT"
+            fi
+          else
+            HHMM=$(( 10#$(TZ=Asia/Kolkata date +%H) * 60 + 10#$(TZ=Asia/Kolkata date +%M) ))
+            # morning-after: 8:30-9:45 IST (before the 9:15 open -- later
+            # than that and "yesterday's close" stops being the latest bar)
+            if [ $HHMM -ge 510 ] && [ $HHMM -lt 585 ]; then
+              echo "mode=morning_after" >> "$GITHUB_OUTPUT"
+            # pre-close: 14:00-15:25 IST (before the 15:30 close -- later
+            # than that and a "3 PM final call" would be stale/misleading)
+            elif [ $HHMM -ge 840 ] && [ $HHMM -lt 925 ]; then
+              echo "mode=pre_close" >> "$GITHUB_OUTPUT"
+            # after-close: 17:00-23:45 IST (same-day data stays valid any
+            # time later in the evening, so the window can be wide)
+            elif [ $HHMM -ge 1020 ] && [ $HHMM -lt 1425 ]; then
+              echo "mode=after_close" >> "$GITHUB_OUTPUT"
+            else
+              echo "mode=none" >> "$GITHUB_OUTPUT"
+            fi
+          fi
+          echo "today=$(TZ=Asia/Kolkata date +%F)" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v4
+        if: steps.decide.outputs.mode != 'none'
+      - uses: actions/setup-python@v5
+        if: steps.decide.outputs.mode != 'none'
+        with:
+          python-version: "3.12"
+      - run: pip install pandas numpy yfinance
+        if: steps.decide.outputs.mode != 'none'
+      - name: Restore send-lock (skip if this report's email already went out today)
+        if: steps.decide.outputs.mode == 'pre_close' || steps.decide.outputs.mode == 'after_close' || steps.decide.outputs.mode == 'morning_after'
+        id: cache
+        uses: actions/cache/restore@v4
+        with:
+          path: .notify-lock
+          key: email-r${{ matrix.report }}-${{ steps.decide.outputs.mode }}-${{ steps.decide.outputs.today }}
+      - name: Send
+        if: steps.decide.outputs.mode == 'manual_test' || ((steps.decide.outputs.mode == 'pre_close' || steps.decide.outputs.mode == 'after_close' || steps.decide.outputs.mode == 'morning_after') && steps.cache.outputs.cache-hit != 'true')
+        env:
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+        run: |
+          ARGS="--report ${{ matrix.report }}"
+          if [ "${{ steps.decide.outputs.mode }}" = "manual_test" ]; then
+            ARGS="$ARGS --force"
+            if [ "${{ inputs.pre_close }}" = "true" ]; then ARGS="$ARGS --pre-close"; fi
+            if [ "${{ inputs.morning_after }}" = "true" ]; then ARGS="$ARGS --morning-after"; fi
+          elif [ "${{ steps.decide.outputs.mode }}" = "pre_close" ]; then
+            ARGS="$ARGS --pre-close"
+          elif [ "${{ steps.decide.outputs.mode }}" = "morning_after" ]; then
+            ARGS="$ARGS --morning-after"
+          fi
+          OUTPUT=$(python notify_reports_email.py $ARGS)
+          echo "$OUTPUT"
+          # Only lock today's slot if a send actually happened (not just a
+          # clean "nothing to do" exit) -- so a misconfigured secret or a
+          # transient failure gets retried on the next tick instead of
+          # being silently locked out for the rest of the day.
+          if echo "$OUTPUT" | grep -q "^Sent to "; then
+            mkdir -p .notify-lock && date > .notify-lock/sent
+          fi
+      - name: Save send-lock
+        if: (steps.decide.outputs.mode == 'pre_close' || steps.decide.outputs.mode == 'after_close' || steps.decide.outputs.mode == 'morning_after') && steps.cache.outputs.cache-hit != 'true' && hashFiles('.notify-lock/sent') != ''
+        uses: actions/cache/save@v4
+        with:
+          path: .notify-lock
+          key: email-r${{ matrix.report }}-${{ steps.decide.outputs.mode }}-${{ steps.decide.outputs.today }}
