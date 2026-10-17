@@ -45,12 +45,22 @@ jobs:
       fail-fast: false
       matrix:
         report: ["91", "92", "71", "98"]
-    if: github.event_name == 'schedule' || inputs.report == 'all' || inputs.report == matrix.report
     runs-on: ubuntu-latest
     steps:
       - name: Decide which alert (if any) is due right now
         id: decide
         run: |
+          # The `matrix` context is not valid in a JOB-level `if:` (GitHub
+          # rejects the whole workflow on dispatch), so the report filter
+          # for external callers lives here instead: an external caller
+          # that asked for a specific report makes the other three matrix
+          # jobs exit immediately with mode=none, which every later step
+          # already gates on.
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.report }}" != "" ] && [ "${{ inputs.report }}" != "all" ] && [ "${{ inputs.report }}" != "${{ matrix.report }}" ]; then
+            echo "mode=none" >> "$GITHUB_OUTPUT"
+            echo "report filter: this caller asked for report ${{ inputs.report }}, not ${{ matrix.report }} — nothing to do."
+            exit 0
+          fi
           if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.force }}" = "true" ]; then
             # Manual test click with force=true: bypass day/time gating
             # AND the lock, exactly like report 48's workflows -- always
