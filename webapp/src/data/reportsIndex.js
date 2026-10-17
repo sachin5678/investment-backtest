@@ -50,20 +50,7 @@ export const GROUPS = [
   {
     label: "NIFTY 50 Breakout System",
     items: [
-      { id: "01", file: "results.json", icon: ICON_TRENDING, title: "Backtest: 20-day High / 10-day Low", subtitle: "Frictionless vs. cost-loaded, QQQ & NIFTY 50" },
       { id: "02", file: "results.json", icon: ICON_BARS, title: "vs. Buy-and-Hold Benchmark", subtitle: "Same instrument, same start, side by side" },
-    ],
-  },
-  {
-    label: "Cash Timing (NIFTY 50)",
-    items: [
-      { id: "03", file: "results2.json", icon: ICON_WALLET, title: "Wait for the Dip", subtitle: "Annual cash/NIFTY switch on a -10% YTD dip" },
-    ],
-  },
-  {
-    label: "Midcap Rotation",
-    items: [
-      { id: "04", file: "results3.json", icon: ICON_REFRESH, title: "Flight to Midcap", subtitle: "NIFTY 50 → midcap on a -15% ATH drawdown" },
     ],
   },
   {
@@ -115,27 +102,8 @@ export const GROUPS = [
     ],
   },
   {
-    label: "Beyond India",
-    items: [
-      { id: "21", file: "results20.json", icon: ICON_GLOBE, title: "“NASDAQ100 Momentum 10”", subtitle: "The same formula, applied to the Nasdaq-100 since 2000" },
-    ],
-  },
-  {
-    label: "Technical Signals",
-    items: [
-      { id: "22", file: "results21.json", icon: ICON_PULSE, title: "Monthly RSI-70 Crossover Rotation", subtitle: "Any NSE stock above ₹2,000 Cr — up to 5 positions, 15% stop or month-end" },
-    ],
-  },
-  {
-    label: "Commodities",
-    items: [
-      { id: "23", file: "results22.json", icon: ICON_COINS, title: "Gold/Silver Absolute Momentum Rotation", subtitle: "Hold each metal only while its own momentum is positive, else cash" },
-    ],
-  },
-  {
     label: "Trade-Level Detail",
     items: [
-      { id: "24", file: "results23.json", icon: ICON_LEDGER, title: "Midcap Momentum 10 — Last 2 Years, Trade Log", subtitle: "Every stock bought and sold, with entry/exit price and P&L, vs. the midcap ETF" },
       { id: "25", file: "results24.json", icon: ICON_COMPASS, title: "Midcap Momentum 10 — Rebalance Offsets Compared", subtitle: "Jan/Jul, Feb/Aug, Mar/Sep, Apr/Oct, May/Nov, Jun/Dec — all six, side by side" },
       { id: "26", file: "results25.json", icon: ICON_LEDGER, title: "Midcap Momentum 10 — 2020-2023, Trade Log", subtitle: "The COVID crash and V-recovery window, every buy and sell shown" },
       { id: "27", file: "results26.json", icon: ICON_STOPWATCH, title: "Midcap Momentum 10 — Stop-Loss: 15% vs. 30%", subtitle: "Two thresholds compared against the original, no stop" },
@@ -150,7 +118,6 @@ export const GROUPS = [
       { id: "38", file: "results37.json", icon: ICON_SPLIT, title: "Midcap Momentum 10 — Front-Loaded Weighting, Two Splits", subtitle: "50/30/20 vs. a gentler 40/35/25 — the trade-off isn't a smooth dial" },
       { id: "39", file: "results38.json", icon: ICON_LAYERS, title: "NIFTY500 Momentum 10 — Front-Loaded vs. Old Logic", subtitle: "Same reformulation, different universe — the opposite result from Midcap150" },
       { id: "40", file: "results39.json", icon: ICON_SPROUT, title: "Smallcap250 Momentum 10 — Front-Loaded vs. Old Logic", subtitle: "A third universe confirms NIFTY500's clean win, not Midcap150's trade-off" },
-      { id: "41", file: "results40.json", icon: ICON_FUNNEL, title: "NIFTY100 Momentum 10 — Front-Loaded vs. Old Logic", subtitle: "The narrowest universe yet — front-loading loses on both CAGR and drawdown" },
       { id: "42", file: "results41.json", icon: ICON_SHIELD_OFF, title: "Midcap Momentum 10 — 200-Day EMA Regime Filter", subtitle: "Cash whenever NIFTY 50 is below its own 200-EMA — small CAGR cost, big drawdown cut" },
       { id: "43", file: "results42.json", icon: ICON_SHIELD_500, title: "NIFTY500 Momentum 10 — 200-Day EMA Regime Filter", subtitle: "Same filter, second universe — the same trade-off holds" },
       { id: "44", file: "results43.json", icon: ICON_SHIELD_SPROUT, title: "Smallcap250 Momentum 10 — 200-Day EMA Regime Filter", subtitle: "The most volatile universe gets the biggest drawdown cut" },
@@ -162,10 +129,7 @@ export const GROUPS = [
       { id: "50", file: "results49.json", icon: ICON_COIN_SHIELD, title: "NIFTY100 Momentum 10 — Gold Instead of Cash", subtitle: "Three for three — gold beats cash on every universe tested" },
       { id: "51", file: "results50.json", icon: ICON_SCALE_10, title: "Midcap Momentum 10 — Inverse-Volatility Weighting", subtitle: "Down-weighting shaky picks costs more CAGR than it saves in drawdown" },
       { id: "52", file: "results51.json", icon: ICON_SCALE_10, title: "Smallcap250 Momentum 10 — Inverse-Volatility Weighting", subtitle: "Same modest trade-off as Midcap150, on a second universe" },
-      { id: "53", file: "results52.json", icon: ICON_SCALE_10, title: "NIFTY100 Momentum 10 — Inverse-Volatility Weighting", subtitle: "Consistent everywhere, unlike front-loaded momentum's NIFTY100 breakdown" },
-      { id: "54", file: "results53.json", icon: ICON_TARGET_SELF, title: "Midcap Momentum 10 — Universe-Specific Trend Filter", subtitle: "Inconclusive — the midcap ETF proxy's short history limits this test" },
       { id: "55", file: "results54.json", icon: ICON_TARGET_SELF, title: "Smallcap250 Momentum 10 — Universe-Specific Trend Filter", subtitle: "A real index, full history — better drawdown, some CAGR cost" },
-      { id: "56", file: "results55.json", icon: ICON_TARGET_SELF, title: "NIFTY100 Momentum 10 — Universe-Specific Trend Filter", subtitle: "Same trade-off as Smallcap250 — two of three full-history tests agree" },
       { id: "57", file: "results56.json", icon: ICON_BREADTH, title: "Midcap Momentum 10 — Breadth Confirmation for the Regime Filter", subtitle: "Barely moves the needle — breadth and NIFTY 50's trend are highly correlated" },
       { id: "58", file: "results57.json", icon: ICON_TRAIL_STOP, title: "Midcap Momentum 10 — Trailing Stop vs. Report 27's Fixed Stop", subtitle: "A tight trailing stop backfires badly; a wide one genuinely beats the fixed version" },
       { id: "59", file: "results58.json", icon: ICON_FORK_SPEED, title: "Midcap Momentum 10 — Asymmetric EMA (Fast Re-Entry)", subtitle: "Catching the recovery sooner backfires — more than double the whipsaw, worse drawdown" },
@@ -181,15 +145,11 @@ export const GROUPS = [
       { id: "69", file: "results68.json", icon: ICON_DIMMER_COIN, title: "Smallcap250 Momentum 10 — Smooth Exposure + Gold / Liquid Fund", subtitle: "Gold wins clearly on CAGR here too — drawdown differences are noise, not a real trade-off" },
       { id: "70", file: "results69.json", icon: ICON_DIMMER_COIN, title: "NIFTY100 Momentum 10 — Smooth Exposure + Gold / Liquid Fund", subtitle: "Gold wins clearly on CAGR everywhere tested — drawdown effect ranges from a bonus to a wash" },
       { id: "71", file: "results70.json", icon: ICON_SPLIT, title: "Midcap Momentum 10 — Core-Satellite (70/30) + Full Gold Switch", subtitle: "The shallowest drawdown of any combination tested here — at a real CAGR cost" },
-      { id: "72", file: "results71.json", icon: ICON_SPLIT, title: "Midcap Momentum 10 — Core-Satellite (50/50) + Full Gold Switch", subtitle: "More gold, more CAGR given up — but zero extra drawdown protection here" },
       { id: "73", file: "results72.json", icon: ICON_LAYERS, title: "Midcap150 Momentum 50 — A Much Wider Basket", subtitle: "Loses on BOTH CAGR and drawdown against the flagship top-10" },
-      { id: "74", file: "results73.json", icon: ICON_FLASK, title: "NIFTY500 Quality 50 — A Real Rebalanced Backtest", subtitle: "Only ~14 months of data support this, but it's a genuine rebalance, not a snapshot" },
-      { id: "75", file: "results74.json", icon: ICON_FLASK, title: "Midcap150 Quality 10 — A Real Rebalanced Backtest", subtitle: "Quality lost money outright here — the momentum flagship did not" },
       { id: "76", file: "results75.json", icon: ICON_RULER, title: "Midcap150 Momentum 10 — 400-Day EMA + Gold, Rebalance Cadence", subtitle: "Wider EMA loses on both metrics; more frequent rebalancing shallows drawdown" },
       { id: "77", file: "results76.json", icon: ICON_HOURGLASS, title: "Midcap150 Momentum 10 — Report 48, Rebalance Cadence", subtitle: "The hero design's own semi-annual cadence already looks close to right" },
       { id: "78", file: "results77.json", icon: ICON_LAYERS, title: "Midcap150 Momentum — Report 48 at 5 and 15 Stocks", subtitle: "The gold-hedge filter barely helps at 5 stocks, but helps even more at 15" },
       { id: "79", file: "results78.json", icon: ICON_LAYERS, title: "Midcap150 Momentum — Report 48's Design, Now Through Top-20", subtitle: "Drawdown keeps improving; CAGR keeps falling — the filter stops closing the gap" },
-      { id: "80", file: "results79.json", icon: ICON_REFRESH, title: "ETF Momentum Rotation — Top 5 Out of 25 Distinct ETFs", subtitle: "Picking the top 5 by momentum loses to just holding all of them equally" },
       { id: "81", file: "results80.json", icon: ICON_SCALE_10, title: "Midcap150 Momentum 10 — Averaging Down Within the Holding Period", subtitle: "Basically a wash on CAGR, but makes the drawdown meaningfully worse" },
       { id: "82", file: "results81.json", icon: ICON_SCALE_10, title: "Midcap150 Momentum 10 — Averaging With Wider Triggers (25%/40%)", subtitle: "Wider triggers flip the result — CAGR improves, drawdown cost shrinks" },
       { id: "83", file: "results82.json", icon: ICON_SCALE_10, title: "Midcap150 Momentum 10 — Pyramiding Up Instead of Averaging Down", subtitle: "Buying more of a winner beats buying more of a loser, on both CAGR and drawdown" },

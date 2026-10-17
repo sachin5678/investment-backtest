@@ -34,10 +34,10 @@ Public GitHub repo: **https://github.com/sachin5678/investment-backtest**
 
 For report **N**: `backtestN.py` (the engine) writes `results(N-1).json`,
 and `build_htmlN.py` reads that json and writes `N_description.html`.
-Example: report 24 → `backtest24.py` → `results23.json` → `build_html24.py`
-→ `24_midcap_momentum10_last2yr_tradelog.html`.
+Example: report 25 → `backtest25.py` → `results24.json` → `build_html25.py`
+→ `25_midcap_momentum10_rebalance_offsets.html`.
 
-**The one exception**: report 21 (NASDAQ100 Momentum 10) has no
+**The one exception**: report 21 (NASDAQ100 Momentum 10, retired) has no
 `backtest21.py` — it reuses `backtest20.py` (writes `results20.json`) and
 only `build_html21.py` is report-21-specific. Always check with `grep -l
 "results20.json" backtest*.py` style searches rather than assuming the
