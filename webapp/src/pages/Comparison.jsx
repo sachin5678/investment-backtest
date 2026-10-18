@@ -6,7 +6,7 @@ import { useAuth } from "../context/AuthContext";
 
 const DATA_BASE = "./data/";
 
-const UNIVERSES = ["Midcap150", "Smallcap250", "NIFTY100", "NIFTY500"];
+const UNIVERSES = ["Midcap150", "Smallcap250", "NIFTY100", "NIFTY500", "Microcap250"];
 const CATEGORIES = [
   "Weighting",
   "Regime Filter",

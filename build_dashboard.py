@@ -234,6 +234,8 @@ GROUPS = [
             {"id": "99", "file": "99_guard_timing_audit.html", "icon": ICON_STOPWATCH,
              "title": "Gold-Strength Guard — Timing Audit (the +11.5pp That Wasn't)",
              "subtitle": "The published edge came from same-day information; corrected, the guard adds +0.1pp CAGR and 0.8pp of drawdown — reports 91 and 92 republished"},
+            {"id": "103", "file": "103_microcap250_momentum10_gold_vs_cash.html", "icon": ICON_COIN_SHIELD,
+             "title": "Microcap250 Momentum 10 — Gold Instead of Cash", "subtitle": "Five for five — gold beats both alternatives, but the drawdown cut is the thinnest of any universe tested"},
         ],
     },
     {

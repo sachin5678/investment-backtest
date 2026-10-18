@@ -21,7 +21,7 @@ with open("master_comparison.json") as f:
 ROWS = R["rows"]
 CATEGORIES = ["Weighting", "Regime Filter", "Filter + Hedge", "Core-Satellite",
               "Trend Filter", "Stop-Loss", "Exposure Scaling"]
-UNIVERSES = ["Midcap150", "Smallcap250", "NIFTY100", "NIFTY500"]
+UNIVERSES = ["Midcap150", "Smallcap250", "NIFTY100", "NIFTY500", "Microcap250"]
 
 CAT_COLOR = {
     "Weighting": "#6AE4FF", "Regime Filter": "#37F083",

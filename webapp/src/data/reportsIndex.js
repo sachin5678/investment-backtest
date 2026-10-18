@@ -158,6 +158,7 @@ export const GROUPS = [
       { id: "92", file: "results91.json", icon: ICON_COMPASS, title: "Gold-Strength Guard — Does It Hold Up on Every Rebalance Calendar?", subtitle: "Corrected: ~+0.2pp CAGR on every calendar, drawdown equal or slightly better — the old +11.3-11.9pp band was the same timing bug (report 99)" },
       { id: "93", file: "results92.json", icon: ICON_FLASK, title: "MomentumScore-Style Review — Exit Rank 52", subtitle: "Fit ranks, exit-rank hysteresis, costs, tax, health & robustness — the whole review layer on report 48's design" },
       { id: "99", file: "results98.json", icon: ICON_STOPWATCH, title: "Gold-Strength Guard — Timing Audit (the +11.5pp That Wasn't)", subtitle: "The published edge came from same-day information; corrected, the guard adds +0.1pp CAGR and 0.8pp of drawdown — reports 91 and 92 republished" },
+      { id: "103", file: "results102.json", icon: ICON_COIN_SHIELD, title: "Microcap250 Momentum 10 — Gold Instead of Cash", subtitle: "Five for five — gold beats both alternatives, but the drawdown cut is the thinnest of any universe tested" },
     ],
   },
   {

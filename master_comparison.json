@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-18 14:05",
+  "generated": "2026-10-18 16:53",
   "rows": [
     {
       "universe": "Midcap150",
@@ -748,6 +748,40 @@
       "bench_max_drawdown_pct": -38.43985245274211,
       "bench_sharpe": 0.7508526155574671,
       "bench_sortino": 1.022623701989329
+    },
+    {
+      "universe": "Microcap250",
+      "category": "Regime Filter",
+      "label": "200-EMA regime filter + cash",
+      "report": 103,
+      "start_date": "2008-12-31",
+      "end_date": "2026-10-16",
+      "cagr_pct": 42.489493372713355,
+      "max_drawdown_pct": -36.583702119148995,
+      "net_return_pct": 54335.47593524088,
+      "sharpe": 1.8042339406435892,
+      "sortino": 2.2248887077806594,
+      "bench_cagr_pct": 12.256811328251388,
+      "bench_max_drawdown_pct": -38.43985245274211,
+      "bench_sharpe": 0.7508526155574671,
+      "bench_sortino": 1.022623701989329
+    },
+    {
+      "universe": "Microcap250",
+      "category": "Filter + Hedge",
+      "label": "200-EMA regime filter + gold",
+      "report": 103,
+      "start_date": "2009-01-02",
+      "end_date": "2026-10-16",
+      "cagr_pct": 46.48133518629055,
+      "max_drawdown_pct": -36.448285733594375,
+      "net_return_pct": 88707.7926611812,
+      "sharpe": 1.7750578603206486,
+      "sortino": 2.4769957095336688,
+      "bench_cagr_pct": 12.076813462789346,
+      "bench_max_drawdown_pct": -38.43985245274211,
+      "bench_sharpe": 0.7422653003823995,
+      "bench_sortino": 1.0103181878778653
     },
     {
       "universe": "Smallcap250",

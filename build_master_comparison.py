@@ -56,6 +56,7 @@ from backtest58 import build_with_trailing_stop
 from backtest27 import load_midcap150_field
 from backtest101 import (load_fundamentals, make_select_fn, build_portfolio,
                          monthly_rebalance_dates)
+from backtest103 import load_microcap250_closes
 
 ASSUMED_LIQUID_YIELD = 0.06
 BAND = 0.15
@@ -333,20 +334,26 @@ def process_universe(universe_name, closes, nifty_close, select_fn, select_fn_fr
         add_row(universe_name, "Regime Filter", "Asymmetric EMA (fast 50d re-entry)", asym_num,
                 asym_series, nifty_close, idx)
 
-    smooth_cash, _ = build_smooth_exposure(original_series, nifty_close, ema200, band_pct=BAND)
-    idx = common_idx.intersection(smooth_cash.index)
-    add_row(universe_name, "Exposure Scaling", "Smooth exposure 15% band + cash", report_numbers["smooth"],
-            smooth_cash, nifty_close, idx)
+    # Optional "exposure scaling" family — absent on universes whose report
+    # never tested it (report 103 / Microcap250), so guard on the keys the
+    # same way the asymmetric/trailing-stop rows do.
+    smooth_num = report_numbers.get("smooth")
+    if smooth_num:
+        smooth_cash, _ = build_smooth_exposure(original_series, nifty_close, ema200, band_pct=BAND)
+        idx = common_idx.intersection(smooth_cash.index)
+        add_row(universe_name, "Exposure Scaling", "Smooth exposure 15% band + cash", smooth_num,
+                smooth_cash, nifty_close, idx)
 
-    if gold_close is not None:
+    smooth_hedge_num = report_numbers.get("smooth_hedge")
+    if gold_close is not None and smooth_hedge_num:
         idx_g2 = original_series.index.intersection(gold_close.index).intersection(nifty_close.index)
         smooth_gold, _ = build_smooth_exposure_with_hedge(original_series, nifty_close, ema200, gold_close, band_pct=BAND)
-        add_row(universe_name, "Exposure Scaling", "Smooth exposure 15% band + gold", report_numbers["smooth_hedge"],
+        add_row(universe_name, "Exposure Scaling", "Smooth exposure 15% band + gold", smooth_hedge_num,
                 smooth_gold, nifty_close, idx_g2)
 
         liquid_close = liquid_series_for(original_series.index)
         smooth_liquid, _ = build_smooth_exposure_with_hedge(original_series, nifty_close, ema200, liquid_close, band_pct=BAND)
-        add_row(universe_name, "Exposure Scaling", "Smooth exposure 15% band + liquid fund (assumed 6%)", report_numbers["smooth_hedge"],
+        add_row(universe_name, "Exposure Scaling", "Smooth exposure 15% band + liquid fund (assumed 6%)", smooth_hedge_num,
                 smooth_liquid, nifty_close, idx_g2)
 
     if STOP_PCT is not None and report_numbers.get("trailing_stop"):
@@ -426,6 +433,24 @@ def main():
     n500_filt, _, _ = build_index_regime_filtered(n500_closes, n500_nifty, n500_ema, n500_rbdates, select_top_original_n500)
     idx = n500_orig.index.intersection(n500_filt.index)
     add_row("NIFTY500", "Regime Filter", "200-EMA regime filter + cash", 43, n500_filt, n500_nifty, idx)
+
+    # --- Report 103: Microcap250 gold-vs-cash ---------------------------------
+    # Fifth universe in the regime-filter/gold family (reports 42/44/45/48-50).
+    # Reuses report 44's selector unchanged (10 names, 40-name floor) and this
+    # report's OWN window (2008-12-31 -> 2026-10-16); note report 103's window
+    # begins one trading day before GOLDBEES.NS has real prices, so the gold
+    # row here starts 2009-01-02 vs the report's ffilled first day — expect
+    # ~0.0x pp drift vs results102.json, everything else should match.
+    print("=== Microcap250 (regime filter + gold) ===")
+    micro_closes = load_microcap250_closes()
+    micro_common = micro_closes.index.intersection(nifty_close_full.index)
+    process_universe(
+        "Microcap250", micro_closes.loc[micro_common], nifty_close_full.loc[micro_common],
+        select_top_smallcap, None,    # same selector as the report itself
+        None, None,                   # no universe-specific trend-filter row (no own index)
+        {"filter_cash": 103, "filter_gold": 103},
+        gold_close=gold_close_full,
+    )
 
     # --- Report 101: clean-room ProPicks four-pillar composite -----------------
     # A genuinely new *kind* of idea versus the weighting/regime/hedge rows

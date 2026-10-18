@@ -467,6 +467,82 @@
    }
   ]
  },
+ "103": {
+  "title": "Microcap250 Momentum 10 — Gold Instead of Cash During the 200-EMA Filter",
+  "subtitle": "Reports 48-50 established the pattern on Midcap150, Smallcap250 and NIFTY100: hold GOLDBEES.NS instead of cash whenever the 200-day-EMA filter is risk-off. This applies the identical mechanics to a fifth and genuinely new universe — NIFTY Microcap 250, an index that only launched in December 2024 — and it is the first universe in this series that had to be built from scratch: 246 of its 249 constituents, price cache rebuilt and gated against this project's earlier caches before any number below was computed.",
+  "source_line": "2008-12-31–2026-10-16 Report generated 2026-10-18 16:02",
+  "pages": [
+   {
+    "file": "103_microcap250_momentum10_gold_vs_cash.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "positive",
+        "text": "five for five — gold beats both alternatives on every universe tested"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "On Microcap 250, gold posts +46.5% CAGR against +43.4% for the unfiltered strategy and +42.5% for cash, with max drawdown -36.4% versus -39.7% unfiltered — the same win on both axes reports 48-50 found, now on a fifth universe.",
+       "But compare the drawdown column across the series before anointing this the best of the five: the filter's drawdown cut here is only -3.2 points (-39.7% to -36.4%) — the thinnest of any universe in this series, where the other four cut 9-16 points. Microcap money is made on the return, not on the protection."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "how this universe was built — and a data bug caught before publication"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "This is the first universe in the series that was not already cached. The constituent list came from the index provider's official CSV (fetched 2026-10-18): 249 Series=EQ names, of which 246 had price history through our data source. The 3 without any were kept out of the universe rather than guessed at. The eligibility floor (40 of 249 with a full 12m+6m history) never binds — 74 names already qualify at the 2007 start.",
+       "Disclosure worth making: the first bulk download silently returned foreign price series mixed into 113 of the 246 tickers — no error was raised, so no retry fired. It was caught by cross-checking against this project's earlier price caches before this report ran. The cache was then rebuilt one symbol at a time and gated against all 18 tickers it shares with those earlier caches: spans match, prices deviate 0.0000%. Every number below comes from that verified cache, not the corrupt one."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why the filter helps least on this universe",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "mechanism"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the mechanism behind the smallest drawdown cut in the series.",
+      "paragraphs": [
+       "The filter spends 24.3% of trading days risk-off (the same 69 regime re-entries as every other universe in this series — the gate is driven by NIFTY 50 itself, not the holdings). During that time the cash variant earns nothing, so its CAGR sits 0.9 points below doing nothing (+42.5% vs. +43.4%) — the only universe where plain cash clearly costs return. Gold's +13.1% sleeve is what turns risk-off time into a net positive, lifting the hedged variant 3.1 points above the unfiltered strategy.",
+       "The drawdown cut is thin for a structural reason: microcap losses are largely idiosyncratic — promoter problems, liquidity traps, circuit-to-circuit collapses — and those strikes happen while NIFTY 50 is comfortably above its 200-day EMA, so the gate stays risk-on and sails through them unhedged. The regime filter can only see the market tide, not the individual rips. That is also the honest limit of the five-for-five pattern: it is five universes on ONE historical path (this window contains 2008-09 once), not a guarantee gold always helps — gold can fall alongside equities in a genuine liquidity crunch."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this backtest.",
+      "paragraphs": [],
+      "list_items": [
+       "Survivorship bias is strongest on this page of the whole project.Today's Microcap 250 membership is applied retroactively to 2008, but the index itself only launched in December 2024 — the pre-2025 \"history\" is a backfilled construct of today's constituents. Microcap failures and delistings are concentrated in exactly the names this list can no longer contain, which flatters every variant's absolute CAGR: treat the levels as not investable expectations. The RANKING (gold beats cash beats nothing on both axes) is the more robust finding — and it likely understates the true drawdown cuts too, since dead names cluster in crashes.",
+       "246 of 249 constituents have prices (3 had none through our data source and were kept out, not guessed at); today's constituent list also carries names added later and drops names removed earlier.",
+       "Thin liquidity: microcap closes are noisier than any other universe here (multi-day halts, wide spreads, stale prints), interior halt gaps are forward-filled by the loader, and equal-rupee sizing ignores that halted names can't actually be traded.",
+       "Zero transaction costs on ANY regime switch (into or out of gold) — same disclosed omission as reports 42-49; microcap exits through circuit limits would realistically slip worse than anything modeled elsewhere.",
+       "GOLDBEES.NS's real history starts 2009-01-02 — the first two calendar days of this window use a forward/backward-filled gold price rather than a real traded one, negligible over an 18-year span.",
+       "Only ONE EMA span (200 days) and immediate-switch (no confirmation delay) were tested here; equal weighting, no F&O-eligibility screen, unadjusted prices, no dividends modeled — same as every other reconstruction in this project."
+      ]
+     }
+    ]
+   }
+  ]
+ },
  "10": {
   "title": "SIP in a Momentum ETF — vs. Midcap, vs. NIFTY 50",
   "subtitle": "Same ₹1,000/month vanilla SIP, no overlay of any kind, run into a momentum-factor ETF instead — compared head-to-head against midcap and NIFTY 50 over the identical, shorter window the momentum ETF's short history allows.",
