@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-18 13:30",
+  "generated": "2026-10-18 14:05",
   "rows": [
     {
       "universe": "Midcap150",
@@ -748,6 +748,40 @@
       "bench_max_drawdown_pct": -38.43985245274211,
       "bench_sharpe": 0.7508526155574671,
       "bench_sortino": 1.022623701989329
+    },
+    {
+      "universe": "Smallcap250",
+      "category": "Multi-Factor Composite",
+      "label": "Four-pillar: momentum + value + growth + quality",
+      "report": 101,
+      "start_date": "2023-07-03",
+      "end_date": "2026-10-16",
+      "cagr_pct": 29.374972357144003,
+      "max_drawdown_pct": -26.30544224556598,
+      "net_return_pct": 133.22840867578373,
+      "sharpe": 1.205669867374889,
+      "sortino": 1.4346233471353356,
+      "bench_cagr_pct": 5.644643933392672,
+      "bench_max_drawdown_pct": -15.766678303740743,
+      "bench_sharpe": 0.49520263935675246,
+      "bench_sortino": 0.6810385428836534
+    },
+    {
+      "universe": "Midcap150",
+      "category": "Multi-Factor Composite",
+      "label": "Four-pillar: momentum + value + growth + quality",
+      "report": 101,
+      "start_date": "2023-07-03",
+      "end_date": "2026-10-16",
+      "cagr_pct": 32.47644856374626,
+      "max_drawdown_pct": -25.370424169318973,
+      "net_return_pct": 152.12236078151844,
+      "sharpe": 1.397272651142925,
+      "sortino": 1.6658817430680328,
+      "bench_cagr_pct": 5.644643933392672,
+      "bench_max_drawdown_pct": -15.766678303740743,
+      "bench_sharpe": 0.49520263935675246,
+      "bench_sortino": 0.6810385428836534
     }
   ]
 }

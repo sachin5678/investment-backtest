@@ -78,6 +78,12 @@ export const GROUPS = [
     ],
   },
   {
+    label: "Multi-Factor Composites",
+    items: [
+      { id: "101", file: "results100.json", icon: ICON_FLASK, title: "Clean-room ProPicks India — Four-Pillar Score", subtitle: "Momentum+value+growth+quality beats momentum alone (29.4% vs 21.0% small-cap CAGR), but the edge is front-loaded" },
+    ],
+  },
+  {
     label: "Midcap Momentum + Gold",
     items: [
       { id: "14", file: "results13.json", icon: ICON_BOLT, title: "Midcap Momentum-20 + Gold Blend", subtitle: "Custom top-20 variant, plus a 50/50 gold diversification test" },

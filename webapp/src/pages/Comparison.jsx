@@ -24,6 +24,7 @@ const CATEGORY_COLOR = {
   "Trend Filter": "text-[#b39dff] border-[#b39dff]/40",
   "Stop-Loss": "text-negative border-negative/40",
   "Exposure Scaling": "text-positive border-positive/40",
+  "Multi-Factor Composite": "text-[#f472b6] border-[#f472b6]/40",
 };
 
 const COLUMNS = [

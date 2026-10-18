@@ -27,6 +27,7 @@ CAT_COLOR = {
     "Weighting": "#6AE4FF", "Regime Filter": "#37F083",
     "Filter + Hedge": "#F2B03C", "Core-Satellite": "#FF8A5C", "Trend Filter": "#8B5CF6",
     "Stop-Loss": "#F2643C", "Exposure Scaling": "#37F083",
+    "Multi-Factor Composite": "#F472B6",
 }
 
 

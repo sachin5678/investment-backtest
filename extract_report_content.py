@@ -11,7 +11,10 @@ import re
 import glob
 from bs4 import BeautifulSoup
 
-FILES = sorted(glob.glob("[0-9][0-9]_*.html"))
+# NOTE: "[0-9]+_" style globbing isn't supported, and "[0-9][0-9]_" silently
+# skipped report 101 (three digits) — widened to "[0-9]*_" so 3-digit report
+# ids keep getting their prose extracted too.
+FILES = sorted(glob.glob("[0-9]*_*.html"))
 
 
 def is_data_panel(div):

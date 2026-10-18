@@ -121,7 +121,7 @@
       <h1>Momentum Strategy Lab — Master Comparison</h1>
       <p class="subtitle">Every momentum-strategy variant tested across this project's front-loaded weighting,
       inverse-vol weighting, 200-EMA regime filter, gold/liquid-fund hedges, universe-specific trend filters,
-      trailing stops, and smooth exposure scaling — 44 rows across
+      trailing stops, and smooth exposure scaling — 46 rows across
       4 universes, each measured against NIFTY 50 on its own identical window. No charts here —
       sort or filter to find what actually worked.</p>
     </div>
@@ -137,7 +137,7 @@
       <button class="filter-pill" data-filter-type="category" data-filter-value="Weighting" style="--pill-color:#6AE4FF">Weighting</button><button class="filter-pill" data-filter-type="category" data-filter-value="Regime Filter" style="--pill-color:#37F083">Regime Filter</button><button class="filter-pill" data-filter-type="category" data-filter-value="Filter + Hedge" style="--pill-color:#F2B03C">Filter + Hedge</button><button class="filter-pill" data-filter-type="category" data-filter-value="Core-Satellite" style="--pill-color:#FF8A5C">Core-Satellite</button><button class="filter-pill" data-filter-type="category" data-filter-value="Trend Filter" style="--pill-color:#8B5CF6">Trend Filter</button><button class="filter-pill" data-filter-type="category" data-filter-value="Stop-Loss" style="--pill-color:#F2643C">Stop-Loss</button><button class="filter-pill" data-filter-type="category" data-filter-value="Exposure Scaling" style="--pill-color:#37F083">Exposure Scaling</button>
     </div>
     <div class="status-row">
-      <span id="rowCount">44 of 44 rows</span>
+      <span id="rowCount">46 of 46 rows</span>
       <button class="reset-link" id="resetBtn">Reset filters</button>
     </div>
   </div>
@@ -949,6 +949,42 @@
       <td class="metric-cell"><span class="metric-primary win">1.70</span><span class="metric-bench">vs 0.75</span></td>
       <td class="metric-cell"><span class="metric-primary win">1.91</span><span class="metric-bench">vs 1.02</span></td>
     </tr>
+
+    <tr data-universe="Smallcap250" data-category="Multi-Factor Composite"
+        data-cagr="29.374972357144003"
+        data-dd="-26.30544224556598"
+        data-sharpe="1.205669867374889"
+        data-sortino="1.4346233471353356"
+        data-report="101">
+      <td class="label-cell">
+        <div class="universe-tag">Smallcap250</div>
+        <div class="strategy-label">Four-pillar: momentum + value + growth + quality</div>
+        <div class="category-tag" style="color:#F472B6;border-color:#F472B644;background:#F472B614">Multi-Factor Composite</div>
+      </td>
+      <td class="window-cell">2023-07-03<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 101</div></td>
+      <td class="metric-cell"><span class="metric-primary win">+29.4%</span><span class="metric-bench">vs +5.6%</span></td>
+      <td class="metric-cell"><span class="metric-primary lose">-26.3%</span><span class="metric-bench">vs -15.8%</span></td>
+      <td class="metric-cell"><span class="metric-primary win">1.21</span><span class="metric-bench">vs 0.50</span></td>
+      <td class="metric-cell"><span class="metric-primary win">1.43</span><span class="metric-bench">vs 0.68</span></td>
+    </tr>
+
+    <tr data-universe="Midcap150" data-category="Multi-Factor Composite"
+        data-cagr="32.47644856374626"
+        data-dd="-25.370424169318973"
+        data-sharpe="1.397272651142925"
+        data-sortino="1.6658817430680328"
+        data-report="101">
+      <td class="label-cell">
+        <div class="universe-tag">Midcap150</div>
+        <div class="strategy-label">Four-pillar: momentum + value + growth + quality</div>
+        <div class="category-tag" style="color:#F472B6;border-color:#F472B644;background:#F472B614">Multi-Factor Composite</div>
+      </td>
+      <td class="window-cell">2023-07-03<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 101</div></td>
+      <td class="metric-cell"><span class="metric-primary win">+32.5%</span><span class="metric-bench">vs +5.6%</span></td>
+      <td class="metric-cell"><span class="metric-primary lose">-25.4%</span><span class="metric-bench">vs -15.8%</span></td>
+      <td class="metric-cell"><span class="metric-primary win">1.40</span><span class="metric-bench">vs 0.50</span></td>
+      <td class="metric-cell"><span class="metric-primary win">1.67</span><span class="metric-bench">vs 0.68</span></td>
+    </tr>
       </tbody>
     </table>
   </div>
@@ -969,7 +1005,7 @@
 </footer>
 
 <script>
-const ROWS_META = [{"universe": "Midcap150", "category": "Weighting"}, {"universe": "Midcap150", "category": "Regime Filter"}, {"universe": "Midcap150", "category": "Regime Filter"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Core-Satellite"}, {"universe": "Midcap150", "category": "Weighting"}, {"universe": "Midcap150", "category": "Regime Filter"}, {"universe": "Midcap150", "category": "Exposure Scaling"}, {"universe": "Midcap150", "category": "Exposure Scaling"}, {"universe": "Midcap150", "category": "Exposure Scaling"}, {"universe": "Midcap150", "category": "Stop-Loss"}, {"universe": "Smallcap250", "category": "Regime Filter"}, {"universe": "Smallcap250", "category": "Filter + Hedge"}, {"universe": "Smallcap250", "category": "Trend Filter"}, {"universe": "Smallcap250", "category": "Exposure Scaling"}, {"universe": "Smallcap250", "category": "Exposure Scaling"}, {"universe": "Smallcap250", "category": "Exposure Scaling"}, {"universe": "NIFTY100", "category": "Regime Filter"}, {"universe": "NIFTY100", "category": "Filter + Hedge"}, {"universe": "NIFTY100", "category": "Regime Filter"}, {"universe": "NIFTY100", "category": "Exposure Scaling"}, {"universe": "NIFTY100", "category": "Exposure Scaling"}, {"universe": "NIFTY100", "category": "Exposure Scaling"}, {"universe": "NIFTY500", "category": "Regime Filter"}];
+const ROWS_META = [{"universe": "Midcap150", "category": "Weighting"}, {"universe": "Midcap150", "category": "Regime Filter"}, {"universe": "Midcap150", "category": "Regime Filter"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Core-Satellite"}, {"universe": "Midcap150", "category": "Weighting"}, {"universe": "Midcap150", "category": "Regime Filter"}, {"universe": "Midcap150", "category": "Exposure Scaling"}, {"universe": "Midcap150", "category": "Exposure Scaling"}, {"universe": "Midcap150", "category": "Exposure Scaling"}, {"universe": "Midcap150", "category": "Stop-Loss"}, {"universe": "Smallcap250", "category": "Regime Filter"}, {"universe": "Smallcap250", "category": "Filter + Hedge"}, {"universe": "Smallcap250", "category": "Trend Filter"}, {"universe": "Smallcap250", "category": "Exposure Scaling"}, {"universe": "Smallcap250", "category": "Exposure Scaling"}, {"universe": "Smallcap250", "category": "Exposure Scaling"}, {"universe": "NIFTY100", "category": "Regime Filter"}, {"universe": "NIFTY100", "category": "Filter + Hedge"}, {"universe": "NIFTY100", "category": "Regime Filter"}, {"universe": "NIFTY100", "category": "Exposure Scaling"}, {"universe": "NIFTY100", "category": "Exposure Scaling"}, {"universe": "NIFTY100", "category": "Exposure Scaling"}, {"universe": "NIFTY500", "category": "Regime Filter"}, {"universe": "Smallcap250", "category": "Multi-Factor Composite"}, {"universe": "Midcap150", "category": "Multi-Factor Composite"}];
 const activeFilters = { universe: null, category: null };
 let sortState = { key: "cagr", dir: "desc" };
 

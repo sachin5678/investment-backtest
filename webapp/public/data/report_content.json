@@ -385,6 +385,88 @@
    }
   ]
  },
+ "101": {
+  "title": "Clean-room ProPicks India — Rebuilding the Four-Pillar Score From Public Sources",
+  "subtitle": "A from-scratch reconstruction of thefactor structurebehind Investing.com's ProPicks India strategies, inferred purely from their public methodology page and the press releases they publish on every monthly rebalance. Nothing was taken from the product — no paywall bypassed, no private endpoint called, no proprietary code or model weights obtained. It is then tested on Indian small-caps and mid-caps to ask the only question that matters: does that structure actually earn anything?",
+  "source_line": "2023-07-03–2026-10-16 Report generated 2026-10-18 13:46",
+  "pages": [
+   {
+    "file": "101_propicks_india_cleanroom.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "four-pillar composite beats its index — but the edge is front-loaded"
+       },
+       {
+        "kind": "positive",
+        "text": "~4.5 names rotated/month, matching their stated 4–8"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Over 40 monthly rebalances the four-pillar composite returned +29.4% CAGR on small-caps against +16.6% for the NIFTY Smallcap 250, and +32.5% on mid-caps against +15.8% for the NIFTY Midcap 150 — after real statutory and brokerage charges on a full monthly re-slice of the book. Plain momentum, the control, lands at +21.0% and +25.8%. Adding value, growth and quality on top of momentum is worth real money in both universes over the full window.",
+       "The caveat is the second half of the window, and it is the part to actually trade on. Cut the period in half and small-cap outperformance falls from +26.0pp of CAGR to +1.3pp, where plain momentum beats the composite outright. Mid-caps hold up far better. The structure works; the 30%-a-year headline does not survive scrutiny, and on top of that every reconstruction here carries survivorship bias that flatters all variants equally. See the robustness table and limitations below."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "What was reconstructed, and how",
+      "pills": [
+       {
+        "kind": "neutral",
+        "text": "public sources only — no paywall, no private endpoints"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the inference chain from their published material to the scoring rules actually tested here. The full write-up is in docs/propicks-india-recon.md.",
+      "paragraphs": [
+       "The invariant four-bullet structure across every published rationale is the tell. It is a momentum + value-vs-fair-value + growth + quality composite, ranked monthly, with a fair-value gate.",
+       "The mechanism is specific and worth naming: buy earnings acceleration before the multiple re-rates, and rotate out once it has. That is why a rationale can say \"+47% in three months\" and \"trades at just 11x, PEG 0.19\" in the same sentence — price rose while earnings rose faster, so the multiple compressed. This report tests whether that structure earns anything when rebuilt from scratch."
+      ],
+      "list_items": [
+       "Rebalance on thefirst trading dayof each month, at that session's close.",
+       "15–20slots,equal weight,4–8names rotated per month.",
+       "Removal is arank push-out, explicitly not a sell signal.",
+       "Every add/remove ships a rationale citing four things: a 3/6/12-month price return, a P/E and P/B with a \"fair value\" and its % upside, a revenue/EBITDA/profit growth rate, and the balance-sheet state.",
+       "Universe filters first: market-cap band, index membership, liquidity floor, no penny stocks."
+      ]
+     },
+     {
+      "heading": "What trading this actually costs",
+      "pills": [],
+      "what_this_shows": "WHAT THIS SHOWS — a full equal-weight re-slice every month touches the whole book, which is why the gap between the loaded and frictionless rows is wide. The real strategy only rotates 4–8 of its 20 names, so this is deliberately pessimistic.",
+      "paragraphs": [
+       "Cost drag over the window is 7.23pp of CAGR on small-caps and 7.41pp on mid-caps. Implied rotation is 4.5 and 4.2 names per month respectively — which lands inside the 4–8 band they state publicly, a small but real confirmation that the reconstructed turnover is in the right neighbourhood. Implementing it their way (trade only the 4–8 changes, never re-slice the retained names) would recover roughly half the cost drag shown here."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Limitations — read before trusting any number above",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "mandatory, not decorative"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [],
+      "list_items": [
+       "Survivorship bias is the big one.Today's NIFTY Smallcap 250 / Midcap 150 constituent lists are applied retroactively to every rebalance. Stocks that fell out of the index, delisted, merged or went bankrupt are missing from the entire history. This flatters every variant on this page and it is strongest for smallcaps, whose membership churns most. No result here should be read as a live-tradable track record.",
+       "The window is short and was kind.40 rebalances over 3.3 years, mid-2023 onward — a period in which the benchmark itself compounded at 16.6% (smallcap) and 15.8% (midcap). The half-window table above is the antidote; use it, not the headline.",
+       "The fair-value gate is a stand-in, not a replica.Their fair-value engine is proprietary and unrecoverable. An absolute anchor was tried first and fails outright on Indian smallcaps: a Graham number puts the median stock 54–82%belowfair value, so only 4–24% of names would ever clear such a gate. What is used instead is a peer-relative anchor (the universe's median P/E and median P/B applied to each stock's own earnings and book) — no invented macro assumption, but it is a proxy for 'cheaper than the median peer'.",
+       "The 90-day reporting lag.A fundamental period is only usable 90 days after its period-end. Indian annual results for a March year-end are due within roughly 60 days, so this is deliberately conservative — it costs staleness rather than risking look-ahead. Without it, every value/growth/quality reading would be look-ahead and the whole result would be a fiction.",
+       "Only ~4–5 annual periods are availablefrom the data source, so the four-pillar variants cannot start before mid-2023 once the lag and a prior-year growth base are both satisfied. That is the entire reason for the short window.",
+       "Full equal-weight re-slice every month.That charges buy and sell costs on ~100% of the book each rebalance. The real strategy rotates only 4–8 of 20 names, so these cost-loaded figures are aconservative upper boundon cost drag — the frictionless rows show how much. No impact cost, no taxes, no slippage beyond the sourced statutory ladder.",
+       "Growth is measured off each company's own fiscal calendar.A stock's 'prior year' is its previous annual period in the data, not a calendar-aligned fiscal year — non-March year-ends are measured on their own clock rather than silently re-aligned.",
+       "Unadjusted prices, no dividends modelled, no intraday fills, and signal-at-close / fill-at-close on the rebalance day (matching how the real strategy states it rebalances at the end of the first session)."
+      ]
+     }
+    ]
+   }
+  ]
+ },
  "10": {
   "title": "SIP in a Momentum ETF — vs. Midcap, vs. NIFTY 50",
   "subtitle": "Same ₹1,000/month vanilla SIP, no overlay of any kind, run into a momentum-factor ETF instead — compared head-to-head against midcap and NIFTY 50 over the identical, shorter window the momentum ETF's short history allows.",

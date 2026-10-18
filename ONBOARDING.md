@@ -218,6 +218,7 @@ imply otherwise to a future session or the user.
 | SIP + Tactical Overlays (Midcap) | 05-09 dip lump-sums, confirmed-recovery, doubling SIPs, SIP-date-matters |
 | Momentum Factor | 10 SIP in a momentum ETF · 11 Momentum formula 18yr · 12/28 NIFTY100 Momentum 10/5 |
 | Quality Factor | 13 Quality-50 static basket |
+| Multi-Factor Composites | 101 Clean-room ProPicks India — momentum + value + growth + quality score, smallcap (INSG20 analogue) + midcap (INMM20 analogue) |
 | Midcap Momentum + Gold | 14 Momentum-20+gold · 15 quarterly rebalance · 16/29 Smallcap vs Midcap / Smallcap 10 vs 5 · 17 monthly-rebalance-all-6 · 18 Midcap-30 & NIFTY500 10/15 |
 | Sector Rotation | 19 Sector-first momentum |
 | Momentum + Gold, Drawdown-Triggered | 20 catch-blend |

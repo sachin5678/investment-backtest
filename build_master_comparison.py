@@ -54,6 +54,8 @@ from backtest44 import select_top_smallcap
 from backtest45 import select_top_n100
 from backtest58 import build_with_trailing_stop
 from backtest27 import load_midcap150_field
+from backtest101 import (load_fundamentals, make_select_fn, build_portfolio,
+                         monthly_rebalance_dates)
 
 ASSUMED_LIQUID_YIELD = 0.06
 BAND = 0.15
@@ -424,6 +426,29 @@ def main():
     n500_filt, _, _ = build_index_regime_filtered(n500_closes, n500_nifty, n500_ema, n500_rbdates, select_top_original_n500)
     idx = n500_orig.index.intersection(n500_filt.index)
     add_row("NIFTY500", "Regime Filter", "200-EMA regime filter + cash", 43, n500_filt, n500_nifty, idx)
+
+    # --- Report 101: clean-room ProPicks four-pillar composite -----------------
+    # A genuinely new *kind* of idea versus the weighting/regime/hedge rows
+    # above: the universe is ranked on a momentum + value + growth + quality
+    # composite rather than momentum alone, so it gets its own category.
+    # Cost-loaded variant is used (the report's published headline), and it is
+    # benchmarked on NIFTY 50 like every other row here, per this table's
+    # stated convention -- the report itself benchmarks against the smallcap/
+    # midcap index, so cross-check the VARIANT's CAGR/DD against report 101,
+    # not the bench column.
+    print("=== Report 101: four-pillar composite (cost-loaded) ===")
+    panel101 = load_fundamentals()
+    for uni_name, loader in (("Smallcap250", load_smallcap250_closes),
+                             ("Midcap150", load_midcap150_closes)):
+        c_all = loader()
+        c = c_all.loc[c_all.index.intersection(nifty_close_full.index)]
+        rb101 = monthly_rebalance_dates(c.index)
+        s101, _ = build_portfolio(c, rb101, make_select_fn("pro_4", panel101),
+                                  cost_loaded=True)
+        idx101 = s101.index.intersection(nifty_close_full.index)
+        add_row(uni_name, "Multi-Factor Composite",
+                "Four-pillar: momentum + value + growth + quality",
+                101, s101, nifty_close_full, idx101)
 
     with open("master_comparison.json", "w") as f:
         json.dump({"generated": pd.Timestamp.now().strftime("%Y-%m-%d %H:%M"), "rows": rows}, f, indent=2)
