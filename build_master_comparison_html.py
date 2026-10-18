@@ -19,14 +19,14 @@ with open("master_comparison.json") as f:
     R = json.load(f)
 
 ROWS = R["rows"]
-CATEGORIES = ["Baseline", "Weighting", "Basket Size", "Regime Filter", "Filter + Hedge", "Core-Satellite",
-              "Trend Filter", "Stop-Loss", "Momentum Formula", "Exposure Scaling"]
+CATEGORIES = ["Weighting", "Regime Filter", "Filter + Hedge", "Core-Satellite",
+              "Trend Filter", "Stop-Loss", "Exposure Scaling"]
 UNIVERSES = ["Midcap150", "Smallcap250", "NIFTY100", "NIFTY500"]
 
 CAT_COLOR = {
-    "Baseline": "#7E97A0", "Weighting": "#6AE4FF", "Basket Size": "#F25CA6", "Regime Filter": "#37F083",
+    "Weighting": "#6AE4FF", "Regime Filter": "#37F083",
     "Filter + Hedge": "#F2B03C", "Core-Satellite": "#FF8A5C", "Trend Filter": "#8B5CF6",
-    "Stop-Loss": "#F2643C", "Momentum Formula": "#6AE4FF", "Exposure Scaling": "#37F083",
+    "Stop-Loss": "#F2643C", "Exposure Scaling": "#37F083",
 }
 
 
@@ -213,7 +213,7 @@ def build():
       <h1>Momentum Strategy Lab — Master Comparison</h1>
       <p class="subtitle">Every momentum-strategy variant tested across this project's front-loaded weighting,
       inverse-vol weighting, 200-EMA regime filter, gold/liquid-fund hedges, universe-specific trend filters,
-      trailing stops, absolute momentum gates, and smooth exposure scaling — {len(ROWS)} rows across
+      trailing stops, and smooth exposure scaling — {len(ROWS)} rows across
       {len(UNIVERSES)} universes, each measured against NIFTY 50 on its own identical window. No charts here —
       sort or filter to find what actually worked.</p>
     </div>

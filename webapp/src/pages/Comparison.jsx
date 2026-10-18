@@ -8,27 +8,21 @@ const DATA_BASE = "./data/";
 
 const UNIVERSES = ["Midcap150", "Smallcap250", "NIFTY100", "NIFTY500"];
 const CATEGORIES = [
-  "Baseline",
   "Weighting",
-  "Basket Size",
   "Regime Filter",
   "Filter + Hedge",
   "Core-Satellite",
   "Trend Filter",
   "Stop-Loss",
-  "Momentum Formula",
   "Exposure Scaling",
 ];
 const CATEGORY_COLOR = {
-  Baseline: "text-muted-2 border-muted-2/40",
   Weighting: "text-accent border-accent/40",
-  "Basket Size": "text-[#f25ca6] border-[#f25ca6]/40",
   "Regime Filter": "text-positive border-positive/40",
   "Filter + Hedge": "text-assumption border-assumption/40",
   "Core-Satellite": "text-[#ff8a5c] border-[#ff8a5c]/40",
   "Trend Filter": "text-[#b39dff] border-[#b39dff]/40",
   "Stop-Loss": "text-negative border-negative/40",
-  "Momentum Formula": "text-accent border-accent/40",
   "Exposure Scaling": "text-positive border-positive/40",
 };
 
@@ -142,7 +136,7 @@ export default function Comparison() {
       <Panel tight>
         <WhatThisShows>
           Every momentum-strategy variant tested across this project's front-loaded weighting, inverse-vol weighting, 200-EMA
-          regime filter, gold/liquid-fund hedges, universe-specific trend filters, trailing stops, absolute momentum gates, and
+          regime filter, gold/liquid-fund hedges, universe-specific trend filters, trailing stops, and
           smooth exposure scaling — {rows.length} rows across {UNIVERSES.length} universes, each measured against NIFTY 50 on
           its own identical window. No charts here — sort or filter to find what actually worked. Sharpe/Sortino assume a 0%
           risk-free rate and are computed from each variant's true daily equity series (not the downsampled chart data

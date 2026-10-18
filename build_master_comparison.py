@@ -41,23 +41,19 @@ from backtest15 import load_smallcap250_closes
 from backtest17 import load_nifty500_closes
 from nifty100_symbols import NIFTY_100_SYMBOLS
 
-from backtest33 import (select_top_original, build_index_generic, build_index_generic_invvol,
-                         build_index_generic_gated)
+from backtest33 import select_top_original, build_index_generic, build_index_generic_invvol
 from backtest37 import select_top_frontloaded
-from backtest39 import select_top_frontloaded_n500, select_top_original_n500
+from backtest39 import select_top_original_n500
 from backtest40 import select_top_frontloaded_smallcap
 from backtest41 import select_top_frontloaded_n100
 from backtest42 import (build_index_regime_filtered, build_index_regime_filtered_with_hedge,
                          build_index_regime_filtered_asymmetric, build_smooth_exposure,
                          build_smooth_exposure_with_hedge, build_index_core_satellite,
                          EMA_SPAN, REENTRY_EMA_SPAN)
-from backtest44 import select_top_smallcap, MIN_ELIGIBLE_SMALLCAP
-from backtest45 import select_top_n100, MIN_ELIGIBLE as MIN_ELIGIBLE_N100
+from backtest44 import select_top_smallcap
+from backtest45 import select_top_n100
 from backtest58 import build_with_trailing_stop
 from backtest27 import load_midcap150_field
-from backtest62 import select_top_abs_gate as select_top_abs_gate_mid
-from backtest63 import select_top_abs_gate as select_top_abs_gate_small
-from backtest64 import select_top_abs_gate as select_top_abs_gate_n100
 
 ASSUMED_LIQUID_YIELD = 0.06
 BAND = 0.15
@@ -117,21 +113,23 @@ def liquid_series_for(index):
 
 
 def process_universe(universe_name, closes, nifty_close, select_fn, select_fn_frontloaded,
-                      select_fn_abs_gate, own_signal_close, own_signal_label, min_eligible_gate,
+                      own_signal_close, own_signal_label,
                       report_numbers, gold_close=None):
     ema200 = nifty_close.ewm(span=EMA_SPAN, adjust=False).mean()
     rbdates = rebalance_dates(closes.index, months=(6, 12))
 
+    # NOTE: the equal-weight "Original" baseline row itself is no longer
+    # published (reports 12/16/18 were retired from the published set), but
+    # `original_series` is still the index source several exposure-scaling
+    # rows below are aligned against, so the series is still built.
     original_series, _ = build_index_generic(closes, rbdates, select_fn)
     common_idx = original_series.index.intersection(nifty_close.index)
 
-    add_row(universe_name, "Baseline", "Original (equal-weight momentum)", report_numbers["original"],
-            original_series, nifty_close, common_idx)
-
-    if select_fn_frontloaded is not None:
+    fl_num = report_numbers.get("frontloaded")
+    if select_fn_frontloaded is not None and fl_num:
         fl_series, _ = build_index_generic(closes, rbdates, select_fn_frontloaded)
         idx = common_idx.intersection(fl_series.index)
-        add_row(universe_name, "Weighting", "Front-loaded 3m/6m/12m (50/30/20)", report_numbers["frontloaded"],
+        add_row(universe_name, "Weighting", "Front-loaded 3m/6m/12m (50/30/20)", fl_num,
                 fl_series, nifty_close, idx)
 
     filt_series, _, _ = build_index_regime_filtered(closes, nifty_close, ema200, rbdates, select_fn)
@@ -309,41 +307,29 @@ def process_universe(universe_name, closes, nifty_close, select_fn, select_fn_fr
                     f"{mom_w*100:.0f}/{hedge_w*100:.0f} core-satellite + full gold switch", report_num,
                     combo_series, nifty_close, idx_c)
 
-    invvol_series, _ = build_index_generic_invvol(closes, rbdates, select_fn)
-    idx = common_idx.intersection(invvol_series.index)
-    add_row(universe_name, "Weighting", "Inverse-volatility weighting", report_numbers["invvol"],
-            invvol_series, nifty_close, idx)
+    invvol_num = report_numbers.get("invvol")
+    if invvol_num:
+        invvol_series, _ = build_index_generic_invvol(closes, rbdates, select_fn)
+        idx = common_idx.intersection(invvol_series.index)
+        add_row(universe_name, "Weighting", "Inverse-volatility weighting", invvol_num,
+                invvol_series, nifty_close, idx)
 
-    # Basket size: same formula, same select_fn, just a much wider top_n
-    # (e.g. 50 instead of 10) — every select_fn in this project accepts
-    # top_n/min_eligible kwargs, so this generalizes across universes even
-    # though only Midcap150 has actually been tested so far.
-    basket_num = report_numbers.get("basket_50")
-    if basket_num:
-        wide_series, _ = build_index_generic(
-            closes, rbdates, lambda c, t_idx: select_fn(c, t_idx, top_n=50, min_eligible=50))
-        idx_w = common_idx.intersection(wide_series.index)
-        add_row(universe_name, "Basket Size", "Top-50 (vs. the flagship top-10)", basket_num,
-                wide_series, nifty_close, idx_w)
-
-    if own_signal_close is not None:
+    own_num = report_numbers.get("own_signal")
+    if own_signal_close is not None and own_num:
         own_idx = closes.index.intersection(nifty_close.index).intersection(own_signal_close.index)
         own_ema = own_signal_close.loc[own_idx].ewm(span=EMA_SPAN, adjust=False).mean()
         own_series, _, _ = build_index_regime_filtered(closes.loc[own_idx], own_signal_close.loc[own_idx], own_ema, rbdates, select_fn)
         idx_o = own_series.index.intersection(nifty_close.index)
-        add_row(universe_name, "Trend Filter", f"Universe-specific trend filter ({own_signal_label})", report_numbers["own_signal"],
+        add_row(universe_name, "Trend Filter", f"Universe-specific trend filter ({own_signal_label})", own_num,
                 own_series, nifty_close, idx_o)
 
-    asym_ema50 = nifty_close.ewm(span=REENTRY_EMA_SPAN, adjust=False).mean()
-    asym_series, _, _ = build_index_regime_filtered_asymmetric(closes, nifty_close, ema200, asym_ema50, rbdates, select_fn)
-    idx = common_idx.intersection(asym_series.index)
-    add_row(universe_name, "Regime Filter", "Asymmetric EMA (fast 50d re-entry)", report_numbers["asymmetric"],
-            asym_series, nifty_close, idx)
-
-    gated_series, _ = build_index_generic_gated(closes, rbdates, select_fn_abs_gate, slot_count=10)
-    idx = common_idx.intersection(gated_series.index)
-    add_row(universe_name, "Momentum Formula", "Absolute momentum gate", report_numbers["abs_gate"],
-            gated_series, nifty_close, idx)
+    asym_num = report_numbers.get("asymmetric")
+    if asym_num:
+        asym_ema50 = nifty_close.ewm(span=REENTRY_EMA_SPAN, adjust=False).mean()
+        asym_series, _, _ = build_index_regime_filtered_asymmetric(closes, nifty_close, ema200, asym_ema50, rbdates, select_fn)
+        idx = common_idx.intersection(asym_series.index)
+        add_row(universe_name, "Regime Filter", "Asymmetric EMA (fast 50d re-entry)", asym_num,
+                asym_series, nifty_close, idx)
 
     smooth_cash, _ = build_smooth_exposure(original_series, nifty_close, ema200, band_pct=BAND)
     idx = common_idx.intersection(smooth_cash.index)
@@ -384,11 +370,11 @@ def main():
     midcapietf = fetch("MIDCAPIETF.NS")["Close"]
     process_universe(
         "Midcap150", mid_closes.loc[mid_common], nifty_close_full.loc[mid_common],
-        select_top_original, select_top_frontloaded, select_top_abs_gate_mid,
-        midcapietf, "MIDCAPIETF.NS", 30,
-        {"original": 16, "frontloaded": 37, "filter_cash": 42, "filter_gold": 48, "invvol": 51,
-         "own_signal": 54, "asymmetric": 59, "abs_gate": 62, "smooth": 65, "smooth_hedge": 68,
-         "trailing_stop": 58, "core_satellite_70_30": 71, "core_satellite_50_50": 72, "basket_50": 73,
+        select_top_original, select_top_frontloaded,
+        midcapietf, "MIDCAPIETF.NS",
+        {"frontloaded": 37, "filter_cash": 42, "filter_gold": 48, "invvol": 51,
+         "asymmetric": 59, "smooth": 65, "smooth_hedge": 68,
+         "trailing_stop": 58, "core_satellite_70_30": 71,
          "filter_gold_ema400": 76, "filter_gold_4monthly": 77,
          "filter_gold_top5": 78, "filter_gold_top15": 78, "filter_gold_top20": 79,
          "filter_gold_july_jan": 85, "filter_gold_aug_feb": 85, "filter_gold_sept_mar": 85, "filter_gold_oct_apr": 85,
@@ -405,10 +391,10 @@ def main():
     smallcap_idx = fetch("NIFTYSMLCAP250.NS")["Close"]
     process_universe(
         "Smallcap250", small_closes.loc[small_common], nifty_close_full.loc[small_common],
-        select_top_smallcap, select_top_frontloaded_smallcap, select_top_abs_gate_small,
-        smallcap_idx, "NIFTYSMLCAP250.NS", MIN_ELIGIBLE_SMALLCAP,
-        {"original": 16, "frontloaded": 40, "filter_cash": 44, "filter_gold": 49, "invvol": 52,
-         "own_signal": 55, "asymmetric": 60, "abs_gate": 63, "smooth": 66, "smooth_hedge": 69},
+        select_top_smallcap, select_top_frontloaded_smallcap,
+        smallcap_idx, "NIFTYSMLCAP250.NS",
+        {"filter_cash": 44, "filter_gold": 49,
+         "own_signal": 55, "smooth": 66, "smooth_hedge": 69},
         gold_close=gold_close_full,
     )
 
@@ -420,14 +406,14 @@ def main():
     cnx100 = fetch("^CNX100")["Close"]
     process_universe(
         "NIFTY100", n100_closes.loc[n100_common], nifty_close_full.loc[n100_common],
-        select_top_n100, select_top_frontloaded_n100, select_top_abs_gate_n100,
-        cnx100, "^CNX100", MIN_ELIGIBLE_N100,
-        {"original": 12, "frontloaded": 41, "filter_cash": 45, "filter_gold": 50, "invvol": 53,
-         "own_signal": 56, "asymmetric": 61, "abs_gate": 64, "smooth": 67, "smooth_hedge": 70},
+        select_top_n100, select_top_frontloaded_n100,
+        cnx100, "^CNX100",
+        {"filter_cash": 45, "filter_gold": 50,
+         "asymmetric": 61, "smooth": 67, "smooth_hedge": 70},
         gold_close=gold_close_full,
     )
 
-    print("=== NIFTY500 (limited: original, front-loaded, filter only) ===")
+    print("=== NIFTY500 (limited: regime filter only) ===")
     n500_closes = load_nifty500_closes()
     n500_common = n500_closes.index.intersection(nifty_close_full.index)
     n500_closes = n500_closes.loc[n500_common]
@@ -435,11 +421,6 @@ def main():
     n500_ema = n500_nifty.ewm(span=EMA_SPAN, adjust=False).mean()
     n500_rbdates = rebalance_dates(n500_closes.index, months=(6, 12))
     n500_orig, _ = build_index_generic(n500_closes, n500_rbdates, select_top_original_n500)
-    idx = n500_orig.index.intersection(n500_nifty.index)
-    add_row("NIFTY500", "Baseline", "Original (equal-weight momentum)", 18, n500_orig, n500_nifty, idx)
-    n500_fl, _ = build_index_generic(n500_closes, n500_rbdates, select_top_frontloaded_n500)
-    idx = n500_orig.index.intersection(n500_fl.index)
-    add_row("NIFTY500", "Weighting", "Front-loaded 3m/6m/12m (50/30/20)", 39, n500_fl, n500_nifty, idx)
     n500_filt, _, _ = build_index_regime_filtered(n500_closes, n500_nifty, n500_ema, n500_rbdates, select_top_original_n500)
     idx = n500_orig.index.intersection(n500_filt.index)
     add_row("NIFTY500", "Regime Filter", "200-EMA regime filter + cash", 43, n500_filt, n500_nifty, idx)

@@ -121,7 +121,7 @@
       <h1>Momentum Strategy Lab — Master Comparison</h1>
       <p class="subtitle">Every momentum-strategy variant tested across this project's front-loaded weighting,
       inverse-vol weighting, 200-EMA regime filter, gold/liquid-fund hedges, universe-specific trend filters,
-      trailing stops, absolute momentum gates, and smooth exposure scaling — 56 rows across
+      trailing stops, and smooth exposure scaling — 44 rows across
       4 universes, each measured against NIFTY 50 on its own identical window. No charts here —
       sort or filter to find what actually worked.</p>
     </div>
@@ -134,10 +134,10 @@
     </div>
     <div class="filter-row">
       <span class="filter-row-label">Idea</span>
-      <button class="filter-pill" data-filter-type="category" data-filter-value="Baseline" style="--pill-color:#7E97A0">Baseline</button><button class="filter-pill" data-filter-type="category" data-filter-value="Weighting" style="--pill-color:#6AE4FF">Weighting</button><button class="filter-pill" data-filter-type="category" data-filter-value="Basket Size" style="--pill-color:#F25CA6">Basket Size</button><button class="filter-pill" data-filter-type="category" data-filter-value="Regime Filter" style="--pill-color:#37F083">Regime Filter</button><button class="filter-pill" data-filter-type="category" data-filter-value="Filter + Hedge" style="--pill-color:#F2B03C">Filter + Hedge</button><button class="filter-pill" data-filter-type="category" data-filter-value="Core-Satellite" style="--pill-color:#FF8A5C">Core-Satellite</button><button class="filter-pill" data-filter-type="category" data-filter-value="Trend Filter" style="--pill-color:#8B5CF6">Trend Filter</button><button class="filter-pill" data-filter-type="category" data-filter-value="Stop-Loss" style="--pill-color:#F2643C">Stop-Loss</button><button class="filter-pill" data-filter-type="category" data-filter-value="Momentum Formula" style="--pill-color:#6AE4FF">Momentum Formula</button><button class="filter-pill" data-filter-type="category" data-filter-value="Exposure Scaling" style="--pill-color:#37F083">Exposure Scaling</button>
+      <button class="filter-pill" data-filter-type="category" data-filter-value="Weighting" style="--pill-color:#6AE4FF">Weighting</button><button class="filter-pill" data-filter-type="category" data-filter-value="Regime Filter" style="--pill-color:#37F083">Regime Filter</button><button class="filter-pill" data-filter-type="category" data-filter-value="Filter + Hedge" style="--pill-color:#F2B03C">Filter + Hedge</button><button class="filter-pill" data-filter-type="category" data-filter-value="Core-Satellite" style="--pill-color:#FF8A5C">Core-Satellite</button><button class="filter-pill" data-filter-type="category" data-filter-value="Trend Filter" style="--pill-color:#8B5CF6">Trend Filter</button><button class="filter-pill" data-filter-type="category" data-filter-value="Stop-Loss" style="--pill-color:#F2643C">Stop-Loss</button><button class="filter-pill" data-filter-type="category" data-filter-value="Exposure Scaling" style="--pill-color:#37F083">Exposure Scaling</button>
     </div>
     <div class="status-row">
-      <span id="rowCount">56 of 56 rows</span>
+      <span id="rowCount">44 of 44 rows</span>
       <button class="reset-link" id="resetBtn">Reset filters</button>
     </div>
   </div>
@@ -158,24 +158,6 @@
       </thead>
       <tbody id="cmpBody">
         
-    <tr data-universe="Midcap150" data-category="Baseline"
-        data-cagr="39.87969272797025"
-        data-dd="-35.075140833428506"
-        data-sharpe="1.6993335707607466"
-        data-sortino="2.2540780588977483"
-        data-report="16">
-      <td class="label-cell">
-        <div class="universe-tag">Midcap150</div>
-        <div class="strategy-label">Original (equal-weight momentum)</div>
-        <div class="category-tag" style="color:#7E97A0;border-color:#7E97A044;background:#7E97A014">Baseline</div>
-      </td>
-      <td class="window-cell">2008-12-31<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 16</div></td>
-      <td class="metric-cell"><span class="metric-primary win">+39.9%</span><span class="metric-bench">vs +12.3%</span></td>
-      <td class="metric-cell"><span class="metric-primary win">-35.1%</span><span class="metric-bench">vs -38.4%</span></td>
-      <td class="metric-cell"><span class="metric-primary win">1.70</span><span class="metric-bench">vs 0.75</span></td>
-      <td class="metric-cell"><span class="metric-primary win">2.25</span><span class="metric-bench">vs 1.02</span></td>
-    </tr>
-
     <tr data-universe="Midcap150" data-category="Weighting"
         data-cagr="37.25857387547137"
         data-dd="-33.944541903671265"
@@ -231,143 +213,143 @@
     </tr>
 
     <tr data-universe="Midcap150" data-category="Filter + Hedge"
-        data-cagr="42.03350201662707"
+        data-cagr="42.05111798477219"
         data-dd="-23.42037875113635"
-        data-sharpe="1.8810016396014797"
-        data-sortino="2.5428211142452417"
+        data-sharpe="1.8816859928449994"
+        data-sortino="2.543459430359788"
         data-report="48">
       <td class="label-cell">
         <div class="universe-tag">Midcap150</div>
         <div class="strategy-label">200-EMA regime filter + gold</div>
         <div class="category-tag" style="color:#F2B03C;border-color:#F2B03C44;background:#F2B03C14">Filter + Hedge</div>
       </td>
-      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-15<div class="report-ref">Report 48</div></td>
-      <td class="metric-cell"><span class="metric-primary win">+42.0%</span><span class="metric-bench">vs +12.0%</span></td>
+      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 48</div></td>
+      <td class="metric-cell"><span class="metric-primary win">+42.1%</span><span class="metric-bench">vs +12.1%</span></td>
       <td class="metric-cell"><span class="metric-primary win">-23.4%</span><span class="metric-bench">vs -38.4%</span></td>
       <td class="metric-cell"><span class="metric-primary win">1.88</span><span class="metric-bench">vs 0.74</span></td>
       <td class="metric-cell"><span class="metric-primary win">2.54</span><span class="metric-bench">vs 1.01</span></td>
     </tr>
 
     <tr data-universe="Midcap150" data-category="Filter + Hedge"
-        data-cagr="39.59327265387088"
+        data-cagr="39.6109584201991"
         data-dd="-31.649133193809043"
-        data-sharpe="1.7572323644277006"
-        data-sortino="2.396232995706311"
+        data-sharpe="1.7579106067829733"
+        data-sortino="2.3968877375310407"
         data-report="76">
       <td class="label-cell">
         <div class="universe-tag">Midcap150</div>
         <div class="strategy-label">400-EMA regime filter + gold</div>
         <div class="category-tag" style="color:#F2B03C;border-color:#F2B03C44;background:#F2B03C14">Filter + Hedge</div>
       </td>
-      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-15<div class="report-ref">Report 76</div></td>
-      <td class="metric-cell"><span class="metric-primary win">+39.6%</span><span class="metric-bench">vs +12.0%</span></td>
+      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 76</div></td>
+      <td class="metric-cell"><span class="metric-primary win">+39.6%</span><span class="metric-bench">vs +12.1%</span></td>
       <td class="metric-cell"><span class="metric-primary win">-31.6%</span><span class="metric-bench">vs -38.4%</span></td>
       <td class="metric-cell"><span class="metric-primary win">1.76</span><span class="metric-bench">vs 0.74</span></td>
       <td class="metric-cell"><span class="metric-primary win">2.40</span><span class="metric-bench">vs 1.01</span></td>
     </tr>
 
     <tr data-universe="Midcap150" data-category="Filter + Hedge"
-        data-cagr="39.67990814980752"
+        data-cagr="39.69759154984544"
         data-dd="-24.379963230993905"
-        data-sharpe="1.7876782684468062"
-        data-sortino="2.3922561883705455"
+        data-sharpe="1.788368381198062"
+        data-sortino="2.3929101748706842"
         data-report="77">
       <td class="label-cell">
         <div class="universe-tag">Midcap150</div>
         <div class="strategy-label">200-EMA regime filter + gold, every 4 months</div>
         <div class="category-tag" style="color:#F2B03C;border-color:#F2B03C44;background:#F2B03C14">Filter + Hedge</div>
       </td>
-      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-15<div class="report-ref">Report 77</div></td>
-      <td class="metric-cell"><span class="metric-primary win">+39.7%</span><span class="metric-bench">vs +12.0%</span></td>
+      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 77</div></td>
+      <td class="metric-cell"><span class="metric-primary win">+39.7%</span><span class="metric-bench">vs +12.1%</span></td>
       <td class="metric-cell"><span class="metric-primary win">-24.4%</span><span class="metric-bench">vs -38.4%</span></td>
       <td class="metric-cell"><span class="metric-primary win">1.79</span><span class="metric-bench">vs 0.74</span></td>
       <td class="metric-cell"><span class="metric-primary win">2.39</span><span class="metric-bench">vs 1.01</span></td>
     </tr>
 
     <tr data-universe="Midcap150" data-category="Filter + Hedge"
-        data-cagr="43.659008795531264"
+        data-cagr="43.67657468075615"
         data-dd="-31.578375819698444"
-        data-sharpe="1.7661882245332694"
-        data-sortino="2.586013236959844"
+        data-sharpe="1.7667965136508066"
+        data-sortino="2.5866109303532516"
         data-report="78">
       <td class="label-cell">
         <div class="universe-tag">Midcap150</div>
         <div class="strategy-label">200-EMA regime filter + gold, top-5</div>
         <div class="category-tag" style="color:#F2B03C;border-color:#F2B03C44;background:#F2B03C14">Filter + Hedge</div>
       </td>
-      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-15<div class="report-ref">Report 78</div></td>
-      <td class="metric-cell"><span class="metric-primary win">+43.7%</span><span class="metric-bench">vs +12.0%</span></td>
+      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 78</div></td>
+      <td class="metric-cell"><span class="metric-primary win">+43.7%</span><span class="metric-bench">vs +12.1%</span></td>
       <td class="metric-cell"><span class="metric-primary win">-31.6%</span><span class="metric-bench">vs -38.4%</span></td>
       <td class="metric-cell"><span class="metric-primary win">1.77</span><span class="metric-bench">vs 0.74</span></td>
       <td class="metric-cell"><span class="metric-primary win">2.59</span><span class="metric-bench">vs 1.01</span></td>
     </tr>
 
     <tr data-universe="Midcap150" data-category="Filter + Hedge"
-        data-cagr="39.28179697964009"
+        data-cagr="39.29949118494889"
         data-dd="-22.376295692946822"
-        data-sharpe="1.8650675751466446"
-        data-sortino="2.455791907416113"
+        data-sharpe="1.8658005096500203"
+        data-sortino="2.456481054169546"
         data-report="78">
       <td class="label-cell">
         <div class="universe-tag">Midcap150</div>
         <div class="strategy-label">200-EMA regime filter + gold, top-15</div>
         <div class="category-tag" style="color:#F2B03C;border-color:#F2B03C44;background:#F2B03C14">Filter + Hedge</div>
       </td>
-      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-15<div class="report-ref">Report 78</div></td>
-      <td class="metric-cell"><span class="metric-primary win">+39.3%</span><span class="metric-bench">vs +12.0%</span></td>
+      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 78</div></td>
+      <td class="metric-cell"><span class="metric-primary win">+39.3%</span><span class="metric-bench">vs +12.1%</span></td>
       <td class="metric-cell"><span class="metric-primary win">-22.4%</span><span class="metric-bench">vs -38.4%</span></td>
       <td class="metric-cell"><span class="metric-primary win">1.87</span><span class="metric-bench">vs 0.74</span></td>
       <td class="metric-cell"><span class="metric-primary win">2.46</span><span class="metric-bench">vs 1.01</span></td>
     </tr>
 
     <tr data-universe="Midcap150" data-category="Filter + Hedge"
-        data-cagr="35.706361569779745"
+        data-cagr="35.724144905697074"
         data-dd="-21.18166198220083"
-        data-sharpe="1.7689396534717772"
-        data-sortino="2.275077043661546"
+        data-sharpe="1.7697094884983942"
+        data-sortino="2.275812557459429"
         data-report="79">
       <td class="label-cell">
         <div class="universe-tag">Midcap150</div>
         <div class="strategy-label">200-EMA regime filter + gold, top-20</div>
         <div class="category-tag" style="color:#F2B03C;border-color:#F2B03C44;background:#F2B03C14">Filter + Hedge</div>
       </td>
-      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-15<div class="report-ref">Report 79</div></td>
-      <td class="metric-cell"><span class="metric-primary win">+35.7%</span><span class="metric-bench">vs +12.0%</span></td>
+      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 79</div></td>
+      <td class="metric-cell"><span class="metric-primary win">+35.7%</span><span class="metric-bench">vs +12.1%</span></td>
       <td class="metric-cell"><span class="metric-primary win">-21.2%</span><span class="metric-bench">vs -38.4%</span></td>
       <td class="metric-cell"><span class="metric-primary win">1.77</span><span class="metric-bench">vs 0.74</span></td>
       <td class="metric-cell"><span class="metric-primary win">2.28</span><span class="metric-bench">vs 1.01</span></td>
     </tr>
 
     <tr data-universe="Midcap150" data-category="Filter + Hedge"
-        data-cagr="40.059818044867285"
+        data-cagr="40.077490970760664"
         data-dd="-25.15372392078985"
-        data-sharpe="1.8273390548458641"
-        data-sortino="2.4777735482673835"
+        data-sharpe="1.8280390922087952"
+        data-sortino="2.4784437277968134"
         data-report="86">
       <td class="label-cell">
         <div class="universe-tag">Midcap150</div>
         <div class="strategy-label">200-EMA regime filter + gold, mid-month rebalance</div>
         <div class="category-tag" style="color:#F2B03C;border-color:#F2B03C44;background:#F2B03C14">Filter + Hedge</div>
       </td>
-      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-15<div class="report-ref">Report 86</div></td>
-      <td class="metric-cell"><span class="metric-primary win">+40.1%</span><span class="metric-bench">vs +12.0%</span></td>
+      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 86</div></td>
+      <td class="metric-cell"><span class="metric-primary win">+40.1%</span><span class="metric-bench">vs +12.1%</span></td>
       <td class="metric-cell"><span class="metric-primary win">-25.2%</span><span class="metric-bench">vs -38.4%</span></td>
       <td class="metric-cell"><span class="metric-primary win">1.83</span><span class="metric-bench">vs 0.74</span></td>
       <td class="metric-cell"><span class="metric-primary win">2.48</span><span class="metric-bench">vs 1.01</span></td>
     </tr>
 
     <tr data-universe="Midcap150" data-category="Filter + Hedge"
-        data-cagr="43.81971946583184"
+        data-cagr="43.837356270481365"
         data-dd="-26.035731534778783"
-        data-sharpe="1.8985994331964995"
-        data-sortino="2.510709052557711"
+        data-sharpe="1.8992611821174876"
+        data-sortino="2.511299224445147"
         data-report="85">
       <td class="label-cell">
         <div class="universe-tag">Midcap150</div>
         <div class="strategy-label">200-EMA regime filter + gold, rebalance July/January</div>
         <div class="category-tag" style="color:#F2B03C;border-color:#F2B03C44;background:#F2B03C14">Filter + Hedge</div>
       </td>
-      <td class="window-cell">2009-01-30<span class="arrow">→</span>2026-10-15<div class="report-ref">Report 85</div></td>
+      <td class="window-cell">2009-01-30<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 85</div></td>
       <td class="metric-cell"><span class="metric-primary win">+43.8%</span><span class="metric-bench">vs +12.5%</span></td>
       <td class="metric-cell"><span class="metric-primary win">-26.0%</span><span class="metric-bench">vs -38.4%</span></td>
       <td class="metric-cell"><span class="metric-primary win">1.90</span><span class="metric-bench">vs 0.77</span></td>
@@ -375,89 +357,89 @@
     </tr>
 
     <tr data-universe="Midcap150" data-category="Filter + Hedge"
-        data-cagr="42.28304619790879"
+        data-cagr="42.30080778933211"
         data-dd="-24.444826600732828"
-        data-sharpe="1.8949562197291372"
-        data-sortino="2.5496578251436426"
+        data-sharpe="1.8956476474983426"
+        data-sortino="2.5502980753491338"
         data-report="85">
       <td class="label-cell">
         <div class="universe-tag">Midcap150</div>
         <div class="strategy-label">200-EMA regime filter + gold, rebalance August/February</div>
         <div class="category-tag" style="color:#F2B03C;border-color:#F2B03C44;background:#F2B03C14">Filter + Hedge</div>
       </td>
-      <td class="window-cell">2009-02-27<span class="arrow">→</span>2026-10-15<div class="report-ref">Report 85</div></td>
+      <td class="window-cell">2009-02-27<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 85</div></td>
       <td class="metric-cell"><span class="metric-primary win">+42.3%</span><span class="metric-bench">vs +12.8%</span></td>
       <td class="metric-cell"><span class="metric-primary win">-24.4%</span><span class="metric-bench">vs -38.4%</span></td>
-      <td class="metric-cell"><span class="metric-primary win">1.89</span><span class="metric-bench">vs 0.79</span></td>
+      <td class="metric-cell"><span class="metric-primary win">1.90</span><span class="metric-bench">vs 0.79</span></td>
       <td class="metric-cell"><span class="metric-primary win">2.55</span><span class="metric-bench">vs 1.08</span></td>
     </tr>
 
     <tr data-universe="Midcap150" data-category="Filter + Hedge"
-        data-cagr="42.959622870760285"
+        data-cagr="42.97721065343029"
         data-dd="-24.57201679729957"
-        data-sharpe="1.9516619189606743"
-        data-sortino="2.6650809750743485"
+        data-sharpe="1.9523578710917577"
+        data-sortino="2.6657307980764813"
         data-report="85">
       <td class="label-cell">
         <div class="universe-tag">Midcap150</div>
         <div class="strategy-label">200-EMA regime filter + gold, rebalance September/March</div>
         <div class="category-tag" style="color:#F2B03C;border-color:#F2B03C44;background:#F2B03C14">Filter + Hedge</div>
       </td>
-      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-15<div class="report-ref">Report 85</div></td>
-      <td class="metric-cell"><span class="metric-primary win">+43.0%</span><span class="metric-bench">vs +12.0%</span></td>
+      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 85</div></td>
+      <td class="metric-cell"><span class="metric-primary win">+43.0%</span><span class="metric-bench">vs +12.1%</span></td>
       <td class="metric-cell"><span class="metric-primary win">-24.6%</span><span class="metric-bench">vs -38.4%</span></td>
       <td class="metric-cell"><span class="metric-primary win">1.95</span><span class="metric-bench">vs 0.74</span></td>
       <td class="metric-cell"><span class="metric-primary win">2.67</span><span class="metric-bench">vs 1.01</span></td>
     </tr>
 
     <tr data-universe="Midcap150" data-category="Filter + Hedge"
-        data-cagr="42.24563958566816"
+        data-cagr="42.26324917949768"
         data-dd="-24.37996323099393"
-        data-sharpe="1.8835022117377924"
-        data-sortino="2.5524279715329246"
+        data-sharpe="1.8841836133370473"
+        data-sortino="2.5530633987424185"
         data-report="85">
       <td class="label-cell">
         <div class="universe-tag">Midcap150</div>
         <div class="strategy-label">200-EMA regime filter + gold, rebalance October/April</div>
         <div class="category-tag" style="color:#F2B03C;border-color:#F2B03C44;background:#F2B03C14">Filter + Hedge</div>
       </td>
-      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-15<div class="report-ref">Report 85</div></td>
-      <td class="metric-cell"><span class="metric-primary win">+42.2%</span><span class="metric-bench">vs +12.0%</span></td>
+      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 85</div></td>
+      <td class="metric-cell"><span class="metric-primary win">+42.3%</span><span class="metric-bench">vs +12.1%</span></td>
       <td class="metric-cell"><span class="metric-primary win">-24.4%</span><span class="metric-bench">vs -38.4%</span></td>
       <td class="metric-cell"><span class="metric-primary win">1.88</span><span class="metric-bench">vs 0.74</span></td>
       <td class="metric-cell"><span class="metric-primary win">2.55</span><span class="metric-bench">vs 1.01</span></td>
     </tr>
 
     <tr data-universe="Midcap150" data-category="Filter + Hedge"
-        data-cagr="40.74009826592558"
+        data-cagr="40.75775204038217"
         data-dd="-25.2866072162651"
-        data-sharpe="1.8312849196929784"
-        data-sortino="2.4635399506018874"
+        data-sharpe="1.831973076704901"
+        data-sortino="2.4641880061843477"
         data-report="85">
       <td class="label-cell">
         <div class="universe-tag">Midcap150</div>
         <div class="strategy-label">200-EMA regime filter + gold, rebalance November/May</div>
         <div class="category-tag" style="color:#F2B03C;border-color:#F2B03C44;background:#F2B03C14">Filter + Hedge</div>
       </td>
-      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-15<div class="report-ref">Report 85</div></td>
-      <td class="metric-cell"><span class="metric-primary win">+40.7%</span><span class="metric-bench">vs +12.0%</span></td>
+      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 85</div></td>
+      <td class="metric-cell"><span class="metric-primary win">+40.8%</span><span class="metric-bench">vs +12.1%</span></td>
       <td class="metric-cell"><span class="metric-primary win">-25.3%</span><span class="metric-bench">vs -38.4%</span></td>
       <td class="metric-cell"><span class="metric-primary win">1.83</span><span class="metric-bench">vs 0.74</span></td>
       <td class="metric-cell"><span class="metric-primary win">2.46</span><span class="metric-bench">vs 1.01</span></td>
     </tr>
 
     <tr data-universe="Midcap150" data-category="Filter + Hedge"
-        data-cagr="41.984234614244684"
+        data-cagr="42.00200526053223"
         data-dd="-24.003493443354994"
-        data-sharpe="1.929642967971017"
-        data-sortino="2.542147197885152"
+        data-sharpe="1.9303546585055849"
+        data-sortino="2.5427959320090747"
         data-report="87">
       <td class="label-cell">
         <div class="universe-tag">Midcap150</div>
         <div class="strategy-label">200-EMA regime filter + gold, blended across all 6 calendars</div>
         <div class="category-tag" style="color:#F2B03C;border-color:#F2B03C44;background:#F2B03C14">Filter + Hedge</div>
       </td>
-      <td class="window-cell">2009-02-27<span class="arrow">→</span>2026-10-15<div class="report-ref">Report 87</div></td>
+      <td class="window-cell">2009-02-27<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 87</div></td>
       <td class="metric-cell"><span class="metric-primary win">+42.0%</span><span class="metric-bench">vs +12.8%</span></td>
       <td class="metric-cell"><span class="metric-primary win">-24.0%</span><span class="metric-bench">vs -38.4%</span></td>
       <td class="metric-cell"><span class="metric-primary win">1.93</span><span class="metric-bench">vs 0.79</span></td>
@@ -465,71 +447,71 @@
     </tr>
 
     <tr data-universe="Midcap150" data-category="Filter + Hedge"
-        data-cagr="41.6363076067278"
+        data-cagr="41.653935378571816"
         data-dd="-23.38603570113763"
-        data-sharpe="1.8676885871169313"
-        data-sortino="2.5234824865114946"
+        data-sharpe="1.8683749242196108"
+        data-sortino="2.5241252451221246"
         data-report="88">
       <td class="label-cell">
         <div class="universe-tag">Midcap150</div>
         <div class="strategy-label">200-EMA regime filter + gold, scheduled refresh at next-day open</div>
         <div class="category-tag" style="color:#F2B03C;border-color:#F2B03C44;background:#F2B03C14">Filter + Hedge</div>
       </td>
-      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-15<div class="report-ref">Report 88</div></td>
-      <td class="metric-cell"><span class="metric-primary win">+41.6%</span><span class="metric-bench">vs +12.0%</span></td>
+      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 88</div></td>
+      <td class="metric-cell"><span class="metric-primary win">+41.7%</span><span class="metric-bench">vs +12.1%</span></td>
       <td class="metric-cell"><span class="metric-primary win">-23.4%</span><span class="metric-bench">vs -38.4%</span></td>
       <td class="metric-cell"><span class="metric-primary win">1.87</span><span class="metric-bench">vs 0.74</span></td>
       <td class="metric-cell"><span class="metric-primary win">2.52</span><span class="metric-bench">vs 1.01</span></td>
     </tr>
 
     <tr data-universe="Midcap150" data-category="Filter + Hedge"
-        data-cagr="39.437669491779616"
+        data-cagr="39.45535948733743"
         data-dd="-25.460402726426256"
-        data-sharpe="1.7860620109439822"
-        data-sortino="2.4105147292212243"
+        data-sharpe="1.786756340771638"
+        data-sortino="2.4111803315139553"
         data-report="89">
       <td class="label-cell">
         <div class="universe-tag">Midcap150</div>
         <div class="strategy-label">200-EMA regime filter + gold, 0.1% slippage both sides</div>
         <div class="category-tag" style="color:#F2B03C;border-color:#F2B03C44;background:#F2B03C14">Filter + Hedge</div>
       </td>
-      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-15<div class="report-ref">Report 89</div></td>
-      <td class="metric-cell"><span class="metric-primary win">+39.4%</span><span class="metric-bench">vs +12.0%</span></td>
+      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 89</div></td>
+      <td class="metric-cell"><span class="metric-primary win">+39.5%</span><span class="metric-bench">vs +12.1%</span></td>
       <td class="metric-cell"><span class="metric-primary win">-25.5%</span><span class="metric-bench">vs -38.4%</span></td>
       <td class="metric-cell"><span class="metric-primary win">1.79</span><span class="metric-bench">vs 0.74</span></td>
       <td class="metric-cell"><span class="metric-primary win">2.41</span><span class="metric-bench">vs 1.01</span></td>
     </tr>
 
     <tr data-universe="Midcap150" data-category="Filter + Hedge"
-        data-cagr="42.106888128163575"
+        data-cagr="42.099200884555785"
         data-dd="-22.627306554593062"
-        data-sharpe="1.9231864552858713"
-        data-sortino="2.5242487318396214"
+        data-sharpe="1.922962758236375"
+        data-sortino="2.5236699084661196"
         data-report="91">
       <td class="label-cell">
         <div class="universe-tag">Midcap150</div>
         <div class="strategy-label">200-EMA regime filter + gold-strength guard</div>
         <div class="category-tag" style="color:#F2B03C;border-color:#F2B03C44;background:#F2B03C14">Filter + Hedge</div>
       </td>
-      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-15<div class="report-ref">Report 91</div></td>
-      <td class="metric-cell"><span class="metric-primary win">+42.1%</span><span class="metric-bench">vs +12.0%</span></td>
+      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 91</div></td>
+      <td class="metric-cell"><span class="metric-primary win">+42.1%</span><span class="metric-bench">vs +12.1%</span></td>
       <td class="metric-cell"><span class="metric-primary win">-22.6%</span><span class="metric-bench">vs -38.4%</span></td>
       <td class="metric-cell"><span class="metric-primary win">1.92</span><span class="metric-bench">vs 0.74</span></td>
       <td class="metric-cell"><span class="metric-primary win">2.52</span><span class="metric-bench">vs 1.01</span></td>
     </tr>
 
     <tr data-universe="Midcap150" data-category="Filter + Hedge"
-        data-cagr="44.02761581378246"
+        data-cagr="44.019492001971116"
         data-dd="-26.035731534778794"
-        data-sharpe="1.9414280403797095"
-        data-sortino="2.4955859991038225"
+        data-sharpe="1.9412012232397866"
+        data-sortino="2.4950113764929305"
         data-report="92">
       <td class="label-cell">
         <div class="universe-tag">Midcap150</div>
         <div class="strategy-label">200-EMA regime filter + gold-strength guard, rebalance July/January</div>
         <div class="category-tag" style="color:#F2B03C;border-color:#F2B03C44;background:#F2B03C14">Filter + Hedge</div>
       </td>
-      <td class="window-cell">2009-01-30<span class="arrow">→</span>2026-10-15<div class="report-ref">Report 92</div></td>
+      <td class="window-cell">2009-01-30<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 92</div></td>
       <td class="metric-cell"><span class="metric-primary win">+44.0%</span><span class="metric-bench">vs +12.5%</span></td>
       <td class="metric-cell"><span class="metric-primary win">-26.0%</span><span class="metric-bench">vs -38.4%</span></td>
       <td class="metric-cell"><span class="metric-primary win">1.94</span><span class="metric-bench">vs 0.77</span></td>
@@ -537,17 +519,17 @@
     </tr>
 
     <tr data-universe="Midcap150" data-category="Filter + Hedge"
-        data-cagr="42.489616258914566"
+        data-cagr="42.481781781373996"
         data-dd="-24.014052598175674"
-        data-sharpe="1.940525402168246"
-        data-sortino="2.541211566755531"
+        data-sharpe="1.9402976975836028"
+        data-sortino="2.5406238675032746"
         data-report="92">
       <td class="label-cell">
         <div class="universe-tag">Midcap150</div>
         <div class="strategy-label">200-EMA regime filter + gold-strength guard, rebalance August/February</div>
         <div class="category-tag" style="color:#F2B03C;border-color:#F2B03C44;background:#F2B03C14">Filter + Hedge</div>
       </td>
-      <td class="window-cell">2009-02-27<span class="arrow">→</span>2026-10-15<div class="report-ref">Report 92</div></td>
+      <td class="window-cell">2009-02-27<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 92</div></td>
       <td class="metric-cell"><span class="metric-primary win">+42.5%</span><span class="metric-bench">vs +12.8%</span></td>
       <td class="metric-cell"><span class="metric-primary win">-24.0%</span><span class="metric-bench">vs -38.4%</span></td>
       <td class="metric-cell"><span class="metric-primary win">1.94</span><span class="metric-bench">vs 0.79</span></td>
@@ -555,72 +537,72 @@
     </tr>
 
     <tr data-universe="Midcap150" data-category="Filter + Hedge"
-        data-cagr="43.033487491995714"
+        data-cagr="43.02560702643112"
         data-dd="-24.57201679729951"
-        data-sharpe="1.9975809328396283"
-        data-sortino="2.650289839536575"
+        data-sharpe="1.99734831741112"
+        data-sortino="2.6496821142810054"
         data-report="92">
       <td class="label-cell">
         <div class="universe-tag">Midcap150</div>
         <div class="strategy-label">200-EMA regime filter + gold-strength guard, rebalance September/March</div>
         <div class="category-tag" style="color:#F2B03C;border-color:#F2B03C44;background:#F2B03C14">Filter + Hedge</div>
       </td>
-      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-15<div class="report-ref">Report 92</div></td>
-      <td class="metric-cell"><span class="metric-primary win">+43.0%</span><span class="metric-bench">vs +12.0%</span></td>
+      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 92</div></td>
+      <td class="metric-cell"><span class="metric-primary win">+43.0%</span><span class="metric-bench">vs +12.1%</span></td>
       <td class="metric-cell"><span class="metric-primary win">-24.6%</span><span class="metric-bench">vs -38.4%</span></td>
       <td class="metric-cell"><span class="metric-primary win">2.00</span><span class="metric-bench">vs 0.74</span></td>
       <td class="metric-cell"><span class="metric-primary win">2.65</span><span class="metric-bench">vs 1.01</span></td>
     </tr>
 
     <tr data-universe="Midcap150" data-category="Filter + Hedge"
-        data-cagr="42.319135304804774"
+        data-cagr="42.311403883594494"
         data-dd="-24.379963230993916"
-        data-sharpe="1.925477394669951"
-        data-sortino="2.5336724073672556"
+        data-sharpe="1.9252534234230116"
+        data-sortino="2.533091423095903"
         data-report="92">
       <td class="label-cell">
         <div class="universe-tag">Midcap150</div>
         <div class="strategy-label">200-EMA regime filter + gold-strength guard, rebalance October/April</div>
         <div class="category-tag" style="color:#F2B03C;border-color:#F2B03C44;background:#F2B03C14">Filter + Hedge</div>
       </td>
-      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-15<div class="report-ref">Report 92</div></td>
-      <td class="metric-cell"><span class="metric-primary win">+42.3%</span><span class="metric-bench">vs +12.0%</span></td>
+      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 92</div></td>
+      <td class="metric-cell"><span class="metric-primary win">+42.3%</span><span class="metric-bench">vs +12.1%</span></td>
       <td class="metric-cell"><span class="metric-primary win">-24.4%</span><span class="metric-bench">vs -38.4%</span></td>
       <td class="metric-cell"><span class="metric-primary win">1.93</span><span class="metric-bench">vs 0.74</span></td>
       <td class="metric-cell"><span class="metric-primary win">2.53</span><span class="metric-bench">vs 1.01</span></td>
     </tr>
 
     <tr data-universe="Midcap150" data-category="Filter + Hedge"
-        data-cagr="40.81281609941095"
+        data-cagr="40.80539714857366"
         data-dd="-25.286607216265146"
-        data-sharpe="1.8721230790656864"
-        data-sortino="2.444702909656045"
+        data-sharpe="1.871905486586272"
+        data-sortino="2.4441423265536244"
         data-report="92">
       <td class="label-cell">
         <div class="universe-tag">Midcap150</div>
         <div class="strategy-label">200-EMA regime filter + gold-strength guard, rebalance November/May</div>
         <div class="category-tag" style="color:#F2B03C;border-color:#F2B03C44;background:#F2B03C14">Filter + Hedge</div>
       </td>
-      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-15<div class="report-ref">Report 92</div></td>
-      <td class="metric-cell"><span class="metric-primary win">+40.8%</span><span class="metric-bench">vs +12.0%</span></td>
+      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 92</div></td>
+      <td class="metric-cell"><span class="metric-primary win">+40.8%</span><span class="metric-bench">vs +12.1%</span></td>
       <td class="metric-cell"><span class="metric-primary win">-25.3%</span><span class="metric-bench">vs -38.4%</span></td>
       <td class="metric-cell"><span class="metric-primary win">1.87</span><span class="metric-bench">vs 0.74</span></td>
       <td class="metric-cell"><span class="metric-primary win">2.44</span><span class="metric-bench">vs 1.01</span></td>
     </tr>
 
     <tr data-universe="Midcap150" data-category="Core-Satellite"
-        data-cagr="34.09046510357115"
+        data-cagr="34.10828398622485"
         data-dd="-19.953733836076147"
-        data-sharpe="1.9017113054554167"
-        data-sortino="2.525474186563517"
+        data-sharpe="1.9025907873880143"
+        data-sortino="2.5263621456075676"
         data-report="71">
       <td class="label-cell">
         <div class="universe-tag">Midcap150</div>
         <div class="strategy-label">70/30 core-satellite + full gold switch</div>
         <div class="category-tag" style="color:#FF8A5C;border-color:#FF8A5C44;background:#FF8A5C14">Core-Satellite</div>
       </td>
-      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-15<div class="report-ref">Report 71</div></td>
-      <td class="metric-cell"><span class="metric-primary win">+34.1%</span><span class="metric-bench">vs +12.0%</span></td>
+      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 71</div></td>
+      <td class="metric-cell"><span class="metric-primary win">+34.1%</span><span class="metric-bench">vs +12.1%</span></td>
       <td class="metric-cell"><span class="metric-primary win">-20.0%</span><span class="metric-bench">vs -38.4%</span></td>
       <td class="metric-cell"><span class="metric-primary win">1.90</span><span class="metric-bench">vs 0.74</span></td>
       <td class="metric-cell"><span class="metric-primary win">2.53</span><span class="metric-bench">vs 1.01</span></td>
@@ -644,24 +626,6 @@
       <td class="metric-cell"><span class="metric-primary win">2.23</span><span class="metric-bench">vs 1.02</span></td>
     </tr>
 
-    <tr data-universe="Midcap150" data-category="Basket Size"
-        data-cagr="29.74068149592256"
-        data-dd="-36.75872236659961"
-        data-sharpe="1.578330781652262"
-        data-sortino="1.9313370646513803"
-        data-report="73">
-      <td class="label-cell">
-        <div class="universe-tag">Midcap150</div>
-        <div class="strategy-label">Top-50 (vs. the flagship top-10)</div>
-        <div class="category-tag" style="color:#F25CA6;border-color:#F25CA644;background:#F25CA614">Basket Size</div>
-      </td>
-      <td class="window-cell">2008-12-31<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 73</div></td>
-      <td class="metric-cell"><span class="metric-primary win">+29.7%</span><span class="metric-bench">vs +12.3%</span></td>
-      <td class="metric-cell"><span class="metric-primary win">-36.8%</span><span class="metric-bench">vs -38.4%</span></td>
-      <td class="metric-cell"><span class="metric-primary win">1.58</span><span class="metric-bench">vs 0.75</span></td>
-      <td class="metric-cell"><span class="metric-primary win">1.93</span><span class="metric-bench">vs 1.02</span></td>
-    </tr>
-
     <tr data-universe="Midcap150" data-category="Regime Filter"
         data-cagr="37.163618313695"
         data-dd="-24.62831665951556"
@@ -678,24 +642,6 @@
       <td class="metric-cell"><span class="metric-primary win">-24.6%</span><span class="metric-bench">vs -38.4%</span></td>
       <td class="metric-cell"><span class="metric-primary win">1.95</span><span class="metric-bench">vs 0.75</span></td>
       <td class="metric-cell"><span class="metric-primary win">2.31</span><span class="metric-bench">vs 1.02</span></td>
-    </tr>
-
-    <tr data-universe="Midcap150" data-category="Momentum Formula"
-        data-cagr="39.62142261261127"
-        data-dd="-35.0751408334285"
-        data-sharpe="1.7180741695085977"
-        data-sortino="2.2484466952322344"
-        data-report="62">
-      <td class="label-cell">
-        <div class="universe-tag">Midcap150</div>
-        <div class="strategy-label">Absolute momentum gate</div>
-        <div class="category-tag" style="color:#6AE4FF;border-color:#6AE4FF44;background:#6AE4FF14">Momentum Formula</div>
-      </td>
-      <td class="window-cell">2008-12-31<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 62</div></td>
-      <td class="metric-cell"><span class="metric-primary win">+39.6%</span><span class="metric-bench">vs +12.3%</span></td>
-      <td class="metric-cell"><span class="metric-primary win">-35.1%</span><span class="metric-bench">vs -38.4%</span></td>
-      <td class="metric-cell"><span class="metric-primary win">1.72</span><span class="metric-bench">vs 0.75</span></td>
-      <td class="metric-cell"><span class="metric-primary win">2.25</span><span class="metric-bench">vs 1.02</span></td>
     </tr>
 
     <tr data-universe="Midcap150" data-category="Exposure Scaling"
@@ -717,38 +663,38 @@
     </tr>
 
     <tr data-universe="Midcap150" data-category="Exposure Scaling"
-        data-cagr="41.36255627846356"
+        data-cagr="41.35539301784476"
         data-dd="-26.69317609809073"
-        data-sharpe="1.8631229565445258"
-        data-sortino="2.562903161193333"
+        data-sharpe="1.8629199137263306"
+        data-sortino="2.562333760373672"
         data-report="68">
       <td class="label-cell">
         <div class="universe-tag">Midcap150</div>
         <div class="strategy-label">Smooth exposure 15% band + gold</div>
         <div class="category-tag" style="color:#37F083;border-color:#37F08344;background:#37F08314">Exposure Scaling</div>
       </td>
-      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-15<div class="report-ref">Report 68</div></td>
-      <td class="metric-cell"><span class="metric-primary win">+41.4%</span><span class="metric-bench">vs +12.0%</span></td>
+      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 68</div></td>
+      <td class="metric-cell"><span class="metric-primary win">+41.4%</span><span class="metric-bench">vs +12.1%</span></td>
       <td class="metric-cell"><span class="metric-primary win">-26.7%</span><span class="metric-bench">vs -38.4%</span></td>
       <td class="metric-cell"><span class="metric-primary win">1.86</span><span class="metric-bench">vs 0.74</span></td>
       <td class="metric-cell"><span class="metric-primary win">2.56</span><span class="metric-bench">vs 1.01</span></td>
     </tr>
 
     <tr data-universe="Midcap150" data-category="Exposure Scaling"
-        data-cagr="39.82449170412258"
+        data-cagr="39.810899423594606"
         data-dd="-27.420502705522797"
-        data-sharpe="1.8754618435732737"
-        data-sortino="2.5446489793282687"
+        data-sharpe="1.874997806177204"
+        data-sortino="2.5438559337772024"
         data-report="68">
       <td class="label-cell">
         <div class="universe-tag">Midcap150</div>
         <div class="strategy-label">Smooth exposure 15% band + liquid fund (assumed 6%)</div>
         <div class="category-tag" style="color:#37F083;border-color:#37F08344;background:#37F08314">Exposure Scaling</div>
       </td>
-      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-15<div class="report-ref">Report 68</div></td>
-      <td class="metric-cell"><span class="metric-primary win">+39.8%</span><span class="metric-bench">vs +12.0%</span></td>
+      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 68</div></td>
+      <td class="metric-cell"><span class="metric-primary win">+39.8%</span><span class="metric-bench">vs +12.1%</span></td>
       <td class="metric-cell"><span class="metric-primary win">-27.4%</span><span class="metric-bench">vs -38.4%</span></td>
-      <td class="metric-cell"><span class="metric-primary win">1.88</span><span class="metric-bench">vs 0.74</span></td>
+      <td class="metric-cell"><span class="metric-primary win">1.87</span><span class="metric-bench">vs 0.74</span></td>
       <td class="metric-cell"><span class="metric-primary win">2.54</span><span class="metric-bench">vs 1.01</span></td>
     </tr>
 
@@ -770,42 +716,6 @@
       <td class="metric-cell"><span class="metric-primary win">2.07</span><span class="metric-bench">vs 1.02</span></td>
     </tr>
 
-    <tr data-universe="Smallcap250" data-category="Baseline"
-        data-cagr="37.266970745931445"
-        data-dd="-46.32647585561028"
-        data-sharpe="1.444469524933874"
-        data-sortino="1.934689844413072"
-        data-report="16">
-      <td class="label-cell">
-        <div class="universe-tag">Smallcap250</div>
-        <div class="strategy-label">Original (equal-weight momentum)</div>
-        <div class="category-tag" style="color:#7E97A0;border-color:#7E97A044;background:#7E97A014">Baseline</div>
-      </td>
-      <td class="window-cell">2008-12-31<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 16</div></td>
-      <td class="metric-cell"><span class="metric-primary win">+37.3%</span><span class="metric-bench">vs +12.3%</span></td>
-      <td class="metric-cell"><span class="metric-primary lose">-46.3%</span><span class="metric-bench">vs -38.4%</span></td>
-      <td class="metric-cell"><span class="metric-primary win">1.44</span><span class="metric-bench">vs 0.75</span></td>
-      <td class="metric-cell"><span class="metric-primary win">1.93</span><span class="metric-bench">vs 1.02</span></td>
-    </tr>
-
-    <tr data-universe="Smallcap250" data-category="Weighting"
-        data-cagr="37.76636347507221"
-        data-dd="-35.675268662096016"
-        data-sharpe="1.4247297450529788"
-        data-sortino="1.8922092325657651"
-        data-report="40">
-      <td class="label-cell">
-        <div class="universe-tag">Smallcap250</div>
-        <div class="strategy-label">Front-loaded 3m/6m/12m (50/30/20)</div>
-        <div class="category-tag" style="color:#6AE4FF;border-color:#6AE4FF44;background:#6AE4FF14">Weighting</div>
-      </td>
-      <td class="window-cell">2008-12-31<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 40</div></td>
-      <td class="metric-cell"><span class="metric-primary win">+37.8%</span><span class="metric-bench">vs +12.3%</span></td>
-      <td class="metric-cell"><span class="metric-primary win">-35.7%</span><span class="metric-bench">vs -38.4%</span></td>
-      <td class="metric-cell"><span class="metric-primary win">1.42</span><span class="metric-bench">vs 0.75</span></td>
-      <td class="metric-cell"><span class="metric-primary win">1.89</span><span class="metric-bench">vs 1.02</span></td>
-    </tr>
-
     <tr data-universe="Smallcap250" data-category="Regime Filter"
         data-cagr="37.11802005689819"
         data-dd="-28.787069617987925"
@@ -825,39 +735,21 @@
     </tr>
 
     <tr data-universe="Smallcap250" data-category="Filter + Hedge"
-        data-cagr="40.94006440335005"
+        data-cagr="40.957712451932935"
         data-dd="-30.37127827414059"
-        data-sharpe="1.6667338165930423"
-        data-sortino="2.2814909633146883"
+        data-sharpe="1.6673464753005374"
+        data-sortino="2.2820713959102075"
         data-report="49">
       <td class="label-cell">
         <div class="universe-tag">Smallcap250</div>
         <div class="strategy-label">200-EMA regime filter + gold</div>
         <div class="category-tag" style="color:#F2B03C;border-color:#F2B03C44;background:#F2B03C14">Filter + Hedge</div>
       </td>
-      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-15<div class="report-ref">Report 49</div></td>
-      <td class="metric-cell"><span class="metric-primary win">+40.9%</span><span class="metric-bench">vs +12.0%</span></td>
+      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 49</div></td>
+      <td class="metric-cell"><span class="metric-primary win">+41.0%</span><span class="metric-bench">vs +12.1%</span></td>
       <td class="metric-cell"><span class="metric-primary win">-30.4%</span><span class="metric-bench">vs -38.4%</span></td>
       <td class="metric-cell"><span class="metric-primary win">1.67</span><span class="metric-bench">vs 0.74</span></td>
       <td class="metric-cell"><span class="metric-primary win">2.28</span><span class="metric-bench">vs 1.01</span></td>
-    </tr>
-
-    <tr data-universe="Smallcap250" data-category="Weighting"
-        data-cagr="36.75131929541135"
-        data-dd="-42.65572014225387"
-        data-sharpe="1.470332215388862"
-        data-sortino="1.9602877870691198"
-        data-report="52">
-      <td class="label-cell">
-        <div class="universe-tag">Smallcap250</div>
-        <div class="strategy-label">Inverse-volatility weighting</div>
-        <div class="category-tag" style="color:#6AE4FF;border-color:#6AE4FF44;background:#6AE4FF14">Weighting</div>
-      </td>
-      <td class="window-cell">2008-12-31<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 52</div></td>
-      <td class="metric-cell"><span class="metric-primary win">+36.8%</span><span class="metric-bench">vs +12.3%</span></td>
-      <td class="metric-cell"><span class="metric-primary lose">-42.7%</span><span class="metric-bench">vs -38.4%</span></td>
-      <td class="metric-cell"><span class="metric-primary win">1.47</span><span class="metric-bench">vs 0.75</span></td>
-      <td class="metric-cell"><span class="metric-primary win">1.96</span><span class="metric-bench">vs 1.02</span></td>
     </tr>
 
     <tr data-universe="Smallcap250" data-category="Trend Filter"
@@ -876,42 +768,6 @@
       <td class="metric-cell"><span class="metric-primary win">-27.1%</span><span class="metric-bench">vs -38.4%</span></td>
       <td class="metric-cell"><span class="metric-primary win">1.53</span><span class="metric-bench">vs 0.75</span></td>
       <td class="metric-cell"><span class="metric-primary win">1.70</span><span class="metric-bench">vs 1.02</span></td>
-    </tr>
-
-    <tr data-universe="Smallcap250" data-category="Regime Filter"
-        data-cagr="37.071353694467035"
-        data-dd="-35.39099059797321"
-        data-sharpe="1.69981942647003"
-        data-sortino="2.051945113846858"
-        data-report="60">
-      <td class="label-cell">
-        <div class="universe-tag">Smallcap250</div>
-        <div class="strategy-label">Asymmetric EMA (fast 50d re-entry)</div>
-        <div class="category-tag" style="color:#37F083;border-color:#37F08344;background:#37F08314">Regime Filter</div>
-      </td>
-      <td class="window-cell">2008-12-31<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 60</div></td>
-      <td class="metric-cell"><span class="metric-primary win">+37.1%</span><span class="metric-bench">vs +12.3%</span></td>
-      <td class="metric-cell"><span class="metric-primary win">-35.4%</span><span class="metric-bench">vs -38.4%</span></td>
-      <td class="metric-cell"><span class="metric-primary win">1.70</span><span class="metric-bench">vs 0.75</span></td>
-      <td class="metric-cell"><span class="metric-primary win">2.05</span><span class="metric-bench">vs 1.02</span></td>
-    </tr>
-
-    <tr data-universe="Smallcap250" data-category="Momentum Formula"
-        data-cagr="34.665393657149394"
-        data-dd="-46.3264758556103"
-        data-sharpe="1.3915243676538687"
-        data-sortino="1.8322382887962654"
-        data-report="63">
-      <td class="label-cell">
-        <div class="universe-tag">Smallcap250</div>
-        <div class="strategy-label">Absolute momentum gate</div>
-        <div class="category-tag" style="color:#6AE4FF;border-color:#6AE4FF44;background:#6AE4FF14">Momentum Formula</div>
-      </td>
-      <td class="window-cell">2008-12-31<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 63</div></td>
-      <td class="metric-cell"><span class="metric-primary win">+34.7%</span><span class="metric-bench">vs +12.3%</span></td>
-      <td class="metric-cell"><span class="metric-primary lose">-46.3%</span><span class="metric-bench">vs -38.4%</span></td>
-      <td class="metric-cell"><span class="metric-primary win">1.39</span><span class="metric-bench">vs 0.75</span></td>
-      <td class="metric-cell"><span class="metric-primary win">1.83</span><span class="metric-bench">vs 1.02</span></td>
     </tr>
 
     <tr data-universe="Smallcap250" data-category="Exposure Scaling"
@@ -933,57 +789,39 @@
     </tr>
 
     <tr data-universe="Smallcap250" data-category="Exposure Scaling"
-        data-cagr="39.31194869428393"
+        data-cagr="39.30789914185942"
         data-dd="-32.788858666809084"
-        data-sharpe="1.5907935973591432"
-        data-sortino="2.201396097687675"
+        data-sharpe="1.5907079457241278"
+        data-sortino="2.201026474412492"
         data-report="69">
       <td class="label-cell">
         <div class="universe-tag">Smallcap250</div>
         <div class="strategy-label">Smooth exposure 15% band + gold</div>
         <div class="category-tag" style="color:#37F083;border-color:#37F08344;background:#37F08314">Exposure Scaling</div>
       </td>
-      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-15<div class="report-ref">Report 69</div></td>
-      <td class="metric-cell"><span class="metric-primary win">+39.3%</span><span class="metric-bench">vs +12.0%</span></td>
+      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 69</div></td>
+      <td class="metric-cell"><span class="metric-primary win">+39.3%</span><span class="metric-bench">vs +12.1%</span></td>
       <td class="metric-cell"><span class="metric-primary win">-32.8%</span><span class="metric-bench">vs -38.4%</span></td>
       <td class="metric-cell"><span class="metric-primary win">1.59</span><span class="metric-bench">vs 0.74</span></td>
       <td class="metric-cell"><span class="metric-primary win">2.20</span><span class="metric-bench">vs 1.01</span></td>
     </tr>
 
     <tr data-universe="Smallcap250" data-category="Exposure Scaling"
-        data-cagr="37.78919131617181"
+        data-cagr="37.778777012824776"
         data-dd="-32.616962162926654"
-        data-sharpe="1.5823999510554225"
-        data-sortino="2.144258122219304"
+        data-sharpe="1.5820951485408614"
+        data-sortino="2.1436535977621967"
         data-report="69">
       <td class="label-cell">
         <div class="universe-tag">Smallcap250</div>
         <div class="strategy-label">Smooth exposure 15% band + liquid fund (assumed 6%)</div>
         <div class="category-tag" style="color:#37F083;border-color:#37F08344;background:#37F08314">Exposure Scaling</div>
       </td>
-      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-15<div class="report-ref">Report 69</div></td>
-      <td class="metric-cell"><span class="metric-primary win">+37.8%</span><span class="metric-bench">vs +12.0%</span></td>
+      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 69</div></td>
+      <td class="metric-cell"><span class="metric-primary win">+37.8%</span><span class="metric-bench">vs +12.1%</span></td>
       <td class="metric-cell"><span class="metric-primary win">-32.6%</span><span class="metric-bench">vs -38.4%</span></td>
       <td class="metric-cell"><span class="metric-primary win">1.58</span><span class="metric-bench">vs 0.74</span></td>
       <td class="metric-cell"><span class="metric-primary win">2.14</span><span class="metric-bench">vs 1.01</span></td>
-    </tr>
-
-    <tr data-universe="NIFTY100" data-category="Baseline"
-        data-cagr="29.976969876653442"
-        data-dd="-35.2563766912548"
-        data-sharpe="1.4390746733370363"
-        data-sortino="1.8962926444460884"
-        data-report="12">
-      <td class="label-cell">
-        <div class="universe-tag">NIFTY100</div>
-        <div class="strategy-label">Original (equal-weight momentum)</div>
-        <div class="category-tag" style="color:#7E97A0;border-color:#7E97A044;background:#7E97A014">Baseline</div>
-      </td>
-      <td class="window-cell">2008-12-31<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 12</div></td>
-      <td class="metric-cell"><span class="metric-primary win">+30.0%</span><span class="metric-bench">vs +12.3%</span></td>
-      <td class="metric-cell"><span class="metric-primary win">-35.3%</span><span class="metric-bench">vs -38.4%</span></td>
-      <td class="metric-cell"><span class="metric-primary win">1.44</span><span class="metric-bench">vs 0.75</span></td>
-      <td class="metric-cell"><span class="metric-primary win">1.90</span><span class="metric-bench">vs 1.02</span></td>
     </tr>
 
     <tr data-universe="NIFTY100" data-category="Regime Filter"
@@ -1005,20 +843,20 @@
     </tr>
 
     <tr data-universe="NIFTY100" data-category="Filter + Hedge"
-        data-cagr="34.00093840681356"
+        data-cagr="34.01875917157989"
         data-dd="-26.132623866258076"
-        data-sharpe="1.6547479790869852"
-        data-sortino="2.2094292177664157"
+        data-sharpe="1.6555022333893992"
+        data-sortino="2.210188991365848"
         data-report="50">
       <td class="label-cell">
         <div class="universe-tag">NIFTY100</div>
         <div class="strategy-label">200-EMA regime filter + gold</div>
         <div class="category-tag" style="color:#F2B03C;border-color:#F2B03C44;background:#F2B03C14">Filter + Hedge</div>
       </td>
-      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-15<div class="report-ref">Report 50</div></td>
-      <td class="metric-cell"><span class="metric-primary win">+34.0%</span><span class="metric-bench">vs +12.0%</span></td>
+      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 50</div></td>
+      <td class="metric-cell"><span class="metric-primary win">+34.0%</span><span class="metric-bench">vs +12.1%</span></td>
       <td class="metric-cell"><span class="metric-primary win">-26.1%</span><span class="metric-bench">vs -38.4%</span></td>
-      <td class="metric-cell"><span class="metric-primary win">1.65</span><span class="metric-bench">vs 0.74</span></td>
+      <td class="metric-cell"><span class="metric-primary win">1.66</span><span class="metric-bench">vs 0.74</span></td>
       <td class="metric-cell"><span class="metric-primary win">2.21</span><span class="metric-bench">vs 1.01</span></td>
     </tr>
 
@@ -1040,24 +878,6 @@
       <td class="metric-cell"><span class="metric-primary win">2.05</span><span class="metric-bench">vs 1.02</span></td>
     </tr>
 
-    <tr data-universe="NIFTY100" data-category="Momentum Formula"
-        data-cagr="28.945714523103163"
-        data-dd="-35.25637669125481"
-        data-sharpe="1.4272102083563902"
-        data-sortino="1.8547078115910423"
-        data-report="64">
-      <td class="label-cell">
-        <div class="universe-tag">NIFTY100</div>
-        <div class="strategy-label">Absolute momentum gate</div>
-        <div class="category-tag" style="color:#6AE4FF;border-color:#6AE4FF44;background:#6AE4FF14">Momentum Formula</div>
-      </td>
-      <td class="window-cell">2008-12-31<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 64</div></td>
-      <td class="metric-cell"><span class="metric-primary win">+28.9%</span><span class="metric-bench">vs +12.3%</span></td>
-      <td class="metric-cell"><span class="metric-primary win">-35.3%</span><span class="metric-bench">vs -38.4%</span></td>
-      <td class="metric-cell"><span class="metric-primary win">1.43</span><span class="metric-bench">vs 0.75</span></td>
-      <td class="metric-cell"><span class="metric-primary win">1.85</span><span class="metric-bench">vs 1.02</span></td>
-    </tr>
-
     <tr data-universe="NIFTY100" data-category="Exposure Scaling"
         data-cagr="29.496471387496513"
         data-dd="-25.858318207217046"
@@ -1077,75 +897,39 @@
     </tr>
 
     <tr data-universe="NIFTY100" data-category="Exposure Scaling"
-        data-cagr="31.49642495525606"
+        data-cagr="31.524384437405047"
         data-dd="-25.658169654655282"
-        data-sharpe="1.5857080338296183"
-        data-sortino="2.160975038219286"
+        data-sharpe="1.5869015012658414"
+        data-sortino="2.162373153256281"
         data-report="70">
       <td class="label-cell">
         <div class="universe-tag">NIFTY100</div>
         <div class="strategy-label">Smooth exposure 15% band + gold</div>
         <div class="category-tag" style="color:#37F083;border-color:#37F08344;background:#37F08314">Exposure Scaling</div>
       </td>
-      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-15<div class="report-ref">Report 70</div></td>
-      <td class="metric-cell"><span class="metric-primary win">+31.5%</span><span class="metric-bench">vs +12.0%</span></td>
+      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 70</div></td>
+      <td class="metric-cell"><span class="metric-primary win">+31.5%</span><span class="metric-bench">vs +12.1%</span></td>
       <td class="metric-cell"><span class="metric-primary win">-25.7%</span><span class="metric-bench">vs -38.4%</span></td>
       <td class="metric-cell"><span class="metric-primary win">1.59</span><span class="metric-bench">vs 0.74</span></td>
       <td class="metric-cell"><span class="metric-primary win">2.16</span><span class="metric-bench">vs 1.01</span></td>
     </tr>
 
     <tr data-universe="NIFTY100" data-category="Exposure Scaling"
-        data-cagr="30.064624506445853"
+        data-cagr="30.086253437743636"
         data-dd="-25.70014749984548"
-        data-sharpe="1.5914509918825948"
-        data-sortino="2.1338897052781656"
+        data-sharpe="1.5924416456992352"
+        data-sortino="2.1349854808580537"
         data-report="70">
       <td class="label-cell">
         <div class="universe-tag">NIFTY100</div>
         <div class="strategy-label">Smooth exposure 15% band + liquid fund (assumed 6%)</div>
         <div class="category-tag" style="color:#37F083;border-color:#37F08344;background:#37F08314">Exposure Scaling</div>
       </td>
-      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-15<div class="report-ref">Report 70</div></td>
-      <td class="metric-cell"><span class="metric-primary win">+30.1%</span><span class="metric-bench">vs +12.0%</span></td>
+      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 70</div></td>
+      <td class="metric-cell"><span class="metric-primary win">+30.1%</span><span class="metric-bench">vs +12.1%</span></td>
       <td class="metric-cell"><span class="metric-primary win">-25.7%</span><span class="metric-bench">vs -38.4%</span></td>
       <td class="metric-cell"><span class="metric-primary win">1.59</span><span class="metric-bench">vs 0.74</span></td>
       <td class="metric-cell"><span class="metric-primary win">2.13</span><span class="metric-bench">vs 1.01</span></td>
-    </tr>
-
-    <tr data-universe="NIFTY500" data-category="Baseline"
-        data-cagr="37.085104601235116"
-        data-dd="-42.60677184470726"
-        data-sharpe="1.4681070523761988"
-        data-sortino="1.914322253822832"
-        data-report="18">
-      <td class="label-cell">
-        <div class="universe-tag">NIFTY500</div>
-        <div class="strategy-label">Original (equal-weight momentum)</div>
-        <div class="category-tag" style="color:#7E97A0;border-color:#7E97A044;background:#7E97A014">Baseline</div>
-      </td>
-      <td class="window-cell">2008-12-31<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 18</div></td>
-      <td class="metric-cell"><span class="metric-primary win">+37.1%</span><span class="metric-bench">vs +12.3%</span></td>
-      <td class="metric-cell"><span class="metric-primary lose">-42.6%</span><span class="metric-bench">vs -38.4%</span></td>
-      <td class="metric-cell"><span class="metric-primary win">1.47</span><span class="metric-bench">vs 0.75</span></td>
-      <td class="metric-cell"><span class="metric-primary win">1.91</span><span class="metric-bench">vs 1.02</span></td>
-    </tr>
-
-    <tr data-universe="NIFTY500" data-category="Weighting"
-        data-cagr="39.402247485969866"
-        data-dd="-35.637684798878865"
-        data-sharpe="1.5686054496849424"
-        data-sortino="2.120979806718856"
-        data-report="39">
-      <td class="label-cell">
-        <div class="universe-tag">NIFTY500</div>
-        <div class="strategy-label">Front-loaded 3m/6m/12m (50/30/20)</div>
-        <div class="category-tag" style="color:#6AE4FF;border-color:#6AE4FF44;background:#6AE4FF14">Weighting</div>
-      </td>
-      <td class="window-cell">2008-12-31<span class="arrow">→</span>2026-10-16<div class="report-ref">Report 39</div></td>
-      <td class="metric-cell"><span class="metric-primary win">+39.4%</span><span class="metric-bench">vs +12.3%</span></td>
-      <td class="metric-cell"><span class="metric-primary win">-35.6%</span><span class="metric-bench">vs -38.4%</span></td>
-      <td class="metric-cell"><span class="metric-primary win">1.57</span><span class="metric-bench">vs 0.75</span></td>
-      <td class="metric-cell"><span class="metric-primary win">2.12</span><span class="metric-bench">vs 1.02</span></td>
     </tr>
 
     <tr data-universe="NIFTY500" data-category="Regime Filter"
@@ -1185,7 +969,7 @@
 </footer>
 
 <script>
-const ROWS_META = [{"universe": "Midcap150", "category": "Baseline"}, {"universe": "Midcap150", "category": "Weighting"}, {"universe": "Midcap150", "category": "Regime Filter"}, {"universe": "Midcap150", "category": "Regime Filter"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Core-Satellite"}, {"universe": "Midcap150", "category": "Weighting"}, {"universe": "Midcap150", "category": "Basket Size"}, {"universe": "Midcap150", "category": "Regime Filter"}, {"universe": "Midcap150", "category": "Momentum Formula"}, {"universe": "Midcap150", "category": "Exposure Scaling"}, {"universe": "Midcap150", "category": "Exposure Scaling"}, {"universe": "Midcap150", "category": "Exposure Scaling"}, {"universe": "Midcap150", "category": "Stop-Loss"}, {"universe": "Smallcap250", "category": "Baseline"}, {"universe": "Smallcap250", "category": "Weighting"}, {"universe": "Smallcap250", "category": "Regime Filter"}, {"universe": "Smallcap250", "category": "Filter + Hedge"}, {"universe": "Smallcap250", "category": "Weighting"}, {"universe": "Smallcap250", "category": "Trend Filter"}, {"universe": "Smallcap250", "category": "Regime Filter"}, {"universe": "Smallcap250", "category": "Momentum Formula"}, {"universe": "Smallcap250", "category": "Exposure Scaling"}, {"universe": "Smallcap250", "category": "Exposure Scaling"}, {"universe": "Smallcap250", "category": "Exposure Scaling"}, {"universe": "NIFTY100", "category": "Baseline"}, {"universe": "NIFTY100", "category": "Regime Filter"}, {"universe": "NIFTY100", "category": "Filter + Hedge"}, {"universe": "NIFTY100", "category": "Regime Filter"}, {"universe": "NIFTY100", "category": "Momentum Formula"}, {"universe": "NIFTY100", "category": "Exposure Scaling"}, {"universe": "NIFTY100", "category": "Exposure Scaling"}, {"universe": "NIFTY100", "category": "Exposure Scaling"}, {"universe": "NIFTY500", "category": "Baseline"}, {"universe": "NIFTY500", "category": "Weighting"}, {"universe": "NIFTY500", "category": "Regime Filter"}];
+const ROWS_META = [{"universe": "Midcap150", "category": "Weighting"}, {"universe": "Midcap150", "category": "Regime Filter"}, {"universe": "Midcap150", "category": "Regime Filter"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Core-Satellite"}, {"universe": "Midcap150", "category": "Weighting"}, {"universe": "Midcap150", "category": "Regime Filter"}, {"universe": "Midcap150", "category": "Exposure Scaling"}, {"universe": "Midcap150", "category": "Exposure Scaling"}, {"universe": "Midcap150", "category": "Exposure Scaling"}, {"universe": "Midcap150", "category": "Stop-Loss"}, {"universe": "Smallcap250", "category": "Regime Filter"}, {"universe": "Smallcap250", "category": "Filter + Hedge"}, {"universe": "Smallcap250", "category": "Trend Filter"}, {"universe": "Smallcap250", "category": "Exposure Scaling"}, {"universe": "Smallcap250", "category": "Exposure Scaling"}, {"universe": "Smallcap250", "category": "Exposure Scaling"}, {"universe": "NIFTY100", "category": "Regime Filter"}, {"universe": "NIFTY100", "category": "Filter + Hedge"}, {"universe": "NIFTY100", "category": "Regime Filter"}, {"universe": "NIFTY100", "category": "Exposure Scaling"}, {"universe": "NIFTY100", "category": "Exposure Scaling"}, {"universe": "NIFTY100", "category": "Exposure Scaling"}, {"universe": "NIFTY500", "category": "Regime Filter"}];
 const activeFilters = { universe: null, category: null };
 let sortState = { key: "cagr", dir: "desc" };
 
