@@ -238,6 +238,8 @@ GROUPS = [
              "title": "Microcap250 Momentum 10 — Gold Instead of Cash", "subtitle": "Five for five — gold beats both alternatives, but the drawdown cut is the thinnest of any universe tested"},
             {"id": "104", "file": "104_midcap150_smoothed_ha.html", "icon": ICON_TRENDING,
              "title": "Midcap 150 — Smoothed Heikin-Ashi + ATR Contraction", "subtitle": "The chart system on midcaps: +7pp CAGR over the basket with an 8pp smaller drawdown — but the return edge is 2020"},
+            {"id": "105", "file": "105_ha_x_hero.html", "icon": ICON_COMPARE,
+             "title": "Smoothed Heikin-Ashi × the Hero — The Combination That Doesn't Work", "subtitle": "Sixteen overlays tested: regime, entry gate, review exit, daily overlay. Every one loses; the untouched Max stack A stays the hero"},
         ],
     },
     {

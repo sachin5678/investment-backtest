@@ -12,7 +12,9 @@ Config surface (see default_config for the full schema):
   2. Conditions    — keep_if / buy_if / sell_when rules over per-stock
                      indicators: ret_6m, swings_6m, above_ema200,
                      supertrend_green, rsi, golden_cross, from_52w_high,
-                     from_ath, turnover, price, vix (market-level).
+                     from_ath, turnover, price, vix (market-level), plus
+                     the report-104 smoothed HA set: ha_green, ha_red,
+                     ha_above and atr_ratio (ATR14/ATR50).
                      keep_if is checked at reviews (a holder that stops
                      passing is sold at that review); buy_if only gates new
                      buys; sell_when is checked EVERY day — the holding is
@@ -32,11 +34,15 @@ Config surface (see default_config for the full schema):
                      buy-the-dip top-ups (NIFTY RSI below a level, at most
                      once a month — goes into holdings that day, like a SIP).
   6. Protect       — regime signal (NIFTY 200-EMA by default; or Supertrend,
-                     NIFTY 500, a 2-of-3 ensemble, VIX-only), check daily vs
-                     on review days only, action when off (park / cash /
-                     sell-half-and-re-top-up), park basket (up to 4 symbols
-                     with % of freed cash — a symbol listed later leaves its
-                     share in cash until then), and a VIX volatility filter.
+                     NIFTY 500, smoothed HA via "ha" / "ha_close", a 2-of-3
+                     ensemble, VIX-only), check daily vs on review days only,
+                     action when off (park / cash / sell-half-and-re-top-up),
+                     park basket (up to 4 symbols with % of freed cash — a
+                     symbol listed later leaves its share in cash until then),
+                     a VIX volatility filter, and two optional HA overlays:
+                     extra_exit="ha" (fast red-flip exit on top of the slow
+                     base regime) and reentry_gate="ha" (wait for green
+                     before re-entering).
   7. Costs         — cost % + slippage % per side, whole units or fractional.
 
 Output: one JSON per lab in the house results-file shape — every variant is
@@ -104,6 +110,8 @@ def default_config(**overrides):
             "park": [{"symbol": "GOLDBEES", "pct": 100}],
             "vix_filter": None,      # {"above": 20}
             "vix_mode": "or",        # or | and  (combine with the base signal)
+            "extra_exit": None,      # None | "ha" — also exit when the index HA turns red
+            "reentry_gate": None,    # None | "ha" — re-enter only when the index HA is green
         },
         "cost_pct_per_side": 0.001,  # 0.1% — MomentumScore's own convention
         "slippage_pct_per_side": 0.0,
@@ -213,7 +221,9 @@ def load_market():
 
     idx_ohlc = {}
     for key, sym in (("nifty", "^NSEI"), ("nifty500", "^CRSLDX")):
+        sub = ex[sym][["Open", "High", "Low", "Close"]].dropna()
         idx_ohlc[key] = {
+            "open": sub["Open"].reindex(common).ffill(),
             "high": ex[(sym, "High")].reindex(common).ffill(),
             "low": ex[(sym, "Low")].reindex(common).ffill(),
             "close": nifty if key == "nifty" else nifty500,
@@ -269,6 +279,81 @@ def rsi_wilder(close, period=14):
     rd = dn.ewm(alpha=1.0 / period, adjust=False).mean()
     rs = ru / rd
     return 100.0 - 100.0 / (1.0 + rs)
+
+
+# ---- smoothed Heikin-Ashi (report 104's indicator, ported verbatim) ----
+# Computed once and only referenced by opt-in HA conditions / regime
+# signals; the default hero configuration ignores all of it.
+
+HA_LEN = 10
+
+
+def ha_ema(arr, length):
+    """EMA seeded with the SMA of the first `length` valid values,
+    NaN-propagating — identical to backtest104.ema / the JS engine."""
+    out = np.full(len(arr), np.nan)
+    first = None
+    for i, v in enumerate(arr):
+        if np.isfinite(v):
+            first = i
+            break
+    if first is None:
+        return out
+    s = 0.0
+    cnt = 0
+    seed_idx = -1
+    for i in range(first, len(arr)):
+        v = arr[i]
+        if not np.isfinite(v):
+            continue
+        s += v
+        cnt += 1
+        if cnt == length:
+            seed_idx = i
+            break
+    if seed_idx < 0:
+        return out
+    prev = s / length
+    out[seed_idx] = prev
+    k = 2.0 / (length + 1.0)
+    for i in range(seed_idx + 1, len(arr)):
+        v = arr[i]
+        if not np.isfinite(v):
+            out[i] = prev
+            continue
+        prev = v * k + prev * (1 - k)
+        out[i] = prev
+    return out
+
+
+def smoothed_ha(o, h, l, c, length=HA_LEN):
+    """Smoothed Heikin-Ashi close/open arrays (report 104's definition)."""
+    o1, h1, l1, c1 = ha_ema(o, length), ha_ema(h, length), ha_ema(l, length), ha_ema(c, length)
+    n = len(c)
+    ha_o = np.full(n, np.nan)
+    ha_c = np.full(n, np.nan)
+    for i in range(n):
+        if not (np.isfinite(o1[i]) and np.isfinite(h1[i]) and np.isfinite(l1[i]) and np.isfinite(c1[i])):
+            continue
+        ha_c[i] = (o1[i] + h1[i] + l1[i] + c1[i]) / 4.0
+        ha_o[i] = ((ha_o[i - 1] + ha_c[i - 1]) / 2.0) if i > 0 and np.isfinite(ha_o[i - 1]) else (o1[i] + c1[i]) / 2.0
+    return ha_ema(ha_o, length), ha_ema(ha_c, length)
+
+
+def atr_ratio_series(h, l, c):
+    """ATR(14) / ATR(50) — report 104's contraction ratio."""
+    prev_c = np.roll(c, 1)
+    prev_c[0] = np.nan
+    tr = np.maximum(h - l, np.maximum(np.abs(h - prev_c), np.abs(l - prev_c)))
+    tr[0] = h[0] - l[0]
+    s = pd.Series(tr)
+    a14 = s.rolling(14, min_periods=12).mean().to_numpy()
+    a50 = s.rolling(50, min_periods=40).mean().to_numpy()
+    with np.errstate(invalid="ignore", divide="ignore"):
+        r = a14 / a50
+    r[~np.isfinite(r)] = np.nan
+    r[a50 <= 0] = np.nan
+    return r
 
 
 def build_ranks(closes, min_eligible=MIN_ELIGIBLE):
@@ -333,6 +418,23 @@ def build_features(market):
     feats["turnover"] = (closes * o["Volume"]).rolling(LOOKBACK_6M, min_periods=2).mean()
     feats["supertrend_green"] = pd.DataFrame(
         {tk: supertrend_dir(o["High"][tk], o["Low"][tk], o["Close"][tk]) for tk in closes.columns})
+    # smoothed Heikin-Ashi stock features (report 104 definition). Only HA
+    # configs consume these; the default hero ignores them.
+    ha_open, ha_close, atr_r = {}, {}, {}
+    for tk in closes.columns:
+        op = o["Open"][tk].to_numpy(dtype=float)
+        hi = o["High"][tk].to_numpy(dtype=float)
+        lo = o["Low"][tk].to_numpy(dtype=float)
+        cl = o["Close"][tk].to_numpy(dtype=float)
+        ho, hc = smoothed_ha(op, hi, lo, cl)
+        ha_open[tk], ha_close[tk] = ho, hc
+        atr_r[tk] = atr_ratio_series(hi, lo, cl)
+    ha_open_df = pd.DataFrame(ha_open, index=closes.index)
+    ha_close_df = pd.DataFrame(ha_close, index=closes.index)
+    feats["ha_green"] = (ha_close_df > ha_open_df).astype(bool)
+    feats["ha_red"] = (ha_close_df < ha_open_df).astype(bool)
+    feats["ha_above"] = (closes > ha_open_df).astype(bool)
+    feats["atr_ratio"] = pd.DataFrame(atr_r, index=closes.index)
     feats["nifty_rsi"] = rsi_wilder(market["nifty"], 14)
     feats["vix"] = market["vix"]
     feats["index_ma"] = {}   # filled per (index, dma_days) on demand
@@ -358,6 +460,10 @@ CONDITION_INDICATORS = {
     "below_ema200": "price below its 200-day EMA",
     "supertrend_green": "Supertrend (10, 3) green",
     "supertrend_red": "Supertrend (10, 3) red",
+    "ha_green": "smoothed Heikin-Ashi green (HA close > HA open)",
+    "ha_red": "smoothed Heikin-Ashi red (HA close < HA open)",
+    "ha_above": "price above the smoothed HA open (indicator)",
+    "atr_ratio": "ATR(14) / ATR(50)",
     "rsi": "RSI(14)",
     "golden_cross": "50-EMA above 200-EMA",
     "from_52w_high": "% from 52-week high",
@@ -388,6 +494,10 @@ def condition_mask(feats, c):
         return feats["supertrend_green"] == False  # noqa: E712 — NaN is not red
     if ind == "below_ema200":
         return feats["above_ema200"] == False  # noqa: E712 — NaN is not below
+    if ind == "ha_red":
+        return feats["ha_red"]
+    if ind in ("ha_green", "ha_above"):
+        return feats[ind]
     if ind == "vix":
         m = feats["vix"]
         return ((m < val) if op == "below" else (m > val)).fillna(False)
@@ -509,6 +619,18 @@ def run_variant(cfg, market, feats, rank_df, fit_df, rbdates):
     ma_arr = None
     if r["enabled"] and r["signal"] in ("below_ma", "ensemble_2of3"):
         ma_arr = index_ma(feats, market, idx_key, r["dma_days"]).to_numpy()
+    ha_green_idx = ha_open_idx = None
+    if r["enabled"] and (r["signal"] in ("ha", "ha_close")
+                         or r.get("extra_exit") == "ha" or r.get("reentry_gate") == "ha"):
+        io = market["idx_ohlc"][idx_key]
+        ha_o, ha_c = smoothed_ha(io["open"].to_numpy(dtype=float),
+                                 io["high"].to_numpy(dtype=float),
+                                 io["low"].to_numpy(dtype=float),
+                                 io["close"].to_numpy(dtype=float))
+        ha_green_idx = ha_c > ha_o
+        ha_open_idx = ha_o
+    ha_defined_idx = np.isfinite(ha_open_idx) if ha_open_idx is not None else None
+    ha_red_idx = (ha_defined_idx & ~ha_green_idx) if ha_green_idx is not None else None
     vix_arr = market["vix"].to_numpy() if len(market["vix"]) else np.full(n, np.nan)
 
     def vix_off(i):
@@ -526,6 +648,14 @@ def run_variant(cfg, market, feats, rank_df, fit_df, rbdates):
             return not raw_invested
         if r["signal"] == "supertrend":
             return not bool(st_green_idx[i]) if st_green_idx is not None and np.isfinite(sig_arr[i]) else False
+        if r["signal"] == "ha":
+            if ha_green_idx is None or not np.isfinite(sig_arr[i]) or not np.isfinite(ha_open_idx[i]):
+                return False
+            return not bool(ha_green_idx[i])
+        if r["signal"] == "ha_close":
+            if ha_green_idx is None or not np.isfinite(sig_arr[i]) or not np.isfinite(ha_open_idx[i]):
+                return False
+            return not bool(ha_green_idx[i] and sig_arr[i] > ha_open_idx[i])
         if r["signal"] == "none":
             return False
         if r["signal"] == "ensemble_2of3":
@@ -542,11 +672,27 @@ def run_variant(cfg, market, feats, rank_df, fit_df, rbdates):
         v = vix_off(i)
         return (b or v) if r["vix_mode"] == "or" else (b and v)
 
+    def ha_extra_off(i):
+        """Optional fast overlay: exit when the index HA turns red even if
+        the slow base regime is still risk-on."""
+        return bool(r.get("extra_exit") == "ha" and ha_red_idx is not None and ha_red_idx[i])
+
+    def reentry_gate_ok(i):
+        """Optional confirmation: after an exit, wait for the index HA to
+        turn green before re-entering."""
+        if not r["enabled"] or r.get("reentry_gate") != "ha":
+            return True
+        return bool(ha_green_idx is not None and ha_defined_idx[i] and ha_green_idx[i])
+
     def why_off():
         if r["signal"] == "below_ma":
             return f"regime exit — {INDEX_LABEL[idx_key]} closed below its {r['dma_days']}-day EMA"
         if r["signal"] == "supertrend":
             return f"regime exit — Supertrend (10, 3) turned red on {INDEX_LABEL[idx_key]}"
+        if r["signal"] == "ha":
+            return f"regime exit — smoothed Heikin-Ashi turned red on {INDEX_LABEL[idx_key]}"
+        if r["signal"] == "ha_close":
+            return f"regime exit — {INDEX_LABEL[idx_key]} closed below its smoothed HA open"
         if r["signal"] == "ensemble_2of3":
             return f"regime exit — 2 of 3 signals (EMA, Supertrend, VIX) turned risk-off on {INDEX_LABEL[idx_key]}"
         if r["signal"] == "none":
@@ -702,12 +848,17 @@ def run_variant(cfg, market, feats, rank_df, fit_df, rbdates):
         is_rb = d in rb_set
         date_s = d.strftime("%Y-%m-%d")
         off_today = raw_off(i)
+        exit_off = off_today or ha_extra_off(i)
+        entry_ok = (not off_today) and reentry_gate_ok(i)
+        why_today = (why_off() if off_today else
+                     f"regime exit — smoothed Heikin-Ashi turned red on {INDEX_LABEL[idx_key]} "
+                     f"(early-warning overlay)")
 
         # ---- start ----
         if not started:
             if is_rb and int(np.isfinite(rank_arr[i]).sum()) >= MIN_ELIGIBLE:
                 started = True
-                if not off_today:
+                if entry_ok:
                     state = "invested"
                     buys = []
                     cand = candidates_for(i)[:top_n]
@@ -761,7 +912,7 @@ def run_variant(cfg, market, feats, rank_df, fit_df, rbdates):
         # that day's scheduled review.
         regime_acts = r["enabled"] and (r["check"] == "daily" or is_rb)
         regime_handled = False
-        if regime_acts and state == "invested" and off_today:
+        if regime_acts and state == "invested" and exit_off:
             regime_handled = True
             sells = []
             if r["action"] == "half":
@@ -787,7 +938,7 @@ def run_variant(cfg, market, feats, rank_df, fit_df, rbdates):
                         "rank_in": p["rank_in"], "fit_in": p["fit_in"],
                         "rank_out": int(rk) if np.isfinite(rk) else None,
                         "fit_out": int(ft) if np.isfinite(ft) else None,
-                        "why_in": p["why_in"], "why_out": why_off() + " (half de-risk)",
+                        "why_in": p["why_in"], "why_out": why_today + " (half de-risk)",
                     })
                     p["qty"] -= half_qty
                     p["invested_gross"] /= 2.0
@@ -800,7 +951,7 @@ def run_variant(cfg, market, feats, rank_df, fit_df, rbdates):
                 state = "off"
             else:
                 for tk in list(positions):
-                    cash += sell_position(tk, i, date_s, why_off(), "regime exit", sells)
+                    cash += sell_position(tk, i, date_s, why_today, "regime exit", sells)
                 if r["action"] == "park":
                     cash = park_cash(cash, i)
                 state = "off"
@@ -811,7 +962,7 @@ def run_variant(cfg, market, feats, rank_df, fit_df, rbdates):
                            "holdings_after": ([{"ticker": tk.replace(".NS", ""), "note": "half position kept"}
                                                for tk in positions]
                                               + [{"ticker": s, "note": "regime off"} for s in park_units])})
-        elif regime_acts and state == "off" and not off_today:
+        elif regime_acts and state == "off" and entry_ok:
             regime_handled = True
             park_syms = list(park_units)
             buys = []
@@ -844,7 +995,7 @@ def run_variant(cfg, market, feats, rank_df, fit_df, rbdates):
                                               for tk in positions]})
 
         # ---- scheduled review: hysteresis + refill ----
-        if (not regime_handled) and state == "invested" and not off_today and is_rb:
+        if (not regime_handled) and state == "invested" and not exit_off and is_rb:
             sells, buys, keeps = [], [], []
             sector_counts = {}
             for tk in list(positions):

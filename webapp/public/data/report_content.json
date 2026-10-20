@@ -635,6 +635,88 @@
    }
   ]
  },
+ "105": {
+  "title": "Smoothed Heikin-Ashi × the Hero — Does the Indicator Improve the Max Strategy?",
+  "subtitle": "Report 104's double-smoothed HA system bolted onto report 98's Max stack A (Midcap 150 Momentum 10, 200-EMA + gold, keep-if 6m > 0, exit rank 30). Sixteen combinations: HA as the regime, as an entry gate, as a review exit, and as a daily overlay. The answer is no — every version gives up return, and most give up drawdown too.",
+  "source_line": "2009-01-02–2026-10-16 Report generated 2026-10-20 20:18",
+  "pages": [
+   {
+    "file": "105_ha_x_hero.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "negative",
+        "text": "no combination improves the hero — the least-bad one gives up 1.5pp of CAGR and 1.8pp of drawdown"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "The untouched hero compounds at +40.0% with a -24.0% max drawdown, Sharpe 1.86 and 705 closed trades. The best HA variant — use HA only as a review-level keep filter — returns +38.5% (-1.51pp) with a -25.8% drawdown (-1.81pp) and Sharpe 1.80. Nothing is better on any axis.",
+       "The damage scales with how much of the hero the indicator is allowed to touch. Replacing the 200-EMA regime with index HA costs -11.05pp of CAGR and deepens the drawdown by 3.41pp. An HA entry gate costs -5.17pp and deepens the drawdown by 5.77pp. Adding the ATR contraction filter costs -28.42pp. A daily HA early-exit overlay makes 4,950 trades instead of 705 and costs -20.25pp."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why every combination loses",
+      "pills": [],
+      "what_this_shows": "WHAT THIS SHOWS — the failure is structural, not a tuning problem. Four mechanisms explain the whole table.",
+      "paragraphs": [],
+      "list_items": [
+       "Frequency mismatch.The hero decides twice a year on 6- and 12-month momentum. A smoothed 10-day HA candle flips in days. At a June or December review, the HA colour is close to noise relative to the signal that picked the stock; gating a 6-month pick on a 10-day state removes strong names without adding information. The best HA variant still gives up 1.51pp.",
+       "The ATR contraction filter is the most destructive.Momentum leaders are volatile by construction. Requiring ATR(14)/ATR(50) < 0.8 selects the quiet names inside the momentum top 10: CAGR collapses to +11.6% and the drawdown deepens to -31.1%. Report 104 found ATR useful as an entry-timing filter for a broad HA stock system; it is not a stock-selection filter for a concentrated momentum portfolio.",
+       "A faster regime is not a better regime.Index HA raises regime exits from 65 to 104 and cuts CAGR by 11.05pp; the strict version (green plus close above the HA open) is worse still — 157 exits and +26.7% CAGR. The 200-EMA's slowness is a feature: it ignores bear-market rallies instead of trading them.",
+       "Daily HA exits are a cost machine.The early-exit overlay makes 4,950 trades versus 705; the half-de-risk version makes 5,033. At 0.1% per side the friction alone compounds to a double-digit drag, and the timing benefit never covers it. The re-entry gate is the mildest overlay tested, and it still costs 2.98pp with a deeper drawdown."
+      ]
+     },
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "this is a statement about the combination, not about the indicator"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "HA is not a bad indicator. Report 104 shows the standalone system on the same Midcap 150 cache beating an equal-weight basket over 2016–2026: 27.8% CAGR versus 20.6%, with a 32.6% drawdown versus 40.8%, Sharpe 1.57 versus 1.19. That edge is real but 2020-dependent (ex-2020 it lags the basket), and it comes from selecting and timing individual stocks out of a broad universe — a different job from overlaying a concentrated 10-stock, twice-a-year momentum book.",
+       "The hero is also not fragile. It survives every overlay tested; the worst still compounds at +11.6%. The point is that the untouched hero is better, not that the combination blows up.",
+       "Caveats: Midcap 150 is today's constituent list applied backwards, so all absolute CAGRs are survivorship-inflated; this lab does not model tax; and the window is 2009–2026. Those caveats apply to every row, so the ranking is robust even though the absolute numbers are optimistic.",
+       "Scope. This lab tests the HA signal as a market regime, a stock gate at the review, and a daily index overlay. It does not bolt the standalone system's per-stock 12% stop and next-open red-flip exit onto the hero: the engine's daily sell rule parks proceeds until the next review, so that test would be dominated by a mechanical cash drag. The review-level HA keep filter is the closest fair test, and it already gives up 1.51pp. A per-stock stop is a separate risk rule, not the HA signal, and deserves its own lab."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Method and reproduction",
+      "pills": [],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Hero: report 98 Max stack A — midcap150, top 10, Jun/Dec reviews, keep-if 6m > 0, exit rank 30, NIFTY 50 200-EMA regime with 100% GOLDBEES park, 0.1% cost per side.",
+       "HA: report 104's smoothed Heikin-Ashi — EMA(10) applied twice to O/H/L/C; green when HA close > HA open; strict adds price > HA open; ATR contraction is ATR(14)/ATR(50) < 0.8. Index HA uses the same definition on NIFTY 50.",
+       "Every variant runs through the same ms_builder.py engine used by reports 93–98; the hero regression gate is re-run after the HA additions and still reproduces report 93 exactly. Window 2009-01-02–2026-10-16."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "positive",
+        "text": "keep them separate — the hero stays the hero, HA stays report 104"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "If you want HA exposure, run it as a separate sleeve with its own capital, not as a filter on the momentum book. The two systems have different horizons, different turnover and different jobs; combining them at the same decision point subtracts from both.",
+       "For the hero, report 98's Max stack A remains the best configuration in this repo. For HA, report 104 is the implementation to use. The correct combination is a portfolio of the two strategies, not an overlay of one on the other."
+      ],
+      "list_items": []
+     }
+    ]
+   }
+  ]
+ },
  "10": {
   "title": "SIP in a Momentum ETF — vs. Midcap, vs. NIFTY 50",
   "subtitle": "Same ₹1,000/month vanilla SIP, no overlay of any kind, run into a momentum-factor ETF instead — compared head-to-head against midcap and NIFTY 50 over the identical, shorter window the momentum ETF's short history allows.",
