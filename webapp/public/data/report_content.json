@@ -543,6 +543,98 @@
    }
   ]
  },
+ "104": {
+  "title": "Smoothed Heikin-Ashi + ATR Contraction on NIFTY Midcap 150",
+  "subtitle": "The chart system from the Upsurge Club session of 20 Oct 2026, applied to the repo's own Midcap 150 price cache (150 names, prices from 1996). Entry is a green flip of the double-smoothed Heikin-Ashi with price above the indicator and ATR(14)/ATR(50) below 0.8 — a volatility-contraction filter that was not in the original video. 12% stop, exit on the first red flip, 8 slots. The question here is narrow: does the edge that showed up on NIFTY 200/500 survive when the universe is midcaps?",
+  "source_line": "2016-01-01–2026-10-16 Report generated 2026-10-20 17:26",
+  "pages": [
+   {
+    "file": "104_midcap150_smoothed_ha.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "positive",
+        "text": "the edge survives on midcaps — but it is smaller and far more 2020-dependent"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "On 2016–2026, fully invested at 12.5% per slot, the system returns +27.8% CAGR against +20.6% for an equal-weight basket of the same 150 names — with max drawdown -32.6% versus -40.8%, and Sharpe 1.57 versus 1.19. On the literal 1%-risk sizing the same rules deliver +22.2% / -24.2% / Sharpe 1.69.",
+       "Two things stop that from being the whole story. First, 2020 was 2.88x: strip that year out and the system compounds at +15.8% against +17.8% for the basket — outside 2020 this is a drawdown-control system, not a return engine. Second, over the full 2005–2026 history the basket wins outright (+29.6% vs +18.8% at slot sizing), though that basket number is survivorship-inflated to the point of fiction: it books a flat 2008."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "two sizing conventions, both reported — they answer different questions"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Slot sizing (12.5% per position) keeps ~100% of equity deployed when eight positions are open. It is the like-for-like comparison against a 100%-invested equal-weight basket, and it is the headline here. 1% risk sizing divides 1% of equity by the 12% stop, which funds each position at 8.33% and leaves roughly a third of the account in cash — lower return, but also lower risk. The earlier NIFTY 200/500 study sized every trade at 1%/8.5% (≈11.8% per slot) while using a 12% stop, so its headline CAGRs sit between these two conventions; its Sharpe ratios remain the comparable number.",
+       "Nothing about the entry, filter, stop or exit changes between the two rows. Only the number of rupees put behind each signal changes."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Why the midcap edge is thinner than the large-cap one",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "mechanism, not a guarantee"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — three structural reasons, each visible in the numbers above.",
+      "paragraphs": [],
+      "list_items": [
+       "Breadth is lower.By 2016 only 101 of the 150 names have prices; the system\n          gets 1,287 signals over ten years and can only take 576 of them. In NIFTY 200 the same rules\n          generate 1,740 signals from a deeper, more liquid pool — more shots at the tight-base setup.",
+       "Midcap trends are more idiosyncratic.The ATR contraction filter selects quiet,\n          tight bases; in midcaps those are often lower-beta names that then trend less than the index's big winners.\n          The equal-weight basket owns every winner, including the ones that never went quiet before launching.",
+       "2020 is doing the heavy lifting.The system's 2.88x in 2020 versus the basket's\n          1.30x is the entire modern-window CAGR gap. Remove 2020 and the basket wins on return\n          (+17.8% vs +15.8%); the system still wins on drawdown and Sharpe."
+      ]
+     },
+     {
+      "heading": "Limitations",
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "read before trusting any number above"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — every simplification behind this report.",
+      "paragraphs": [],
+      "list_items": [
+       "Survivorship bias is severe.Today's Midcap 150 membership is applied back to 2005. The absolute CAGRs — system and basket — are not investable expectations. The comparison between them is the useful part, and even that is tilted toward the basket.",
+       "The basket is equal-weighted and rebalanced once a year, with no costs; it is a simple comparator, not the real NIFTY Midcap 150 index (which only launched in 2005 and has its own methodology).",
+       "Dividends are excluded (Close, not Adj Close), consistent with every other report in this repo. Midcap dividend yields are small but not zero.",
+       "The 0.80 ATR threshold and the 12% stop were chosen after looking at NIFTY 200/500 data. They are not out-of-sample parameters, and no walk-forward or parameter-sensitivity sweep is presented here.",
+       "Next-open fills assume every signal is tradable at the next day's open. The smallest midcaps can gap or hit circuit limits; the stop fills at min(open, trigger) when it gaps, but genuine liquidity holes would be worse.",
+       "0.25% round-trip cost is charged on every trade. With 1,287 signals and average holds of about 25 trading days, costs matter; a higher-cost broker would shave the edge.",
+       "One historical path, one universe vintage. The 2020 concentration is not a bug in the code; it is a property of the strategy, and it is the main reason to treat the headline CAGR with suspicion."
+      ]
+     },
+     {
+      "heading": "Reproduce this report",
+      "pills": [
+       {
+        "kind": "neutral",
+        "text": "repo-native, no external services needed except the NIFTY 50 cache"
+       }
+      ],
+      "what_this_shows": "WHAT THIS SHOWS — the exact commands and files behind every number.",
+      "paragraphs": [
+       "Data: midcap150_extra_raw.pkl (150 names, 1996-01-01 to 2026-10-16), universe_raw.pkl (NIFTY 200), smallcap250_extra_raw.pkl (Smallcap 250), and a cached NIFTY 50 daily series. Entry, stop, exit and portfolio accounting are a line-by-line port of the JavaScript engine used for the earlier NIFTY 200/500 study; the port was validated against the JS engine on NIFTY 200 (31.2% vs 31.6% CAGR, 1,740 vs 1,724 signals) before this universe was run."
+      ],
+      "list_items": []
+     }
+    ]
+   }
+  ]
+ },
  "10": {
   "title": "SIP in a Momentum ETF — vs. Midcap, vs. NIFTY 50",
   "subtitle": "Same ₹1,000/month vanilla SIP, no overlay of any kind, run into a momentum-factor ETF instead — compared head-to-head against midcap and NIFTY 50 over the identical, shorter window the momentum ETF's short history allows.",

@@ -236,6 +236,8 @@ GROUPS = [
              "subtitle": "The published edge came from same-day information; corrected, the guard adds +0.1pp CAGR and 0.8pp of drawdown — reports 91 and 92 republished"},
             {"id": "103", "file": "103_microcap250_momentum10_gold_vs_cash.html", "icon": ICON_COIN_SHIELD,
              "title": "Microcap250 Momentum 10 — Gold Instead of Cash", "subtitle": "Five for five — gold beats both alternatives, but the drawdown cut is the thinnest of any universe tested"},
+            {"id": "104", "file": "104_midcap150_smoothed_ha.html", "icon": ICON_TRENDING,
+             "title": "Midcap 150 — Smoothed Heikin-Ashi + ATR Contraction", "subtitle": "The chart system on midcaps: +7pp CAGR over the basket with an 8pp smaller drawdown — but the return edge is 2020"},
         ],
     },
     {
