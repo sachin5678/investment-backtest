@@ -240,6 +240,8 @@ GROUPS = [
              "title": "Midcap 150 — Smoothed Heikin-Ashi + ATR Contraction", "subtitle": "The chart system on midcaps: +7pp CAGR over the basket with an 8pp smaller drawdown — but the return edge is 2020"},
             {"id": "105", "file": "105_ha_x_hero.html", "icon": ICON_COMPARE,
              "title": "Smoothed Heikin-Ashi × the Hero — The Combination That Doesn't Work", "subtitle": "Sixteen overlays tested: regime, entry gate, review exit, daily overlay. Every one loses; the untouched Max stack A stays the hero"},
+            {"id": "106", "file": "106_atr_x_hero.html", "icon": ICON_PULSE,
+             "title": "ATR Contraction × the Hero — The Filter That Selects Against Momentum", "subtitle": "Nineteen ATR variants: the <0.8 gate lifts average holding rank from 6 to 39 and leaves 17% cash; every threshold loses to the untouched Max stack A"},
         ],
     },
     {
