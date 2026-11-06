@@ -15,7 +15,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 // does.
 const STORAGE_KEY = "signal_lab_auth";
 const USERNAME = "sachin";
-const PASSWORD = "121101";
+const PASSWORD = "sachin";
 
 const AuthContext = createContext(null);
 
