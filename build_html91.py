@@ -234,7 +234,7 @@ def build():
       <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — every simplification behind this backtest.</p>
       <ul class="text-[13px] text-[#C9D6DA] list-disc pl-5 leading-relaxed">
         <li class="mb-1.5">Zero transaction costs on the extra gold↔cash switches this guard introduces beyond report 48's
-        own switching. At the corrected scale (+0.1pp CAGR, ~0.8pp drawdown), those costs plausibly absorb the CAGR part
+        own switching. At the corrected scale (+0.3pp CAGR, ~1.7pp drawdown), those costs plausibly absorb the CAGR part
         entirely — treat the guard as a small drawdown tool, not a return one. Report 89 found even 0.1% slippage costs
         report 48 itself ~2.6 points of CAGR.</li>
         <li class="mb-1.5">Timing convention (the report 99 fix): every guard decision uses only data through the PRIOR

@@ -10,7 +10,7 @@ calendar too, or is it specific to that one?
 
 NOTE (corrected by report 99): the first release of this report measured
 the guard with an execution-timing bug that inflated its edge to
-+11.3-11.9pp of CAGR. Corrected, the edge is ~+0.2pp of CAGR on every
++11.3-11.9pp of CAGR. Corrected, the edge is ~+0.4pp of CAGR on every
 calendar — small, but almost exactly uniform, because the guard acts on
 the hedge leg and the regime/gold inputs are identical across calendars;
 only the stock re-selection differs.

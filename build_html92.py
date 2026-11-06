@@ -160,7 +160,7 @@ def build():
       <p class="{WHAT_THIS_SHOWS}">WHAT THIS SHOWS — every simplification behind this backtest.</p>
       <ul class="text-[13px] text-[#C9D6DA] list-disc pl-5 leading-relaxed">
         <li class="mb-1.5">Same limitations as report 91 apply to every calendar here: zero transaction costs on the
-        guard's extra gold↔cash switches — and at the corrected scale (+0.2pp CAGR), those costs plausibly consume the
+        guard's extra gold↔cash switches — and at the corrected scale (+0.4pp CAGR), those costs plausibly consume the
         CAGR part entirely; the guard is best read as a free-to-cheap drawdown trim. The {lookback}-day lookback wasn't
         tuned or compared against alternatives, and flat cash earns literally 0% rather than a liquid-fund yield.</li>
         <li class="mb-1.5">Timing convention: every guard decision here uses only data through the PRIOR close (report 99's

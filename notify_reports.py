@@ -108,7 +108,7 @@ def build_message(state, today, target_date, days_until, mode):
         if report == 91:
             lines.append("ℹ️ Report 91's published testing used the Jun/Dec cadence; report 92 covers the other five.")
         else:
-            lines.append("ℹ️ Report 92 tested this guard on all six rebalance calendars (edge ≈ +0.2pp CAGR, "
+            lines.append("ℹ️ Report 92 tested this guard on all six rebalance calendars (edge ≈ +0.4pp CAGR, "
                          "near-uniform, report-99 corrected).")
     elif report == 71:
         if regime_on:

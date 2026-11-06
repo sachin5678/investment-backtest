@@ -114,7 +114,7 @@ def build_email_body(state, mode, days_until, target_date, calendar_label):
         if report == 91:
             lines.append("Note: report 91's published testing used the Jun/Dec cadence; report 92 covers the other five.")
         else:
-            lines.append("Note: report 92 tested this guard on all six rebalance calendars (edge ≈ +0.2pp CAGR, "
+            lines.append("Note: report 92 tested this guard on all six rebalance calendars (edge ≈ +0.4pp CAGR, "
                          "near-uniform, report-99 corrected).")
     elif report == 71:
         if regime_on:

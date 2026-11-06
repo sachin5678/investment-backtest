@@ -83,14 +83,14 @@ FINDINGS = {
     ],
     98: [
         "The winners stack into a modest, honest improvement. keep-if 6m > 0 + exit rank 30 — 'max stack A' — "
-        "gives 40.0% CAGR at -24.0% max drawdown and health 70/100, against the hero's 39.5% / -25.4% / 60. "
-        "Adding the buy-only-if gate (stack B) nudges CAGR to 40.1% but gives back some of the drawdown gain.",
-        "The honesty battery: whole units 39.8% / -23.9%; 0.5%/side friction still 31.1%; both-halves "
+        "gives 39.7% CAGR at -24.0% max drawdown and health 60/100, against the hero's 39.2% / -25.4% / 60. "
+        "Adding the buy-only-if gate (stack B) nudges CAGR to 39.8% but gives back some of the drawdown gain (-24.5%).",
+        "The honesty battery: whole units 39.4% / -23.9%; 0.5%/side friction still 30.8%; both-halves "
         "robustness passes on every row; and all six rebalance calendars — the same six report 92 tested — "
-        "land between 38.2% and 40.1% for both stacks, so the result is not a June/December artifact (though "
-        "Jun/Dec does happen to be the best of the six — a 1.8pp date-luck spread worth knowing about).",
-        "The money plan on top — SIP ₹25k/month with a 10%/yr step-up plus ₹25k dip top-ups — turns ₹1.39 Cr "
-        "of contributions into ₹41.4 Cr at the window's end (30×), the fullest version of this strategy these "
+        "land between 37.9% and 39.8% for both stacks, so the result is not a June/December artifact (though "
+        "Jun/Dec does happen to be at or near the best of the six — a 1.9pp date-luck spread worth knowing about).",
+        "The money plan on top — SIP ₹25k/month with a 10%/yr step-up plus ₹25k dip top-ups — turns ₹1.40 Cr "
+        "of contributions into ₹40.8 Cr at the window's end (29×), the fullest version of this strategy these "
         "labs produced.",
     ],
 }
