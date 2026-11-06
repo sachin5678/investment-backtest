@@ -37,14 +37,14 @@ LABS = [
 FINDINGS = {
     94: [
         "The protect layer survives every challenge. Checking the NIFTY 50 200-EMA only at the Jun/Dec "
-        "reviews instead of daily costs 2.8pp of CAGR (36.7% vs 39.5%) — the daily check is what catches "
-        "the cracks between reviews. Replacing the gold park with plain cash costs 3.2pp (36.3%): gold's "
+        "reviews instead of daily costs 2.9pp of CAGR (36.2% vs 39.2%) — the daily check is what catches "
+        "the cracks between reviews. Replacing the gold park with plain cash costs 2.8pp (36.3%): gold's "
         "hedge earns its keep beyond safety.",
         "Alternatives to the signal itself are all worse. NIFTY 500 as the trend index buys a shallower "
         "drawdown (-22.9% vs -25.4%) at the price of 2.4pp of CAGR and the health score. Supertrend (10, 3) "
-        "on either index costs 9–10pp. The 2-of-3 EMA/Supertrend/VIX ensemble costs 5.8pp. Any VIX-based "
-        "regime — as an OR-filter or alone — is destructive (23.7–24.3% CAGR; VIX-only draws down -46.1%). "
-        "One mild alternative: a 50% gold + 25% silver + 25% cash park lands within 1.4pp of the hero with "
+        "on either index costs 9–10pp. The 2-of-3 EMA/Supertrend/VIX ensemble costs 5.3pp. Any VIX-based "
+        "regime — as an OR-filter or alone — is destructive (23.5–24.8% CAGR; VIX-only draws down -44.2%). "
+        "One mild alternative: a 50% gold + 25% silver + 25% cash park lands within 1.5pp of the hero with "
         "a slightly shallower drawdown (silver's share sits in cash before Feb 2022).",
     ],
     95: [
@@ -54,32 +54,32 @@ FINDINGS = {
         "200-EMA or outside a golden cross. Not a rounding coincidence — a property of what the ranking "
         "already selects.",
         "The only keepers are the gentle half of the momentum-discipline pair: 'buy only what is rising' "
-        "(+0.16pp) and 'keep-if 6m return > 0' (+0.08pp, drawdown improving to -24.0%). Everything heavier "
-        "subtracts: swings cap 13.5pp, turnover floor 9pp, near-ATH 8.6pp, VIX-calm 12.2pp, the "
-        "five-condition quality gate 20.1pp. The daily 'sell when 6m turns negative' rule collapses the "
-        "strategy to 4.6% CAGR — it sells every dip and re-enters late, the whipsaw in its purest form.",
+        "(+0.15pp) and 'keep-if 6m return > 0' (+0.08pp, drawdown improving to -24.0%). Everything heavier "
+        "subtracts: swings cap 13.2pp, turnover floor 8.9pp, near-ATH 8.5pp, VIX-calm 12.1pp, the "
+        "five-condition quality gate 19.7pp. The daily 'sell when 6m turns negative' rule collapses the "
+        "strategy to 4.5% CAGR — it sells every dip and re-enters late, the whipsaw in its purest form.",
     ],
     96: [
         "Compounding is the engine, not a preference: fixed ₹10,000 per position — profits accumulating as "
-        "cash instead of sizing up new positions — drops CAGR from 39.5% to 15.6%.",
+        "cash instead of sizing up new positions — drops CAGR from 39.2% to 15.3%.",
         "The SIP and dip rows must not be compared by CAGR (the contribution base grows, so CAGR flatters "
         "them by construction). On the honest measure — multiple on money contributed — the dip top-ups win: "
-        "₹9L contributed at NIFTY RSI(14) < 30 closes (once a month) turned into ₹5.94 Cr, 66×. SIP ₹25k/month "
-        "contributed ₹50L and closed at ₹24.1 Cr (48×); with the 10%/yr step-up, ₹1.31 Cr contributed → "
-        "₹35.6 Cr (27×); the full stack closes at ₹39.3 Cr on ₹1.39 Cr contributed (28×). Money deployed at "
+        "₹9L contributed at NIFTY RSI(14) < 30 closes (once a month) turned into ₹5.84 Cr, 65×. SIP ₹25k/month "
+        "contributed ₹50L and closed at ₹23.7 Cr (47×); with the 10%/yr step-up, ₹1.32 Cr contributed → "
+        "₹35.0 Cr (27×); the full stack closes at ₹38.6 Cr on ₹1.40 Cr contributed (28×). Money deployed at "
         "panic prices is the best deployment method tested anywhere in these labs.",
         "The Money tab's momentum-discipline pair fails here too: 'only buy rising + sell when negative' ends "
-        "at 4.5% CAGR — same whipsaw, same verdict as the Conditions lab.",
+        "at 4.4% CAGR — same whipsaw, same verdict as the Conditions lab.",
     ],
     97: [
-        "Exit rank 30 — a tighter leash than the hero's 52 — is the only winner: +0.4pp of CAGR (39.9%) with "
+        "Exit rank 30 — a tighter leash than the hero's 52 — is the only winner: +0.4pp of CAGR (39.6%) with "
         "a marginally shallower drawdown and the same health score. The leash has an optimum: rank 20 gives "
-        "the gain back (39.3%), rank 10 loses 1.1pp, rank 100 loses 3.4pp, and checking the rank daily instead "
+        "the gain back (39.0%), rank 10 loses 0.8pp, rank 100 loses 3.3pp, and checking the rank daily instead "
         "of at reviews loses 1.1pp for a slightly shallower drawdown.",
-        "The destructive knobs are the restricting ones: buy only from the top 5 drops to 25.7% (slots sit in "
-        "cash waiting for a top-5 name), 3-per-sector caps collapse to 16.7%, 5-per-sector to 22.0% — this "
-        "strategy's returns need the full breadth of its top 10. Whole units cost 0.3pp (39.2%) — the honest "
-        "real-broker version of the same strategy. Friction stress: 0.3%/side → 35.0%, 0.5%/side → 30.7%.",
+        "The destructive knobs are the restricting ones: buy only from the top 5 drops to 25.4% (slots sit in "
+        "cash waiting for a top-5 name), 3-per-sector caps collapse to 16.5%, 5-per-sector to 21.7% — this "
+        "strategy's returns need the full breadth of its top 10. Whole units cost 0.3pp (38.9%) — the honest "
+        "real-broker version of the same strategy. Friction stress: 0.3%/side → 34.7%, 0.5%/side → 30.4%.",
     ],
     98: [
         "The winners stack into a modest, honest improvement. keep-if 6m > 0 + exit rank 30 — 'max stack A' — "
