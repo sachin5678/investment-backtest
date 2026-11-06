@@ -1,0 +1,110 @@
+name: Regime-flip alert — reports 48/71/91/92/98 (Telegram + email)
+
+# Mid-month alert for the 200-EMA regime flip every report in the alert
+# suite acts on (see notify_regime_flip.py). Same trigger design as the
+# month-end workflows: the schedule block is a backup, and an external cron
+# service can call workflow_dispatch at exact times. Weekdays only; the
+# morning-after window ends before the 9:15 IST open so a forming bar can
+# never be mistaken for yesterday's close.
+on:
+  schedule:
+    - cron: "*/15 9-14 * * 1-5"
+    - cron: "*/15 11-18 * * 1-5"
+    - cron: "*/15 3 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "TESTING ONLY: send unconditionally (even with no flip), bypassing the time gate and the lock"
+        type: boolean
+        default: false
+      pre_close:
+        description: "Run as the ~3 PM provisional check"
+        type: boolean
+        default: false
+      morning_after:
+        description: "Run as the morning-after safety net"
+        type: boolean
+        default: false
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Decide which check (if any) is due right now
+        id: decide
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.force }}" = "true" ]; then
+            echo "mode=manual_test" >> "$GITHUB_OUTPUT"
+          elif [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            if [ "${{ inputs.pre_close }}" = "true" ]; then
+              echo "mode=pre_close" >> "$GITHUB_OUTPUT"
+            elif [ "${{ inputs.morning_after }}" = "true" ]; then
+              echo "mode=morning_after" >> "$GITHUB_OUTPUT"
+            else
+              echo "mode=after_close" >> "$GITHUB_OUTPUT"
+            fi
+          else
+            HHMM=$(( 10#$(TZ=Asia/Kolkata date +%H) * 60 + 10#$(TZ=Asia/Kolkata date +%M) ))
+            # morning-after: 8:30-9:10 IST (strictly before the 9:15 open)
+            if [ $HHMM -ge 510 ] && [ $HHMM -lt 550 ]; then
+              echo "mode=morning_after" >> "$GITHUB_OUTPUT"
+            # pre-close: 14:00-15:25 IST
+            elif [ $HHMM -ge 840 ] && [ $HHMM -lt 925 ]; then
+              echo "mode=pre_close" >> "$GITHUB_OUTPUT"
+            # after-close: 17:00-23:45 IST
+            elif [ $HHMM -ge 1020 ] && [ $HHMM -lt 1425 ]; then
+              echo "mode=after_close" >> "$GITHUB_OUTPUT"
+            else
+              echo "mode=none" >> "$GITHUB_OUTPUT"
+            fi
+          fi
+          echo "today=$(TZ=Asia/Kolkata date +%F)" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v4
+        if: steps.decide.outputs.mode != 'none'
+      - uses: actions/setup-python@v5
+        if: steps.decide.outputs.mode != 'none'
+        with:
+          python-version: "3.12"
+      - run: pip install pandas numpy yfinance requests
+        if: steps.decide.outputs.mode != 'none'
+      - name: Restore send-lock (skip if this mode's flip alert already went out today)
+        if: steps.decide.outputs.mode == 'pre_close' || steps.decide.outputs.mode == 'after_close' || steps.decide.outputs.mode == 'morning_after'
+        id: cache
+        uses: actions/cache/restore@v4
+        with:
+          path: .notify-lock
+          key: flip-${{ steps.decide.outputs.mode }}-${{ steps.decide.outputs.today }}
+      - name: Send
+        if: steps.decide.outputs.mode == 'manual_test' || ((steps.decide.outputs.mode == 'pre_close' || steps.decide.outputs.mode == 'after_close' || steps.decide.outputs.mode == 'morning_after') && steps.cache.outputs.cache-hit != 'true')
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+        run: |
+          ARGS=""
+          if [ "${{ steps.decide.outputs.mode }}" = "manual_test" ]; then
+            ARGS="--force"
+            if [ "${{ inputs.pre_close }}" = "true" ]; then ARGS="$ARGS --pre-close"; fi
+            if [ "${{ inputs.morning_after }}" = "true" ]; then ARGS="$ARGS --morning-after"; fi
+          elif [ "${{ steps.decide.outputs.mode }}" = "pre_close" ]; then
+            ARGS="--pre-close"
+          elif [ "${{ steps.decide.outputs.mode }}" = "morning_after" ]; then
+            ARGS="--morning-after"
+          fi
+          OUTPUT=$(python notify_regime_flip.py $ARGS)
+          echo "$OUTPUT"
+          # Lock only when a send actually happened (a no-flip day exits
+          # cleanly without sending, so it stays re-checkable).
+          if echo "$OUTPUT" | grep -q "^Sent to "; then
+            mkdir -p .notify-lock && date > .notify-lock/sent
+          fi
+      - name: Save send-lock
+        if: (steps.decide.outputs.mode == 'pre_close' || steps.decide.outputs.mode == 'after_close' || steps.decide.outputs.mode == 'morning_after') && steps.cache.outputs.cache-hit != 'true' && hashFiles('.notify-lock/sent') != ''
+        uses: actions/cache/save@v4
+        with:
+          path: .notify-lock
+          key: flip-${{ steps.decide.outputs.mode }}-${{ steps.decide.outputs.today }}

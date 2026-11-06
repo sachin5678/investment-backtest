@@ -83,6 +83,8 @@ def compute_state(report):
         "report": report,
         "as_of": as_of,
         "regime_on": bool(nifty_close.iloc[-1] > ema.iloc[-1]),
+        "prev_regime_on": bool(nifty_close.iloc[-2] > ema.iloc[-2]),
+        "prev_as_of": common[-2],
         "nifty_close": float(nifty_close.iloc[-1]),
         "nifty_ema": float(ema.iloc[-1]),
         "gold_price": float(gold["Close"].iloc[-1]) if not gold.empty else None,
