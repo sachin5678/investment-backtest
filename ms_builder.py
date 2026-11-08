@@ -1211,7 +1211,7 @@ def _json_safe(obj, path="root"):
     return obj
 
 
-def run_lab(lab_key, lab_title, configs, out_path, notes=None):
+def run_lab(lab_key, lab_title, configs, out_path, notes=None, trades_label=None):
     """configs: list of (label, overrides_dict). The first entry is the
     lab's hero and should be the report-93 configuration."""
     print("loading market data ...")
@@ -1232,9 +1232,12 @@ def run_lab(lab_key, lab_title, configs, out_path, notes=None):
         fmv_map = {str(t).replace(".NS", "").upper(): float(v) for t, v in row.items() if v == v}
 
     variants = {}
+    hero_trades_out = None
     for label, overrides in configs:
         cfg = default_config(**overrides)
         variant, _run = evaluate_variant(label, cfg, market, feats, rank_df, fit_df, fmv_map)
+        if trades_label is not None and label == trades_label:
+            hero_trades_out = _run["trades"]
         variants[label] = variant
         print(f"  [{label}] CAGR {variant['cagr_pct']:.1f}%  maxDD {variant['max_drawdown_pct']:.1f}%  "
               f"health {variant['health']['score']}/100  trades {variant['stats']['total_trades']}")
@@ -1252,6 +1255,13 @@ def run_lab(lab_key, lab_title, configs, out_path, notes=None):
         "gold_benchmark": metrics_only(market["gold"], market["common"]),
         "notes": notes or [],
     }
+    if hero_trades_out is not None:
+        # the full trade-by-trade log of one chosen variant (the hero), shown
+        # in the webapp's Trade Log panel (TradeLog.jsx reads top-level
+        # "trades"/"trade_stats")
+        out["trades_label"] = trades_label
+        out["trades"] = hero_trades_out
+        out["trade_stats"] = _trade_stats(hero_trades_out)
     out = _json_safe(out)
     txt = json.dumps(out, indent=1, ensure_ascii=False, allow_nan=False)
     with open(out_path, "w", encoding="utf-8") as f:

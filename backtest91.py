@@ -32,6 +32,8 @@ import json
 
 import pandas as pd
 
+import hero_trades
+
 from backtest10 import rebalance_dates, fetch, CURRENCY_SYMBOL
 from backtest13 import load_midcap150_closes, fetch_gold_cleaned
 from backtest32 import metrics_only
@@ -142,6 +144,13 @@ def main():
     total_cash_days = int(is_cash.sum())
     days_in_short_blips = days_saved_to_flat - sum(b["flat_days"] for b in block_breakdown)
 
+    _, r48_sel, _ = build_index_regime_filtered_with_hedge(
+        closes, nifty_close, ema200, rbdates, select_top_original, gold_aligned)
+    hero_tr, hero_st = hero_trades.reconstruct(
+        guarded_series, closes, gold_aligned, r48_sel, r48_log, {"cash"}, 1.0, 0.0,
+        guard_flat=cash_and_fail)
+    hero_trades.check_total(guarded_series, hero_st)
+
     results = {
         "generated": pd.Timestamp.now().strftime("%Y-%m-%d %H:%M"),
         "currency_symbol": CURRENCY_SYMBOL,
@@ -156,6 +165,7 @@ def main():
         "gold_strength_guard": guarded_metrics,
         "nifty": nifty_metrics,
         "gold_benchmark": gold_bench_metrics,
+        "trades": hero_tr, "trade_stats": hero_st,
     }
 
     with open("results90.json", "w") as f:

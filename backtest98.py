@@ -79,7 +79,7 @@ NOTES = [
 
 
 def main():
-    ms_builder.run_lab(LAB_KEY, LAB_TITLE, CONFIGS, OUT, NOTES)
+    ms_builder.run_lab(LAB_KEY, LAB_TITLE, CONFIGS, OUT, NOTES, trades_label=CONFIGS[3][0])
 
 
 if __name__ == "__main__":

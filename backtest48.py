@@ -25,6 +25,8 @@ import json
 
 import pandas as pd
 
+import hero_trades
+
 from backtest10 import rebalance_dates, fetch, CURRENCY_SYMBOL
 from backtest13 import load_midcap150_closes, fetch_gold_cleaned
 from backtest32 import metrics_only
@@ -65,6 +67,10 @@ def main():
     def sample(sel):
         return sel[:3] + sel[-3:] if len(sel) > 6 else sel
 
+    hero_tr, hero_st = hero_trades.reconstruct(
+        gold_series, closes, gold_close_aligned, gold_sel, gold_log, {"cash"}, 1.0, 0.0)
+    hero_trades.check_total(gold_series, hero_st)
+
     results = {
         "generated": pd.Timestamp.now().strftime("%Y-%m-%d %H:%M"),
         "currency_symbol": CURRENCY_SYMBOL,
@@ -77,6 +83,7 @@ def main():
         "gold_filtered": {**gold_metrics, "selections_sample": sample(gold_sel)},
         "nifty": nifty_metrics,
         "gold_benchmark": gold_bench_metrics,
+        "trades": hero_tr, "trade_stats": hero_st,
     }
 
     with open("results47.json", "w") as f:
