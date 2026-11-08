@@ -1,0 +1,1304 @@
+{
+ "window": [
+  "2009-09-01",
+  "2026-11-06"
+ ],
+ "rows": [
+  {
+   "n": 5,
+   "month": 1,
+   "close_plain": {
+    "net_return_pct": 23752.564122739575,
+    "cagr_pct": 37.527513574571856,
+    "max_drawdown_pct": -38.566290470785475,
+    "max_drawdown_peak_date": "2020-02-12",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 770
+   },
+   "close_gold": {
+    "net_return_pct": 15735.930987307884,
+    "cagr_pct": 34.2873278150623,
+    "max_drawdown_pct": -29.43131323247013,
+    "max_drawdown_peak_date": "2018-08-28",
+    "max_drawdown_trough_date": "2019-08-01",
+    "longest_underwater_days": 713
+   },
+   "open_plain": {
+    "net_return_pct": 23338.383947787403,
+    "cagr_pct": 37.38736228815438,
+    "max_drawdown_pct": -41.109055271279246,
+    "max_drawdown_peak_date": "2022-09-20",
+    "max_drawdown_trough_date": "2023-03-28",
+    "longest_underwater_days": 770
+   },
+   "open_gold": {
+    "net_return_pct": 12112.575283797683,
+    "cagr_pct": 32.271764583558394,
+    "max_drawdown_pct": -32.98732372961932,
+    "max_drawdown_peak_date": "2018-08-28",
+    "max_drawdown_trough_date": "2019-08-01",
+    "longest_underwater_days": 749
+   }
+  },
+  {
+   "n": 5,
+   "month": 2,
+   "close_plain": {
+    "net_return_pct": 6663.166620394178,
+    "cagr_pct": 27.799118906056037,
+    "max_drawdown_pct": -46.250079151095804,
+    "max_drawdown_peak_date": "2024-09-27",
+    "max_drawdown_trough_date": "2026-10-27",
+    "longest_underwater_days": 770
+   },
+   "close_gold": {
+    "net_return_pct": 12730.525842133799,
+    "cagr_pct": 32.652349415438835,
+    "max_drawdown_pct": -29.71431281088599,
+    "max_drawdown_peak_date": "2017-12-28",
+    "max_drawdown_trough_date": "2019-05-15",
+    "longest_underwater_days": 950
+   },
+   "open_plain": {
+    "net_return_pct": 7303.694952351634,
+    "cagr_pct": 28.474018964506143,
+    "max_drawdown_pct": -45.539784695507905,
+    "max_drawdown_peak_date": "2024-09-27",
+    "max_drawdown_trough_date": "2026-10-27",
+    "longest_underwater_days": 770
+   },
+   "open_gold": {
+    "net_return_pct": 11045.747981364631,
+    "cagr_pct": 31.569867402939053,
+    "max_drawdown_pct": -34.328400292584945,
+    "max_drawdown_peak_date": "2017-12-28",
+    "max_drawdown_trough_date": "2019-05-15",
+    "longest_underwater_days": 992
+   }
+  },
+  {
+   "n": 5,
+   "month": 3,
+   "close_plain": {
+    "net_return_pct": 9504.225034732472,
+    "cagr_pct": 30.434814328031678,
+    "max_drawdown_pct": -46.66294327645366,
+    "max_drawdown_peak_date": "2020-02-20",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 771
+   },
+   "close_gold": {
+    "net_return_pct": 14012.977572994165,
+    "cagr_pct": 33.38998419787973,
+    "max_drawdown_pct": -29.575007020211245,
+    "max_drawdown_peak_date": "2018-08-28",
+    "max_drawdown_trough_date": "2019-05-08",
+    "longest_underwater_days": 736
+   },
+   "open_plain": {
+    "net_return_pct": 9305.817267829401,
+    "cagr_pct": 30.276424404155648,
+    "max_drawdown_pct": -46.67251817874362,
+    "max_drawdown_peak_date": "2020-02-20",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 771
+   },
+   "open_gold": {
+    "net_return_pct": 11401.265565807353,
+    "cagr_pct": 31.810550549956645,
+    "max_drawdown_pct": -32.43024285188224,
+    "max_drawdown_peak_date": "2018-08-28",
+    "max_drawdown_trough_date": "2019-05-08",
+    "longest_underwater_days": 749
+   }
+  },
+  {
+   "n": 5,
+   "month": 4,
+   "close_plain": {
+    "net_return_pct": 8933.38165713034,
+    "cagr_pct": 29.970418375454187,
+    "max_drawdown_pct": -54.95858139760502,
+    "max_drawdown_peak_date": "2022-09-20",
+    "max_drawdown_trough_date": "2023-02-27",
+    "longest_underwater_days": 793
+   },
+   "close_gold": {
+    "net_return_pct": 12478.607474983313,
+    "cagr_pct": 32.49932700638033,
+    "max_drawdown_pct": -30.825412834847832,
+    "max_drawdown_peak_date": "2025-07-08",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 955
+   },
+   "open_plain": {
+    "net_return_pct": 8993.305181095384,
+    "cagr_pct": 30.020446598049688,
+    "max_drawdown_pct": -54.917509353557,
+    "max_drawdown_peak_date": "2022-09-20",
+    "max_drawdown_trough_date": "2023-02-27",
+    "longest_underwater_days": 793
+   },
+   "open_gold": {
+    "net_return_pct": 10211.920089504238,
+    "cagr_pct": 30.975721484525366,
+    "max_drawdown_pct": -33.171781430712215,
+    "max_drawdown_peak_date": "2024-09-04",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 986
+   }
+  },
+  {
+   "n": 5,
+   "month": 5,
+   "close_plain": {
+    "net_return_pct": 3189.8543079385954,
+    "cagr_pct": 22.549223014071714,
+    "max_drawdown_pct": -52.58632478310461,
+    "max_drawdown_peak_date": "2017-12-22",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 1061
+   },
+   "close_gold": {
+    "net_return_pct": 4289.525433857259,
+    "cagr_pct": 24.623654032676185,
+    "max_drawdown_pct": -36.824572756079974,
+    "max_drawdown_peak_date": "2025-06-30",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 997
+   },
+   "open_plain": {
+    "net_return_pct": 3006.9400338767114,
+    "cagr_pct": 22.14184477312544,
+    "max_drawdown_pct": -52.441947259082035,
+    "max_drawdown_peak_date": "2017-12-22",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 1061
+   },
+   "open_gold": {
+    "net_return_pct": 3448.419484608735,
+    "cagr_pct": 23.090107276936052,
+    "max_drawdown_pct": -39.74689200804438,
+    "max_drawdown_peak_date": "2024-07-15",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 1042
+   }
+  },
+  {
+   "n": 5,
+   "month": 6,
+   "close_plain": {
+    "net_return_pct": 7935.623927550958,
+    "cagr_pct": 29.08797925582752,
+    "max_drawdown_pct": -49.450041643272954,
+    "max_drawdown_peak_date": "2020-02-20",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 774
+   },
+   "close_gold": {
+    "net_return_pct": 8362.34143527742,
+    "cagr_pct": 29.47734110013684,
+    "max_drawdown_pct": -30.79086159321718,
+    "max_drawdown_peak_date": "2017-12-22",
+    "max_drawdown_trough_date": "2019-08-01",
+    "longest_underwater_days": 986
+   },
+   "open_plain": {
+    "net_return_pct": 8222.956870333623,
+    "cagr_pct": 29.352232846823767,
+    "max_drawdown_pct": -49.440839047816326,
+    "max_drawdown_peak_date": "2020-02-20",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 755
+   },
+   "open_gold": {
+    "net_return_pct": 7000.392177655192,
+    "cagr_pct": 28.161596318388717,
+    "max_drawdown_pct": -35.14384118785902,
+    "max_drawdown_peak_date": "2017-12-22",
+    "max_drawdown_trough_date": "2019-08-01",
+    "longest_underwater_days": 1001
+   }
+  },
+  {
+   "n": 5,
+   "month": 7,
+   "close_plain": {
+    "net_return_pct": 7666.262282997086,
+    "cagr_pct": 28.8320438878188,
+    "max_drawdown_pct": -44.62534166777942,
+    "max_drawdown_peak_date": "2020-01-27",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 753
+   },
+   "close_gold": {
+    "net_return_pct": 12237.814536330668,
+    "cagr_pct": 32.35034031694647,
+    "max_drawdown_pct": -34.134456227730944,
+    "max_drawdown_peak_date": "2025-07-09",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 732
+   },
+   "open_plain": {
+    "net_return_pct": 7440.860147762841,
+    "cagr_pct": 28.611368431010874,
+    "max_drawdown_pct": -44.61085071120072,
+    "max_drawdown_peak_date": "2020-01-27",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 753
+   },
+   "open_gold": {
+    "net_return_pct": 10141.875353932151,
+    "cagr_pct": 30.92377019935222,
+    "max_drawdown_pct": -36.12313676558585,
+    "max_drawdown_peak_date": "2024-10-14",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 986
+   }
+  },
+  {
+   "n": 5,
+   "month": 8,
+   "close_plain": {
+    "net_return_pct": 12528.170855896491,
+    "cagr_pct": 32.52965991174517,
+    "max_drawdown_pct": -42.47263885007703,
+    "max_drawdown_peak_date": "2020-02-19",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 686
+   },
+   "close_gold": {
+    "net_return_pct": 13754.882862541031,
+    "cagr_pct": 33.24675596533032,
+    "max_drawdown_pct": -30.22358085918096,
+    "max_drawdown_peak_date": "2018-08-28",
+    "max_drawdown_trough_date": "2019-08-01",
+    "longest_underwater_days": 737
+   },
+   "open_plain": {
+    "net_return_pct": 12005.6039798846,
+    "cagr_pct": 32.2040469958898,
+    "max_drawdown_pct": -42.48190075373851,
+    "max_drawdown_peak_date": "2020-02-19",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 686
+   },
+   "open_gold": {
+    "net_return_pct": 10902.742451578124,
+    "cagr_pct": 31.471008803947853,
+    "max_drawdown_pct": -35.10585589062937,
+    "max_drawdown_peak_date": "2018-08-28",
+    "max_drawdown_trough_date": "2019-08-01",
+    "longest_underwater_days": 771
+   }
+  },
+  {
+   "n": 5,
+   "month": 9,
+   "close_plain": {
+    "net_return_pct": 6515.487226141201,
+    "cagr_pct": 27.634991746914068,
+    "max_drawdown_pct": -47.383360911437435,
+    "max_drawdown_peak_date": "2017-12-22",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 1167
+   },
+   "close_gold": {
+    "net_return_pct": 12277.11832349203,
+    "cagr_pct": 32.374844886858654,
+    "max_drawdown_pct": -31.826336332010857,
+    "max_drawdown_peak_date": "2024-07-11",
+    "max_drawdown_trough_date": "2024-11-13",
+    "longest_underwater_days": 986
+   },
+   "open_plain": {
+    "net_return_pct": 6376.189791870173,
+    "cagr_pct": 27.47698649805534,
+    "max_drawdown_pct": -47.63859730028691,
+    "max_drawdown_peak_date": "2017-12-22",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 1167
+   },
+   "open_gold": {
+    "net_return_pct": 9820.346024772705,
+    "cagr_pct": 30.680918622249663,
+    "max_drawdown_pct": -36.58370483527763,
+    "max_drawdown_peak_date": "2024-07-11",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 1001
+   }
+  },
+  {
+   "n": 5,
+   "month": 10,
+   "close_plain": {
+    "net_return_pct": 35244.34246475382,
+    "cagr_pct": 40.71179182000324,
+    "max_drawdown_pct": -37.006893039321135,
+    "max_drawdown_peak_date": "2020-01-09",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 848
+   },
+   "close_gold": {
+    "net_return_pct": 22339.694662368493,
+    "cagr_pct": 37.039588533735554,
+    "max_drawdown_pct": -29.431313232470107,
+    "max_drawdown_peak_date": "2018-08-28",
+    "max_drawdown_trough_date": "2019-08-01",
+    "longest_underwater_days": 498
+   },
+   "open_plain": {
+    "net_return_pct": 35069.11143745306,
+    "cagr_pct": 40.67108997672051,
+    "max_drawdown_pct": -36.99620090990885,
+    "max_drawdown_peak_date": "2020-01-09",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 848
+   },
+   "open_gold": {
+    "net_return_pct": 18217.85693295341,
+    "cagr_pct": 35.43020415910135,
+    "max_drawdown_pct": -33.60635123037304,
+    "max_drawdown_peak_date": "2018-01-15",
+    "max_drawdown_trough_date": "2019-08-01",
+    "longest_underwater_days": 926
+   }
+  },
+  {
+   "n": 5,
+   "month": 11,
+   "close_plain": {
+    "net_return_pct": 19871.4528995964,
+    "cagr_pct": 36.11322974214798,
+    "max_drawdown_pct": -36.43974247550698,
+    "max_drawdown_peak_date": "2020-01-09",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 848
+   },
+   "close_gold": {
+    "net_return_pct": 18172.255835746808,
+    "cagr_pct": 35.41055688571035,
+    "max_drawdown_pct": -29.029533826667553,
+    "max_drawdown_peak_date": "2017-11-01",
+    "max_drawdown_trough_date": "2019-08-01",
+    "longest_underwater_days": 1006
+   },
+   "open_plain": {
+    "net_return_pct": 18751.80079050404,
+    "cagr_pct": 35.65688882438863,
+    "max_drawdown_pct": -36.43545684400408,
+    "max_drawdown_peak_date": "2020-01-09",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 848
+   },
+   "open_gold": {
+    "net_return_pct": 14813.276752428752,
+    "cagr_pct": 33.818926144172735,
+    "max_drawdown_pct": -33.20058047106254,
+    "max_drawdown_peak_date": "2017-11-01",
+    "max_drawdown_trough_date": "2019-08-01",
+    "longest_underwater_days": 1037
+   }
+  },
+  {
+   "n": 5,
+   "month": 12,
+   "close_plain": {
+    "net_return_pct": 10221.252911837886,
+    "cagr_pct": 30.982618413161248,
+    "max_drawdown_pct": -41.42185528238537,
+    "max_drawdown_peak_date": "2024-08-29",
+    "max_drawdown_trough_date": "2026-10-26",
+    "longest_underwater_days": 974
+   },
+   "close_gold": {
+    "net_return_pct": 14059.269993466038,
+    "cagr_pct": 33.41541271562946,
+    "max_drawdown_pct": -33.5250936884499,
+    "max_drawdown_peak_date": "2017-11-01",
+    "max_drawdown_trough_date": "2020-03-17",
+    "longest_underwater_days": 1049
+   },
+   "open_plain": {
+    "net_return_pct": 10528.607121304212,
+    "cagr_pct": 31.206531927543836,
+    "max_drawdown_pct": -43.92484851257105,
+    "max_drawdown_peak_date": "2024-08-29",
+    "max_drawdown_trough_date": "2026-10-26",
+    "longest_underwater_days": 974
+   },
+   "open_gold": {
+    "net_return_pct": 12245.60766141892,
+    "cagr_pct": 32.35520490225238,
+    "max_drawdown_pct": -38.12122210247427,
+    "max_drawdown_peak_date": "2017-11-01",
+    "max_drawdown_trough_date": "2020-03-17",
+    "longest_underwater_days": 1094
+   }
+  },
+  {
+   "n": 10,
+   "month": 1,
+   "close_plain": {
+    "net_return_pct": 10846.148144348617,
+    "cagr_pct": 31.431551042506158,
+    "max_drawdown_pct": -37.94911651219395,
+    "max_drawdown_peak_date": "2020-02-19",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 770
+   },
+   "close_gold": {
+    "net_return_pct": 15542.735281471398,
+    "cagr_pct": 34.191415807466,
+    "max_drawdown_pct": -26.297049673143675,
+    "max_drawdown_peak_date": "2025-10-17",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 491
+   },
+   "open_plain": {
+    "net_return_pct": 11062.011163923467,
+    "cagr_pct": 31.58103426171718,
+    "max_drawdown_pct": -38.11283327351007,
+    "max_drawdown_peak_date": "2020-02-19",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 770
+   },
+   "open_gold": {
+    "net_return_pct": 12460.862119961375,
+    "cagr_pct": 32.48843943606414,
+    "max_drawdown_pct": -28.879036306936367,
+    "max_drawdown_peak_date": "2026-02-26",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 503
+   }
+  },
+  {
+   "n": 10,
+   "month": 2,
+   "close_plain": {
+    "net_return_pct": 7280.403515127054,
+    "cagr_pct": 28.450458503933106,
+    "max_drawdown_pct": -41.82913581598318,
+    "max_drawdown_peak_date": "2024-08-29",
+    "max_drawdown_trough_date": "2026-10-23",
+    "longest_underwater_days": 799
+   },
+   "close_gold": {
+    "net_return_pct": 12176.955526828582,
+    "cagr_pct": 32.31225136401886,
+    "max_drawdown_pct": -26.12961386401497,
+    "max_drawdown_peak_date": "2025-10-17",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 734
+   },
+   "open_plain": {
+    "net_return_pct": 7514.594387804919,
+    "cagr_pct": 28.684232347740192,
+    "max_drawdown_pct": -41.55586211821862,
+    "max_drawdown_peak_date": "2024-08-29",
+    "max_drawdown_trough_date": "2026-10-23",
+    "longest_underwater_days": 799
+   },
+   "open_gold": {
+    "net_return_pct": 10311.193713112587,
+    "cagr_pct": 31.048785002516098,
+    "max_drawdown_pct": -29.037273824005656,
+    "max_drawdown_peak_date": "2017-12-22",
+    "max_drawdown_trough_date": "2019-02-15",
+    "longest_underwater_days": 748
+   }
+  },
+  {
+   "n": 10,
+   "month": 3,
+   "close_plain": {
+    "net_return_pct": 5711.189700157747,
+    "cagr_pct": 26.67557321299479,
+    "max_drawdown_pct": -37.58352488268919,
+    "max_drawdown_peak_date": "2024-09-27",
+    "max_drawdown_trough_date": "2026-10-23",
+    "longest_underwater_days": 770
+   },
+   "close_gold": {
+    "net_return_pct": 11401.49937184547,
+    "cagr_pct": 31.810706516914905,
+    "max_drawdown_pct": -27.344831395365553,
+    "max_drawdown_peak_date": "2018-01-23",
+    "max_drawdown_trough_date": "2019-05-13",
+    "longest_underwater_days": 716
+   },
+   "open_plain": {
+    "net_return_pct": 5774.914801358266,
+    "cagr_pct": 26.756015108996138,
+    "max_drawdown_pct": -37.27191607138437,
+    "max_drawdown_peak_date": "2024-09-27",
+    "max_drawdown_trough_date": "2026-10-23",
+    "longest_underwater_days": 770
+   },
+   "open_gold": {
+    "net_return_pct": 9328.611746887313,
+    "cagr_pct": 30.294780500972507,
+    "max_drawdown_pct": -32.640654367966846,
+    "max_drawdown_peak_date": "2018-01-23",
+    "max_drawdown_trough_date": "2019-05-13",
+    "longest_underwater_days": 811
+   }
+  },
+  {
+   "n": 10,
+   "month": 4,
+   "close_plain": {
+    "net_return_pct": 10280.118557431317,
+    "cagr_pct": 31.025985076276385,
+    "max_drawdown_pct": -41.773428217352674,
+    "max_drawdown_peak_date": "2020-02-20",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 844
+   },
+   "close_gold": {
+    "net_return_pct": 12591.53975866838,
+    "cagr_pct": 32.56827892730237,
+    "max_drawdown_pct": -31.223638659341418,
+    "max_drawdown_peak_date": "2025-06-30",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 494
+   },
+   "open_plain": {
+    "net_return_pct": 10007.742466367188,
+    "cagr_pct": 30.823344773259265,
+    "max_drawdown_pct": -41.77029602463672,
+    "max_drawdown_peak_date": "2020-02-20",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 844
+   },
+   "open_gold": {
+    "net_return_pct": 10396.173350438401,
+    "cagr_pct": 31.110809058521113,
+    "max_drawdown_pct": -31.419447202867403,
+    "max_drawdown_peak_date": "2025-06-30",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 747
+   }
+  },
+  {
+   "n": 10,
+   "month": 5,
+   "close_plain": {
+    "net_return_pct": 3840.0721220748524,
+    "cagr_pct": 23.842521143610966,
+    "max_drawdown_pct": -45.36743989062061,
+    "max_drawdown_peak_date": "2018-01-23",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 1065
+   },
+   "close_gold": {
+    "net_return_pct": 8332.157882803058,
+    "cagr_pct": 29.450414557768966,
+    "max_drawdown_pct": -28.720774251832836,
+    "max_drawdown_peak_date": "2025-06-30",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 714
+   },
+   "open_plain": {
+    "net_return_pct": 3738.747328230142,
+    "cagr_pct": 23.654860318716487,
+    "max_drawdown_pct": -45.24486996515796,
+    "max_drawdown_peak_date": "2018-01-23",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 1045
+   },
+   "open_gold": {
+    "net_return_pct": 6872.149378578049,
+    "cagr_pct": 28.02570036773642,
+    "max_drawdown_pct": -30.087996325047744,
+    "max_drawdown_peak_date": "2018-01-23",
+    "max_drawdown_trough_date": "2019-08-01",
+    "longest_underwater_days": 811
+   }
+  },
+  {
+   "n": 10,
+   "month": 6,
+   "close_plain": {
+    "net_return_pct": 6327.252805388258,
+    "cagr_pct": 27.42071660111985,
+    "max_drawdown_pct": -46.49658640840572,
+    "max_drawdown_peak_date": "2020-02-20",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 770
+   },
+   "close_gold": {
+    "net_return_pct": 13998.03655114312,
+    "cagr_pct": 33.38176029512613,
+    "max_drawdown_pct": -26.23465659448726,
+    "max_drawdown_peak_date": "2018-08-31",
+    "max_drawdown_trough_date": "2019-08-01",
+    "longest_underwater_days": 495
+   },
+   "open_plain": {
+    "net_return_pct": 6442.322953879989,
+    "cagr_pct": 27.55239639599631,
+    "max_drawdown_pct": -46.488832261799786,
+    "max_drawdown_peak_date": "2020-02-20",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 770
+   },
+   "open_gold": {
+    "net_return_pct": 11844.675562532424,
+    "cagr_pct": 32.10110295984373,
+    "max_drawdown_pct": -30.471238932386697,
+    "max_drawdown_peak_date": "2018-08-31",
+    "max_drawdown_trough_date": "2019-08-01",
+    "longest_underwater_days": 591
+   }
+  },
+  {
+   "n": 10,
+   "month": 7,
+   "close_plain": {
+    "net_return_pct": 6201.635916268068,
+    "cagr_pct": 27.274408382528463,
+    "max_drawdown_pct": -39.669597004515204,
+    "max_drawdown_peak_date": "2020-02-20",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 752
+   },
+   "close_gold": {
+    "net_return_pct": 13778.951292443151,
+    "cagr_pct": 33.260218381990654,
+    "max_drawdown_pct": -24.13077922919684,
+    "max_drawdown_peak_date": "2025-11-17",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 508
+   },
+   "open_plain": {
+    "net_return_pct": 6037.347873436067,
+    "cagr_pct": 27.078857385084348,
+    "max_drawdown_pct": -39.67265130820628,
+    "max_drawdown_peak_date": "2020-02-20",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 752
+   },
+   "open_gold": {
+    "net_return_pct": 11245.570311696261,
+    "cagr_pct": 31.70602067316122,
+    "max_drawdown_pct": -28.879036306936325,
+    "max_drawdown_peak_date": "2026-02-26",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 499
+   }
+  },
+  {
+   "n": 10,
+   "month": 8,
+   "close_plain": {
+    "net_return_pct": 8272.543858153145,
+    "cagr_pct": 29.39696554133056,
+    "max_drawdown_pct": -38.42084460498048,
+    "max_drawdown_peak_date": "2020-02-19",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 685
+   },
+   "close_gold": {
+    "net_return_pct": 16342.338227231747,
+    "cagr_pct": 34.581378244950855,
+    "max_drawdown_pct": -23.56230377711312,
+    "max_drawdown_peak_date": "2026-03-02",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 491
+   },
+   "open_plain": {
+    "net_return_pct": 8066.787473107893,
+    "cagr_pct": 29.20969308750216,
+    "max_drawdown_pct": -38.439838228347114,
+    "max_drawdown_peak_date": "2020-02-19",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 685
+   },
+   "open_gold": {
+    "net_return_pct": 13245.223014315794,
+    "cagr_pct": 32.95638702453846,
+    "max_drawdown_pct": -28.879036306936346,
+    "max_drawdown_peak_date": "2026-02-26",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 499
+   }
+  },
+  {
+   "n": 10,
+   "month": 9,
+   "close_plain": {
+    "net_return_pct": 11005.287975652316,
+    "cagr_pct": 31.542019458437807,
+    "max_drawdown_pct": -40.14715394535577,
+    "max_drawdown_peak_date": "2020-02-19",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 848
+   },
+   "close_gold": {
+    "net_return_pct": 13830.021468199544,
+    "cagr_pct": 33.28871126072343,
+    "max_drawdown_pct": -23.778619155404577,
+    "max_drawdown_peak_date": "2018-08-28",
+    "max_drawdown_trough_date": "2019-02-12",
+    "longest_underwater_days": 492
+   },
+   "open_plain": {
+    "net_return_pct": 11019.338499882373,
+    "cagr_pct": 31.55170101288499,
+    "max_drawdown_pct": -40.14714405616475,
+    "max_drawdown_peak_date": "2020-02-19",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 848
+   },
+   "open_gold": {
+    "net_return_pct": 11456.23964470124,
+    "cagr_pct": 31.847140633846863,
+    "max_drawdown_pct": -28.879036306936307,
+    "max_drawdown_peak_date": "2026-02-26",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 580
+   }
+  },
+  {
+   "n": 10,
+   "month": 10,
+   "close_plain": {
+    "net_return_pct": 18192.162123205166,
+    "cagr_pct": 35.419139200229495,
+    "max_drawdown_pct": -36.743844496751294,
+    "max_drawdown_peak_date": "2020-02-19",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 848
+   },
+   "close_gold": {
+    "net_return_pct": 16173.466469430852,
+    "cagr_pct": 34.500531180295354,
+    "max_drawdown_pct": -23.562303777113115,
+    "max_drawdown_peak_date": "2026-03-02",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 497
+   },
+   "open_plain": {
+    "net_return_pct": 17307.404669655425,
+    "cagr_pct": 35.02891851729788,
+    "max_drawdown_pct": -36.748773708609534,
+    "max_drawdown_peak_date": "2020-02-19",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 848
+   },
+   "open_gold": {
+    "net_return_pct": 12643.227811144987,
+    "cagr_pct": 32.59964502381294,
+    "max_drawdown_pct": -28.879036306936325,
+    "max_drawdown_peak_date": "2026-02-26",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 756
+   }
+  },
+  {
+   "n": 10,
+   "month": 11,
+   "close_plain": {
+    "net_return_pct": 16577.370317620436,
+    "cagr_pct": 34.692607445498055,
+    "max_drawdown_pct": -39.10733341772119,
+    "max_drawdown_peak_date": "2020-02-10",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 912
+   },
+   "close_gold": {
+    "net_return_pct": 18216.074673151554,
+    "cagr_pct": 35.42943713629839,
+    "max_drawdown_pct": -23.562303777113097,
+    "max_drawdown_peak_date": "2026-03-02",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 492
+   },
+   "open_plain": {
+    "net_return_pct": 16122.719991448957,
+    "cagr_pct": 34.47608196781607,
+    "max_drawdown_pct": -39.103971398790925,
+    "max_drawdown_peak_date": "2020-02-10",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 912
+   },
+   "open_gold": {
+    "net_return_pct": 15013.535480134544,
+    "cagr_pct": 33.922865806619484,
+    "max_drawdown_pct": -28.879036306936328,
+    "max_drawdown_peak_date": "2026-02-26",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 527
+   }
+  },
+  {
+   "n": 10,
+   "month": 12,
+   "close_plain": {
+    "net_return_pct": 11224.311342793892,
+    "cagr_pct": 31.691643235809323,
+    "max_drawdown_pct": -35.25637669125481,
+    "max_drawdown_peak_date": "2020-02-07",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 794
+   },
+   "close_gold": {
+    "net_return_pct": 12731.05875756923,
+    "cagr_pct": 32.65267011383668,
+    "max_drawdown_pct": -23.562303777113126,
+    "max_drawdown_peak_date": "2026-03-02",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 492
+   },
+   "open_plain": {
+    "net_return_pct": 11344.22147754064,
+    "cagr_pct": 31.772408144585853,
+    "max_drawdown_pct": -35.259893045237426,
+    "max_drawdown_peak_date": "2020-02-07",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 794
+   },
+   "open_gold": {
+    "net_return_pct": 10773.572598192839,
+    "cagr_pct": 31.380668972620583,
+    "max_drawdown_pct": -28.8790363069363,
+    "max_drawdown_peak_date": "2026-02-26",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 580
+   }
+  },
+  {
+   "n": 20,
+   "month": 1,
+   "close_plain": {
+    "net_return_pct": 6771.029205487686,
+    "cagr_pct": 27.916875358692934,
+    "max_drawdown_pct": -37.706772035265864,
+    "max_drawdown_peak_date": "2020-02-20",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 770
+   },
+   "close_gold": {
+    "net_return_pct": 6614.774059681433,
+    "cagr_pct": 27.745711619027162,
+    "max_drawdown_pct": -22.657762407606736,
+    "max_drawdown_peak_date": "2026-03-02",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 457
+   },
+   "open_plain": {
+    "net_return_pct": 7034.14998703533,
+    "cagr_pct": 28.196984310158,
+    "max_drawdown_pct": -37.82896793877549,
+    "max_drawdown_peak_date": "2020-02-20",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 770
+   },
+   "open_gold": {
+    "net_return_pct": 5478.000203411642,
+    "cagr_pct": 26.373954232181916,
+    "max_drawdown_pct": -27.632249464794256,
+    "max_drawdown_peak_date": "2026-02-26",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 499
+   }
+  },
+  {
+   "n": 20,
+   "month": 2,
+   "close_plain": {
+    "net_return_pct": 5852.502588864883,
+    "cagr_pct": 26.852854173483777,
+    "max_drawdown_pct": -35.608854146056295,
+    "max_drawdown_peak_date": "2020-02-19",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 770
+   },
+   "close_gold": {
+    "net_return_pct": 6342.916368878064,
+    "cagr_pct": 27.43877103312373,
+    "max_drawdown_pct": -22.65776240760671,
+    "max_drawdown_peak_date": "2026-03-02",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 456
+   },
+   "open_plain": {
+    "net_return_pct": 6001.218348136761,
+    "cagr_pct": 27.03519191480686,
+    "max_drawdown_pct": -35.49208480810883,
+    "max_drawdown_peak_date": "2020-02-19",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 770
+   },
+   "open_gold": {
+    "net_return_pct": 5327.808199536467,
+    "cagr_pct": 26.173335749649354,
+    "max_drawdown_pct": -27.6322494647943,
+    "max_drawdown_peak_date": "2026-02-26",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 498
+   }
+  },
+  {
+   "n": 20,
+   "month": 3,
+   "close_plain": {
+    "net_return_pct": 6385.459953187474,
+    "cagr_pct": 27.48760060458966,
+    "max_drawdown_pct": -38.60502732185937,
+    "max_drawdown_peak_date": "2020-02-19",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 770
+   },
+   "close_gold": {
+    "net_return_pct": 6706.311897043866,
+    "cagr_pct": 27.846432538653218,
+    "max_drawdown_pct": -22.657762407606672,
+    "max_drawdown_peak_date": "2026-03-02",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 490
+   },
+   "open_plain": {
+    "net_return_pct": 6439.293103595297,
+    "cagr_pct": 27.54895726248614,
+    "max_drawdown_pct": -38.627108254330125,
+    "max_drawdown_peak_date": "2020-02-19",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 770
+   },
+   "open_gold": {
+    "net_return_pct": 5537.323124905187,
+    "cagr_pct": 26.45179597805152,
+    "max_drawdown_pct": -27.632249464794306,
+    "max_drawdown_peak_date": "2026-02-26",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 721
+   }
+  },
+  {
+   "n": 20,
+   "month": 4,
+   "close_plain": {
+    "net_return_pct": 5224.339936230127,
+    "cagr_pct": 26.03206372940039,
+    "max_drawdown_pct": -34.997533655269294,
+    "max_drawdown_peak_date": "2020-02-19",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 828
+   },
+   "close_gold": {
+    "net_return_pct": 5960.620660691376,
+    "cagr_pct": 26.98583479434285,
+    "max_drawdown_pct": -22.937289149750196,
+    "max_drawdown_peak_date": "2025-10-21",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 696
+   },
+   "open_plain": {
+    "net_return_pct": 5118.459451435974,
+    "cagr_pct": 25.88479577354505,
+    "max_drawdown_pct": -35.000420081026256,
+    "max_drawdown_peak_date": "2020-02-19",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 770
+   },
+   "open_gold": {
+    "net_return_pct": 4926.4753925896475,
+    "cagr_pct": 25.610440761551985,
+    "max_drawdown_pct": -27.632249464794285,
+    "max_drawdown_peak_date": "2026-02-26",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 724
+   }
+  },
+  {
+   "n": 20,
+   "month": 5,
+   "close_plain": {
+    "net_return_pct": 3911.4082974219045,
+    "cagr_pct": 23.97193374559805,
+    "max_drawdown_pct": -40.08925967160196,
+    "max_drawdown_peak_date": "2020-02-20",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 848
+   },
+   "close_gold": {
+    "net_return_pct": 5290.803715092258,
+    "cagr_pct": 26.123104715259558,
+    "max_drawdown_pct": -22.672317841521426,
+    "max_drawdown_peak_date": "2025-10-20",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 494
+   },
+   "open_plain": {
+    "net_return_pct": 3883.9911667155448,
+    "cagr_pct": 23.92245408392131,
+    "max_drawdown_pct": -40.085484029078344,
+    "max_drawdown_peak_date": "2020-02-20",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 848
+   },
+   "open_gold": {
+    "net_return_pct": 4357.892634122337,
+    "cagr_pct": 24.73581512239376,
+    "max_drawdown_pct": -27.632249464794285,
+    "max_drawdown_peak_date": "2026-02-26",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 518
+   }
+  },
+  {
+   "n": 20,
+   "month": 6,
+   "close_plain": {
+    "net_return_pct": 3104.2017282412708,
+    "cagr_pct": 22.361190366335165,
+    "max_drawdown_pct": -41.77485755926164,
+    "max_drawdown_peak_date": "2020-02-20",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 848
+   },
+   "close_gold": {
+    "net_return_pct": 5153.4715885510195,
+    "cagr_pct": 25.9338027328168,
+    "max_drawdown_pct": -22.65776240760671,
+    "max_drawdown_peak_date": "2026-03-02",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 494
+   },
+   "open_plain": {
+    "net_return_pct": 3141.4265151322134,
+    "cagr_pct": 22.44348432984367,
+    "max_drawdown_pct": -41.753682014445204,
+    "max_drawdown_peak_date": "2020-02-20",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 848
+   },
+   "open_gold": {
+    "net_return_pct": 4322.286703827817,
+    "cagr_pct": 24.677604903523658,
+    "max_drawdown_pct": -27.632249464794306,
+    "max_drawdown_peak_date": "2026-02-26",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 524
+   }
+  },
+  {
+   "n": 20,
+   "month": 7,
+   "close_plain": {
+    "net_return_pct": 5130.8192238636475,
+    "cagr_pct": 25.902131180303286,
+    "max_drawdown_pct": -37.318873416551675,
+    "max_drawdown_peak_date": "2020-02-07",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 770
+   },
+   "close_gold": {
+    "net_return_pct": 6131.938617644085,
+    "cagr_pct": 27.19204152735834,
+    "max_drawdown_pct": -24.313867165285952,
+    "max_drawdown_peak_date": "2025-06-30",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 494
+   },
+   "open_plain": {
+    "net_return_pct": 5147.814254179628,
+    "cagr_pct": 25.925904960683056,
+    "max_drawdown_pct": -37.314201846001936,
+    "max_drawdown_peak_date": "2020-02-07",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 770
+   },
+   "open_gold": {
+    "net_return_pct": 5081.1639856873835,
+    "cagr_pct": 25.832251015234036,
+    "max_drawdown_pct": -27.6322494647943,
+    "max_drawdown_peak_date": "2026-02-26",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 524
+   }
+  },
+  {
+   "n": 20,
+   "month": 8,
+   "close_plain": {
+    "net_return_pct": 6847.837393564235,
+    "cagr_pct": 27.999672323369396,
+    "max_drawdown_pct": -36.35400375810093,
+    "max_drawdown_peak_date": "2020-02-20",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 525
+   },
+   "close_gold": {
+    "net_return_pct": 7561.01883309457,
+    "cagr_pct": 28.72976868151065,
+    "max_drawdown_pct": -23.272335767568972,
+    "max_drawdown_peak_date": "2025-06-30",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 494
+   },
+   "open_plain": {
+    "net_return_pct": 6819.870070832134,
+    "cagr_pct": 27.969624627204453,
+    "max_drawdown_pct": -36.37970759183206,
+    "max_drawdown_peak_date": "2020-02-20",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 525
+   },
+   "open_gold": {
+    "net_return_pct": 6307.137970365529,
+    "cagr_pct": 27.397470587540255,
+    "max_drawdown_pct": -27.63224946479429,
+    "max_drawdown_peak_date": "2026-02-26",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 522
+   }
+  },
+  {
+   "n": 20,
+   "month": 9,
+   "close_plain": {
+    "net_return_pct": 9290.959483333121,
+    "cagr_pct": 30.264437056499474,
+    "max_drawdown_pct": -36.90818468166136,
+    "max_drawdown_peak_date": "2020-02-19",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 631
+   },
+   "close_gold": {
+    "net_return_pct": 8138.360629074361,
+    "cagr_pct": 29.275335517039878,
+    "max_drawdown_pct": -22.657762407606725,
+    "max_drawdown_peak_date": "2026-03-02",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 456
+   },
+   "open_plain": {
+    "net_return_pct": 9305.913493669339,
+    "cagr_pct": 30.276501981588865,
+    "max_drawdown_pct": -36.909857395626524,
+    "max_drawdown_peak_date": "2020-02-19",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 633
+   },
+   "open_gold": {
+    "net_return_pct": 6736.173436388566,
+    "cagr_pct": 27.87901394507162,
+    "max_drawdown_pct": -27.632249464794285,
+    "max_drawdown_peak_date": "2026-02-26",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 517
+   }
+  },
+  {
+   "n": 20,
+   "month": 10,
+   "close_plain": {
+    "net_return_pct": 8123.471670229404,
+    "cagr_pct": 29.261724656786868,
+    "max_drawdown_pct": -36.6129613289726,
+    "max_drawdown_peak_date": "2020-02-19",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 704
+   },
+   "close_gold": {
+    "net_return_pct": 8534.219870602403,
+    "cagr_pct": 29.62896989794774,
+    "max_drawdown_pct": -22.657762407606718,
+    "max_drawdown_peak_date": "2026-03-02",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 476
+   },
+   "open_plain": {
+    "net_return_pct": 7917.987988206727,
+    "cagr_pct": 29.071471405093263,
+    "max_drawdown_pct": -36.616266922280296,
+    "max_drawdown_peak_date": "2020-02-19",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 704
+   },
+   "open_gold": {
+    "net_return_pct": 6890.736219856992,
+    "cagr_pct": 28.04554156927358,
+    "max_drawdown_pct": -27.632249464794306,
+    "max_drawdown_peak_date": "2026-02-26",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 731
+   }
+  },
+  {
+   "n": 20,
+   "month": 11,
+   "close_plain": {
+    "net_return_pct": 7463.659166244821,
+    "cagr_pct": 28.633969739241337,
+    "max_drawdown_pct": -36.550780305901505,
+    "max_drawdown_peak_date": "2020-02-12",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 844
+   },
+   "close_gold": {
+    "net_return_pct": 7779.183030265061,
+    "cagr_pct": 28.940338340294318,
+    "max_drawdown_pct": -22.657762407606715,
+    "max_drawdown_peak_date": "2026-03-02",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 456
+   },
+   "open_plain": {
+    "net_return_pct": 7378.157025708207,
+    "cagr_pct": 28.548875558195846,
+    "max_drawdown_pct": -36.584983078405166,
+    "max_drawdown_peak_date": "2020-02-12",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 844
+   },
+   "open_gold": {
+    "net_return_pct": 6472.7976343488735,
+    "cagr_pct": 27.58690453249504,
+    "max_drawdown_pct": -27.632249464794278,
+    "max_drawdown_peak_date": "2026-02-26",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 499
+   }
+  },
+  {
+   "n": 20,
+   "month": 12,
+   "close_plain": {
+    "net_return_pct": 5473.767478755124,
+    "cagr_pct": 26.368370420081504,
+    "max_drawdown_pct": -37.33184877906305,
+    "max_drawdown_peak_date": "2020-02-20",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 848
+   },
+   "close_gold": {
+    "net_return_pct": 6205.4503179932235,
+    "cagr_pct": 27.278891364015962,
+    "max_drawdown_pct": -22.6577624076067,
+    "max_drawdown_peak_date": "2026-03-02",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 457
+   },
+   "open_plain": {
+    "net_return_pct": 5515.962674669673,
+    "cagr_pct": 26.42385670611651,
+    "max_drawdown_pct": -37.34063067099264,
+    "max_drawdown_peak_date": "2020-02-20",
+    "max_drawdown_trough_date": "2020-03-23",
+    "longest_underwater_days": 848
+   },
+   "open_gold": {
+    "net_return_pct": 5223.993851614469,
+    "cagr_pct": 26.031586873287438,
+    "max_drawdown_pct": -27.632249464794267,
+    "max_drawdown_peak_date": "2026-02-26",
+    "max_drawdown_trough_date": "2026-11-02",
+    "longest_underwater_days": 503
+   }
+  }
+ ]
+}

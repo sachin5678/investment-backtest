@@ -52,3 +52,30 @@ directly, it only controls what the app's UI shows. The static
 `master_comparison.html` / `dashboard.html` files are NOT gated (consistent
 with every other static report in this project being open by design); only
 the webapp route is.
+
+## 3. Backtest execution timing: signal day close, trade next morning's open
+
+For every NEW backtest (and any rebuilt one), a signal is never executed at
+the same close that produced it. Whenever the signal fires on day T —
+a scheduled rebalance day, or a regime/gold/cash switch day (NIFTY 50
+crossing its 200-EMA, the gold-strength guard changing state, any exit or
+re-entry) — the trades are filled at the **next trading day's OPEN** (T+1
+morning), at that day's open price, for the stock legs and the gold/cash
+leg alike. The sell of the old holdings and the buy of the new ones happen
+together at that same T+1 open; the book is valued at T+1's close onward
+with the new holdings, and T's close-to-T+1-open gap is earned by the OLD
+position.
+
+- Signal inputs (momentum ranks, EMA, gold 6m checks) use data only up to
+  T's close — same as what a live trader sees in the evening alert.
+- This matches how the alerts are actually used (alert after close / the
+  morning-after safety net, order placed at the next open).
+- Existing numbered reports (48/71/91/92/98 etc.) were built with
+  same-day-close execution (report 99 only fixed the guard's prior-close
+  timing); do not silently change them. If a legacy report is re-run or
+  compared with a new one, say which execution convention each uses, and
+  never mix the two in one comparison row without flagging it.
+- New backtests need Open prices alongside Close (fetch() already returns
+  the full OHLC frame; the closes-only builders in backtest42 need an
+  open-aware variant rather than a modified original, so published numbers
+  stay reproducible).
