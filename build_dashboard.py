@@ -242,6 +242,8 @@ GROUPS = [
              "title": "Smoothed Heikin-Ashi × the Hero — The Combination That Doesn't Work", "subtitle": "Sixteen overlays tested: regime, entry gate, review exit, daily overlay. Every one loses; the untouched Max stack A stays the hero"},
             {"id": "106", "file": "106_atr_x_hero.html", "icon": ICON_PULSE,
              "title": "ATR Contraction × the Hero — The Filter That Selects Against Momentum", "subtitle": "Nineteen ATR variants: the <0.8 gate lifts average holding rank from 6 to 39 and leaves 17% cash; every threshold loses to the untouched Max stack A"},
+            {"id": "107", "file": "107_nifty100_momentum_yearly_gold_switch.html", "icon": ICON_COMPARE,
+             "title": "NIFTY 100 Momentum 5 / 10 / 20 — Yearly Rebalance, With and Without the Gold Switch", "subtitle": "Next-open fills: the gold switch cuts the median drawdown by about 10pp in every size and month, adds 1.4-1.8pp of CAGR for top 5 and 10, and costs 1pp for top 20"},
         ],
     },
     {

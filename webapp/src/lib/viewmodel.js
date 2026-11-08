@@ -38,7 +38,11 @@ export function extractSeries(root, { maxDepth = 6 } = {}) {
       const growthKey = typeof obj.cagr_pct === "number" ? "cagr_pct" : "xirr_pct";
       found.push({
         path: path.join("/"),
-        label: buildLabel(path),
+        // display_label / tags are optional per-series extras a report can write
+        // (report 107) so its series get a readable name and the page can offer a
+        // strategy filter; every other report simply has neither.
+        label: typeof obj.display_label === "string" ? obj.display_label : buildLabel(path),
+        tags: obj.tags && typeof obj.tags === "object" ? obj.tags : null,
         curve: obj[curveKey],
         investedCurve: Array.isArray(obj.invested_curve) ? obj.invested_curve : null,
         netReturnPct: obj.net_return_pct ?? null,

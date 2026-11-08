@@ -65,9 +65,10 @@ export default function SmoothChart({ series, height = 380, rebase = true, value
               type="monotone"
               dataKey={label}
               name={label}
-              stroke={seriesColor(i)}
+              stroke={series[i].color ?? seriesColor(i)}
               strokeWidth={2}
-              strokeDasharray={i % 2 === 1 ? "6 4" : undefined}
+              strokeDasharray={series[i].dash !== undefined ? series[i].dash : i % 2 === 1 ? "6 4" : undefined}
+              strokeOpacity={series[i].opacity ?? 1}
               dot={false}
               isAnimationActive={false}
               connectNulls

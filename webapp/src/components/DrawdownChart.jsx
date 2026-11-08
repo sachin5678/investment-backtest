@@ -67,11 +67,12 @@ export default function DrawdownChart({ series, height = 260 }) {
               type="monotone"
               dataKey={label}
               name={label}
-              stroke={seriesColor(i)}
-              fill={seriesColor(i)}
+              stroke={series[i].color ?? seriesColor(i)}
+              fill={series[i].color ?? seriesColor(i)}
               fillOpacity={0.12}
               strokeWidth={1.6}
-              strokeDasharray={i % 2 === 1 ? "6 4" : undefined}
+              strokeDasharray={series[i].dash !== undefined ? series[i].dash : i % 2 === 1 ? "6 4" : undefined}
+              strokeOpacity={series[i].opacity ?? 1}
               dot={false}
               isAnimationActive={false}
               connectNulls

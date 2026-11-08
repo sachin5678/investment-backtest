@@ -12,6 +12,8 @@ import LockedReportGate from "../components/LockedReportGate";
 import Panel, { WhatThisShows } from "../components/Panel";
 import ReviewPanels from "../components/ReviewPanels";
 import { downloadCsv } from "../lib/csv";
+import CalendarTable from "../components/CalendarTable";
+import { hasStrategyTags, useStrategyFilter } from "../components/StrategyFilter";
 
 const DATA_BASE = "./data/";
 
@@ -30,6 +32,8 @@ export default function ReportPage() {
   const [trades, setTrades] = useState(null);
   const [tradeStats, setTradeStats] = useState(null);
   const [raw, setRaw] = useState(null);
+  // report 107-style multi-strategy pages: tick/untick filter over tagged series
+  const sf = useStrategyFilter(series);
 
   useEffect(() => {
     setSeries(null);
@@ -121,19 +125,23 @@ export default function ReportPage() {
     );
   }
 
+  const tagged = hasStrategyTags(series);
+  const shown = tagged ? sf.filtered : series;
+
   return (
     <div className="space-y-6 w-full">
+      {tagged && sf.panel}
       <Panel tight>
         <div className="flex items-start justify-between gap-3">
           <WhatThisShows>
-            Every series this report's data actually contains, detected automatically — net return, {series[0]?.growthLabel ?? "CAGR"}, max
+            Every series this report's data actually contains, detected automatically — net return, {shown[0]?.growthLabel ?? "CAGR"}, max
             drawdown and longest time underwater, exactly as computed in the original backtest (no numbers are recalculated here).
           </WhatThisShows>
           <button
             onClick={() =>
               downloadCsv(
                 `${item.file.replace(/\.json$/, "")}_kpis.csv`,
-                series.map((s) => ({
+                shown.map((s) => ({
                   label: s.label,
                   path: s.path,
                   net_return_pct: s.netReturnPct,
@@ -150,7 +158,7 @@ export default function ReportPage() {
             ⇩ CSV
           </button>
         </div>
-        <KpiTable series={series} symbol={symbol} />
+        <KpiTable series={shown} symbol={symbol} />
       </Panel>
 
       <Panel>
@@ -159,7 +167,7 @@ export default function ReportPage() {
           Every detected series, rebased to 100 at its own first data point so differently-scaled series overlay sensibly — smooth monotone curve
           through real, downsampled points (not a synthetic average).
         </WhatThisShows>
-        <SmoothChart series={series} valuePrefix="" />
+        <SmoothChart series={shown} valuePrefix="" />
       </Panel>
 
       <Panel>
@@ -168,8 +176,10 @@ export default function ReportPage() {
           % below each series' own running peak. Computed for illustration on the data available to this page — the precise max-drawdown figure
           for each series is the one shown in the table above, from the original full-resolution backtest.
         </WhatThisShows>
-        <DrawdownChart series={series} />
+        <DrawdownChart series={shown} />
       </Panel>
+
+      {tagged && <CalendarTable rows={raw?.calendar_table} filter={sf.filter} />}
 
       <TradeLog trades={trades} tradeStats={tradeStats} symbol={symbol} />
 
