@@ -179,7 +179,7 @@ export default function ReportPage() {
         <DrawdownChart series={shown} />
       </Panel>
 
-      {tagged && <CalendarTable rows={raw?.calendar_table} filter={sf.filter} />}
+      {tagged && <CalendarTable rows={raw?.calendar_table} filter={sf.filter} title={raw?.calendar_title} blurb={raw?.calendar_blurb} />}
 
       <TradeLog trades={trades} tradeStats={tradeStats} symbol={symbol} />
 

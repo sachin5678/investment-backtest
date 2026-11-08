@@ -121,7 +121,7 @@
       <h1>Momentum Strategy Lab — Master Comparison</h1>
       <p class="subtitle">Every momentum-strategy variant tested across this project's front-loaded weighting,
       inverse-vol weighting, 200-EMA regime filter, gold/liquid-fund hedges, universe-specific trend filters,
-      trailing stops, and smooth exposure scaling — 54 rows across
+      trailing stops, and smooth exposure scaling — 58 rows across
       5 universes, each measured against NIFTY 50 on its own identical window. No charts here —
       sort or filter to find what actually worked.</p>
     </div>
@@ -137,7 +137,7 @@
       <button class="filter-pill" data-filter-type="category" data-filter-value="Weighting" style="--pill-color:#6AE4FF">Weighting</button><button class="filter-pill" data-filter-type="category" data-filter-value="Regime Filter" style="--pill-color:#37F083">Regime Filter</button><button class="filter-pill" data-filter-type="category" data-filter-value="Filter + Hedge" style="--pill-color:#F2B03C">Filter + Hedge</button><button class="filter-pill" data-filter-type="category" data-filter-value="Core-Satellite" style="--pill-color:#FF8A5C">Core-Satellite</button><button class="filter-pill" data-filter-type="category" data-filter-value="Trend Filter" style="--pill-color:#8B5CF6">Trend Filter</button><button class="filter-pill" data-filter-type="category" data-filter-value="Stop-Loss" style="--pill-color:#F2643C">Stop-Loss</button><button class="filter-pill" data-filter-type="category" data-filter-value="Exposure Scaling" style="--pill-color:#37F083">Exposure Scaling</button>
     </div>
     <div class="status-row">
-      <span id="rowCount">54 of 54 rows</span>
+      <span id="rowCount">58 of 58 rows</span>
       <button class="reset-link" id="resetBtn">Reset filters</button>
     </div>
   </div>
@@ -1022,7 +1022,7 @@
       <td class="metric-cell"><span class="metric-primary win">1.70</span><span class="metric-bench">vs 0.93</span></td>
     </tr>
 
-    <tr data-universe="NIFTY100" data-category="Yearly Rebalance (next-open)"
+    <tr data-universe="NIFTY100" data-category="Rebalance Cadence (next-open)"
         data-cagr="32.05699593527143"
         data-dd="-43.924848512571046"
         data-sharpe="1.3201139926384027"
@@ -1031,7 +1031,7 @@
       <td class="label-cell">
         <div class="universe-tag">NIFTY100</div>
         <div class="strategy-label">Top 5, Dec yearly, no switch, next-open fills</div>
-        <div class="category-tag" style="color:#2DD4BF;border-color:#2DD4BF44;background:#2DD4BF14">Yearly Rebalance (next-open)</div>
+        <div class="category-tag" style="color:#2DD4BF;border-color:#2DD4BF44;background:#2DD4BF14">Rebalance Cadence (next-open)</div>
       </td>
       <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-11-06<div class="report-ref">Report 107</div></td>
       <td class="metric-cell"><span class="metric-primary win">+32.1%</span><span class="metric-bench">vs +12.5%</span></td>
@@ -1040,7 +1040,7 @@
       <td class="metric-cell"><span class="metric-primary win">1.90</span><span class="metric-bench">vs 1.04</span></td>
     </tr>
 
-    <tr data-universe="NIFTY100" data-category="Yearly Rebalance (next-open)"
+    <tr data-universe="NIFTY100" data-category="Rebalance Cadence (next-open)"
         data-cagr="34.39362366230486"
         data-dd="-38.12122210247427"
         data-sharpe="1.4928819132624571"
@@ -1049,7 +1049,7 @@
       <td class="label-cell">
         <div class="universe-tag">NIFTY100</div>
         <div class="strategy-label">Top 5, Dec yearly, 200-EMA gold switch, next-open fills</div>
-        <div class="category-tag" style="color:#2DD4BF;border-color:#2DD4BF44;background:#2DD4BF14">Yearly Rebalance (next-open)</div>
+        <div class="category-tag" style="color:#2DD4BF;border-color:#2DD4BF44;background:#2DD4BF14">Rebalance Cadence (next-open)</div>
       </td>
       <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-11-06<div class="report-ref">Report 107</div></td>
       <td class="metric-cell"><span class="metric-primary win">+34.4%</span><span class="metric-bench">vs +12.5%</span></td>
@@ -1058,7 +1058,7 @@
       <td class="metric-cell"><span class="metric-primary win">2.11</span><span class="metric-bench">vs 1.04</span></td>
     </tr>
 
-    <tr data-universe="NIFTY100" data-category="Yearly Rebalance (next-open)"
+    <tr data-universe="NIFTY100" data-category="Rebalance Cadence (next-open)"
         data-cagr="32.42913637032615"
         data-dd="-35.25989304523742"
         data-sharpe="1.5351385352171474"
@@ -1067,7 +1067,7 @@
       <td class="label-cell">
         <div class="universe-tag">NIFTY100</div>
         <div class="strategy-label">Top 10, Dec yearly, no switch, next-open fills</div>
-        <div class="category-tag" style="color:#2DD4BF;border-color:#2DD4BF44;background:#2DD4BF14">Yearly Rebalance (next-open)</div>
+        <div class="category-tag" style="color:#2DD4BF;border-color:#2DD4BF44;background:#2DD4BF14">Rebalance Cadence (next-open)</div>
       </td>
       <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-11-06<div class="report-ref">Report 107</div></td>
       <td class="metric-cell"><span class="metric-primary win">+32.4%</span><span class="metric-bench">vs +12.5%</span></td>
@@ -1076,7 +1076,7 @@
       <td class="metric-cell"><span class="metric-primary win">2.08</span><span class="metric-bench">vs 1.04</span></td>
     </tr>
 
-    <tr data-universe="NIFTY100" data-category="Yearly Rebalance (next-open)"
+    <tr data-universe="NIFTY100" data-category="Rebalance Cadence (next-open)"
         data-cagr="34.094481718475436"
         data-dd="-28.8790363069363"
         data-sharpe="1.6662928909622363"
@@ -1085,7 +1085,7 @@
       <td class="label-cell">
         <div class="universe-tag">NIFTY100</div>
         <div class="strategy-label">Top 10, Dec yearly, 200-EMA gold switch, next-open fills</div>
-        <div class="category-tag" style="color:#2DD4BF;border-color:#2DD4BF44;background:#2DD4BF14">Yearly Rebalance (next-open)</div>
+        <div class="category-tag" style="color:#2DD4BF;border-color:#2DD4BF44;background:#2DD4BF14">Rebalance Cadence (next-open)</div>
       </td>
       <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-11-06<div class="report-ref">Report 107</div></td>
       <td class="metric-cell"><span class="metric-primary win">+34.1%</span><span class="metric-bench">vs +12.5%</span></td>
@@ -1094,7 +1094,7 @@
       <td class="metric-cell"><span class="metric-primary win">2.29</span><span class="metric-bench">vs 1.04</span></td>
     </tr>
 
-    <tr data-universe="NIFTY100" data-category="Yearly Rebalance (next-open)"
+    <tr data-universe="NIFTY100" data-category="Rebalance Cadence (next-open)"
         data-cagr="27.239295890554757"
         data-dd="-37.34063067099264"
         data-sharpe="1.4311600293503215"
@@ -1103,7 +1103,7 @@
       <td class="label-cell">
         <div class="universe-tag">NIFTY100</div>
         <div class="strategy-label">Top 20, Dec yearly, no switch, next-open fills</div>
-        <div class="category-tag" style="color:#2DD4BF;border-color:#2DD4BF44;background:#2DD4BF14">Yearly Rebalance (next-open)</div>
+        <div class="category-tag" style="color:#2DD4BF;border-color:#2DD4BF44;background:#2DD4BF14">Rebalance Cadence (next-open)</div>
       </td>
       <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-11-06<div class="report-ref">Report 107</div></td>
       <td class="metric-cell"><span class="metric-primary win">+27.2%</span><span class="metric-bench">vs +12.5%</span></td>
@@ -1112,7 +1112,7 @@
       <td class="metric-cell"><span class="metric-primary win">1.84</span><span class="metric-bench">vs 1.04</span></td>
     </tr>
 
-    <tr data-universe="NIFTY100" data-category="Yearly Rebalance (next-open)"
+    <tr data-universe="NIFTY100" data-category="Rebalance Cadence (next-open)"
         data-cagr="28.314207576248037"
         data-dd="-27.632249464794267"
         data-sharpe="1.5184352709587818"
@@ -1121,13 +1121,85 @@
       <td class="label-cell">
         <div class="universe-tag">NIFTY100</div>
         <div class="strategy-label">Top 20, Dec yearly, 200-EMA gold switch, next-open fills</div>
-        <div class="category-tag" style="color:#2DD4BF;border-color:#2DD4BF44;background:#2DD4BF14">Yearly Rebalance (next-open)</div>
+        <div class="category-tag" style="color:#2DD4BF;border-color:#2DD4BF44;background:#2DD4BF14">Rebalance Cadence (next-open)</div>
       </td>
       <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-11-06<div class="report-ref">Report 107</div></td>
       <td class="metric-cell"><span class="metric-primary win">+28.3%</span><span class="metric-bench">vs +12.5%</span></td>
       <td class="metric-cell"><span class="metric-primary win">-27.6%</span><span class="metric-bench">vs -38.4%</span></td>
       <td class="metric-cell"><span class="metric-primary win">1.52</span><span class="metric-bench">vs 0.76</span></td>
       <td class="metric-cell"><span class="metric-primary win">2.01</span><span class="metric-bench">vs 1.04</span></td>
+    </tr>
+
+    <tr data-universe="NIFTY100" data-category="Rebalance Cadence (next-open)"
+        data-cagr="30.15677469789682"
+        data-dd="-35.25989304523743"
+        data-sharpe="1.4438826734427057"
+        data-sortino="1.9045145205190135"
+        data-report="108">
+      <td class="label-cell">
+        <div class="universe-tag">NIFTY100</div>
+        <div class="strategy-label">Top 10, Jun/Dec six-monthly, no switch, next-open fills</div>
+        <div class="category-tag" style="color:#2DD4BF;border-color:#2DD4BF44;background:#2DD4BF14">Rebalance Cadence (next-open)</div>
+      </td>
+      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-11-06<div class="report-ref">Report 108</div></td>
+      <td class="metric-cell"><span class="metric-primary win">+30.2%</span><span class="metric-bench">vs +12.5%</span></td>
+      <td class="metric-cell"><span class="metric-primary win">-35.3%</span><span class="metric-bench">vs -38.4%</span></td>
+      <td class="metric-cell"><span class="metric-primary win">1.44</span><span class="metric-bench">vs 0.76</span></td>
+      <td class="metric-cell"><span class="metric-primary win">1.90</span><span class="metric-bench">vs 1.04</span></td>
+    </tr>
+
+    <tr data-universe="NIFTY100" data-category="Rebalance Cadence (next-open)"
+        data-cagr="32.66870532341329"
+        data-dd="-30.605139666149363"
+        data-sharpe="1.5932749482583033"
+        data-sortino="2.1549248568301773"
+        data-report="108">
+      <td class="label-cell">
+        <div class="universe-tag">NIFTY100</div>
+        <div class="strategy-label">Top 10, Jun/Dec six-monthly, 200-EMA gold switch, next-open fills</div>
+        <div class="category-tag" style="color:#2DD4BF;border-color:#2DD4BF44;background:#2DD4BF14">Rebalance Cadence (next-open)</div>
+      </td>
+      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-11-06<div class="report-ref">Report 108</div></td>
+      <td class="metric-cell"><span class="metric-primary win">+32.7%</span><span class="metric-bench">vs +12.5%</span></td>
+      <td class="metric-cell"><span class="metric-primary win">-30.6%</span><span class="metric-bench">vs -38.4%</span></td>
+      <td class="metric-cell"><span class="metric-primary win">1.59</span><span class="metric-bench">vs 0.76</span></td>
+      <td class="metric-cell"><span class="metric-primary win">2.15</span><span class="metric-bench">vs 1.04</span></td>
+    </tr>
+
+    <tr data-universe="NIFTY100" data-category="Rebalance Cadence (next-open)"
+        data-cagr="25.016628122816627"
+        data-dd="-37.340630670992624"
+        data-sharpe="1.3275216234083302"
+        data-sortino="1.6941862500162324"
+        data-report="108">
+      <td class="label-cell">
+        <div class="universe-tag">NIFTY100</div>
+        <div class="strategy-label">Top 20, Jun/Dec six-monthly, no switch, next-open fills</div>
+        <div class="category-tag" style="color:#2DD4BF;border-color:#2DD4BF44;background:#2DD4BF14">Rebalance Cadence (next-open)</div>
+      </td>
+      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-11-06<div class="report-ref">Report 108</div></td>
+      <td class="metric-cell"><span class="metric-primary win">+25.0%</span><span class="metric-bench">vs +12.5%</span></td>
+      <td class="metric-cell"><span class="metric-primary win">-37.3%</span><span class="metric-bench">vs -38.4%</span></td>
+      <td class="metric-cell"><span class="metric-primary win">1.33</span><span class="metric-bench">vs 0.76</span></td>
+      <td class="metric-cell"><span class="metric-primary win">1.69</span><span class="metric-bench">vs 1.04</span></td>
+    </tr>
+
+    <tr data-universe="NIFTY100" data-category="Rebalance Cadence (next-open)"
+        data-cagr="26.652054118948953"
+        data-dd="-27.6322494647943"
+        data-sharpe="1.4352521231081892"
+        data-sortino="1.8902979148349908"
+        data-report="108">
+      <td class="label-cell">
+        <div class="universe-tag">NIFTY100</div>
+        <div class="strategy-label">Top 20, Jun/Dec six-monthly, 200-EMA gold switch, next-open fills</div>
+        <div class="category-tag" style="color:#2DD4BF;border-color:#2DD4BF44;background:#2DD4BF14">Rebalance Cadence (next-open)</div>
+      </td>
+      <td class="window-cell">2009-01-02<span class="arrow">→</span>2026-11-06<div class="report-ref">Report 108</div></td>
+      <td class="metric-cell"><span class="metric-primary win">+26.7%</span><span class="metric-bench">vs +12.5%</span></td>
+      <td class="metric-cell"><span class="metric-primary win">-27.6%</span><span class="metric-bench">vs -38.4%</span></td>
+      <td class="metric-cell"><span class="metric-primary win">1.44</span><span class="metric-bench">vs 0.76</span></td>
+      <td class="metric-cell"><span class="metric-primary win">1.89</span><span class="metric-bench">vs 1.04</span></td>
     </tr>
       </tbody>
     </table>
@@ -1149,7 +1221,7 @@
 </footer>
 
 <script>
-const ROWS_META = [{"universe": "Midcap150", "category": "Weighting"}, {"universe": "Midcap150", "category": "Regime Filter"}, {"universe": "Midcap150", "category": "Regime Filter"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Core-Satellite"}, {"universe": "Midcap150", "category": "Weighting"}, {"universe": "Midcap150", "category": "Regime Filter"}, {"universe": "Midcap150", "category": "Exposure Scaling"}, {"universe": "Midcap150", "category": "Exposure Scaling"}, {"universe": "Midcap150", "category": "Exposure Scaling"}, {"universe": "Midcap150", "category": "Stop-Loss"}, {"universe": "Smallcap250", "category": "Regime Filter"}, {"universe": "Smallcap250", "category": "Filter + Hedge"}, {"universe": "Smallcap250", "category": "Trend Filter"}, {"universe": "Smallcap250", "category": "Exposure Scaling"}, {"universe": "Smallcap250", "category": "Exposure Scaling"}, {"universe": "Smallcap250", "category": "Exposure Scaling"}, {"universe": "NIFTY100", "category": "Regime Filter"}, {"universe": "NIFTY100", "category": "Filter + Hedge"}, {"universe": "NIFTY100", "category": "Regime Filter"}, {"universe": "NIFTY100", "category": "Exposure Scaling"}, {"universe": "NIFTY100", "category": "Exposure Scaling"}, {"universe": "NIFTY100", "category": "Exposure Scaling"}, {"universe": "NIFTY500", "category": "Regime Filter"}, {"universe": "Microcap250", "category": "Regime Filter"}, {"universe": "Microcap250", "category": "Filter + Hedge"}, {"universe": "Smallcap250", "category": "Multi-Factor Composite"}, {"universe": "Midcap150", "category": "Multi-Factor Composite"}, {"universe": "NIFTY100", "category": "Yearly Rebalance (next-open)"}, {"universe": "NIFTY100", "category": "Yearly Rebalance (next-open)"}, {"universe": "NIFTY100", "category": "Yearly Rebalance (next-open)"}, {"universe": "NIFTY100", "category": "Yearly Rebalance (next-open)"}, {"universe": "NIFTY100", "category": "Yearly Rebalance (next-open)"}, {"universe": "NIFTY100", "category": "Yearly Rebalance (next-open)"}];
+const ROWS_META = [{"universe": "Midcap150", "category": "Weighting"}, {"universe": "Midcap150", "category": "Regime Filter"}, {"universe": "Midcap150", "category": "Regime Filter"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Filter + Hedge"}, {"universe": "Midcap150", "category": "Core-Satellite"}, {"universe": "Midcap150", "category": "Weighting"}, {"universe": "Midcap150", "category": "Regime Filter"}, {"universe": "Midcap150", "category": "Exposure Scaling"}, {"universe": "Midcap150", "category": "Exposure Scaling"}, {"universe": "Midcap150", "category": "Exposure Scaling"}, {"universe": "Midcap150", "category": "Stop-Loss"}, {"universe": "Smallcap250", "category": "Regime Filter"}, {"universe": "Smallcap250", "category": "Filter + Hedge"}, {"universe": "Smallcap250", "category": "Trend Filter"}, {"universe": "Smallcap250", "category": "Exposure Scaling"}, {"universe": "Smallcap250", "category": "Exposure Scaling"}, {"universe": "Smallcap250", "category": "Exposure Scaling"}, {"universe": "NIFTY100", "category": "Regime Filter"}, {"universe": "NIFTY100", "category": "Filter + Hedge"}, {"universe": "NIFTY100", "category": "Regime Filter"}, {"universe": "NIFTY100", "category": "Exposure Scaling"}, {"universe": "NIFTY100", "category": "Exposure Scaling"}, {"universe": "NIFTY100", "category": "Exposure Scaling"}, {"universe": "NIFTY500", "category": "Regime Filter"}, {"universe": "Microcap250", "category": "Regime Filter"}, {"universe": "Microcap250", "category": "Filter + Hedge"}, {"universe": "Smallcap250", "category": "Multi-Factor Composite"}, {"universe": "Midcap150", "category": "Multi-Factor Composite"}, {"universe": "NIFTY100", "category": "Rebalance Cadence (next-open)"}, {"universe": "NIFTY100", "category": "Rebalance Cadence (next-open)"}, {"universe": "NIFTY100", "category": "Rebalance Cadence (next-open)"}, {"universe": "NIFTY100", "category": "Rebalance Cadence (next-open)"}, {"universe": "NIFTY100", "category": "Rebalance Cadence (next-open)"}, {"universe": "NIFTY100", "category": "Rebalance Cadence (next-open)"}, {"universe": "NIFTY100", "category": "Rebalance Cadence (next-open)"}, {"universe": "NIFTY100", "category": "Rebalance Cadence (next-open)"}, {"universe": "NIFTY100", "category": "Rebalance Cadence (next-open)"}, {"universe": "NIFTY100", "category": "Rebalance Cadence (next-open)"}];
 const activeFilters = { universe: null, category: null };
 let sortState = { key: "cagr", dir: "desc" };
 

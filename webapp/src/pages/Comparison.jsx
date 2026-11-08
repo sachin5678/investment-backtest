@@ -25,7 +25,7 @@ const CATEGORY_COLOR = {
   "Stop-Loss": "text-negative border-negative/40",
   "Exposure Scaling": "text-positive border-positive/40",
   "Multi-Factor Composite": "text-[#f472b6] border-[#f472b6]/40",
-  "Yearly Rebalance (next-open)": "text-[#2dd4bf] border-[#2dd4bf]/40",
+  "Rebalance Cadence (next-open)": "text-[#2dd4bf] border-[#2dd4bf]/40",
 };
 
 const COLUMNS = [

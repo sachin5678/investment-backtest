@@ -21,19 +21,19 @@ function Cell({ cagr, dd }) {
 
 /** Report 107's all-12-rebalance-months table. Honours the same filter
  * boxes as the charts (gold switch / no switch, top N, execution). */
-export default function CalendarTable({ rows, filter }) {
+export default function CalendarTable({ rows, filter, title, blurb }) {
   if (!rows?.length) return null;
   const execs = [...(filter.open ? [["open", "Next-open"]] : []), ...(filter.close ? [["close", "Same-close"]] : [])];
   const kinds = [...(filter.plain ? [["plain", "No switch"]] : []), ...(filter.gold ? [["gold", "Gold switch"]] : [])];
   const cols = execs.flatMap(([e, el]) => kinds.map(([k, kl]) => ({ key: `${e}_${k}`, label: `${el} · ${kl}` })));
-  const nList = [5, 10, 20].filter((n) => filter.ns[n]);
+  const nList = [...new Set(rows.map((r) => r.n))].sort((a, b) => a - b).filter((n) => filter.ns[n]);
 
   return (
     <Panel>
-      <h3 className="text-base font-bold text-text mb-1">Every yearly rebalance month — CAGR / max drawdown</h3>
+      <h3 className="text-base font-bold text-text mb-1">{title ?? "Every yearly rebalance month — CAGR / max drawdown"}</h3>
       <WhatThisShows>
-        A yearly rebalance is very sensitive to <em>which</em> month it happens in. Each row is one rebalance month; the shaded row closing each
-        block is the median of the 12. Follows the filter boxes above.
+        {blurb ??
+          "A yearly rebalance is very sensitive to which month it happens in. Each row is one rebalance month; the shaded row closing each block is the median of the 12. Follows the filter boxes above."}
       </WhatThisShows>
       {cols.length === 0 || nList.length === 0 ? (
         <p className="text-muted text-sm">Nothing selected.</p>

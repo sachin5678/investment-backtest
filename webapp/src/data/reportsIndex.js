@@ -163,6 +163,7 @@ export const GROUPS = [
       { id: "105", file: "results104.json", icon: ICON_COMPARE, title: "Smoothed Heikin-Ashi × the Hero — The Combination That Doesn't Work", subtitle: "Sixteen overlays tested: regime, entry gate, review exit, daily overlay. Every one loses; the untouched Max stack A stays the hero" },
       { id: "106", file: "results105.json", icon: ICON_PULSE, title: "ATR Contraction × the Hero — The Filter That Selects Against Momentum", subtitle: "Nineteen ATR variants: the <0.8 gate lifts average holding rank from 6 to 39 and leaves 17% cash; every threshold loses to the untouched Max stack A" },
       { id: "107", file: "results106.json", icon: ICON_COMPARE, title: "NIFTY 100 Momentum 5 / 10 / 20 — Yearly Rebalance, With and Without the Gold Switch", subtitle: "Next-open fills: the gold switch cuts the median drawdown by about 10pp in every size and month, adds 1.4-1.8pp of CAGR for top 5 and 10, and costs 1pp for top 20" },
+      { id: "108", file: "results107.json", icon: ICON_COMPARE, title: "NIFTY 100 Momentum 10 / 20 — Six-Monthly Rebalance, With and Without the Gold Switch", subtitle: "Same analysis twice a year: the switch cuts median drawdown by 8-9pp in all six calendars, adds 2pp of CAGR for top 10 and costs 2pp for top 20" },
     ],
   },
   {

@@ -498,9 +498,26 @@ def main():
             s107, _ = build_next_open(n100c, n100_opens, nifty_n100, ema_n100, rb107, fn107,
                                       g_close107, g_open107, use_regime=use_regime)
             idx107 = s107.index.intersection(nifty_n100.index)
-            add_row("NIFTY100", "Yearly Rebalance (next-open)",
+            add_row("NIFTY100", "Rebalance Cadence (next-open)",
                     f"Top {n107}, Dec yearly, {'200-EMA gold switch' if use_regime else 'no switch'}, next-open fills",
                     107, s107, nifty_n100, idx107)
+
+    # --- Report 108: the same NIFTY100 analysis on a SIX-MONTHLY (Jun/Dec)
+    # rebalance, top 10 / 20, with and without the gold switch, next-open
+    # fills. Same category as report 107 (rebalance cadence + execution
+    # convention). Window differs slightly from results107.json's (that one is
+    # common to all six calendars), so expect small CAGR drift, DD to match.
+    print("=== Report 108: NIFTY100 semi-annual, next-open ===")
+    rb108 = rebalance_dates(n100c.index, months=(6, 12))
+    for n108 in (10, 20):
+        fn108 = (lambda c, t, n=n108: select_top_n100(c, t, top_n=n))
+        for use_regime in (False, True):
+            s108, _ = build_next_open(n100c, n100_opens, nifty_n100, ema_n100, rb108, fn108,
+                                      g_close107, g_open107, use_regime=use_regime)
+            idx108 = s108.index.intersection(nifty_n100.index)
+            add_row("NIFTY100", "Rebalance Cadence (next-open)",
+                    f"Top {n108}, Jun/Dec six-monthly, {'200-EMA gold switch' if use_regime else 'no switch'}, next-open fills",
+                    108, s108, nifty_n100, idx108)
 
     with open("master_comparison.json", "w") as f:
         json.dump({"generated": pd.Timestamp.now().strftime("%Y-%m-%d %H:%M"), "rows": rows}, f, indent=2)

@@ -45,11 +45,19 @@ export function useStrategyFilter(series) {
   const [plain, setPlain] = useState(true);
   const [open, setOpen] = useState(true);
   const [close, setClose] = useState(false);
-  const [ns, setNs] = useState({ 5: true, 10: true, 20: true });
+  const [offNs, setOffNs] = useState({});
   const [bench, setBench] = useState(true);
-  const [cal, setCal] = useState("Dec");
+  const [calPick, setCalPick] = useState(null);
 
   const calendars = useMemo(() => [...new Set((series ?? []).map((s) => s.tags?.cal).filter(Boolean))], [series]);
+
+  // portfolio sizes present in this report (107: 5/10/20, 108: 10/20)
+  const nList = useMemo(
+    () => [...new Set((series ?? []).map((s) => s.tags?.n).filter((n) => n))].sort((a, b) => a - b),
+    [series]
+  );
+  const ns = Object.fromEntries(nList.map((n) => [n, !offNs[n]]));
+  const cal = calPick ?? calendars[0] ?? null;
 
   const filtered = useMemo(
     () =>
@@ -82,8 +90,8 @@ export function useStrategyFilter(series) {
           <Check checked={plain} onChange={setPlain}>Without switch (always invested)</Check>
         </Group>
         <Group title="Portfolio size">
-          {[5, 10, 20].map((n) => (
-            <Check key={n} checked={ns[n]} onChange={(v) => setNs({ ...ns, [n]: v })} swatch={N_COLOR[n]}>
+          {nList.map((n) => (
+            <Check key={n} checked={ns[n]} onChange={(v) => setOffNs({ ...offNs, [n]: !v })} swatch={N_COLOR[n]}>
               Top {n}
             </Check>
           ))}
@@ -92,10 +100,10 @@ export function useStrategyFilter(series) {
           <Check checked={open} onChange={setOpen}>Next-day open (headline)</Check>
           <Check checked={close} onChange={setClose}>Same-day close (legacy)</Check>
         </Group>
-        <Group title="Rebalance month (charts)">
+        <Group title="Rebalance calendar (charts)">
           {calendars.map((c) => (
             <label key={c} className="inline-flex items-center gap-2 text-[13px] text-text cursor-pointer select-none">
-              <input type="radio" name="cal107" checked={cal === c} onChange={() => setCal(c)} className="accent-[#6ae4ff] cursor-pointer" />
+              <input type="radio" name="cal107" checked={cal === c} onChange={() => setCalPick(c)} className="accent-[#6ae4ff] cursor-pointer" />
               {c === "Dec" ? "December" : c === "Jun" ? "June" : c}
             </label>
           ))}

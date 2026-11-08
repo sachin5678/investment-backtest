@@ -855,6 +855,62 @@
    }
   ]
  },
+ "108": {
+  "title": "NIFTY 100 Momentum 10 / 20 — Six-Monthly Rebalance, With and Without the Gold Switch",
+  "subtitle": "Report 107's analysis re-run on a twice-a-year rebalance: report 45's NIFTY 100 momentum score, held top 10 or top 20, with and without the 200-EMA gold regime switch — filled at the next day's open, with the legacy same-close fills shown for comparison.",
+  "source_line": "2009-03-02–2026-11-06 Report generated 2026-11-08 23:26",
+  "pages": [
+   {
+    "file": "108_nifty100_momentum_semiannual_gold_switch.html",
+    "panels": [
+     {
+      "heading": null,
+      "pills": [
+       {
+        "kind": "assumption",
+        "text": "the switch cuts drawdown in all six calendars — and pays in CAGR only for top 10"
+       }
+      ],
+      "what_this_shows": null,
+      "paragraphs": [
+       "With next-open fills and the median across the six possible semi-annual calendars, the gold switch cuts the max drawdown from -37.7% to -28.9% (top 10) and from -36.8% to -27.6% (top 20), and the drawdown is shallower in 6 and 6 of the 6 calendars respectively. NIFTY 50 over the same window: 13.5% CAGR, -38.4% drawdown.",
+       "CAGR is where the sizes differ: the switch adds +2.1pp at the median for top 10 (it beat the unswitched version in 4 of 6 calendars) but costs 2.1pp for top 20, where it won in 0 of 6. This window starts in 2009-03, earlier than report 107's 2009-09, so its absolute numbers are not directly comparable with the yearly report's."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Filter strategies",
+      "pills": [],
+      "what_this_shows": "Tick or untick to compare. The growth chart, drawdown chart, KPI table and calendar table all follow these boxes. Colour = portfolio size, solid line = gold regime switch, dashed = always invested, paler = the legacy same-close fills.",
+      "paragraphs": [],
+      "list_items": []
+     },
+     {
+      "heading": "How it is built",
+      "pills": [],
+      "what_this_shows": null,
+      "paragraphs": [
+       "Strategy. The same engine as report 107, on a twice-a-year cadence. Universe: today's NIFTY 100 constituents. Score: report 45's risk-adjusted 6-month and 12-month momentum, z-scored and averaged. Hold the top 10 or top 20 names equal-weight and rebalance in the last trading day of two months six apart. There are six possible calendars (Jan/Jul, Feb/Aug, Mar/Sep, Apr/Oct, May/Nov, Jun/Dec); Jun/Dec and Jan/Jul are charted in full and all six are tabulated. Top 5 is not repeated here; report 107 covers it on the yearly cadence.",
+       "Gold regime switch. When NIFTY 50 closes below its 200-day EMA the whole book moves to GOLDBEES until it closes back above, at which point a fresh top-N is bought. Same rule as reports 42–48, confirm days = 1. Without the switch the portfolio stays in stocks between rebalances.",
+       "Execution. The headline numbers follow the project's next-open rule: a signal formed at day T's close is filled at T+1's open, old holdings sold and new ones bought together, with the overnight gap earned by the old position. The legacy same-close convention (reports 42–99) is shown alongside — untick it to hide it. The gap between the two is the price of not being able to trade at the very close that produced the signal."
+      ],
+      "list_items": []
+     },
+     {
+      "heading": "Disclosures & limitations",
+      "pills": [],
+      "what_this_shows": null,
+      "paragraphs": [
+       "The universe is today's NIFTY 100 applied backwards, so every absolute CAGR is survivorship-inflated — compare rows with each other, not with an index fund. No transaction costs, slippage or taxes are modelled; a twice-a-year rebalance trades twice as much as report 107's yearly one, and a regime flip sells and rebuys the whole book, so real-world costs are higher than shown. The window starts in 2009-03 (six calendars, so an earlier first valid rebalance than the yearly report's 2009-09), which includes the 2009 recovery — so these CAGRs are not comparable one-for-one with report 107's.",
+       "Opens come from the same Yahoo download as the dividend-adjusted closes. A handful of bad prints (missing, zero, or more than 30–40% away from that day's close) were replaced with that day's close. Results still depend on the calendar — use the medians rather than any single row.",
+       "The switch is insurance against deep drawdowns, not a return engine: it helps top 10 on CAGR as well, but it costs return for top 20 in every calendar tested. This is a proof-of-concept analysis, not investment advice."
+      ],
+      "list_items": []
+     }
+    ]
+   }
+  ]
+ },
  "10": {
   "title": "SIP in a Momentum ETF — vs. Midcap, vs. NIFTY 50",
   "subtitle": "Same ₹1,000/month vanilla SIP, no overlay of any kind, run into a momentum-factor ETF instead — compared head-to-head against midcap and NIFTY 50 over the identical, shorter window the momentum ETF's short history allows.",
